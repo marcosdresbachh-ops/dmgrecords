@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Mail, Phone, Instagram, Youtube, Twitter, Send } from "lucide-react";
@@ -51,7 +50,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold">WhatsApp Business</p>
-                  <p className="text-lg font-bold">+55 (11) 99999-9999</p>
+                  <p className="text-lg font-bold">+55 51 93380-6899</p>
                 </div>
               </div>
             </div>
