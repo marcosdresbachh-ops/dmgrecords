@@ -4,21 +4,22 @@ import { PlayCircle, Headphones, Mail } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 export function Hero() {
+  // Adicionada verificação de segurança para evitar erro de undefined
   const heroImage = PlaceHolderImages?.find((img) => img.id === "hero-bg");
-
-  if (!heroImage) return null;
 
   return (
     <section id="inicio" className="relative h-screen w-full flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <Image
-          src={heroImage.imageUrl}
-          alt={heroImage.description}
-          fill
-          className="object-cover scale-105 animate-pulse duration-[10000ms]"
-          priority
-          data-ai-hint={heroImage.imageHint}
-        />
+        {heroImage && (
+          <Image
+            src={heroImage.imageUrl}
+            alt={heroImage.description}
+            fill
+            className="object-cover scale-105 animate-pulse duration-[10000ms]"
+            priority
+            data-ai-hint={heroImage.imageHint}
+          />
+        )}
         <div className="absolute inset-0 bg-studio-overlay" />
       </div>
 
