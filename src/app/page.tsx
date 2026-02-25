@@ -5,6 +5,7 @@ import { ArtistSection } from "@/components/artist";
 import { ReleasesSection } from "@/components/releases";
 import { ProductionsSection } from "@/components/productions";
 import { AboutSection } from "@/components/about";
+import { DistributionSection } from "@/components/distribution";
 import { CopyAssistant } from "@/components/copy-assistant";
 import { ContactSection } from "@/components/contact";
 import { Footer } from "@/components/footer";
@@ -24,6 +25,8 @@ export default function Home() {
       <ProductionsSection />
       
       <AboutSection />
+      
+      <DistributionSection />
       
       {/* Internal Staff Tool */}
       <CopyAssistant />

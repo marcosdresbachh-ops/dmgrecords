@@ -8,7 +8,7 @@
       "imageHint": "music studio"
     },
     {
-      "id": "vini-amara-portrait",
+      "id": "vini-amaral",
       "description": "Portrait of singer Vini Amaral performing",
       "imageUrl": "https://images.unsplash.com/photo-1561314105-3d4ae46aa6e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYWxlJTIwc2luZ2VyfGVufDB8fHx8MTc3MjA1NzYyOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "male singer"
@@ -30,6 +30,12 @@
       "description": "Single cover art for hip hop music",
       "imageUrl": "https://images.unsplash.com/photo-1592136890012-67cf5ee91001?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aGlwaG9wJTIwY292ZXJ8ZW58MHx8fHwxNzcyMDU3NjI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "hiphop cover"
+    },
+    {
+      "id": "distribution-logos",
+      "description": "Logos das plataformas de distribuição digital",
+      "imageUrl": "/distribuiçao-removebg-preview.png",
+      "imageHint": "music platforms"
     }
   ]
 }
