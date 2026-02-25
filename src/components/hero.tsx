@@ -5,9 +5,9 @@ import { PlayCircle, Headphones, Mail } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 export function Hero() {
-  // Busca segura da imagem
   const images = PlaceHolderImages || [];
   const heroImage = images.find((img) => img.id === "hero-bg");
+  const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
 
   return (
     <section id="inicio" className="relative h-screen w-full flex items-center overflow-hidden">
@@ -40,14 +40,20 @@ export function Hero() {
             Definindo o futuro da música urbana.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="rounded-none px-8 py-7 text-lg bg-primary hover:bg-primary/90">
-              <PlayCircle className="mr-2 h-6 w-6" /> OUVIR AGORA
+            <Button asChild size="lg" className="rounded-none px-8 py-7 text-lg bg-primary hover:bg-primary/90">
+              <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
+                <PlayCircle className="mr-2 h-6 w-6" /> OUVIR AGORA
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="rounded-none px-8 py-7 text-lg border-white/20 hover:bg-white/10 text-white">
-              <Headphones className="mr-2 h-6 w-6" /> VER LANÇAMENTOS
+            <Button asChild size="lg" variant="outline" className="rounded-none px-8 py-7 text-lg border-white/20 hover:bg-white/10 text-white">
+              <a href="#lancamentos">
+                <Headphones className="mr-2 h-6 w-6" /> VER LANÇAMENTOS
+              </a>
             </Button>
-            <Button size="lg" variant="ghost" className="rounded-none px-8 py-7 text-lg text-accent hover:text-accent hover:bg-accent/10 border border-accent/20">
-              <Mail className="mr-2 h-6 w-6" /> CONTATO
+            <Button asChild size="lg" variant="ghost" className="rounded-none px-8 py-7 text-lg text-accent hover:text-accent hover:bg-accent/10 border border-accent/20">
+              <a href="#contato">
+                <Mail className="mr-2 h-6 w-6" /> CONTATO
+              </a>
             </Button>
           </div>
         </div>

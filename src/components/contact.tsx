@@ -1,12 +1,15 @@
+
 "use client";
 
-import { Mail, Phone, Instagram, Youtube, Twitter, Send } from "lucide-react";
+import { Mail, Phone, Instagram, Youtube, Twitter, Send, Music2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 
 export function ContactSection() {
+  const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -56,9 +59,18 @@ export function ContactSection() {
             </div>
 
             <div className="flex gap-4">
-              <button title="Instagram" className="h-12 w-12 bg-zinc-900 hover:bg-primary flex items-center justify-center text-white transition-all"><Instagram className="h-5 w-5" /></button>
-              <button title="YouTube" className="h-12 w-12 bg-zinc-900 hover:bg-red-600 flex items-center justify-center text-white transition-all"><Youtube className="h-5 w-5" /></button>
-              <button title="Twitter" className="h-12 w-12 bg-zinc-900 hover:bg-blue-400 flex items-center justify-center text-white transition-all"><Twitter className="h-5 w-5" /></button>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="h-12 w-12 bg-zinc-900 hover:bg-primary flex items-center justify-center text-white transition-all">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="h-12 w-12 bg-zinc-900 hover:bg-red-600 flex items-center justify-center text-white transition-all">
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer" className="h-12 w-12 bg-zinc-900 hover:bg-[#ff5500] flex items-center justify-center text-white transition-all">
+                <Music2 className="h-5 w-5" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="h-12 w-12 bg-zinc-900 hover:bg-blue-400 flex items-center justify-center text-white transition-all">
+                <Twitter className="h-5 w-5" />
+              </a>
             </div>
           </div>
 

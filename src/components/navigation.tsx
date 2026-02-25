@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +46,6 @@ export function Navigation() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
@@ -56,12 +56,13 @@ export function Navigation() {
               {link.name}
             </Link>
           ))}
-          <Button variant="default" className="rounded-none px-6">
-            OUVIR AGORA
+          <Button asChild variant="default" className="rounded-none px-6">
+            <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
+              OUVIR AGORA
+            </a>
           </Button>
         </nav>
 
-        {/* Mobile Toggle */}
         <button
           className="md:hidden text-white"
           onClick={() => setIsOpen(!isOpen)}
@@ -70,7 +71,6 @@ export function Navigation() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-black border-b border-border animate-in slide-in-from-top duration-300">
           <nav className="flex flex-col p-6 gap-6">
@@ -84,8 +84,10 @@ export function Navigation() {
                 {link.name}
               </Link>
             ))}
-            <Button variant="default" className="rounded-none w-full py-6">
-              OUVIR AGORA
+            <Button asChild variant="default" className="rounded-none w-full py-6">
+              <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
+                OUVIR AGORA
+              </a>
             </Button>
           </nav>
         </div>

@@ -1,9 +1,14 @@
+
 import Image from "next/image";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Music2 } from "lucide-react";
 
 export function ArtistSection() {
-  const artistImage = PlaceHolderImages?.find((img) => img.id === "vini-amaral");
+  const images = PlaceHolderImages || [];
+  const artistImage = images.find((img) => img.id === "vini-amaral");
+  const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
 
   if (!artistImage) return null;
 
@@ -53,7 +58,13 @@ export function ArtistSection() {
               <Badge variant="outline" className="border-primary text-primary px-4 py-1 text-sm rounded-none">TRAP SOUL</Badge>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-8">
+            <Button asChild className="rounded-none bg-[#ff5500] hover:bg-[#ff5500]/90 text-white font-bold h-14 px-8 mt-4">
+               <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
+                 <Music2 className="mr-2 h-5 w-5" /> SIGA NO SOUNDCLOUD
+               </a>
+            </Button>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-8 border-t border-white/5">
               <div>
                 <p className="text-3xl font-black text-white">+500K</p>
                 <p className="text-sm text-muted-foreground uppercase tracking-widest">Ouvintes Mensais</p>
