@@ -1,5 +1,6 @@
 
 import { Music, Award, Headphones, Users } from "lucide-react";
+import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 const STATS = [
   { icon: <Music className="h-6 w-6" />, label: "Músicas Produzidas", value: "250+" },
@@ -9,6 +10,9 @@ const STATS = [
 ];
 
 export function AboutSection() {
+  const images = Array.isArray(PlaceHolderImages) ? PlaceHolderImages : [];
+  const contraCapa = images.find(i => i.id === "release-2")?.imageUrl || "/viniamaral/07.contra capa.png";
+
   return (
     <section id="sobre" className="py-24 bg-card overflow-hidden">
       <div className="container mx-auto px-4">
@@ -53,7 +57,10 @@ export function AboutSection() {
           <div className="relative order-1 lg:order-2">
              <div className="absolute -inset-4 bg-primary/20 -rotate-3 z-0" />
              <div className="relative z-10 aspect-video bg-black border-4 border-white flex items-center justify-center p-8 text-center overflow-hidden group">
-                <div className="absolute inset-0 opacity-20 group-hover:scale-110 transition-transform duration-1000 bg-[url('https://picsum.photos/seed/dmgstudio/1200/800')] bg-cover bg-center" />
+                <div 
+                  className="absolute inset-0 opacity-40 group-hover:scale-110 transition-transform duration-1000 bg-cover bg-center" 
+                  style={{ backgroundImage: `url('${contraCapa}')` }}
+                />
                 <div className="relative z-20">
                   <h4 className="text-4xl font-black text-white mb-2 italic tracking-tighter">ESTRUTURA 360º</h4>
                   <p className="text-primary font-bold uppercase tracking-[0.3em]">DMG PRODUCTION HUB</p>
