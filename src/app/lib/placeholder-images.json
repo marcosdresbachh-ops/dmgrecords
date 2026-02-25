@@ -15,8 +15,8 @@
     },
     {
       "id": "release-1",
-      "description": "Album cover art for urban music",
-      "imageUrl": "https://picsum.photos/seed/dmg3/600/600",
+      "description": "Capa do CD Somebody Like A Ghost - Vini Amaral",
+      "imageUrl": "/viniamaral/01.Somebody Like A Ghost.png",
       "imageHint": "album cover"
     },
     {

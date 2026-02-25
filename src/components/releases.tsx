@@ -7,33 +7,34 @@ import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Button } from "@/components/ui/button";
 
 export function ReleasesSection() {
-  // Movemos a lógica para dentro do componente para evitar erro de inicialização
+  const images = Array.isArray(PlaceHolderImages) ? PlaceHolderImages : [];
+
   const releases = [
     {
-      title: "Noites de Neon",
+      title: "Somebody Like A Ghost",
       type: "Single",
-      image: PlaceHolderImages?.find(i => i.id === "release-1"),
+      image: images.find(i => i.id === "release-1"),
       year: "2024",
       platform: "Spotify"
     },
     {
       title: "Coração Blindado",
       type: "EP",
-      image: PlaceHolderImages?.find(i => i.id === "release-2"),
+      image: images.find(i => i.id === "release-2"),
       year: "2023",
       platform: "YouTube"
     },
     {
       title: "Última Chamada",
       type: "Single",
-      image: PlaceHolderImages?.find(i => i.id === "release-3"),
+      image: images.find(i => i.id === "release-3"),
       year: "2023",
       platform: "Apple Music"
     },
     {
-      title: "Vibes de Verão",
+      title: "Noites de Neon",
       type: "Álbum",
-      image: PlaceHolderImages?.find(i => i.id === "release-1"),
+      image: images.find(i => i.id === "release-1"),
       year: "2023",
       platform: "Spotify"
     }
