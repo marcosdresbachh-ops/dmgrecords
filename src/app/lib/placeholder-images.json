@@ -1,0 +1,35 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Professional music recording studio with mixing console",
+      "imageUrl": "https://picsum.photos/seed/dmg1/1920/1080",
+      "imageHint": "music studio"
+    },
+    {
+      "id": "vini-amaral",
+      "description": "Portrait of singer Vini Amaral performing",
+      "imageUrl": "https://picsum.photos/seed/dmg2/800/1000",
+      "imageHint": "male singer"
+    },
+    {
+      "id": "release-1",
+      "description": "Album cover art for urban music",
+      "imageUrl": "https://picsum.photos/seed/dmg3/600/600",
+      "imageHint": "album cover"
+    },
+    {
+      "id": "release-2",
+      "description": "Single cover art for pop music",
+      "imageUrl": "https://picsum.photos/seed/dmg4/600/600",
+      "imageHint": "music artwork"
+    },
+    {
+      "id": "release-3",
+      "description": "Single cover art for hip hop music",
+      "imageUrl": "https://picsum.photos/seed/dmg5/600/600",
+      "imageHint": "hiphop cover"
+    }
+  ]
+}
