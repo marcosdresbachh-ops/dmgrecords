@@ -1,16 +1,18 @@
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, Headphones, Mail } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 export function Hero() {
-  // Adicionada verificação de segurança para evitar erro de undefined
-  const heroImage = PlaceHolderImages?.find((img) => img.id === "hero-bg");
+  // Busca segura da imagem
+  const images = PlaceHolderImages || [];
+  const heroImage = images.find((img) => img.id === "hero-bg");
 
   return (
     <section id="inicio" className="relative h-screen w-full flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        {heroImage && (
+        {heroImage ? (
           <Image
             src={heroImage.imageUrl}
             alt={heroImage.description}
@@ -19,6 +21,8 @@ export function Hero() {
             priority
             data-ai-hint={heroImage.imageHint}
           />
+        ) : (
+          <div className="absolute inset-0 bg-zinc-900" />
         )}
         <div className="absolute inset-0 bg-studio-overlay" />
       </div>

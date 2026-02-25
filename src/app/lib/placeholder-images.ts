@@ -1,3 +1,4 @@
+
 import data from './placeholder-images.json';
 
 export type ImagePlaceholder = {
@@ -7,5 +8,7 @@ export type ImagePlaceholder = {
   imageHint: string;
 };
 
-// Exportação robusta para garantir que PlaceHolderImages nunca seja undefined
-export const PlaceHolderImages: ImagePlaceholder[] = (data as any)?.placeholderImages || [];
+// Garantindo que PlaceHolderImages seja sempre um array, mesmo se o JSON falhar no carregamento
+export const PlaceHolderImages: ImagePlaceholder[] = Array.isArray((data as any)?.placeholderImages) 
+  ? (data as any).placeholderImages 
+  : [];
