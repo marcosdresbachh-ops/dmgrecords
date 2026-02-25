@@ -10,7 +10,7 @@ Para enviar este projeto para o seu repositório, abra o terminal na pasta raiz 
 # Iniciar o repositório git
 git init
 
-# Adicionar todos os arquivos (não apenas o README)
+# Adicionar todos os arquivos
 git add .
 
 # Fazer o primeiro commit
@@ -19,10 +19,10 @@ git commit -m "first commit: Estrutura completa DMG Records"
 # Definir a branch principal como main
 git branch -M main
 
-# Conectar ao seu repositório remoto
+# Conectar ao seu repositório remoto (Certifique-se que o repositório existe no seu GitHub)
 git remote add origin https://github.com/marcosdresbachh-ops/dmgrecords.git
 
-# Enviar os arquivos (você precisará estar logado no git)
+# Enviar os arquivos
 git push -u origin main
 ```
 

@@ -6,38 +6,39 @@ import { Play, ExternalLink, Youtube, Music2 } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Button } from "@/components/ui/button";
 
-const RELEASES = [
-  {
-    title: "Noites de Neon",
-    type: "Single",
-    image: PlaceHolderImages.find(i => i.id === "release-1")!,
-    year: "2024",
-    platform: "Spotify"
-  },
-  {
-    title: "Coração Blindado",
-    type: "EP",
-    image: PlaceHolderImages.find(i => i.id === "release-2")!,
-    year: "2023",
-    platform: "YouTube"
-  },
-  {
-    title: "Última Chamada",
-    type: "Single",
-    image: PlaceHolderImages.find(i => i.id === "release-3")!,
-    year: "2023",
-    platform: "Apple Music"
-  },
-  {
-    title: "Vibes de Verão",
-    type: "Álbum",
-    image: PlaceHolderImages.find(i => i.id === "release-1")!,
-    year: "2023",
-    platform: "Spotify"
-  }
-];
-
 export function ReleasesSection() {
+  // Movemos a lógica para dentro do componente para evitar erro de inicialização
+  const releases = [
+    {
+      title: "Noites de Neon",
+      type: "Single",
+      image: PlaceHolderImages?.find(i => i.id === "release-1"),
+      year: "2024",
+      platform: "Spotify"
+    },
+    {
+      title: "Coração Blindado",
+      type: "EP",
+      image: PlaceHolderImages?.find(i => i.id === "release-2"),
+      year: "2023",
+      platform: "YouTube"
+    },
+    {
+      title: "Última Chamada",
+      type: "Single",
+      image: PlaceHolderImages?.find(i => i.id === "release-3"),
+      year: "2023",
+      platform: "Apple Music"
+    },
+    {
+      title: "Vibes de Verão",
+      type: "Álbum",
+      image: PlaceHolderImages?.find(i => i.id === "release-1"),
+      year: "2023",
+      platform: "Spotify"
+    }
+  ];
+
   return (
     <section id="lancamentos" className="py-24 bg-card">
       <div className="container mx-auto px-4">
@@ -57,16 +58,18 @@ export function ReleasesSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {RELEASES.map((release, idx) => (
+          {releases.map((release, idx) => (
             <div key={idx} className="group cursor-pointer">
               <div className="relative aspect-square overflow-hidden mb-6 bg-black border border-white/5">
-                <Image
-                  src={release.image.imageUrl}
-                  alt={release.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                  data-ai-hint={release.image.imageHint}
-                />
+                {release.image && (
+                  <Image
+                    src={release.image.imageUrl}
+                    alt={release.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                    data-ai-hint={release.image.imageHint}
+                  />
+                )}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <div className="h-16 w-16 bg-primary rounded-full flex items-center justify-center text-white scale-90 group-hover:scale-100 transition-transform">
                     <Play fill="white" className="h-8 w-8 ml-1" />
