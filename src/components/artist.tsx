@@ -1,10 +1,11 @@
-
 import Image from "next/image";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
 
 export function ArtistSection() {
-  const artistImage = PlaceHolderImages.find((img) => img.id === "vini-amaral")!;
+  const artistImage = PlaceHolderImages?.find((img) => img.id === "vini-amaral");
+
+  if (!artistImage) return null;
 
   return (
     <section id="artista" className="py-24 bg-background">

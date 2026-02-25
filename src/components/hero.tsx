@@ -1,11 +1,12 @@
-
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, Headphones, Mail } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 export function Hero() {
-  const heroImage = PlaceHolderImages.find((img) => img.id === "hero-bg")!;
+  const heroImage = PlaceHolderImages?.find((img) => img.id === "hero-bg");
+
+  if (!heroImage) return null;
 
   return (
     <section id="inicio" className="relative h-screen w-full flex items-center overflow-hidden">
