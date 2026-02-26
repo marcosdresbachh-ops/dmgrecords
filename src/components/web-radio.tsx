@@ -88,7 +88,9 @@ export function WebRadioSection() {
                       </a>
                     </Button>
                     <Button asChild className="w-full h-16 bg-zinc-800 text-white font-black uppercase tracking-tighter hover:bg-zinc-700 rounded-none border border-white/10">
-                      <a href="/termos/concessao-intl.pdf" download>TERMO DE CONCESSÃO (NON-BRAZILIANS)</a>
+                      <a href="https://drive.google.com/file/d/1Gpkd9CnZjgIxXBIhA6zkUcRP9jInBdAo/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                        TERMO DE CONCESSÃO (NON-BRAZILIANS)
+                      </a>
                     </Button>
                   </div>
 
