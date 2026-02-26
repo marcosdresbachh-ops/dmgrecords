@@ -18,6 +18,7 @@ import { DistributionPage } from "@/components/hub/distribution-page";
 import { EducationPage } from "@/components/hub/education-page";
 import { SupportPage } from "@/components/hub/support-page";
 import { WebRadioPage } from "@/components/hub/web-radio-page";
+import { PublicProfilePage } from "@/components/hub/public-profile-page";
 import { getSession, clearSession } from "@/lib/hub-auth";
 
 export default function HubPage() {
@@ -57,6 +58,7 @@ export default function HubPage() {
         {page === "dashboard" && <DashboardHome user={user} />}
         {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
         {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
+        {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} />}
         {page === "register" && <WorkRegistration user={user} onUpdate={setUser} />}
         {page === "catalog" && <CatalogTable user={user} />}
         {page === "royalties" && <RoyaltiesPage user={user} />}

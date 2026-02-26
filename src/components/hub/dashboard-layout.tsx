@@ -6,7 +6,7 @@ import {
   LayoutDashboard, PlusCircle, Library, Sparkles, LogOut, 
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
   MessageSquare, Search, Bell, HelpCircle, ChevronDown, ChevronRight,
-  Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool
+  Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool, Layout
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,8 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       icon: <LayoutDashboard className="h-4 w-4" />,
       items: [
         { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard className="h-3.5 w-3.5" /> },
-        { id: "profile", label: "Meu Perfil", icon: <User className="h-3.5 w-3.5" /> },
+        { id: "public-profile", label: "Página Pública", icon: <Layout className="h-3.5 w-3.5" /> },
+        { id: "profile", label: "Dados da Conta", icon: <User className="h-3.5 w-3.5" /> },
         { id: "bio", label: "Minha Bio", icon: <PenTool className="h-3.5 w-3.5" /> },
       ]
     },
@@ -110,54 +111,14 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
         </div>
       </header>
 
-      <div className="h-12 bg-black border-b border-white/5 flex items-center px-6 z-40 flex-shrink-0">
-        <div className="hidden md:block flex-1" />
-
-        <div className="relative w-full max-w-md mx-auto">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-600" />
-          <Input 
-            className="bg-zinc-900/50 border-white/5 pl-10 h-8 text-[11px] rounded-full focus:border-primary/50 transition-all placeholder:text-zinc-700 w-full" 
-            placeholder="BUSCAR OBRAS, LICENÇAS, DOCUMENTOS..." 
-          />
-        </div>
-
-        <div className="flex-1 flex justify-end items-center gap-2">
-          <div className="relative">
-            <button 
-              onClick={() => setNotifOpen(!notifOpen)}
-              className="w-8 h-8 rounded-lg border border-white/5 flex items-center justify-center text-zinc-500 hover:text-white transition-all relative"
-            >
-              <Bell className="h-3.5 w-3.5" />
-              <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-primary rounded-full" />
-            </button>
-            {notifOpen && (
-              <div className="absolute top-full right-0 mt-2 w-72 bg-zinc-950 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
-                <div className="p-3 border-b border-white/5 bg-white/5 flex items-center justify-between">
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Notificações</h4>
-                  <button className="text-[9px] text-primary font-bold">Limpar</button>
-                </div>
-                <div className="max-h-64 overflow-y-auto no-scrollbar">
-                  {[
-                    { t: "Pagamento Recebido", b: "Royalties de Março creditados.", time: "2h", u: true },
-                    { t: "Nova Licença", b: "Pedido para 'Blue Horizon'.", time: "Ontem", u: true },
-                  ].map((n, i) => (
-                    <div key={i} className={cn("p-3 border-b border-white/5 hover:bg-white/5 transition-all", n.u && "border-l-2 border-l-primary bg-primary/5")}>
-                      <p className="text-[11px] font-bold text-white mb-0.5">{n.t}</p>
-                      <p className="text-[9px] text-zinc-500">{n.b}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-          <button onClick={() => onPageChange("support")} className="w-8 h-8 rounded-lg border border-white/5 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
-            <HelpCircle className="h-3.5 w-3.5" />
-          </button>
-        </div>
-      </div>
-
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-56 bg-zinc-950 border-r border-white/5 flex flex-col z-30 flex-shrink-0">
+          <div className="h-12 border-b border-white/5 flex items-center px-4">
+             <div className="relative w-full">
+                <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-zinc-600" />
+                <Input className="bg-transparent border-none pl-7 h-8 text-[10px] uppercase font-bold tracking-widest focus-visible:ring-0 placeholder:text-zinc-700" placeholder="Buscar..." />
+             </div>
+          </div>
           <nav className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
             {menu.map(section => (
               <div key={section.sec} className="space-y-1">
