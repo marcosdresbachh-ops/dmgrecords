@@ -19,6 +19,7 @@ import { EducationPage } from "@/components/hub/education-page";
 import { SupportPage } from "@/components/hub/support-page";
 import { WebRadioPage } from "@/components/hub/web-radio-page";
 import { PublicProfilePage } from "@/components/hub/public-profile-page";
+import { IRSFormsPage } from "@/components/hub/irs-forms-page";
 import { getSession, clearSession } from "@/lib/hub-auth";
 
 export default function HubPage() {
@@ -63,6 +64,7 @@ export default function HubPage() {
         {page === "catalog" && <CatalogTable user={user} />}
         {page === "royalties" && <RoyaltiesPage user={user} />}
         {page === "licensing" && <LicensingPage user={user} />}
+        {page === "tax" && <IRSFormsPage user={user} />}
         {page === "ai" && <AIWorkspace user={user} />}
         {page === "documents" && <DocumentsPage user={user} />}
         {page === "analytics" && <AnalyticsPage user={user} />}

@@ -6,7 +6,7 @@ import {
   LayoutDashboard, PlusCircle, Library, Sparkles, LogOut, 
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
   MessageSquare, Search, Bell, HelpCircle, ChevronDown, ChevronRight,
-  Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool, Layout
+  Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool, Layout, FileSearch
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,6 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ user, activePage, onPageChange, onLogout, children }: DashboardLayoutProps) {
   const [openSections, setOpenSections] = useState<string[]>([]);
-  const [notifOpen, setNotifOpen] = useState(false);
 
   const toggleSection = (section: string) => {
     setOpenSections(prev => 
@@ -61,6 +60,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       items: [
         { id: "royalties", label: "Royalties", icon: <CreditCard className="h-3.5 w-3.5" /> },
         { id: "licensing", label: "Licenciamento", icon: <ShieldCheck className="h-3.5 w-3.5" /> },
+        { id: "tax", label: "Tax & IRS Forms", icon: <FileSearch className="h-3.5 w-3.5" /> },
       ]
     },
     { 
