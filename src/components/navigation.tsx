@@ -27,6 +27,7 @@ export function Navigation() {
     { name: "O Artista", href: "#artista" },
     { name: "Lançamentos", href: "#lancamentos" },
     { name: "Produções", href: "#producoes" },
+    { name: "Proteção", href: "#licenciamento" },
     { name: "Sobre", href: "#sobre" },
     { name: "Contato", href: "#contato" },
   ];

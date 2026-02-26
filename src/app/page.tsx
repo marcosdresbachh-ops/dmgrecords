@@ -4,6 +4,7 @@ import { Hero } from "@/components/hero";
 import { ArtistSection } from "@/components/artist";
 import { ReleasesSection } from "@/components/releases";
 import { ProductionsSection } from "@/components/productions";
+import { LicensingSection } from "@/components/licensing";
 import { AboutSection } from "@/components/about";
 import { DistributionSection } from "@/components/distribution";
 import { CopyAssistant } from "@/components/copy-assistant";
@@ -23,6 +24,8 @@ export default function Home() {
       <ReleasesSection />
       
       <ProductionsSection />
+      
+      <LicensingSection />
       
       <AboutSection />
       
