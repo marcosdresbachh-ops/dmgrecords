@@ -34,7 +34,6 @@ const STEPS = [
 ];
 
 const PARTNERS_LIST = [
-  // Column 1
   { name: "Amazon Music" },
   { name: "Boomplay", region: "NG", info: true },
   { name: "Claro Música" },
@@ -42,7 +41,6 @@ const PARTNERS_LIST = [
   { name: "Pandora Plus", info: true },
   { name: "7digital", info: true },
   { name: "Tencent", region: "CN" },
-  // Column 2
   { name: "AMI Entertainment" },
   { name: "Deezer" },
   { name: "Jaxsta" },
@@ -50,7 +48,6 @@ const PARTNERS_LIST = [
   { name: "Peloton", info: true },
   { name: "Shazam" },
   { name: "Tidal" },
-  // Column 3
   { name: "Anghami", region: "LB" },
   { name: "Facebook / Instagram", info: true },
   { name: "JOOX" },
@@ -58,7 +55,6 @@ const PARTNERS_LIST = [
   { name: "Qobuz", region: "FR" },
   { name: "Sound Exchange", info: true },
   { name: "TikTok", info: true },
-  // Column 4
   { name: "Apple Music" },
   { name: "iHeartRadio" },
   { name: "KKBox", region: "TW" },
@@ -230,10 +226,10 @@ export function DistributionWizard({ user, onComplete }: any) {
               Create your new release
             </h1>
             <div className="flex gap-3">
-              <Button variant="outline" className="bg-zinc-100 border-none rounded-md font-bold h-11 px-8 text-zinc-900 hover:bg-zinc-200 shadow-none">
+              <Button variant="outline" className="bg-zinc-100 border-none font-bold h-11 px-8 text-zinc-900 hover:bg-zinc-200 shadow-none">
                 Save and quit
               </Button>
-              <Button variant="outline" className="bg-zinc-100 border-none rounded-md font-bold h-11 px-6 text-zinc-500 hover:bg-zinc-200 shadow-none">
+              <Button variant="outline" className="bg-zinc-100 border-none font-bold h-11 px-6 text-zinc-500 hover:bg-zinc-200 shadow-none">
                 <Trash2 className="h-4 w-4 mr-2" /> Delete
               </Button>
             </div>
@@ -266,7 +262,7 @@ export function DistributionWizard({ user, onComplete }: any) {
             <div className="space-y-8 animate-in fade-in duration-300">
               <div className="space-y-1">
                 {tracks.length > 0 ? (
-                  <div className="border border-zinc-100 rounded-xl overflow-hidden bg-zinc-50/30">
+                  <div className="border border-zinc-100 rounded-[32px] overflow-hidden bg-zinc-50/30">
                     {tracks.map((t, index) => (
                       <div key={t.id} className="flex items-center gap-6 py-6 px-8 border-b border-zinc-100 last:border-0 group bg-white">
                         <div className="flex items-center gap-4 min-w-[60px]">
@@ -286,7 +282,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                         <Button 
                           variant="outline" 
                           onClick={() => setEditingTrack(t)}
-                          className="bg-zinc-100 border-none rounded-md font-bold h-10 px-6 text-zinc-900 hover:bg-zinc-200 shadow-none"
+                          className="bg-zinc-100 border-none font-bold h-10 px-6 text-zinc-900 hover:bg-zinc-200 shadow-none"
                         >
                           <Edit2 className="h-3.5 w-3.5 mr-2" /> Edit
                         </Button>
@@ -311,7 +307,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                     ))}
                   </div>
                 ) : (
-                  <div className="py-32 text-center border-2 border-dashed border-zinc-100 rounded-3xl bg-zinc-50/50">
+                  <div className="py-32 text-center border-2 border-dashed border-zinc-100 rounded-[40px] bg-zinc-50/50">
                     <Music className="h-16 w-16 text-zinc-200 mx-auto mb-6" />
                     <p className="text-zinc-400 font-bold text-lg">Your release is currently empty.</p>
                     <p className="text-zinc-400 text-sm mt-2">Add tracks from your catalog or upload new files.</p>
@@ -322,7 +318,7 @@ export function DistributionWizard({ user, onComplete }: any) {
               <div className="pt-4 flex justify-center">
                 <Button 
                   onClick={() => setIsSelectModalOpen(true)}
-                  className="bg-black text-white rounded-md font-black px-10 h-14 hover:bg-zinc-800 shadow-xl shadow-black/10 text-base"
+                  className="bg-black text-white font-black px-10 h-14 hover:bg-zinc-800 shadow-xl shadow-black/10 text-base"
                 >
                   <Plus className="mr-2 h-5 w-5" /> SELECT TRACKS
                 </Button>
@@ -332,15 +328,14 @@ export function DistributionWizard({ user, onComplete }: any) {
 
           {step === 2 && (
             <div className="grid grid-cols-1 md:grid-cols-12 gap-16 animate-in fade-in py-10">
-              {/* COLUNA 1: ARTWORK */}
               <div className="md:col-span-3 space-y-6">
                 <Label className="text-sm font-extrabold text-black uppercase">Album artwork <span className="text-primary">*</span></Label>
                 <div className="space-y-4">
-                  <div className="aspect-square bg-[#555] rounded-xl flex items-center justify-center text-white relative group overflow-hidden border-2 border-transparent">
+                  <div className="aspect-square bg-[#555] rounded-3xl flex items-center justify-center text-white relative group overflow-hidden border-2 border-transparent">
                     <Cloud className="h-24 w-24 opacity-40" />
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <Button variant="outline" className="w-full h-12 bg-zinc-50 border-none font-bold text-zinc-900 rounded-md">
+                  <Button variant="outline" className="w-full h-12 bg-zinc-50 border-none font-bold text-zinc-900">
                     <Upload className="mr-2 h-4 w-4" /> Upload image
                   </Button>
                   <p className="text-[10px] text-zinc-400 font-medium leading-relaxed">
@@ -349,14 +344,13 @@ export function DistributionWizard({ user, onComplete }: any) {
                 </div>
               </div>
 
-              {/* COLUNA 2: BASIC INFO */}
               <div className="md:col-span-5 space-y-10">
                 <div className="space-y-2">
                   <Label className="text-sm font-extrabold text-black uppercase">Album title <span className="text-primary">*</span></Label>
                   <Input 
                     value={form.title} 
                     onChange={e => setForm({...form, title: e.target.value})} 
-                    className="h-14 bg-zinc-50 border-[#e11d48] rounded-md font-bold text-lg focus-visible:ring-0" 
+                    className="h-14 bg-zinc-50 border-[#e11d48] rounded-2xl font-bold text-lg focus-visible:ring-0" 
                     placeholder="Title" 
                   />
                   <p className="text-[11px] font-bold text-[#e11d48]">Title is required</p>
@@ -365,7 +359,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                 <div className="space-y-2">
                   <Label className="text-sm font-extrabold text-black uppercase">Genre <span className="text-primary">*</span></Label>
                   <Select value={form.genre} onValueChange={v => setForm({...form, genre: v})}>
-                    <SelectTrigger className="h-14 bg-zinc-50 border-[#e11d48] rounded-md font-bold text-zinc-500">
+                    <SelectTrigger className="h-14 bg-zinc-50 border-[#e11d48] rounded-2xl font-bold text-zinc-500">
                       <SelectValue placeholder="Select a Genre" />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
@@ -380,7 +374,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                 <div className="space-y-2">
                   <Label className="text-sm font-extrabold text-black uppercase">Secondary Genre</Label>
                   <Select disabled>
-                    <SelectTrigger className="h-14 bg-zinc-200 border-none rounded-md font-bold text-zinc-500">
+                    <SelectTrigger className="h-14 bg-zinc-200 border-none rounded-2xl font-bold text-zinc-500">
                       <SelectValue placeholder="No secondary genres available" />
                     </SelectTrigger>
                     <SelectContent className="bg-white" />
@@ -394,25 +388,24 @@ export function DistributionWizard({ user, onComplete }: any) {
                   <Input 
                     value={form.labelName} 
                     onChange={e => setForm({...form, labelName: e.target.value})} 
-                    className="h-14 bg-zinc-50 border-[#e11d48] rounded-md font-bold text-lg" 
+                    className="h-14 bg-zinc-50 border-[#e11d48] rounded-2xl font-bold text-lg" 
                     placeholder="Label" 
                   />
                   <p className="text-[11px] font-bold text-[#e11d48]">Label is required</p>
                 </div>
               </div>
 
-              {/* COLUNA 3: ADDITIONAL INFO */}
               <div className="md:col-span-4 space-y-10">
                 <div className="space-y-4">
                   <Label className="text-sm font-extrabold text-black uppercase">Main Artists <span className="text-primary">*</span></Label>
-                  <div className="bg-zinc-200 p-4 rounded-md min-h-[56px] flex items-center">
+                  <div className="bg-zinc-200 p-4 rounded-2xl min-h-[56px] flex items-center">
                     <span className="text-sm font-bold text-zinc-500">No main artists</span>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <Label className="text-sm font-extrabold text-black uppercase">Release Date <span className="text-primary">*</span></Label>
-                  <div className="bg-zinc-100 p-4 rounded-md h-14 flex items-center justify-between border-none">
+                  <div className="bg-zinc-100 p-4 rounded-2xl h-14 flex items-center justify-between border-none">
                     <span className="text-sm font-bold text-zinc-900">{form.releaseDate}</span>
                     <CalendarIcon className="h-5 w-5 text-zinc-400" />
                   </div>
@@ -422,7 +415,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                   <Label className="text-sm font-extrabold text-black uppercase flex items-center gap-2">
                     Is this a re-release? <Info className="h-4 w-4 text-zinc-400" />
                   </Label>
-                  <Button variant="outline" className="h-12 bg-zinc-100 border-none font-bold text-zinc-900 px-6 rounded-md shadow-none">
+                  <Button variant="outline" className="h-12 bg-zinc-100 border-none font-bold text-zinc-900 px-6 shadow-none">
                     Add an original release date
                   </Button>
                 </div>
@@ -498,7 +491,7 @@ export function DistributionWizard({ user, onComplete }: any) {
           <Button 
             onClick={step === 6 ? handleSubmit : next}
             disabled={(step === 1 && tracks.length === 0) || (step === 3 && form.selectedPartners.length === 0) || loading}
-            className="bg-black text-white rounded-md font-black px-12 h-12 hover:bg-zinc-800 shadow-2xl text-sm"
+            className="bg-black text-white font-black px-12 h-12 hover:bg-zinc-800 shadow-2xl text-sm"
           >
             {loading ? "Processing..." : step === 6 ? "Finish & Submit" : "Next"}
           </Button>
@@ -507,7 +500,7 @@ export function DistributionWizard({ user, onComplete }: any) {
 
       {/* MODAL: Select Track */}
       <Dialog open={isSelectModalOpen} onOpenChange={setIsSelectModalOpen}>
-        <DialogContent className="bg-white text-zinc-900 max-w-lg rounded-3xl p-0 overflow-hidden border-none shadow-2xl">
+        <DialogContent className="bg-white text-zinc-900 max-w-lg rounded-[40px] p-0 overflow-hidden border-none shadow-2xl">
           <div className="p-8 space-y-6">
             <div className="flex justify-between items-start">
               <div>
@@ -520,7 +513,7 @@ export function DistributionWizard({ user, onComplete }: any) {
             </div>
 
             <div className="space-y-4">
-              <div className="border-2 border-dashed border-zinc-100 p-8 flex flex-col items-center justify-center gap-3 hover:bg-zinc-50 hover:border-zinc-300 transition-all cursor-pointer relative rounded-2xl group bg-zinc-50/30">
+              <div className="border-2 border-dashed border-zinc-100 p-8 flex flex-col items-center justify-center gap-3 hover:bg-zinc-50 hover:border-zinc-300 transition-all cursor-pointer relative rounded-[32px] group bg-zinc-50/30">
                 <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
                   <Upload className="h-6 w-6 text-zinc-400 group-hover:text-black" />
                 </div>
@@ -539,11 +532,11 @@ export function DistributionWizard({ user, onComplete }: any) {
                       {syncedTracks.map((t: any) => (
                         <div 
                           key={t.regId || t.id} 
-                          className="flex items-center justify-between p-4 hover:bg-zinc-50 cursor-pointer border border-zinc-100 rounded-xl transition-all group" 
+                          className="flex items-center justify-between p-4 hover:bg-zinc-50 cursor-pointer border border-zinc-100 rounded-3xl transition-all group" 
                           onClick={() => handleSelectSyncedTrack(t)}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-300 group-hover:bg-black group-hover:text-white transition-colors">
+                            <div className="w-10 h-10 rounded-2xl bg-zinc-100 flex items-center justify-center text-zinc-300 group-hover:bg-black group-hover:text-white transition-colors">
                               <Music className="h-4 w-4" />
                             </div>
                             <div>
@@ -566,7 +559,7 @@ export function DistributionWizard({ user, onComplete }: any) {
       {/* MODAL: Edit Track Metadata */}
       {editingTrack && (
         <Dialog open={!!editingTrack} onOpenChange={() => setEditingTrack(null)}>
-          <DialogContent className="bg-white text-zinc-900 max-w-3xl rounded-none p-0 overflow-hidden border-none shadow-2xl h-[95vh] flex flex-col">
+          <DialogContent className="bg-white text-zinc-900 max-w-3xl rounded-[40px] p-0 overflow-hidden border-none shadow-2xl h-[95vh] flex flex-col">
             <div className="p-10 flex-1 overflow-y-auto space-y-10 selection:bg-zinc-100 custom-scrollbar">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
@@ -584,13 +577,13 @@ export function DistributionWizard({ user, onComplete }: any) {
                   <Input 
                     value={editingTrack.title} 
                     onChange={e => setEditingTrack({...editingTrack, title: e.target.value})}
-                    className="bg-zinc-50 border-zinc-200 rounded-none h-14 text-sm font-bold shadow-none focus:border-black focus:ring-0" 
+                    className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 text-sm font-bold shadow-none focus:border-black focus:ring-0" 
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[11px] font-black text-zinc-400 uppercase tracking-widest">Version</Label>
                   <Select value={editingTrack.version} onValueChange={v => setEditingTrack({...editingTrack, version: v})}>
-                    <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-none h-14 text-sm font-bold shadow-none">
+                    <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 text-sm font-bold shadow-none">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
@@ -611,16 +604,16 @@ export function DistributionWizard({ user, onComplete }: any) {
                     <div key={c.id} className="grid grid-cols-12 gap-4 items-center">
                       <GripVertical className="col-span-1 h-4 w-4 text-zinc-200" />
                       <div className="col-span-5">
-                        <Input value={c.name} className="bg-zinc-50 border-zinc-200 rounded-none h-12 text-sm font-medium" />
+                        <Input value={c.name} className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-medium" />
                       </div>
                       <span className="col-span-1 text-[10px] font-bold text-zinc-300 text-center uppercase">is</span>
                       <div className="col-span-5">
-                        <div className="bg-zinc-100 text-zinc-500 h-12 flex items-center px-4 text-[11px] font-black uppercase italic tracking-tighter">{c.type}</div>
+                        <div className="bg-zinc-100 text-zinc-500 h-12 flex items-center px-4 text-[11px] font-black uppercase italic tracking-tighter rounded-2xl">{c.type}</div>
                       </div>
                     </div>
                   ))}
                 </div>
-                <Button variant="outline" className="rounded-none border-zinc-200 text-xs font-black px-6 h-12 hover:bg-zinc-50 shadow-none uppercase tracking-widest">
+                <Button variant="outline" className="border-zinc-200 text-xs font-black px-6 h-12 hover:bg-zinc-50 shadow-none uppercase tracking-widest">
                   <Plus className="h-4 w-4 mr-2" /> Add a contributor
                 </Button>
               </div>
@@ -633,8 +626,8 @@ export function DistributionWizard({ user, onComplete }: any) {
                   <h3 className="text-sm font-black uppercase tracking-widest text-zinc-900">YouTube Content ID</h3>
                 </div>
                 <div className="space-y-6">
-                  <div className="flex items-start space-x-3 bg-zinc-50 p-6 border border-zinc-100">
-                    <Checkbox id="yt1" checked={editingTrack.youtubeContentId} onCheckedChange={v => setEditingTrack({...editingTrack, youtubeContentId: !!v})} className="rounded-none border-zinc-300 mt-1 data-[state=checked]:bg-black data-[state=checked]:border-black" />
+                  <div className="flex items-start space-x-3 bg-zinc-50 p-6 border border-zinc-100 rounded-3xl">
+                    <Checkbox id="yt1" checked={editingTrack.youtubeContentId} onCheckedChange={v => setEditingTrack({...editingTrack, youtubeContentId: !!v})} className="rounded-md border-zinc-300 mt-1 data-[state=checked]:bg-black data-[state=checked]:border-black" />
                     <div className="space-y-1">
                       <Label htmlFor="yt1" className="text-sm font-black uppercase leading-tight">Enable this track for YouTube Content ID</Label>
                       <p className="text-[10px] text-zinc-400 font-medium">Protect and monetize your audio across the entire YouTube network.</p>
@@ -648,7 +641,7 @@ export function DistributionWizard({ user, onComplete }: any) {
               <button className="text-xs font-bold text-zinc-400 hover:text-black uppercase" onClick={() => setEditingTrack(null)}>Cancel</button>
               <Button 
                 onClick={() => updateTrack(editingTrack!)} 
-                className="bg-black text-white font-black rounded-none px-12 h-14 text-sm hover:bg-zinc-800 shadow-2xl uppercase tracking-widest"
+                className="bg-black text-white font-black px-12 h-14 text-sm hover:bg-zinc-800 shadow-2xl uppercase tracking-widest"
               >
                 Save and close
               </Button>

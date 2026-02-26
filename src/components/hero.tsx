@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, ShoppingCart } from "lucide-react";
@@ -41,12 +40,12 @@ export function Hero() {
             Adquira agora o novo álbum em edição exclusiva.
           </p>
           <div className="flex flex-col sm:flex-row gap-6">
-            <Button asChild size="lg" className="rounded-none px-12 py-10 text-xl font-black tracking-tighter bg-zinc-900 hover:bg-primary text-white shadow-2xl transition-all italic">
+            <Button asChild size="lg" className="px-12 py-10 text-xl font-black tracking-tighter bg-zinc-900 hover:bg-primary text-white shadow-2xl transition-all italic">
               <a href={elasticStageUrl} target="_blank" rel="noopener noreferrer">
                 <ShoppingCart className="mr-3 h-7 w-7" /> COMPRAR ÁLBUM
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-none px-12 py-10 text-xl font-black tracking-tighter border-zinc-200 hover:bg-zinc-50 text-zinc-900 backdrop-blur-sm italic transition-all">
+            <Button asChild size="lg" variant="outline" className="px-12 py-10 text-xl font-black tracking-tighter border-zinc-200 hover:bg-zinc-50 text-zinc-900 backdrop-blur-sm italic transition-all">
               <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
                 <PlayCircle className="mr-3 h-7 w-7 text-primary" /> OUVIR AGORA
               </a>

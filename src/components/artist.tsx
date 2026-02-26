@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +18,7 @@ export function ArtistSection() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           {/* Lado Esquerdo: Imagem Editorial */}
-          <div className="relative aspect-[4/5] group overflow-hidden border border-zinc-100 shadow-2xl">
+          <div className="relative aspect-[4/5] group overflow-hidden border border-zinc-100 shadow-2xl rounded-3xl">
             <Image
               src={artistImage.imageUrl}
               alt={artistImage.description}
@@ -56,18 +55,18 @@ export function ArtistSection() {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Badge variant="outline" className="border-zinc-200 text-zinc-900 px-6 py-2 text-xs rounded-none font-black uppercase tracking-[0.3em] bg-zinc-50">R&B</Badge>
-              <Badge variant="outline" className="border-zinc-200 text-zinc-900 px-6 py-2 text-xs rounded-none font-black uppercase tracking-[0.3em] bg-zinc-50">URBAN POP</Badge>
-              <Badge variant="outline" className="border-zinc-200 text-zinc-900 px-6 py-2 text-xs rounded-none font-black uppercase tracking-[0.3em] bg-zinc-50">TRAP SOUL</Badge>
+              <Badge variant="outline" className="border-zinc-200 text-zinc-900 px-6 py-2 text-xs rounded-full font-black uppercase tracking-[0.3em] bg-zinc-50">R&B</Badge>
+              <Badge variant="outline" className="border-zinc-200 text-zinc-900 px-6 py-2 text-xs rounded-full font-black uppercase tracking-[0.3em] bg-zinc-50">URBAN POP</Badge>
+              <Badge variant="outline" className="border-zinc-200 text-zinc-900 px-6 py-2 text-xs rounded-full font-black uppercase tracking-[0.3em] bg-zinc-50">TRAP SOUL</Badge>
             </div>
 
             <div className="pt-6 flex flex-wrap gap-6">
-              <Button asChild className="rounded-none bg-[#ff5500] hover:bg-zinc-900 text-white font-black italic h-20 px-12 text-xl tracking-tighter shadow-xl transition-all uppercase">
+              <Button asChild className="bg-[#ff5500] hover:bg-zinc-900 text-white font-black italic h-20 px-12 text-xl tracking-tighter shadow-xl transition-all uppercase">
                  <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
                    <Music2 className="mr-4 h-7 w-7" /> SIGA NO SOUNDCLOUD
                  </a>
               </Button>
-              <Button asChild variant="outline" className="rounded-none border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-white font-black italic h-20 px-12 text-xl tracking-tighter shadow-sm transition-all uppercase">
+              <Button asChild variant="outline" className="border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-white font-black italic h-20 px-12 text-xl tracking-tighter shadow-sm transition-all uppercase">
                  <a href={elasticStageUrl} target="_blank" rel="noopener noreferrer">
                    <ShoppingCart className="mr-4 h-7 w-7" /> COMPRAR DISCO
                  </a>
