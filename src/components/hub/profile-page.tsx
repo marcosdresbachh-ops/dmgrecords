@@ -2,13 +2,22 @@
 "use client";
 
 import { useState } from "react";
-import { User, Shield, Bell, Lock, Download, Trash2, Camera, ExternalLink } from "lucide-react";
+import { User, Shield, Bell, Lock, Download, Trash2, Camera, ExternalLink, AlertTriangle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DB } from "@/lib/hub-auth";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
 
 export function ProfilePage({ user, onUpdate }: any) {
@@ -21,7 +30,6 @@ export function ProfilePage({ user, onUpdate }: any) {
     const formData = new FormData(e.currentTarget);
     const updates = Object.fromEntries(formData.entries());
     
-    // Simulação de atualização no localStorage
     const users = JSON.parse(localStorage.getItem('dmg_hub_users') || '{}');
     const updatedUser = { ...user, ...updates };
     users[user.email] = { ...users[user.email], ...updates };
@@ -30,7 +38,6 @@ export function ProfilePage({ user, onUpdate }: any) {
     
     onUpdate(updatedUser);
     setEdit(false);
-    setLoading(true);
     setTimeout(() => {
       setLoading(false);
       toast({ title: "Perfil Atualizado", description: "Suas alterações foram salvas com sucesso." });
@@ -158,9 +165,41 @@ export function ProfilePage({ user, onUpdate }: any) {
               <Button variant="ghost" className="w-full justify-start text-[10px] font-black uppercase tracking-widest text-zinc-400 h-10 rounded-xl hover:text-primary">
                 <Download className="mr-2 h-4 w-4" /> Exportar meus dados
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-[10px] font-black uppercase tracking-widest text-destructive h-10 rounded-xl hover:bg-destructive/10">
-                <Trash2 className="mr-2 h-4 w-4" /> Excluir Conta
-              </Button>
+              
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="ghost" className="w-full justify-start text-[10px] font-black uppercase tracking-widest text-destructive h-10 rounded-xl hover:bg-destructive/10">
+                    <Trash2 className="mr-2 h-4 w-4" /> Excluir Conta
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-zinc-950 border-white/10 text-white max-w-xl">
+                  <AlertDialogHeader className="space-y-4">
+                    <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center text-destructive mb-2">
+                      <AlertTriangle className="h-6 w-6" />
+                    </div>
+                    <AlertDialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary">Ação Crítica e Irreversível</AlertDialogTitle>
+                    <AlertDialogDescription className="text-zinc-400 space-y-4 text-sm leading-relaxed">
+                      <p>Você está prestes a iniciar o processo de exclusão da sua conta no <strong>DMG ARTIST HUB</strong>. Por favor, leia atentamente os termos abaixo antes de prosseguir:</p>
+                      
+                      <div className="bg-black/50 border border-white/5 p-4 rounded-xl space-y-3 font-medium">
+                        <p className="text-white"><span className="text-primary">●</span> <strong>Royalties em Processamento:</strong> Quaisquer valores de streaming ou execução pública que estejam em período de apuração ou trânsito serão retidos para auditoria. A exclusão da conta pode acarretar na perda definitiva de créditos não resgatados.</p>
+                        <p className="text-white"><span className="text-primary">●</span> <strong>Remoção de Conteúdo:</strong> Seu EPK Público, Catálogo de Obras e acesso às ferramentas de IA serão imediatamente desativados.</p>
+                        <p className="text-white"><span className="text-primary">●</span> <strong>Contratos Ativos:</strong> Licenças já emitidas continuarão válidas conforme os termos originais, mas você perderá o canal direto de gestão via HUB.</p>
+                      </div>
+
+                      <p className="font-bold text-zinc-300 italic">Para sua segurança financeira e jurídica, a exclusão definitiva deve ser validada pela nossa curadoria.</p>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter className="gap-3 mt-6">
+                    <AlertDialogCancel className="border-white/10 text-zinc-500 hover:text-white rounded-none">CANCELAR OPERAÇÃO</AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <Button className="bg-destructive text-white font-black uppercase rounded-none px-6" onClick={() => window.location.href = "mailto:suporte@dmgrecords.com.br?subject=Solicitação de Exclusão de Conta - " + user.id}>
+                        SOLICITAR EXCLUSÃO À DMG <Mail className="ml-2 h-4 w-4" />
+                      </Button>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
         </div>
