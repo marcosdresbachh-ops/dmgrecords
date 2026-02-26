@@ -20,7 +20,8 @@ interface DashboardLayoutProps {
 }
 
 export function DashboardLayout({ user, activePage, onPageChange, onLogout, children }: DashboardLayoutProps) {
-  const [openSections, setOpenSections] = useState<string[]>(["Principal", "Obras", "Financeiro", "Ferramentas", "Educação & Suporte"]);
+  // Inicializa o estado vazio para que todos os dropdowns comecem fechados
+  const [openSections, setOpenSections] = useState<string[]>([]);
   const [notifOpen, setNotifOpen] = useState(false);
 
   const toggleSection = (section: string) => {
@@ -105,7 +106,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
 
       {/* Header Fixo 2: Sub-header com Busca Centralizada */}
       <div className="h-12 bg-black border-b border-white/5 flex items-center px-6 z-40 flex-shrink-0">
-        {/* Espaçador para manter a busca no centro real */}
         <div className="hidden md:block flex-1" />
 
         <div className="relative w-full max-w-md mx-auto">
