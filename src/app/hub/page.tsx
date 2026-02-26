@@ -20,6 +20,7 @@ import { SupportPage } from "@/components/hub/support-page";
 import { WebRadioPage } from "@/components/hub/web-radio-page";
 import { PublicProfilePage } from "@/components/hub/public-profile-page";
 import { IRSFormsPage } from "@/components/hub/irs-forms-page";
+import { AscapPage } from "@/components/hub/ascap-page";
 import { getSession, clearSession } from "@/lib/hub-auth";
 
 export default function HubPage() {
@@ -72,6 +73,8 @@ export default function HubPage() {
         {page === "education" && <EducationPage user={user} />}
         {page === "support" && <SupportPage user={user} />}
         {page === "webradio" && <WebRadioPage user={user} />}
+        {page === "ascap" && <AscapPage user={user} />}
+        {page === "ascap-benefits" && <AscapPage user={user} />}
       </DashboardLayout>
     </main>
   );

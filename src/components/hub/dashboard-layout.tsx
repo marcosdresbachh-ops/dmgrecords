@@ -10,7 +10,7 @@ import {
   Star
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 interface DashboardLayoutProps {
   user: any;
@@ -46,6 +46,14 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       items: [
         { id: "register", label: "Registrar Obra", icon: <PlusCircle className="h-3.5 w-3.5" /> },
         { id: "catalog", label: "Meu Catálogo", icon: <Library className="h-3.5 w-3.5" /> },
+      ]
+    },
+    { 
+      sec: "ASCAP Global", 
+      icon: <Star className="h-4 w-4" />,
+      items: [
+        { id: "ascap", label: "Minha Filiação", icon: <ShieldCheck className="h-3.5 w-3.5" /> },
+        { id: "ascap-benefits", label: "Vantagens", icon: <Star className="h-3.5 w-3.5" /> },
       ]
     },
     { 
