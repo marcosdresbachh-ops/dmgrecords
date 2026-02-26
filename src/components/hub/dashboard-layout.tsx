@@ -6,7 +6,7 @@ import {
   LayoutDashboard, PlusCircle, Library, Sparkles, LogOut, 
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
   MessageSquare, Search, Bell, HelpCircle, ChevronDown, ChevronRight,
-  Music, ShieldCheck, CreditCard, BookOpen
+  Music, ShieldCheck, CreditCard, BookOpen, Radio
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -45,6 +45,13 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       items: [
         { id: "register", label: "Registrar Obra", icon: <PlusCircle className="h-3.5 w-3.5" /> },
         { id: "catalog", label: "Meu Catálogo", icon: <Library className="h-3.5 w-3.5" /> },
+      ]
+    },
+    { 
+      sec: "Mídia", 
+      icon: <Radio className="h-4 w-4" />,
+      items: [
+        { id: "webradio", label: "Web Rádio", icon: <Radio className="h-3.5 w-3.5" /> },
       ]
     },
     { 

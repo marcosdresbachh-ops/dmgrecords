@@ -16,6 +16,7 @@ import { AnalyticsPage } from "@/components/hub/analytics-page";
 import { DistributionPage } from "@/components/hub/distribution-page";
 import { EducationPage } from "@/components/hub/education-page";
 import { SupportPage } from "@/components/hub/support-page";
+import { WebRadioPage } from "@/components/hub/web-radio-page";
 import { getSession, clearSession } from "@/lib/hub-auth";
 
 export default function HubPage() {
@@ -64,6 +65,7 @@ export default function HubPage() {
         {page === "distribution" && <DistributionPage user={user} />}
         {page === "education" && <EducationPage user={user} />}
         {page === "support" && <SupportPage user={user} />}
+        {page === "webradio" && <WebRadioPage user={user} />}
       </DashboardLayout>
     </main>
   );
