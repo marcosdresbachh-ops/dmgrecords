@@ -5,7 +5,7 @@ import {
   Upload, CheckCircle2, Music, Globe, Users, 
   ChevronRight, ChevronLeft, Send, Info,
   Check, Play, AlertCircle, DollarSign,
-  HelpCircle, Settings2, FileText, Trash2, Plus, GripVertical
+  HelpCircle, Settings2, FileText, Trash2, Plus, GripVertical, Edit2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 const STEPS = [
   { id: 1, label: "Tracks", icon: <Music /> },
@@ -62,10 +70,21 @@ const PARTNERS = [
   { name: "YouTube Music", icon: "🔴" },
 ];
 
+type TrackData = {
+  file: File;
+  id: string;
+  title: string;
+  isrc: string;
+  explicit: string;
+  composers: string;
+};
+
 export function DistributionWizard({ user, onComplete }: any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [tracks, setTracks] = useState<{file: File, id: string}[]>([]);
+  const [tracks, setTracks] = useState<TrackData[]>([]);
+  const [editingTrack, setEditingTrack] = useState<TrackData | null>(null);
+  
   const [form, setForm] = useState({
     title: "",
     mainArtist: user.artistName || `${user.firstName} ${user.lastName}`,
@@ -87,15 +106,25 @@ export function DistributionWizard({ user, onComplete }: any) {
 
   const handleFileAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
-    const newTracks = selectedFiles.map(f => ({
+    const newTracks: TrackData[] = selectedFiles.map(f => ({
       file: f,
-      id: Math.random().toString(36).substr(2, 9)
+      id: Math.random().toString(36).substr(2, 9),
+      title: f.name.replace(/\.[^/.]+$/, ""),
+      isrc: "",
+      explicit: "none",
+      composers: user.artistName || user.firstName
     }));
     setTracks(prev => [...prev, ...newTracks]);
   };
 
   const removeTrack = (id: string) => {
     setTracks(prev => prev.filter(t => t.id !== id));
+  };
+
+  const updateTrack = (updated: TrackData) => {
+    setTracks(prev => prev.map(t => t.id === updated.id ? updated : t));
+    setEditingTrack(null);
+    toast({ title: "Metadados Atualizados", description: `Informações de "${updated.title}" salvas.` });
   };
 
   async function handleSubmit() {
@@ -162,18 +191,28 @@ export function DistributionWizard({ user, onComplete }: any) {
                         <Music className="h-5 w-5" />
                       </div>
                       <div>
-                        <p className="text-white font-black uppercase italic tracking-tighter">{t.file.name}</p>
-                        <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest">{(t.file.size / 1024 / 1024).toFixed(2)} MB • READY</p>
+                        <p className="text-white font-black uppercase italic tracking-tighter">{t.title}</p>
+                        <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest">{(t.file.size / 1024 / 1024).toFixed(2)} MB • {t.explicit === 'explicit' ? 'EXPLICIT' : 'CLEAN'}</p>
                       </div>
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      onClick={() => removeTrack(t.id)}
-                      className="text-zinc-700 hover:text-primary hover:bg-primary/10"
-                    >
-                      <Trash2 className="h-5 w-5" />
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => setEditingTrack(t)}
+                        className="text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/10"
+                      >
+                        <Edit2 className="h-3.5 w-3.5 mr-2" /> EDITAR INFO
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={() => removeTrack(t.id)}
+                        className="text-zinc-700 hover:text-primary hover:bg-primary/10"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -218,7 +257,7 @@ export function DistributionWizard({ user, onComplete }: any) {
               </div>
 
               <div className="space-y-3">
-                <Label className="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Explicit Lyrics</Label>
+                <Label className="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Explicit Lyrics (Release Level)</Label>
                 <Select value={form.explicit} onValueChange={v => setForm({...form, explicit: v})}>
                   <SelectTrigger className="bg-black border-white/10 h-16 rounded-2xl">
                     <SelectValue />
@@ -450,6 +489,64 @@ export function DistributionWizard({ user, onComplete }: any) {
           )}
         </div>
       </div>
+
+      {/* Track Metadata Editor Dialog */}
+      {editingTrack && (
+        <Dialog open={!!editingTrack} onOpenChange={() => setEditingTrack(null)}>
+          <DialogContent className="bg-zinc-950 border-white/10 text-white max-w-2xl rounded-[32px]">
+            <DialogHeader className="space-y-4">
+              <DialogTitle className="text-3xl font-black italic uppercase tracking-tighter text-primary">Editar Metadados da Faixa</DialogTitle>
+              <DialogDescription className="text-zinc-500 font-bold uppercase text-[10px] tracking-widest">Configuração individual para o arquivo: {editingTrack.file.name}</DialogDescription>
+            </DialogHeader>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6">
+              <div className="space-y-3">
+                <Label className="text-[10px] font-black uppercase text-zinc-500">Título da Faixa *</Label>
+                <Input 
+                  value={editingTrack.title} 
+                  onChange={e => setEditingTrack({...editingTrack, title: e.target.value})}
+                  className="bg-black border-white/10 h-14 rounded-xl" 
+                />
+              </div>
+              <div className="space-y-3">
+                <Label className="text-[10px] font-black uppercase text-zinc-500">ISRC Customizado (Opcional)</Label>
+                <Input 
+                  value={editingTrack.isrc} 
+                  onChange={e => setEditingTrack({...editingTrack, isrc: e.target.value})}
+                  className="bg-black border-white/10 h-14 rounded-xl font-mono" 
+                  placeholder="BR-XXX-25-00000"
+                />
+              </div>
+              <div className="space-y-3">
+                <Label className="text-[10px] font-black uppercase text-zinc-500">Compositores / Autores</Label>
+                <Input 
+                  value={editingTrack.composers} 
+                  onChange={e => setEditingTrack({...editingTrack, composers: e.target.value})}
+                  className="bg-black border-white/10 h-14 rounded-xl" 
+                />
+              </div>
+              <div className="space-y-3">
+                <Label className="text-[10px] font-black uppercase text-zinc-500">Conteúdo Explícito</Label>
+                <Select value={editingTrack.explicit} onValueChange={v => setEditingTrack({...editingTrack, explicit: v})}>
+                  <SelectTrigger className="bg-black border-white/10 h-14 rounded-xl">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 text-white">
+                    <SelectItem value="none">Not Explicit</SelectItem>
+                    <SelectItem value="explicit">Explicit Content</SelectItem>
+                    <SelectItem value="cleaned">Clean Version</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <DialogFooter className="gap-3 mt-4">
+              <Button variant="outline" onClick={() => setEditingTrack(null)} className="border-white/10 text-zinc-500 hover:text-white rounded-xl h-12 px-8 uppercase text-[10px] font-black">Cancelar</Button>
+              <Button onClick={() => updateTrack(editingTrack)} className="bg-primary rounded-xl h-12 px-10 uppercase text-[10px] font-black">Salvar Alterações</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
