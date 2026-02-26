@@ -7,29 +7,19 @@ import {
   ChevronRight, ChevronLeft, Send, Info,
   Check, Play, AlertCircle, DollarSign,
   HelpCircle, Settings2, FileText, Trash2, Plus, GripVertical, Edit2, Search, X, Link as LinkIcon,
-  PlusCircle, FileUp, MoveLeft
+  PlusCircle, FileUp, MoveLeft, Cloud, Calendar as CalendarIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Slider } from "@/components/ui/slider";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/hooks/use-toast";
 import Image from "next/image";
 import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
-import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
@@ -44,34 +34,11 @@ const STEPS = [
 
 const PARTNERS = [
   { name: "Amazon Music", icon: "📦" },
-  { name: "AMI Entertainment", icon: "📺" },
-  { name: "Anghami 🇱🇧", icon: "🎶" },
   { name: "Apple Music", icon: "🍎" },
-  { name: "Boomplay 🇳🇬", icon: "🎧" },
   { name: "Deezer", icon: "📱" },
-  { name: "Facebook / Instagram", icon: "💬" },
-  { name: "iHeartRadio", icon: "📻" },
-  { name: "Claro Música", icon: "📱" },
-  { name: "Jaxsta", icon: "📄" },
-  { name: "JOOX", icon: "🎤" },
-  { name: "KKBox 🇹🇼", icon: "🎸" },
-  { name: "MediaNet", icon: "🌐" },
-  { name: "Melon Plus 🇰🇷", icon: "🍈" },
-  { name: "Napster", icon: "🐱" },
-  { name: "NetEase 🇨🇳", icon: "🐉" },
-  { name: "Pandora Plus", icon: "🎻" },
-  { name: "Peloton", icon: "🚴" },
-  { name: "Qobuz 🇫🇷", icon: "🎷" },
-  { name: "Saavn 🇮🇳", icon: "🎹" },
-  { name: "7digital", icon: "7️⃣" },
-  { name: "Shazam", icon: "🔍" },
-  { name: "Sound Exchange", icon: "💱" },
   { name: "Spotify", icon: "🟢" },
-  { name: "Tencent 🇨🇳", icon: "🏢" },
   { name: "Tidal", icon: "💎" },
   { name: "TikTok", icon: "🎵" },
-  { name: "VK 🇷🇺", icon: "🇷🇺" },
-  { name: "Yandex 🇷🇺", icon: "🇷🇺" },
   { name: "YouTube Music", icon: "🔴" },
 ];
 
@@ -110,16 +77,10 @@ export function DistributionWizard({ user, onComplete }: any) {
     title: "",
     mainArtist: user.artistName || `${user.firstName} ${user.lastName}`,
     genre: "",
-    noIsrc: true,
-    isrc: "",
-    labelName: "DMG Records",
-    pLine: `(P) ${new Date().getFullYear()} DMG Records`,
-    cLine: `(C) ${new Date().getFullYear()} DMG Records`,
-    explicit: "none",
+    secondaryGenre: "",
+    labelName: "",
+    releaseDate: "13 March 2026",
     selectedPartners: PARTNERS.map(p => p.name),
-    spotifyId: "",
-    appleId: "",
-    splits: [{ name: user.firstName, role: "Owner", percentage: 100 }]
   });
 
   const syncedTracks = user.works || [];
@@ -137,7 +98,6 @@ export function DistributionWizard({ user, onComplete }: any) {
       version: "Original",
       contributors: [
         { id: "1", name: user.artistName || user.firstName, type: "Main Artist" },
-        { id: "2", name: `${user.firstName} ${user.lastName}`, type: "Composer (Legal Name)" }
       ],
       explicit: "not_explicit",
       language: "Portuguese",
@@ -159,9 +119,7 @@ export function DistributionWizard({ user, onComplete }: any) {
       id: track.regId || track.id,
       title: track.title,
       version: "Original",
-      contributors: [
-        { id: "1", name: user.artistName || user.firstName, type: "Main Artist" }
-      ],
+      contributors: [{ id: "1", name: user.artistName || user.firstName, type: "Main Artist" }],
       explicit: "not_explicit",
       language: track.language || "Portuguese",
       songwriter: "i_wrote",
@@ -171,12 +129,11 @@ export function DistributionWizard({ user, onComplete }: any) {
       isrc: track.isrc || "",
       youtubeContentId: true,
       agreedToRules: true,
-      fileSize: "Synced from Catalog",
+      fileSize: "Synced",
       isExternal: true
     };
     setTracks(prev => [...prev, newTrack]);
     setIsSelectModalOpen(false);
-    toast({ title: "Faixa Importada", description: `"${track.title}" foi adicionada ao lançamento.` });
   };
 
   const removeTrack = (id: string) => {
@@ -186,13 +143,11 @@ export function DistributionWizard({ user, onComplete }: any) {
   const updateTrack = (updated: TrackData) => {
     setTracks(prev => prev.map(t => t.id === updated.id ? updated : t));
     setEditingTrack(null);
-    toast({ title: "Metadados Atualizados", description: `Informações de "${updated.title}" salvas.` });
   };
 
   async function handleSubmit() {
     setLoading(true);
     setTimeout(() => {
-      // Simulação de persistência no objeto do usuário
       const users = JSON.parse(localStorage.getItem('dmg_hub_users') || '{}');
       const updatedUser = { ...user };
       const newRelease = {
@@ -200,7 +155,7 @@ export function DistributionWizard({ user, onComplete }: any) {
         title: form.title || "Untitled Release",
         artist: form.mainArtist,
         status: "In Review",
-        image: tracks[0]?.isExternal ? "/viniamaral/01.Somebody Like A Ghost.png" : "https://picsum.photos/seed/dmg-new/400/400",
+        image: "https://picsum.photos/seed/dmg-new/400/400",
         date: new Date().toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' })
       };
       updatedUser.distributedReleases = [...(updatedUser.distributedReleases || []), newRelease];
@@ -209,10 +164,7 @@ export function DistributionWizard({ user, onComplete }: any) {
       localStorage.setItem('dmg_hub_session', JSON.stringify(updatedUser));
 
       setLoading(false);
-      toast({
-        title: "Lançamento Enviado!",
-        description: "Seu material está em processamento industrial. ISRC será gerado em 24h.",
-      });
+      toast({ title: "Lançamento Enviado!", description: "Seu material está em processamento industrial." });
       onComplete(updatedUser);
     }, 2000);
   }
@@ -220,45 +172,44 @@ export function DistributionWizard({ user, onComplete }: any) {
   return (
     <div className="flex flex-col h-screen bg-white text-zinc-900 -m-8 font-sans selection:bg-zinc-200 overflow-hidden">
       {/* HEADER FIXO */}
-      <div className="p-12 pb-6 border-b border-zinc-100 shrink-0">
+      <div className="p-12 pb-6 shrink-0">
         <div 
-          className="flex items-center gap-2 mb-10 cursor-pointer group w-fit" 
+          className="flex items-center gap-2 mb-8 cursor-pointer group w-fit" 
           onClick={() => onComplete()}
         >
-          <div className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-zinc-50 transition-colors">
-            <MoveLeft className="h-4 w-4" />
-          </div>
-          <span className="text-xs font-bold tracking-tight">Back to Distribution</span>
+          <MoveLeft className="h-5 w-5" />
+          <span className="text-sm font-bold tracking-tight">Back to Distribution</span>
         </div>
 
-        <div className="max-w-6xl mx-auto space-y-12">
+        <div className="max-w-7xl mx-auto space-y-10">
           <div className="flex justify-between items-center">
             <h1 className="text-4xl font-extrabold tracking-tight">
-              {form.title || "Untitled Release"}
+              Create your new release
             </h1>
-            <div className="flex gap-2">
-              <Button variant="outline" className="bg-zinc-100 border-none rounded-md font-bold h-10 px-6 text-zinc-900 hover:bg-zinc-200 shadow-none">
+            <div className="flex gap-3">
+              <Button variant="outline" className="bg-zinc-100 border-none rounded-md font-bold h-11 px-8 text-zinc-900 hover:bg-zinc-200 shadow-none">
                 Save and quit
               </Button>
-              <Button variant="outline" className="bg-zinc-100 border-none rounded-md font-bold h-10 px-4 text-zinc-500 hover:bg-zinc-200 shadow-none">
+              <Button variant="outline" className="bg-zinc-100 border-none rounded-md font-bold h-11 px-6 text-zinc-500 hover:bg-zinc-200 shadow-none">
                 <Trash2 className="h-4 w-4 mr-2" /> Delete
               </Button>
             </div>
           </div>
 
-          <div className="flex items-center gap-8 py-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-10 py-2 overflow-x-auto no-scrollbar border-b border-zinc-100 pb-6">
             {STEPS.map((s) => (
               <div 
                 key={s.id} 
                 className={`flex items-center gap-3 transition-opacity shrink-0 ${step === s.id ? 'opacity-100' : 'opacity-40 hover:opacity-60 cursor-pointer'}`}
                 onClick={() => step !== s.id && setStep(s.id)}
               >
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black ${
-                  step === s.id ? 'bg-black text-white' : 'bg-zinc-200 text-zinc-600'
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${
+                  step === s.id ? 'bg-black text-white' : 
+                  step > s.id ? 'bg-green-50 text-green-600' : 'bg-zinc-200 text-zinc-600'
                 }`}>
-                  {s.id}
+                  {step > s.id ? <Check className="h-4 w-4" /> : s.id}
                 </div>
-                <span className="text-xs font-bold">{s.label}</span>
+                <span className={`text-sm font-bold ${step === s.id ? 'text-black' : 'text-zinc-500'}`}>{s.label}</span>
               </div>
             ))}
           </div>
@@ -266,8 +217,8 @@ export function DistributionWizard({ user, onComplete }: any) {
       </div>
 
       {/* ÁREA DE CONTEÚDO ROLÁVEL */}
-      <div className="flex-1 overflow-y-auto p-12 py-8">
-        <div className="max-w-6xl mx-auto min-h-full">
+      <div className="flex-1 overflow-y-auto p-12 py-4">
+        <div className="max-w-7xl mx-auto min-h-full">
           {step === 1 && (
             <div className="space-y-8 animate-in fade-in duration-300">
               <div className="space-y-1">
@@ -286,7 +237,7 @@ export function DistributionWizard({ user, onComplete }: any) {
 
                         <div className="flex-1 min-w-0 pr-8">
                           <p className="font-bold text-sm leading-tight mb-0.5">{t.title}</p>
-                          <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-tight">ISRC: {t.isrc || "QZYB42534253"}</p>
+                          <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-tight">ISRC: {t.isrc || "PENDING"}</p>
                         </div>
 
                         <Button 
@@ -302,7 +253,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                           <div className="h-0.5 flex-1 bg-zinc-100 rounded-full relative">
                             <div className="absolute inset-y-0 left-0 w-0 bg-zinc-300 rounded-full" />
                           </div>
-                          <span className="text-[10px] font-bold text-zinc-400">-4:22</span>
+                          <span className="text-[10px] font-bold text-zinc-400">-0:00</span>
                         </div>
 
                         <Button 
@@ -337,33 +288,100 @@ export function DistributionWizard({ user, onComplete }: any) {
           )}
 
           {step === 2 && (
-            <div className="space-y-10 animate-in fade-in max-w-2xl mx-auto py-10">
-              <div className="space-y-2">
-                <Label className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Release title *</Label>
-                <Input value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="h-14 bg-zinc-50 border-zinc-200 rounded-md font-bold text-lg" placeholder="Ex: Midnight Memories" />
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-16 animate-in fade-in py-10">
+              {/* COLUNA 1: ARTWORK */}
+              <div className="md:col-span-3 space-y-6">
+                <Label className="text-sm font-extrabold text-black uppercase">Album artwork <span className="text-primary">*</span></Label>
+                <div className="space-y-4">
+                  <div className="aspect-square bg-[#555] rounded-xl flex items-center justify-center text-white relative group overflow-hidden border-2 border-transparent">
+                    <Cloud className="h-24 w-24 opacity-40" />
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <Button variant="outline" className="w-full h-12 bg-zinc-50 border-none font-bold text-zinc-900 rounded-md">
+                    <Upload className="mr-2 h-4 w-4" /> Upload image
+                  </Button>
+                  <p className="text-[10px] text-zinc-400 font-medium leading-relaxed">
+                    (Accepted file types: JPG, JPEG, PNG; Image must be at least: 3000 × 3000)
+                  </p>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Main artist *</Label>
-                <Input value={form.mainArtist} className="h-14 bg-zinc-50 border-zinc-200 rounded-md font-bold text-lg" />
-              </div>
-              <div className="grid grid-cols-2 gap-6">
+
+              {/* COLUNA 2: BASIC INFO */}
+              <div className="md:col-span-5 space-y-10">
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Genre *</Label>
+                  <Label className="text-sm font-extrabold text-black uppercase">Album title <span className="text-primary">*</span></Label>
+                  <Input 
+                    value={form.title} 
+                    onChange={e => setForm({...form, title: e.target.value})} 
+                    className="h-14 bg-zinc-50 border-[#e11d48] rounded-md font-bold text-lg focus-visible:ring-0" 
+                    placeholder="Title" 
+                  />
+                  <p className="text-[11px] font-bold text-[#e11d48]">Title is required</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-extrabold text-black uppercase">Genre <span className="text-primary">*</span></Label>
                   <Select value={form.genre} onValueChange={v => setForm({...form, genre: v})}>
-                    <SelectTrigger className="h-14 bg-zinc-50 border-zinc-200 rounded-md font-bold">
-                      <SelectValue placeholder="Select Genre" />
+                    <SelectTrigger className="h-14 bg-zinc-50 border-[#e11d48] rounded-md font-bold text-zinc-500">
+                      <SelectValue placeholder="Select a Genre" />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
                       <SelectItem value="Pop">Pop</SelectItem>
-                      <SelectItem value="R&B">R&B</SelectItem>
-                      <SelectItem value="Hip-Hop">Hip-Hop</SelectItem>
                       <SelectItem value="Trap">Trap</SelectItem>
+                      <SelectItem value="R&B">R&B</SelectItem>
                     </SelectContent>
                   </Select>
+                  <p className="text-[11px] font-bold text-[#e11d48]">A primary genre is required</p>
                 </div>
+
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Label name</Label>
-                  <Input value={form.labelName} className="h-14 bg-zinc-50 border-zinc-200 rounded-md font-bold" />
+                  <Label className="text-sm font-extrabold text-black uppercase">Secondary Genre</Label>
+                  <Select disabled>
+                    <SelectTrigger className="h-14 bg-zinc-200 border-none rounded-md font-bold text-zinc-500">
+                      <SelectValue placeholder="No secondary genres available" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white" />
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-extrabold text-black uppercase flex items-center gap-2">
+                    Record Label <span className="text-primary">*</span> <Info className="h-4 w-4 text-zinc-400" />
+                  </Label>
+                  <Input 
+                    value={form.labelName} 
+                    onChange={e => setForm({...form, labelName: e.target.value})} 
+                    className="h-14 bg-zinc-50 border-[#e11d48] rounded-md font-bold text-lg" 
+                    placeholder="Label" 
+                  />
+                  <p className="text-[11px] font-bold text-[#e11d48]">Label is required</p>
+                </div>
+              </div>
+
+              {/* COLUNA 3: ADDITIONAL INFO */}
+              <div className="md:col-span-4 space-y-10">
+                <div className="space-y-4">
+                  <Label className="text-sm font-extrabold text-black uppercase">Main Artists <span className="text-primary">*</span></Label>
+                  <div className="bg-zinc-200 p-4 rounded-md min-h-[56px] flex items-center">
+                    <span className="text-sm font-bold text-zinc-500">No main artists</span>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <Label className="text-sm font-extrabold text-black uppercase">Release Date <span className="text-primary">*</span></Label>
+                  <div className="bg-zinc-100 p-4 rounded-md h-14 flex items-center justify-between border-none">
+                    <span className="text-sm font-bold text-zinc-900">{form.releaseDate}</span>
+                    <CalendarIcon className="h-5 w-5 text-zinc-400" />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <Label className="text-sm font-extrabold text-black uppercase flex items-center gap-2">
+                    Is this a re-release? <Info className="h-4 w-4 text-zinc-400" />
+                  </Label>
+                  <Button variant="outline" className="h-12 bg-zinc-100 border-none font-bold text-zinc-900 px-6 rounded-md shadow-none">
+                    Add an original release date
+                  </Button>
                 </div>
               </div>
             </div>
@@ -404,40 +422,30 @@ export function DistributionWizard({ user, onComplete }: any) {
                 <Settings2 className="h-10 w-10 text-zinc-300" />
               </div>
               <h2 className="text-2xl font-bold">Step: {STEPS[step-1].label}</h2>
-              <p className="text-zinc-400 font-medium">Standard industrial configuration area. This section is being optimized for real-time validation.</p>
+              <p className="text-zinc-400 font-medium">This section is being optimized for real-time validation.</p>
             </div>
           )}
         </div>
       </div>
 
       {/* RODAPÉ FIXO */}
-      <div className="p-12 pt-6 border-t border-zinc-100 shrink-0 bg-white">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <div className="p-12 pt-6 shrink-0 bg-white">
+        <div className="max-w-7xl mx-auto flex justify-end items-center gap-8">
           <button 
-            className="font-bold text-sm text-zinc-900 hover:underline" 
-            onClick={() => onComplete()}
+            className="font-extrabold text-sm text-black hover:underline" 
+            onClick={prev}
+            disabled={step === 1}
           >
-            Cancel
+            Previous
           </button>
           
-          <div className="flex gap-4">
-            {step > 1 && (
-              <Button 
-                onClick={prev}
-                variant="outline"
-                className="bg-white border-zinc-200 rounded-md font-bold px-8 h-12 hover:bg-zinc-50 shadow-none text-sm"
-              >
-                Back
-              </Button>
-            )}
-            <Button 
-              onClick={step === 6 ? handleSubmit : next}
-              disabled={(step === 1 && tracks.length === 0) || loading}
-              className="bg-black text-white rounded-md font-bold px-12 h-12 hover:bg-zinc-800 shadow-2xl text-sm"
-            >
-              {loading ? "Processing..." : step === 6 ? "Finish & Submit" : "Next Step"}
-            </Button>
-          </div>
+          <Button 
+            onClick={step === 6 ? handleSubmit : next}
+            disabled={(step === 1 && tracks.length === 0) || loading}
+            className="bg-black text-white rounded-md font-black px-12 h-12 hover:bg-zinc-800 shadow-2xl text-sm"
+          >
+            {loading ? "Processing..." : step === 6 ? "Finish & Submit" : "Next"}
+          </Button>
         </div>
       </div>
 
@@ -461,7 +469,6 @@ export function DistributionWizard({ user, onComplete }: any) {
                   <Upload className="h-6 w-6 text-zinc-400 group-hover:text-black" />
                 </div>
                 <p className="text-[10px] font-black text-zinc-400 group-hover:text-zinc-900 uppercase tracking-widest">UPLOAD FROM COMPUTER</p>
-                <p className="text-[9px] text-zinc-300 font-bold">WAV or MP3 (320kbps recommended)</p>
                 <input type="file" multiple accept=".mp3,.wav" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleFileUpload} />
               </div>
 
@@ -485,7 +492,7 @@ export function DistributionWizard({ user, onComplete }: any) {
                             </div>
                             <div>
                               <span className="font-bold text-xs uppercase block leading-none mb-1 group-hover:text-black">{t.title}</span>
-                              <span className="text-[9px] text-zinc-400 font-mono tracking-tighter">{t.isrc || "NO ISRC (GENERATE LATER)"}</span>
+                              <span className="text-[9px] text-zinc-400 font-mono tracking-tighter">{t.isrc || "NO ISRC"}</span>
                             </div>
                           </div>
                           <Button size="sm" variant="ghost" className="text-[9px] font-black uppercase text-zinc-400 group-hover:text-black">Select</Button>
@@ -534,7 +541,6 @@ export function DistributionWizard({ user, onComplete }: any) {
                       <SelectItem value="Original">Original</SelectItem>
                       <SelectItem value="Radio Edit">Radio Edit</SelectItem>
                       <SelectItem value="Remix">Remix</SelectItem>
-                      <SelectItem value="Acoustic">Acoustic</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -543,7 +549,6 @@ export function DistributionWizard({ user, onComplete }: any) {
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
                   <h3 className="text-sm font-black uppercase tracking-widest text-zinc-900">Contributors</h3>
-                  <p className="text-[10px] text-zinc-400 font-bold uppercase">Rights Management</p>
                 </div>
                 <div className="space-y-4">
                   {editingTrack.contributors.map((c, i) => (
@@ -579,11 +584,6 @@ export function DistributionWizard({ user, onComplete }: any) {
                       <p className="text-[10px] text-zinc-400 font-medium">Protect and monetize your audio across the entire YouTube network.</p>
                     </div>
                   </div>
-                  <div className="pl-8 p-6 border-l-2 border-zinc-900 bg-zinc-50/50">
-                    <p className="text-[11px] text-zinc-500 leading-relaxed font-medium">
-                      To enable Content ID, you must have exclusive rights to the audio. This excludes beats leased from online marketplaces or royalty-free samples (e.g. Splice). Misuse of Content ID may result in permanent account suspension.
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -591,7 +591,7 @@ export function DistributionWizard({ user, onComplete }: any) {
             <div className="p-8 border-t border-zinc-100 bg-zinc-50 flex justify-end gap-4 shrink-0">
               <button className="text-xs font-bold text-zinc-400 hover:text-black uppercase" onClick={() => setEditingTrack(null)}>Cancel</button>
               <Button 
-                onClick={() => updateTrack(editingTrack)} 
+                onClick={() => updateTrack(editingTrack!)} 
                 className="bg-black text-white font-black rounded-none px-12 h-14 text-sm hover:bg-zinc-800 shadow-2xl uppercase tracking-widest"
               >
                 Save and close
