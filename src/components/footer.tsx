@@ -1,36 +1,41 @@
 
-import { Mic2 } from "lucide-react";
+import { DmgLogo } from "./dmg-logo";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  return (
-    <footer className="bg-black py-16 border-t border-white/5">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-          <div className="flex items-center gap-2">
-            <div className="bg-primary p-2 rounded-sm">
-              <Mic2 className="text-white h-5 w-5" />
-            </div>
-            <span className="text-xl font-black tracking-tighter text-white">
-              DMG <span className="text-primary">RECORDS</span>
-            </span>
-          </div>
+  const footerLinks = [
+    { name: "Início", href: "#inicio" },
+    { name: "O Artista", href: "#artista" },
+    { name: "Lançamentos", href: "#lancamentos" },
+    { name: "Produções", href: "#producoes" },
+    { name: "Sobre", href: "#sobre" },
+  ];
 
-          <nav className="flex flex-wrap justify-center gap-8 text-xs font-bold uppercase tracking-[0.2em] text-white/40">
-            <a href="#inicio" className="hover:text-primary transition-colors">Início</a>
-            <a href="#artista" className="hover:text-primary transition-colors">O Artista</a>
-            <a href="#lancamentos" className="hover:text-primary transition-colors">Lançamentos</a>
-            <a href="#producoes" className="hover:text-primary transition-colors">Produções</a>
-            <a href="#sobre" className="hover:text-primary transition-colors">Sobre</a>
+  return (
+    <footer className="bg-black py-20 border-t border-white/5">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-16">
+          <DmgLogo textSize="text-3xl" iconSize={28} />
+
+          <nav className="flex flex-wrap justify-center gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
+            {footerLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className="hover:text-primary transition-all hover:translate-y-[-2px]"
+              >
+                {link.name}
+              </a>
+            ))}
           </nav>
         </div>
 
-        <div className="pt-8 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/20">
+        <div className="pt-10 border-t border-white/5 text-center flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/20">
           <p>© {currentYear} DMG Records & DMG Stream. Todos os direitos reservados.</p>
-          <div className="flex gap-6">
+          <div className="flex gap-10">
             <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
-            <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
+            <a href="#" className="hover:text-white transition-colors">Privacidade</a>
           </div>
         </div>
       </div>

@@ -3,9 +3,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Mic2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { DmgLogo } from "./dmg-logo";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,30 +34,23 @@ export function Navigation() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-black/90 backdrop-blur-md border-b border-border py-4" : "bg-transparent py-6"
+        scrolled ? "bg-black/95 backdrop-blur-md border-b border-white/10 py-4 shadow-2xl" : "bg-transparent py-6"
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-primary p-2 rounded-sm rotate-3 group-hover:rotate-0 transition-transform">
-            <Mic2 className="text-white h-6 w-6" />
-          </div>
-          <span className="text-2xl font-black tracking-tighter text-white">
-            DMG <span className="text-primary">RECORDS</span>
-          </span>
-        </Link>
+        <DmgLogo />
 
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium uppercase tracking-widest text-white/80 hover:text-primary transition-colors"
+              className="text-xs font-bold uppercase tracking-[0.2em] text-white/70 hover:text-primary transition-all hover:translate-y-[-1px]"
             >
               {link.name}
             </Link>
           ))}
-          <Button asChild variant="default" className="rounded-none px-6">
+          <Button asChild className="rounded-none px-6 font-black tracking-tighter bg-primary hover:bg-primary/90">
             <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
               OUVIR AGORA
             </a>
@@ -64,29 +58,29 @@ export function Navigation() {
         </nav>
 
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isOpen ? <X className="h-8 w-8 text-primary" /> : <Menu className="h-8 w-8" />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-black border-b border-border animate-in slide-in-from-top duration-300">
-          <nav className="flex flex-col p-6 gap-6">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 animate-in slide-in-from-top duration-300">
+          <nav className="flex flex-col p-8 gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium uppercase tracking-widest text-white hover:text-primary"
+                className="text-xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors italic"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <Button asChild variant="default" className="rounded-none w-full py-6">
+            <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter">
               <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
-                OUVIR AGORA
+                OUVIR NO SOUNDCLOUD
               </a>
             </Button>
           </nav>
