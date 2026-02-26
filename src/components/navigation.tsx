@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Hammer, User } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DmgLogo } from "./dmg-logo";
@@ -24,7 +24,6 @@ export function Navigation() {
     { name: "Início", href: "/#inicio" },
     { name: "O Artista", href: "/#artista" },
     { name: "Lançamentos", href: "/#lancamentos" },
-    { name: "Ferramentas", href: "/ferramentas" },
     { name: "Rádio", href: "/#radio" },
     { name: "Contato", href: "/#contato" },
   ];
@@ -55,14 +54,9 @@ export function Navigation() {
             </Link>
           ))}
           <div className="flex items-center gap-3 ml-4">
-             <Button asChild variant="outline" className="rounded-none px-6 h-10 font-black tracking-tighter border-primary text-primary hover:bg-primary hover:text-white text-xs italic">
+             <Button asChild className="rounded-none px-8 h-12 font-black tracking-tighter bg-primary hover:bg-primary/90 text-sm italic shadow-xl shadow-primary/20">
               <Link href="/hub">
-                <User className="mr-2 h-3 w-3" /> ÁREA DO ARTISTA
-              </Link>
-            </Button>
-            <Button asChild className="rounded-none px-6 h-10 font-black tracking-tighter bg-primary hover:bg-primary/90 text-xs italic">
-              <Link href="/ferramentas">
-                <Hammer className="mr-2 h-3 w-3" /> TOOLS
+                <User className="mr-2 h-4 w-4" /> ÁREA DO ARTISTA
               </Link>
             </Button>
           </div>
@@ -93,11 +87,6 @@ export function Navigation() {
               <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
                 <Link href="/hub" onClick={() => setIsOpen(false)}>
                   ÁREA DO ARTISTA
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter border-primary text-primary">
-                <Link href="/ferramentas" onClick={() => setIsOpen(false)}>
-                  FERRAMENTAS
                 </Link>
               </Button>
             </div>
