@@ -27,7 +27,6 @@ import { toast } from "@/hooks/use-toast";
 export function ProfilePage({ user, onUpdate }: any) {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [kycFiles, setKycFiles] = useState({ id: null, address: null });
 
   async function handleSave(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -83,35 +82,52 @@ export function ProfilePage({ user, onUpdate }: any) {
         <div className="lg:col-span-2 space-y-8">
           
           {/* ASCAP Partnership Section */}
-          <div className="bg-zinc-950 border border-white/5 rounded-3xl p-8 space-y-6 relative overflow-hidden group hover:border-primary/20 transition-all">
+          <div className="bg-zinc-950 border border-primary/20 rounded-3xl p-8 space-y-6 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-10 opacity-5 grayscale group-hover:grayscale-0 transition-all">
               <Star className="h-24 w-24 text-primary" />
             </div>
             <div className="flex items-center justify-between border-b border-white/5 pb-6">
               <div className="space-y-1">
                 <h2 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
-                  <Star className="h-5 w-5 text-primary" /> Filiação Internacional ASCAP
+                  <Star className="h-5 w-5 text-primary" /> Filiação Global ASCAP
                 </h2>
-                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Coleta de Royalties via Parceria DMG Records</p>
+                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Identidade de Criador Internacional (DMG Partner)</p>
               </div>
               <div className="text-right">
-                <p className="text-[9px] font-black uppercase text-zinc-600 mb-1">Status do Registro</p>
-                <span className="bg-accent/10 text-accent border border-accent/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">Em Processamento</span>
+                <p className="text-[9px] font-black uppercase text-zinc-600 mb-1">Status IPI / CAE</p>
+                <span className="bg-accent/10 text-accent border border-accent/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">
+                  {user.ipi ? 'Vinculado' : 'Em Geração'}
+                </span>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-              <div className="space-y-2">
-                <p className="text-[10px] font-black uppercase text-zinc-600">O que é a ASCAP?</p>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  American Society of Composers, Authors and Publishers. Como parceira, a DMG envia seus dados para filiação automática, garantindo que suas obras sejam monetizadas em todo o território americano e mundial.
-                </p>
+              <div className="space-y-4">
+                <div className="p-4 bg-white/5 border border-white/10 rounded-2xl">
+                   <p className="text-[10px] font-black uppercase text-zinc-600 mb-2">Seu Código IPI / CAE</p>
+                   <p className="text-xl font-black text-white font-mono tracking-wider">{user.ipi || "SOLICITADO"}</p>
+                   <p className="text-[9px] text-zinc-500 mt-2 font-medium">Este número identifica você unicamente em todas as sociedades de direitos autorais do mundo.</p>
+                </div>
+                <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl">
+                   <p className="text-[10px] font-black uppercase text-primary mb-1">Sociedade Vinculada</p>
+                   <p className="text-sm font-black text-white italic uppercase tracking-tighter">ASCAP (USA)</p>
+                </div>
               </div>
-              <div className="space-y-2">
-                <p className="text-[10px] font-black uppercase text-zinc-600">Prazos e Repasses</p>
-                <p className="text-xs text-zinc-400 leading-relaxed">
-                  A aprovação final leva de 3 a 4 semanas. A ASCAP coleta os royalties e repassa à DMG, que credita integralmente em sua carteira digital trimestralmente.
-                </p>
+              <div className="space-y-4">
+                <p className="text-[10px] font-black uppercase text-zinc-600 mb-2">O que a ASCAP libera para você?</p>
+                <div className="space-y-3">
+                   {[
+                     "Coleta de performance em rádios de 150+ países.",
+                     "Monetização em Redes de TV e Streaming de Vídeo.",
+                     "Rastreamento de uso de obras em locais públicos nos EUA.",
+                     "Proteção contra infrações de copyright internacional."
+                   ].map((item, i) => (
+                     <div key={i} className="flex gap-2 items-start">
+                       <CheckCircle2 className="h-3 w-3 text-accent shrink-0 mt-0.5" />
+                       <p className="text-[11px] text-zinc-400 font-medium">{item}</p>
+                     </div>
+                   ))}
+                </div>
               </div>
             </div>
           </div>
@@ -124,7 +140,7 @@ export function ProfilePage({ user, onUpdate }: any) {
                 <h2 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
                   <Shield className="h-5 w-5 text-primary" /> Verificação de Identidade (KYC)
                 </h2>
-                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Obrigatório para recebimento de royalties via Stripe</p>
+                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Obrigatório para liquidação de royalties via Stripe</p>
               </div>
               <span className="text-[9px] font-black uppercase bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full">Pendente</span>
             </div>
@@ -140,7 +156,7 @@ export function ProfilePage({ user, onUpdate }: any) {
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-xs font-black uppercase text-white">Documento Oficial</h4>
-                  <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">Frente e verso do RG, CNH ou Passaporte válido.</p>
+                  <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">RG, CNH ou Passaporte válido.</p>
                 </div>
               </div>
 
@@ -154,17 +170,9 @@ export function ProfilePage({ user, onUpdate }: any) {
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-xs font-black uppercase text-white">Comprovante de Residência</h4>
-                  <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">Conta de luz, água ou telefone dos últimos 90 dias.</p>
+                  <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">Conta de utilidade dos últimos 90 dias.</p>
                 </div>
               </div>
-            </div>
-
-            <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl flex items-start gap-4">
-              <CreditCard className="h-5 w-5 text-primary shrink-0" />
-              <p className="text-[11px] text-zinc-400 font-medium leading-relaxed">
-                <strong className="text-white uppercase tracking-tighter italic mr-1">Aviso Stripe Connect:</strong> 
-                Seus dados serão criptografados e enviados diretamente para o processador de pagamentos Stripe para criação da sua sub-conta financeira real.
-              </p>
             </div>
           </div>
 
@@ -197,8 +205,8 @@ export function ProfilePage({ user, onUpdate }: any) {
                   <Input name="artistName" defaultValue={user.artistName} className="bg-white/5 border-white/10 h-12 rounded-xl" />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Telefone</Label>
-                  <Input name="phone" defaultValue={user.phone} className="bg-white/5 border-white/10 h-12 rounded-xl" />
+                  <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">IPI / CAE Number</Label>
+                  <Input name="ipi" defaultValue={user.ipi} className="bg-white/5 border-white/10 h-12 rounded-xl" placeholder="Opcional" />
                 </div>
                 <div className="md:col-span-2 space-y-2">
                   <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Bio / Release</Label>
@@ -217,9 +225,9 @@ export function ProfilePage({ user, onUpdate }: any) {
                   ["E-mail", user.email],
                   ["Telefone", user.phone || "—"],
                   ["País", user.country || "—"],
-                  ["PRO Principal", "ASCAP (Parceiro DMG)"],
-                  ["IPI / CAE", user.ipi || "—"],
-                  ["ID Único", user.id],
+                  ["IPI / CAE (Global)", user.ipi || "EM GERAÇÃO"],
+                  ["PRO Principal", "ASCAP (DMG Partner)"],
+                  ["ID Único HUB", user.id],
                   ["Data de Cadastro", user.joined],
                 ].map(([k, v]) => (
                   <div key={k}>
@@ -275,7 +283,7 @@ export function ProfilePage({ user, onUpdate }: any) {
               <ExternalLink className="h-4 w-4 text-primary" /> Privacidade (LGPD)
             </h3>
             <p className="text-[10px] text-zinc-500 font-medium leading-relaxed">
-              Seus dados estão protegidos sob as leis brasileiras. Você tem controle total sobre suas informações.
+              Seus dados estão protegidos sob as leis brasileiras e integrados com as sociedades globais via API.
             </p>
             <div className="space-y-3">
               <Button variant="ghost" className="w-full justify-start text-[10px] font-black uppercase tracking-widest text-zinc-400 h-10 rounded-xl hover:text-primary">
@@ -295,22 +303,18 @@ export function ProfilePage({ user, onUpdate }: any) {
                     </div>
                     <AlertDialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary leading-none">Ação Crítica e Irreversível</AlertDialogTitle>
                     <AlertDialogDescription className="text-zinc-400 space-y-4 text-sm leading-relaxed">
-                      <p>Você está prestes a iniciar o processo de exclusão da sua conta no <strong>DMG ARTIST HUB</strong>. Por favor, leia atentamente os termos abaixo antes de prosseguir:</p>
-                      
+                      <p>Você está prestes a iniciar o processo de exclusão da sua conta. Lembre-se que isso afetará seus registros ativos na ASCAP via DMG.</p>
                       <div className="bg-black/50 border border-white/5 p-4 rounded-xl space-y-3 font-medium">
-                        <p className="text-white"><span className="text-primary">●</span> <strong>Royalties em Processamento:</strong> Quaisquer valores de streaming ou execução pública que estejam em período de apuração ou trânsito serão retidos para auditoria. A exclusão da conta pode acarretar na perda definitiva de créditos não resgatados.</p>
-                        <p className="text-white"><span className="text-primary">●</span> <strong>Remoção de Conteúdo:</strong> Seu EPK Público, Catálogo de Obras e acesso às ferramentas de IA serão imediatamente desativados.</p>
-                        <p className="text-white"><span className="text-primary">●</span> <strong>Sub-conta Stripe:</strong> A sub-conta financeira vinculada ao seu ID será encerrada após a liquidação de saldos pendentes pela curadoria.</p>
+                        <p className="text-white">● <strong>Royalties:</strong> Valores em período de apuração ASCAP/Stripe serão retidos.</p>
+                        <p className="text-white">● <strong>IPI / CAE:</strong> A vinculação da DMG com seu IPI será encerrada.</p>
                       </div>
-
-                      <p className="font-bold text-zinc-300 italic">Para sua segurança financeira e jurídica, a exclusão definitiva deve ser validada pela nossa curadoria.</p>
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter className="gap-3 mt-6">
-                    <AlertDialogCancel className="border-white/10 text-zinc-500 hover:text-white rounded-none">CANCELAR OPERAÇÃO</AlertDialogCancel>
+                    <AlertDialogCancel className="border-white/10 text-zinc-500 hover:text-white rounded-none">CANCELAR</AlertDialogCancel>
                     <AlertDialogAction asChild>
-                      <Button className="bg-destructive text-white font-black uppercase rounded-none px-6" onClick={() => window.location.href = "mailto:suporte@dmgrecords.com.br?subject=Solicitação de Exclusão de Conta - " + user.id}>
-                        SOLICITAR EXCLUSÃO À DMG <Mail className="ml-2 h-4 w-4" />
+                      <Button className="bg-destructive text-white font-black uppercase rounded-none px-6" onClick={() => window.location.href = "mailto:suporte@dmgrecords.com.br?subject=Exclusão de Conta - " + user.id}>
+                        SOLICITAR EXCLUSÃO <Mail className="ml-2 h-4 w-4" />
                       </Button>
                     </AlertDialogAction>
                   </AlertDialogFooter>
