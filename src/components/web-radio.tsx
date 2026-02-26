@@ -83,7 +83,9 @@ export function WebRadioSection() {
                   
                   <div className="grid gap-4 py-6">
                     <Button asChild className="w-full h-16 bg-white text-black font-black uppercase tracking-tighter hover:bg-zinc-200 rounded-none">
-                      <a href="/termos/concessao-br.pdf" download>TERMO DE CONCESSÃO (BRASILEIROS)</a>
+                      <a href="https://drive.google.com/file/d/1HUoawJqCR5KeP9Bw9gvSs0_Cu2sLc6L4/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                        TERMO DE CONCESSÃO (BRASILEIROS)
+                      </a>
                     </Button>
                     <Button asChild className="w-full h-16 bg-zinc-800 text-white font-black uppercase tracking-tighter hover:bg-zinc-700 rounded-none border border-white/10">
                       <a href="/termos/concessao-intl.pdf" download>TERMO DE CONCESSÃO (NON-BRAZILIANS)</a>
@@ -97,9 +99,11 @@ export function WebRadioSection() {
                     <p className="text-xs text-zinc-300 leading-relaxed">
                       Assine e envie o documento para: <span className="text-white font-bold">radio@dmgrecords.com.br</span>
                     </p>
-                    <p className="text-[10px] font-black uppercase text-accent tracking-widest">
-                      ⚠️ ATENÇÃO: O PRAZO É DE ATÉ 5 DIAS PARA INSERÇÃO NA GRADE.
-                    </p>
+                    <div className="p-2 bg-black/40 border border-accent/20">
+                      <p className="text-[10px] font-black uppercase text-accent tracking-widest leading-tight">
+                        ⚠️ ATENÇÃO: O PRAZO É DE ATÉ 5 DIAS ÚTEIS PARA INSERÇÃO NA GRADE APÓS O RECEBIMENTO DO E-MAIL.
+                      </p>
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
