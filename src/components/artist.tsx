@@ -3,13 +3,14 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Music2 } from "lucide-react";
+import { Music2, ShoppingCart } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 
 export function ArtistSection() {
   const images = Array.isArray(PlaceHolderImages) ? PlaceHolderImages : [];
   const artistImage = images.find((img) => img.id === "vini-amaral");
   const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
+  const elasticStageUrl = "https://elasticstage.com/soundcloud/releases/vini-amaral-nobody-knows-album";
 
   if (!artistImage) return null;
 
@@ -44,9 +45,8 @@ export function ArtistSection() {
             
             <div className="space-y-6 text-xl text-muted-foreground leading-relaxed font-medium">
               <p>
-                Vini Amaral é a estrela em ascensão da DMG Records. Com uma fusão única de R&B contemporâneo, 
-                Pop e elementos da cultura urbana, ele tem conquistado o cenário musical brasileiro com letras 
-                profundas e uma performance vocal inigualável.
+                Vini Amaral é a estrela em ascensão da DMG Records. Acaba de lançar seu novo projeto <strong>"Nobody Knows"</strong>, 
+                uma obra-prima que consolida sua fusão única de R&B contemporâneo e cultura urbana.
               </p>
               <p>
                 Nascido e criado no coração da música vibrante, Vini traz em sua essência a energia do asfalto 
@@ -62,11 +62,16 @@ export function ArtistSection() {
               <Badge variant="outline" className="border-white/20 text-white px-5 py-1.5 text-xs rounded-none font-black uppercase tracking-widest bg-transparent">TRAP SOUL</Badge>
             </div>
 
-            {/* Botão SoundCloud Laranja */}
-            <div className="pt-4">
+            {/* Botões de Ação */}
+            <div className="pt-4 flex flex-wrap gap-4">
               <Button asChild className="rounded-none bg-[#ff5500] hover:bg-[#ff5500]/90 text-white font-black italic h-16 px-10 text-lg tracking-tighter shadow-xl shadow-[#ff5500]/20 uppercase">
                  <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
                    <Music2 className="mr-3 h-6 w-6" /> SIGA NO SOUNDCLOUD
+                 </a>
+              </Button>
+              <Button asChild variant="outline" className="rounded-none border-primary text-primary hover:bg-primary hover:text-white font-black italic h-16 px-10 text-lg tracking-tighter shadow-xl uppercase">
+                 <a href={elasticStageUrl} target="_blank" rel="noopener noreferrer">
+                   <ShoppingCart className="mr-3 h-6 w-6" /> COMPRAR DISCO
                  </a>
               </Button>
             </div>
