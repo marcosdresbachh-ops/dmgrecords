@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
 import { AuthLayout } from "@/components/hub/auth-layout";
 import { DashboardLayout } from "@/components/hub/dashboard-layout";
 import { DashboardHome } from "@/components/hub/dashboard-home";
@@ -39,8 +37,7 @@ export default function HubPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <Navigation />
-      <div className="pt-32">
+      <div className="py-10">
         <DashboardLayout 
           user={user} 
           activePage={page} 
@@ -53,7 +50,6 @@ export default function HubPage() {
           {page === "ai" && <AIWorkspace user={user} />}
         </DashboardLayout>
       </div>
-      <Footer />
     </main>
   );
 }
