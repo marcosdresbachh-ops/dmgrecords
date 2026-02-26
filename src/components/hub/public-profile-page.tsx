@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,14 +19,13 @@ export function PublicProfilePage({ user, onUpdate }: any) {
     slug: user.artistSlug || (user.artistName || user.firstName).toLowerCase().replace(/\s+/g, '-'),
     playlistUrl: user.playlistUrl || "",
     bannerUrl: user.bannerUrl || "https://picsum.photos/seed/dmg-banner/1920/600",
-    avatarUrl: user.avatarUrl || "",
+    avatarUrl: user.avatarUrl || `https://picsum.photos/seed/${user.artistSlug || 'dmg'}/400/400`,
     instagram: user.instagram || "",
     spotify: user.spotify || "",
     whatsapp: user.phone || ""
   });
 
   const slug = form.slug;
-  const publicUrl = `dmgrecords.com.br/${slug}`;
 
   async function handleSave() {
     setLoading(true);
@@ -160,7 +160,7 @@ export function PublicProfilePage({ user, onUpdate }: any) {
               </div>
               <div className="absolute bottom-12 left-6 right-6 z-20 space-y-4">
                 <div className="w-16 h-16 rounded-xl bg-primary border-4 border-black flex items-center justify-center font-black text-2xl rotate-3 overflow-hidden shadow-lg">
-                   {form.avatarUrl ? <Image src={form.avatarUrl} alt="Av" fill className="object-cover" /> : user.firstName[0]}
+                   {form.avatarUrl ? <Image src={form.avatarUrl} alt="Av" fill className="object-cover" /> : (user.artistName || user.firstName)[0]}
                 </div>
                 <h4 className="text-3xl font-black italic uppercase leading-[0.9]">{user.artistName || user.firstName}</h4>
                 <div className="h-1 w-10 bg-primary" />
