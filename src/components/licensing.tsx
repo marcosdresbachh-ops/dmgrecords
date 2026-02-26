@@ -1,5 +1,5 @@
 
-import { ShieldCheck, Globe, Lock, FileCheck } from "lucide-react";
+import { ShieldCheck, Globe, Lock, FileCheck, Star } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 
 const PROTECTION_DETAILS = [
@@ -9,9 +9,9 @@ const PROTECTION_DETAILS = [
     desc: "Gestão completa de direitos autorais e execução pública via ECAD e associações nacionais, garantindo que cada play seja remunerado."
   },
   {
-    icon: <Globe className="h-12 w-12 text-accent" />,
-    title: "Proteção nos EUA",
-    desc: "Registro internacional através do U.S. Copyright Office e parcerias com PROs globais, protegendo sua obra em território americano."
+    icon: <Star className="h-12 w-12 text-accent" />,
+    title: "Proteção nos EUA (ASCAP)",
+    desc: "Como parceiros ASCAP, oferecemos filiação automática e coleta internacional direta, protegendo e monetizando sua obra em território americano."
   },
   {
     icon: <Lock className="h-12 w-12 text-primary" />,
@@ -35,7 +35,7 @@ export function LicensingSection() {
         <SectionHeading 
           badge="Segurança e Direito"
           title={<>TRABALHO PROTEGIDO <br /><span className="text-primary">GLOBALMENTE.</span></>}
-          description="A DMG Records garante que sua propriedade intelectual esteja segura em qualquer lugar do mundo, com foco especial nos mercados do Brasil e EUA."
+          description="Através da nossa parceria estratégica com a ASCAP e o suporte da Stripe Connect, garantimos que sua arte e seus ganhos estejam seguros em qualquer lugar do planeta."
           align="center"
           className="mb-24"
         />
@@ -62,9 +62,9 @@ export function LicensingSection() {
         </div>
 
         <div className="mt-20 p-8 border border-white/5 bg-primary/5 text-center">
-          <p className="text-sm font-black uppercase tracking-[0.4em] text-primary mb-2">Selo de Qualidade DMG</p>
+          <p className="text-sm font-black uppercase tracking-[0.4em] text-primary mb-2">Selo de Qualidade DMG & ASCAP Partner</p>
           <p className="text-xl text-white/80 font-medium italic">
-            "Sua arte é seu maior patrimônio. Nós cuidamos da burocracia para você focar apenas no som."
+            "Sua arte é coletada pela ASCAP, protegida pela DMG e paga via Stripe. O ciclo completo do profissionalismo musical."
           </p>
         </div>
       </div>

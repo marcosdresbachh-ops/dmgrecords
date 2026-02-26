@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getUsers, saveUsers, saveSession } from "@/lib/hub-auth";
-import { Loader2, UserPlus, Music2, Headphones, ShieldCheck, CreditCard } from "lucide-react";
+import { Loader2, UserPlus, Music2, Headphones, ShieldCheck, CreditCard, Globe } from "lucide-react";
 
 export function RegisterForm({ onLogin, onSwitch }: any) {
   const [step, setStep] = useState(1);
@@ -55,7 +55,10 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         // Stripe & KYC Initial State
         stripeAccountId: "acct_tmp_" + Math.random().toString(36).slice(2,10),
         kycStatus: "pending",
-        walletBalance: 0
+        walletBalance: 0,
+        // ASCAP Partnership Data
+        ascapStatus: "processing",
+        ascapSubmissionDate: new Date().toISOString()
       };
       
       const { password, confirm, ...userData } = user as any;
@@ -118,7 +121,7 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="text-center mb-4">
             <h3 className="text-white font-black uppercase text-sm tracking-widest mb-1">Crie sua Conta</h3>
-            <p className="text-primary text-[10px] font-bold uppercase tracking-widest">Provisionando Sub-conta Stripe Connect...</p>
+            <p className="text-primary text-[10px] font-bold uppercase tracking-widest">Auto-filiação ASCAP & Stripe Connect...</p>
           </div>
           
           {error && <div className="p-3 bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase text-center">{error}</div>}
@@ -182,10 +185,10 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
 
           <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg space-y-2">
             <div className="flex items-center gap-2 text-primary font-black text-[9px] uppercase tracking-widest">
-              <CreditCard className="h-3 w-3" /> Sistema de Royalties Stripe
+              <Globe className="h-3 w-3" /> Coleta Global ASCAP
             </div>
             <p className="text-[9px] text-zinc-500 leading-tight">
-              Ao se cadastrar, uma carteira digital segura será criada para o recebimento de seus ganhos reais. A ativação completa exige o upload de documentos no painel.
+              Como parceiros ASCAP, seus dados serão enviados para auto-filiação internacional. O processo leva de 3 a 4 semanas, mas seu acesso ao HUB é liberado <strong>agora</strong>.
             </p>
           </div>
 

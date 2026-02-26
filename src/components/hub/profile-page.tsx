@@ -5,7 +5,7 @@ import { useState } from "react";
 import { 
   User, Shield, Bell, Lock, Download, Trash2, Camera, 
   ExternalLink, AlertTriangle, Mail, CreditCard, Upload, 
-  CheckCircle2, FileText, Globe
+  CheckCircle2, FileText, Globe, Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -82,6 +82,40 @@ export function ProfilePage({ user, onUpdate }: any) {
       <div className="pt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           
+          {/* ASCAP Partnership Section */}
+          <div className="bg-zinc-950 border border-white/5 rounded-3xl p-8 space-y-6 relative overflow-hidden group hover:border-primary/20 transition-all">
+            <div className="absolute top-0 right-0 p-10 opacity-5 grayscale group-hover:grayscale-0 transition-all">
+              <Star className="h-24 w-24 text-primary" />
+            </div>
+            <div className="flex items-center justify-between border-b border-white/5 pb-6">
+              <div className="space-y-1">
+                <h2 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
+                  <Star className="h-5 w-5 text-primary" /> Filiação Internacional ASCAP
+                </h2>
+                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Coleta de Royalties via Parceria DMG Records</p>
+              </div>
+              <div className="text-right">
+                <p className="text-[9px] font-black uppercase text-zinc-600 mb-1">Status do Registro</p>
+                <span className="bg-accent/10 text-accent border border-accent/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">Em Processamento</span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+              <div className="space-y-2">
+                <p className="text-[10px] font-black uppercase text-zinc-600">O que é a ASCAP?</p>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  American Society of Composers, Authors and Publishers. Como parceira, a DMG envia seus dados para filiação automática, garantindo que suas obras sejam monetizadas em todo o território americano e mundial.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-[10px] font-black uppercase text-zinc-600">Prazos e Repasses</p>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  A aprovação final leva de 3 a 4 semanas. A ASCAP coleta os royalties e repassa à DMG, que credita integralmente em sua carteira digital trimestralmente.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* KYC Document Verification */}
           <div className="bg-zinc-950 border border-white/5 rounded-3xl p-8 space-y-8 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
@@ -183,7 +217,7 @@ export function ProfilePage({ user, onUpdate }: any) {
                   ["E-mail", user.email],
                   ["Telefone", user.phone || "—"],
                   ["País", user.country || "—"],
-                  ["PRO / Sociedade", user.pro || "Nenhuma"],
+                  ["PRO Principal", "ASCAP (Parceiro DMG)"],
                   ["IPI / CAE", user.ipi || "—"],
                   ["ID Único", user.id],
                   ["Data de Cadastro", user.joined],
