@@ -17,7 +17,8 @@ export function ArtistSection() {
     <section id="artista" className="py-32 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative aspect-[4/5] group overflow-hidden border-l-8 border-primary shadow-2xl">
+          {/* Lado Esquerdo: Imagem com estilo da foto */}
+          <div className="relative aspect-[4/5] group overflow-hidden border-l-[12px] border-primary shadow-2xl">
             <Image
               src={artistImage.imageUrl}
               alt={artistImage.description}
@@ -26,20 +27,22 @@ export function ArtistSection() {
               data-ai-hint={artistImage.imageHint}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-0 left-0 p-12 w-full">
-              <h3 className="text-6xl font-black text-white italic tracking-tighter uppercase leading-none">
-                VINI <br /> <span className="text-primary">AMARAL</span>
+            <div className="absolute bottom-8 left-8 p-4">
+              <h3 className="text-7xl font-black italic tracking-tighter uppercase leading-[0.8]">
+                <span className="text-white block">VINI</span>
+                <span className="text-primary block">AMARAL</span>
               </h3>
             </div>
           </div>
 
+          {/* Lado Direito: Conteúdo conforme a imagem */}
           <div className="space-y-10">
             <SectionHeading 
               badge="O Artista"
-              title={<>A VOZ DA NOVA <br /><span className="text-accent neon-glow italic">GERAÇÃO.</span></>}
+              title={<>A VOZ DA NOVA <br /><span className="text-accent italic neon-glow">GERAÇÃO.</span></>}
             />
             
-            <div className="space-y-6 text-xl text-muted-foreground leading-relaxed">
+            <div className="space-y-6 text-xl text-muted-foreground leading-relaxed font-medium">
               <p>
                 Vini Amaral é a estrela em ascensão da DMG Records. Com uma fusão única de R&B contemporâneo, 
                 Pop e elementos da cultura urbana, ele tem conquistado o cenário musical brasileiro com letras 
@@ -52,32 +55,35 @@ export function ArtistSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Badge variant="outline" className="border-primary/50 text-primary px-6 py-2 text-sm rounded-none font-black uppercase tracking-widest bg-primary/5">R&B</Badge>
-              <Badge variant="outline" className="border-accent/50 text-accent px-6 py-2 text-sm rounded-none font-black uppercase tracking-widest bg-accent/5">URBAN POP</Badge>
-              <Badge variant="outline" className="border-white/20 text-white px-6 py-2 text-sm rounded-none font-black uppercase tracking-widest">TRAP SOUL</Badge>
+            {/* Badges estilizadas */}
+            <div className="flex flex-wrap gap-3">
+              <Badge variant="outline" className="border-primary text-primary px-5 py-1.5 text-xs rounded-none font-black uppercase tracking-widest bg-transparent">R&B</Badge>
+              <Badge variant="outline" className="border-accent text-accent px-5 py-1.5 text-xs rounded-none font-black uppercase tracking-widest bg-transparent">URBAN POP</Badge>
+              <Badge variant="outline" className="border-white/20 text-white px-5 py-1.5 text-xs rounded-none font-black uppercase tracking-widest bg-transparent">TRAP SOUL</Badge>
             </div>
 
+            {/* Botão SoundCloud Laranja */}
             <div className="pt-4">
-              <Button asChild className="rounded-none bg-[#ff5500] hover:bg-[#ff5500]/90 text-white font-black italic h-16 px-10 text-lg tracking-tighter shadow-xl shadow-[#ff5500]/20">
+              <Button asChild className="rounded-none bg-[#ff5500] hover:bg-[#ff5500]/90 text-white font-black italic h-16 px-10 text-lg tracking-tighter shadow-xl shadow-[#ff5500]/20 uppercase">
                  <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
-                   <Music2 className="mr-2 h-6 w-6" /> SIGA NO SOUNDCLOUD
+                   <Music2 className="mr-3 h-6 w-6" /> SIGA NO SOUNDCLOUD
                  </a>
               </Button>
             </div>
 
+            {/* Estatísticas com rótulos em vermelho */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-12 border-t border-white/10">
               <div>
-                <p className="text-4xl font-black text-white tracking-tighter">+500K</p>
-                <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em]">Ouvintes Mensais</p>
+                <p className="text-5xl font-black text-white tracking-tighter">+500K</p>
+                <p className="text-[10px] text-primary font-black uppercase tracking-[0.2em] mt-1">Ouvintes Mensais</p>
               </div>
               <div>
-                <p className="text-4xl font-black text-white tracking-tighter">10M+</p>
-                <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em]">Plays Totais</p>
+                <p className="text-5xl font-black text-white tracking-tighter">10M+</p>
+                <p className="text-[10px] text-primary font-black uppercase tracking-[0.2em] mt-1">Plays Totais</p>
               </div>
               <div>
-                <p className="text-4xl font-black text-white tracking-tighter">TOP 50</p>
-                <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em]">Viral Brasil</p>
+                <p className="text-5xl font-black text-white tracking-tighter">TOP 50</p>
+                <p className="text-[10px] text-primary font-black uppercase tracking-[0.2em] mt-1">Viral Brasil</p>
               </div>
             </div>
           </div>
