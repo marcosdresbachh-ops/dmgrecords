@@ -9,6 +9,7 @@ import { WorkRegistration } from "@/components/hub/work-registration";
 import { CatalogTable } from "@/components/hub/catalog-table";
 import { AIWorkspace } from "@/components/hub/ai-workspace";
 import { ProfilePage } from "@/components/hub/profile-page";
+import { BioPage } from "@/components/hub/bio-page";
 import { RoyaltiesPage } from "@/components/hub/royalties-page";
 import { LicensingPage } from "@/components/hub/licensing-page";
 import { DocumentsPage } from "@/components/hub/documents-page";
@@ -55,6 +56,7 @@ export default function HubPage() {
       >
         {page === "dashboard" && <DashboardHome user={user} />}
         {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
+        {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
         {page === "register" && <WorkRegistration user={user} onUpdate={setUser} />}
         {page === "catalog" && <CatalogTable user={user} />}
         {page === "royalties" && <RoyaltiesPage user={user} />}

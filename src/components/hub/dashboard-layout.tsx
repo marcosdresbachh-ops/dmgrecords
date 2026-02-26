@@ -6,7 +6,7 @@ import {
   LayoutDashboard, PlusCircle, Library, Sparkles, LogOut, 
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
   MessageSquare, Search, Bell, HelpCircle, ChevronDown, ChevronRight,
-  Music, ShieldCheck, CreditCard, BookOpen, Radio
+  Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,6 @@ interface DashboardLayoutProps {
 }
 
 export function DashboardLayout({ user, activePage, onPageChange, onLogout, children }: DashboardLayoutProps) {
-  // Inicializa o estado vazio para que todos os dropdowns comecem fechados
   const [openSections, setOpenSections] = useState<string[]>([]);
   const [notifOpen, setNotifOpen] = useState(false);
 
@@ -37,6 +36,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       items: [
         { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard className="h-3.5 w-3.5" /> },
         { id: "profile", label: "Meu Perfil", icon: <User className="h-3.5 w-3.5" /> },
+        { id: "bio", label: "Minha Bio", icon: <PenTool className="h-3.5 w-3.5" /> },
       ]
     },
     { 
@@ -84,7 +84,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
 
   return (
     <div className="flex flex-col h-screen bg-black overflow-hidden">
-      {/* Header Fixo 1: Branding */}
       <header className="h-14 bg-zinc-950 border-b border-white/5 flex items-center justify-between px-6 z-50 flex-shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-center font-black text-primary text-lg italic">
@@ -111,7 +110,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
         </div>
       </header>
 
-      {/* Header Fixo 2: Sub-header com Busca Centralizada */}
       <div className="h-12 bg-black border-b border-white/5 flex items-center px-6 z-40 flex-shrink-0">
         <div className="hidden md:block flex-1" />
 
@@ -159,7 +157,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar posicionada entre Cabeçalho e Rodapé */}
         <aside className="w-56 bg-zinc-950 border-r border-white/5 flex flex-col z-30 flex-shrink-0">
           <nav className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
             {menu.map(section => (
@@ -210,7 +207,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
           </div>
         </aside>
 
-        {/* Área de Conteúdo principal */}
         <main className="flex-1 overflow-y-auto no-scrollbar bg-black relative">
           <div className="p-8 pb-20 max-w-6xl mx-auto">
             {children}
@@ -218,7 +214,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
         </main>
       </div>
 
-      {/* Rodapé Fixo na base de todo o app */}
       <footer className="h-10 bg-zinc-950 border-t border-white/5 flex items-center justify-between px-6 z-50 flex-shrink-0 text-[9px] font-black uppercase tracking-widest text-zinc-700">
         <div className="flex items-center gap-4">
           <p>© 2025 DMG RECORDS — ÁREA RESTRITA</p>
