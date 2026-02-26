@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getUsers, saveUsers, saveSession } from "@/lib/hub-auth";
-import { Loader2, UserPlus, Music2, Headphones, ShieldCheck, CreditCard, Globe, Star } from "lucide-react";
+import { Loader2, Headphones, Music2, Star, Globe, ArrowRight } from "lucide-react";
 
 export function RegisterForm({ onLogin, onSwitch }: any) {
   const [step, setStep] = useState(1);
@@ -80,7 +80,7 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={() => setRole("Artista")}
-              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[32px] ${role === "Artista" ? "border-primary bg-primary/5" : "border-zinc-100 bg-zinc-50 hover:border-zinc-200"}`}
+              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[32px] shadow-sm ${role === "Artista" ? "border-primary bg-primary/5 shadow-primary/5" : "border-zinc-100 bg-zinc-50 hover:border-zinc-200"}`}
             >
               <Headphones className={role === "Artista" ? "text-primary" : "text-zinc-300"} />
               <div className="text-center">
@@ -90,7 +90,7 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
             </button>
             <button 
               onClick={() => setRole("Compositor")}
-              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[32px] ${role === "Compositor" ? "border-primary bg-primary/5" : "border-zinc-100 bg-zinc-50 hover:border-zinc-200"}`}
+              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[32px] shadow-sm ${role === "Compositor" ? "border-primary bg-primary/5 shadow-primary/5" : "border-zinc-100 bg-zinc-50 hover:border-zinc-200"}`}
             >
               <Music2 className={role === "Compositor" ? "text-primary" : "text-zinc-300"} />
               <div className="text-center">
@@ -100,7 +100,7 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
             </button>
           </div>
           
-          <div className="bg-primary/5 border border-primary/10 p-4 rounded-2xl flex items-start gap-3">
+          <div className="bg-primary/5 border border-primary/10 p-5 rounded-2xl flex items-start gap-3 shadow-inner">
              <Star className="h-4 w-4 text-primary shrink-0" />
              <p className="text-[10px] text-zinc-500 leading-tight font-bold uppercase">
                 Como parceira oficial, a DMG Records facilita sua entrada na <strong>ASCAP</strong>. Escolha sua função para gerar a documentação automática.
@@ -110,9 +110,9 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           <Button 
             disabled={!role}
             onClick={() => setStep(2)}
-            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-full text-lg font-black italic tracking-tighter uppercase text-white shadow-lg shadow-primary/20"
+            className="w-full h-16 rounded-full text-lg font-black italic tracking-tighter uppercase text-white shadow-xl shadow-primary/20"
           >
-            CONTINUAR PARA DADOS
+            CONTINUAR PARA DADOS <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <div className="text-center text-xs text-zinc-400 font-medium uppercase tracking-tight">Já tem uma conta? <button onClick={onSwitch} className="text-primary font-black uppercase hover:underline">ENTRAR</button></div>
         </div>
@@ -125,33 +125,33 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
             </p>
           </div>
           
-          {error && <div className="p-4 bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase text-center rounded-2xl">{error}</div>}
+          {error && <div className="p-4 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase text-center rounded-2xl">{error}</div>}
           
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
               <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Nome *</Label>
-              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900" required value={form.firstName} onChange={e => set("firstName", e.target.value)} />
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900 focus:border-primary transition-all" required value={form.firstName} onChange={e => set("firstName", e.target.value)} />
             </div>
             <div className="space-y-1">
               <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Sobrenome *</Label>
-              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900" required value={form.lastName} onChange={e => set("lastName", e.target.value)} />
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900 focus:border-primary transition-all" required value={form.lastName} onChange={e => set("lastName", e.target.value)} />
             </div>
           </div>
 
           <div className="space-y-1">
             <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Nome Artístico / Pseudônimo</Label>
-            <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900" value={form.artistName} onChange={e => set("artistName", e.target.value)} />
+            <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900 focus:border-primary transition-all" value={form.artistName} onChange={e => set("artistName", e.target.value)} />
           </div>
 
           <div className="space-y-1">
             <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">E-mail Profissional *</Label>
-            <Input type="email" className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900" required value={form.email} onChange={e => set("email", e.target.value)} />
+            <Input type="email" className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900 focus:border-primary transition-all" required value={form.email} onChange={e => set("email", e.target.value)} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
               <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">IPI / CAE (Opcional)</Label>
-              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-mono font-bold text-zinc-900" placeholder="Ex: 001234567" value={form.ipi} onChange={e => set("ipi", e.target.value)} />
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-mono font-bold text-zinc-900 focus:border-primary transition-all" placeholder="Ex: 001234567" value={form.ipi} onChange={e => set("ipi", e.target.value)} />
             </div>
             <div className="space-y-1">
               <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">País de Residência *</Label>
@@ -171,11 +171,11 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
               <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Senha *</Label>
-              <Input type="password" className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900" required value={form.password} onChange={e => set("password", e.target.value)} />
+              <Input type="password" className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900 focus:border-primary transition-all" required value={form.password} onChange={e => set("password", e.target.value)} />
             </div>
             <div className="space-y-1">
               <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Confirmar *</Label>
-              <Input type="password" className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900" required value={form.confirm} onChange={e => set("confirm", e.target.value)} />
+              <Input type="password" className="bg-zinc-50 border-zinc-200 rounded-2xl h-12 text-sm font-bold text-zinc-900 focus:border-primary transition-all" required value={form.confirm} onChange={e => set("confirm", e.target.value)} />
             </div>
           </div>
 
@@ -188,12 +188,12 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           <Button 
             type="submit" 
             disabled={loading}
-            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-full text-lg font-black italic tracking-tighter uppercase shadow-lg shadow-primary/20 text-white"
+            className="w-full h-16 rounded-full text-lg font-black italic tracking-tighter uppercase shadow-xl shadow-primary/20 text-white"
           >
-            {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : "FINALIZAR CADASTRO DMG HUB →"}
+            {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : "FINALIZAR CADASTRO DMG HUB"}
           </Button>
           
-          <button type="button" onClick={() => setStep(1)} className="w-full text-[10px] text-zinc-400 hover:text-zinc-900 uppercase font-black text-center">← Voltar</button>
+          <button type="button" onClick={() => setStep(1)} className="w-full text-[10px] text-zinc-400 hover:text-zinc-900 uppercase font-black text-center transition-colors">← Voltar</button>
         </form>
       )}
     </div>

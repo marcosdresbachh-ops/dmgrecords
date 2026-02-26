@@ -16,7 +16,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Middlewares
-app.use(cors()); // Habilita CORS para todas as rotas
+app.use(cors());
 app.use(express.json());
 
 /**
@@ -31,18 +31,10 @@ app.get('/', (req, res) => {
  */
 app.get('/api/todos', async (req, res) => {
   try {
-    const { data, error } = await supabase
-      .from('todos')
-      .select();
-      
-    if (error) {
-      console.error('Erro no Supabase (todos):', error);
-      return res.status(500).json({ error: error.message });
-    }
-    
+    const { data, error } = await supabase.from('todos').select();
+    if (error) return res.status(500).json({ error: error.message });
     res.json(data);
   } catch (err) {
-    console.error('Erro no servidor:', err);
     res.status(500).json({ error: 'Erro interno no servidor' });
   }
 });
@@ -52,18 +44,10 @@ app.get('/api/todos', async (req, res) => {
  */
 app.get('/api/notes', async (req, res) => {
   try {
-    const { data, error } = await supabase
-      .from('notes')
-      .select();
-      
-    if (error) {
-      console.error('Erro no Supabase (notes):', error);
-      return res.status(500).json({ error: error.message });
-    }
-    
+    const { data, error } = await supabase.from('notes').select();
+    if (error) return res.status(500).json({ error: error.message });
     res.json(data);
   } catch (err) {
-    console.error('Erro no servidor:', err);
     res.status(500).json({ error: 'Erro interno no servidor' });
   }
 });

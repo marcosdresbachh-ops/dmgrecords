@@ -16,7 +16,7 @@ export function AuthLayout({ onLogin }: AuthLayoutProps) {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-primary selection:text-white flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Glows (Adjusted for Light Mode) */}
+      {/* Background Glows */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full" />
 
@@ -30,7 +30,7 @@ export function AuthLayout({ onLogin }: AuthLayoutProps) {
       </div>
       
       <div className="w-full max-w-md relative z-10">
-        <div className="bg-white border border-zinc-200 p-10 rounded-[32px] shadow-2xl relative overflow-hidden">
+        <div className="bg-white border border-zinc-200 p-10 rounded-[40px] shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
           
           <div className="text-center mb-10">
@@ -42,12 +42,12 @@ export function AuthLayout({ onLogin }: AuthLayoutProps) {
           </div>
 
           {/* Aviso de Sistema em Construção */}
-          <div className="mb-8 p-4 bg-amber-50 border border-amber-100 rounded-2xl flex gap-3 items-start">
+          <div className="mb-8 p-5 bg-amber-50 border border-amber-100 rounded-[24px] flex gap-4 items-start shadow-sm">
             <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
             <div className="space-y-1">
               <p className="text-[10px] font-black text-amber-700 uppercase tracking-widest leading-none">Aviso de Desenvolvimento</p>
               <p className="text-[11px] text-amber-600 font-bold leading-relaxed uppercase">
-                Você pode se cadastrar e logar normalmente, mas esteja ciente: o sistema está em construção e pode apresentar instabilidades.
+                O sistema está em construção e pode apresentar instabilidades. Você pode se cadastrar e logar normalmente.
               </p>
             </div>
           </div>
