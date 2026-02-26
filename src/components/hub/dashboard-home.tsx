@@ -1,13 +1,35 @@
 
 "use client";
 
-import { Music, DollarSign, FileCheck, ArrowUpRight, TrendingUp, Zap, Cloud, Star, ShieldCheck } from "lucide-react";
+import { useState, useEffect } from "react";
+import { 
+  Music, DollarSign, FileCheck, ArrowUpRight, 
+  TrendingUp, Zap, Cloud, Star, ShieldCheck, 
+  StickyNote, Loader2 
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getNotes } from "@/app/actions/notes";
 import { cn } from "@/lib/utils";
 
 export function DashboardHome({ user }: any) {
   const works = user.works || [];
+  const [notes, setNotes] = useState<any[]>([]);
+  const [loadingNotes, setLoadingNotes] = useState(true);
   
+  useEffect(() => {
+    async function loadNotes() {
+      try {
+        const data = await getNotes();
+        setNotes(data || []);
+      } catch (e) {
+        console.error("Erro ao carregar notas no dashboard");
+      } finally {
+        setLoadingNotes(false);
+      }
+    }
+    loadNotes();
+  }, []);
+
   const stats = [
     { label: "Obras Registradas", value: works.length, sub: "No catálogo ativo", trend: "↑ Ativo", icon: <Music className="text-primary" /> },
     { label: "Ganhos Estimados", value: "R$ 1.312,20", sub: "Royalties vitalícios", trend: "↑ +18.4% Q1", icon: <DollarSign className="text-primary" /> },
@@ -16,10 +38,10 @@ export function DashboardHome({ user }: any) {
   ];
 
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500 text-zinc-900">
       <header className="flex justify-between items-start">
         <div className="space-y-3">
-          <h1 className="text-5xl font-black italic uppercase tracking-tighter leading-none text-zinc-900">Bem-vindo, {user.artistName || user.firstName} ♪</h1>
+          <h1 className="text-5xl font-black italic uppercase tracking-tighter leading-none">Bem-vindo, {user.artistName || user.firstName} ♪</h1>
           <p className="text-zinc-500 text-lg font-medium">Sua central de controle de carreira — SoundCloud & DMG Network Integradas.</p>
         </div>
         <div className="flex items-center gap-4">
@@ -104,30 +126,29 @@ export function DashboardHome({ user }: any) {
             )}
           </div>
 
-          {/* Receita SoundCloud */}
-          <div className="border rounded-[40px] p-10 relative overflow-hidden transition-all bg-white border-zinc-200 shadow-lg">
-            <div className="absolute -right-20 -bottom-20 opacity-5 grayscale">
-               <TrendingUp className="h-64 w-64 text-primary" />
-            </div>
-            <h3 className="text-2xl font-black italic uppercase tracking-tighter mb-10 flex items-center gap-3 text-zinc-900">
-              <TrendingUp className="h-6 w-6 text-primary" /> Receita SoundCloud for Artists
+          {/* Notas da Gravadora (Supabase Integration) */}
+          <div className="border rounded-[40px] p-10 bg-white border-zinc-200 shadow-lg space-y-8">
+            <h3 className="text-2xl font-black italic uppercase tracking-tighter flex items-center gap-3 text-zinc-900">
+              <StickyNote className="h-6 w-6 text-primary" /> Notas de Produção
             </h3>
-            <div className="space-y-8">
-              {[
-                { l: "Plays Monetizados", p: 75, v: "R$ 412,20", c: "bg-[#ff5500]" },
-                { l: "Fan-Powered Royalties", p: 25, v: "R$ 136,80", c: "bg-primary" },
-              ].map((item, i) => (
-                <div key={i} className="space-y-4">
-                  <div className="flex justify-between text-xs font-black uppercase tracking-[0.3em]">
-                    <span className="text-zinc-500">{item.l}</span>
-                    <span className="italic text-zinc-900">{item.v}</span>
+            
+            {loadingNotes ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-zinc-300" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {notes.map((note) => (
+                  <div key={note.id} className="p-6 bg-zinc-50 border border-zinc-100 rounded-3xl space-y-2 hover:border-primary/20 transition-all shadow-inner group">
+                    <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Nota #{note.id}</p>
+                    <p className="text-sm font-bold text-zinc-700 leading-relaxed uppercase">{note.title}</p>
                   </div>
-                  <div className="h-3 rounded-full overflow-hidden p-0.5 border bg-zinc-100 border-zinc-200">
-                    <div className={`h-full ${item.c} rounded-full transition-all duration-1000`} style={{ width: `${item.p}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+                {notes.length === 0 && (
+                  <p className="col-span-full text-center py-8 text-zinc-400 font-bold uppercase text-[10px] tracking-widest">Nenhuma nota oficial no momento.</p>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

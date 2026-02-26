@@ -37,6 +37,27 @@ app.get('/api/todos', async (req, res) => {
   }
 });
 
+/**
+ * Rota para buscar notas do Supabase
+ */
+app.get('/api/notes', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select();
+      
+    if (error) {
+      console.error('Erro no Supabase:', error);
+      return res.status(500).json({ error: error.message });
+    }
+    
+    res.json(data);
+  } catch (err) {
+    console.error('Erro no servidor:', err);
+    res.status(500).json({ error: 'Erro interno no servidor' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`🚀 Servidor backend rodando em http://localhost:${port}`);
 });
