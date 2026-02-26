@@ -104,19 +104,16 @@ export function DistributionWizard({ user, onComplete }: any) {
     splits: [{ name: user.firstName, role: "Owner", percentage: 100 }]
   });
 
-  // Mock de faixas do SoundCloud para o modal
-  const syncedTracks = [
-    { id: "sc-1", title: "The Road Back Home", image: "https://picsum.photos/seed/track1/100/100" },
-    { id: "sc-2", title: "THE LAST SLOW DANCE", image: "https://picsum.photos/seed/track2/100/100" },
-    { id: "sc-3", title: "Somebody Like A Ghost", image: "https://picsum.photos/seed/track3/100/100" },
-    { id: "sc-4", title: "OLD PHOTOGRAPHS", image: "https://picsum.photos/seed/track4/100/100" },
-  ];
+  // Faixas sincronizadas reais do cadastro do usuário
+  const syncedTracks = user.works || [];
 
   const next = () => setStep(s => Math.min(s + 1, 6));
   const prev = () => setStep(s => Math.max(s - 1, 1));
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
+    if (selectedFiles.length === 0) return;
+    
     const newTracks: TrackData[] = selectedFiles.map(f => ({
       id: Math.random().toString(36).substr(2, 9),
       title: f.name.replace(/\.[^/.]+$/, ""),
@@ -131,12 +128,12 @@ export function DistributionWizard({ user, onComplete }: any) {
 
   const handleSelectSyncedTrack = (track: any) => {
     const newTrack: TrackData = {
-      id: track.id,
+      id: track.regId || track.id,
       title: track.title,
-      isrc: "",
+      isrc: track.isrc || "",
       explicit: "none",
       composers: user.artistName || user.firstName,
-      fileSize: "Synced from SC",
+      fileSize: "Synced from Catalog",
       isExternal: true
     };
     setTracks(prev => [...prev, newTrack]);
@@ -519,77 +516,80 @@ export function DistributionWizard({ user, onComplete }: any) {
         </div>
       </div>
 
-      {/* MODAL: Select an existing SoundCloud Track */}
+      {/* MODAL: Select an existing Track (SoundCloud/Catalog Style) */}
       <Dialog open={isSelectModalOpen} onOpenChange={setIsSelectModalOpen}>
-        <DialogContent className="bg-white text-zinc-900 max-w-2xl rounded-none p-0 overflow-hidden border-none">
-          <div className="p-8 space-y-6">
+        <DialogContent className="bg-white text-zinc-900 max-w-lg rounded-3xl p-0 overflow-hidden border-none">
+          <div className="p-6 space-y-6">
             <div className="flex justify-between items-start">
               <div>
-                <DialogTitle className="text-2xl font-bold tracking-tight mb-1">Select an existing SoundCloud Track</DialogTitle>
-                <p className="text-xs text-zinc-500">Note: Changes you make to tracks in this flow will not be applied to your tracks on SoundCloud.</p>
+                <DialogTitle className="text-xl font-bold tracking-tight mb-1">Select an existing Track</DialogTitle>
+                <p className="text-[10px] text-zinc-500 uppercase font-bold">Importe faixas já registradas no seu catálogo DMG.</p>
               </div>
               <Button variant="ghost" size="icon" onClick={() => setIsSelectModalOpen(false)} className="rounded-full hover:bg-zinc-100">
-                <X className="h-5 w-5 text-zinc-400" />
+                <X className="h-4 w-4 text-zinc-400" />
               </Button>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-zinc-200 overflow-hidden relative border border-zinc-100">
+              <div className="w-8 h-8 rounded-full bg-zinc-200 overflow-hidden relative border border-zinc-100">
                 <Image src={user.avatarUrl || "https://picsum.photos/seed/artist/100/100"} alt="Av" fill className="object-cover" />
               </div>
-              <span className="font-bold text-sm tracking-tight">{user.artistName || user.firstName}</span>
-            </div>
-
-            <div className="bg-[#eefcf9] border border-[#d1f2eb] p-4 flex items-center gap-4">
-              <div className="w-8 h-8 rounded-full bg-transparent flex items-center justify-center text-zinc-800">
-                <CheckCircle2 className="h-5 w-5 text-[#30b3a3]" />
-              </div>
-              <div>
-                <p className="text-[13px] font-bold text-zinc-800">Your tracks are synced</p>
-                <p className="text-[12px] text-zinc-600">All your tracks are synced - check them out below.</p>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
-              <Input 
-                className="bg-zinc-100 border-none pl-12 h-12 rounded-none text-sm focus-visible:ring-1 focus-visible:ring-zinc-300" 
-                placeholder="Search for tracks" 
-              />
+              <span className="font-bold text-xs tracking-tight uppercase">{user.artistName || user.firstName}</span>
             </div>
 
             <div className="space-y-4">
-              <div className="border border-dashed border-zinc-200 p-6 flex flex-col items-center justify-center gap-4 hover:bg-zinc-50 transition-all cursor-pointer group relative">
-                <Upload className="h-8 w-8 text-zinc-300 group-hover:text-primary" />
-                <p className="text-sm font-bold text-zinc-400 group-hover:text-zinc-600">UPLOAD FROM COMPUTER</p>
+              {/* ÁREA DE UPLOAD SEMPRE VISÍVEL */}
+              <div className="border border-dashed border-zinc-200 p-6 flex flex-col items-center justify-center gap-3 hover:bg-zinc-50 transition-all cursor-pointer group relative rounded-2xl">
+                <Upload className="h-6 w-6 text-zinc-300 group-hover:text-primary" />
+                <p className="text-[10px] font-black text-zinc-400 group-hover:text-zinc-600 uppercase tracking-widest">UPLOAD FROM COMPUTER</p>
                 <input type="file" multiple accept=".mp3,.wav" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleFileUpload} />
               </div>
 
-              <div className="space-y-1 max-h-[300px] overflow-y-auto no-scrollbar pr-2">
-                {syncedTracks.map((t) => (
-                  <div key={t.id} className="flex items-center justify-between p-3 hover:bg-zinc-50 group cursor-pointer border-b border-zinc-100 last:border-0" onClick={() => handleSelectSyncedTrack(t)}>
-                    <div className="flex items-center gap-4">
-                      <div className="w-5 h-5 rounded-full border-2 border-zinc-300 flex items-center justify-center group-hover:border-zinc-400">
-                        <div className="w-2 h-2 rounded-full bg-transparent" />
-                      </div>
-                      <div className="w-12 h-12 relative rounded-sm overflow-hidden bg-zinc-100">
-                        <Image src={t.image} alt={t.title} fill className="object-cover" />
-                      </div>
-                      <span className="font-bold text-sm text-zinc-800 uppercase tracking-tighter">{t.title}</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <button className="text-xs font-medium text-blue-600 hover:underline">Link to track</button>
-                      <span className="bg-[#00b388] text-white text-[10px] font-bold px-2 py-0.5 rounded-sm">Public</span>
-                    </div>
+              {syncedTracks.length > 0 ? (
+                <div className="space-y-2">
+                  <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest pl-1">Faixas Disponíveis no Catálogo</p>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+                    <Input 
+                      className="bg-zinc-100 border-none pl-10 h-10 rounded-xl text-xs focus-visible:ring-1 focus-visible:ring-zinc-300" 
+                      placeholder="Search for tracks" 
+                    />
                   </div>
-                ))}
-              </div>
+                  <div className="space-y-1 max-h-[250px] overflow-y-auto no-scrollbar pr-1">
+                    {syncedTracks.map((t: any) => (
+                      <div 
+                        key={t.regId || t.id} 
+                        className="flex items-center justify-between p-3 hover:bg-zinc-50 group cursor-pointer border-b border-zinc-100 last:border-0 rounded-xl transition-colors" 
+                        onClick={() => handleSelectSyncedTrack(t)}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 relative rounded-lg overflow-hidden bg-zinc-100 border border-zinc-200">
+                            <div className="flex items-center justify-center h-full text-zinc-300"><Music className="h-4 w-4" /></div>
+                          </div>
+                          <div>
+                            <span className="font-bold text-xs text-zinc-800 uppercase tracking-tighter block">{t.title}</span>
+                            <span className="text-[9px] text-zinc-400 font-mono">{t.isrc || "NO ISRC"}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="bg-[#00b388] text-white text-[8px] font-black px-2 py-0.5 rounded-sm uppercase">Registered</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="py-10 text-center bg-zinc-50 rounded-2xl border border-zinc-100">
+                  <Music className="h-8 w-8 text-zinc-200 mx-auto mb-2" />
+                  <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest">Nenhuma faixa encontrada no catálogo</p>
+                  <p className="text-[9px] text-zinc-400 mt-1">Faça o upload do seu computador acima.</p>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="border-t border-zinc-100 p-6 flex justify-end gap-4 bg-zinc-50/50">
-            <Button variant="ghost" onClick={() => setIsSelectModalOpen(false)} className="font-bold text-zinc-800 hover:bg-zinc-100 rounded-md">Cancel</Button>
-            <Button className="bg-zinc-400 text-white font-bold px-8 rounded-md cursor-not-allowed" disabled>Select</Button>
+          <div className="border-t border-zinc-100 p-4 flex justify-end gap-3 bg-zinc-50/50">
+            <Button variant="ghost" onClick={() => setIsSelectModalOpen(false)} className="text-[10px] font-black uppercase tracking-widest text-zinc-800 hover:bg-zinc-100">Cancel</Button>
           </div>
         </DialogContent>
       </Dialog>
