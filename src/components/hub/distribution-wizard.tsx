@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/hooks/use-toast";
@@ -32,14 +33,39 @@ const STEPS = [
   { id: 6, label: "Review", icon: <CheckCircle2 /> },
 ];
 
-const PARTNERS = [
-  { name: "Amazon Music", icon: "📦" },
-  { name: "Apple Music", icon: "🍎" },
-  { name: "Deezer", icon: "📱" },
-  { name: "Spotify", icon: "🟢" },
-  { name: "Tidal", icon: "💎" },
-  { name: "TikTok", icon: "🎵" },
-  { name: "YouTube Music", icon: "🔴" },
+const PARTNERS_LIST = [
+  // Column 1
+  { name: "Amazon Music" },
+  { name: "Boomplay", region: "NG", info: true },
+  { name: "Claro Música" },
+  { name: "MediaNet", info: true },
+  { name: "Pandora Plus", info: true },
+  { name: "7digital", info: true },
+  { name: "Tencent", region: "CN" },
+  // Column 2
+  { name: "AMI Entertainment" },
+  { name: "Deezer" },
+  { name: "Jaxsta" },
+  { name: "Melon Plus", region: "KR", info: true },
+  { name: "Peloton", info: true },
+  { name: "Shazam" },
+  { name: "Tidal" },
+  // Column 3
+  { name: "Anghami", region: "LB" },
+  { name: "Facebook / Instagram", info: true },
+  { name: "JOOX" },
+  { name: "Napster" },
+  { name: "Qobuz", region: "FR" },
+  { name: "Sound Exchange", info: true },
+  { name: "TikTok", info: true },
+  // Column 4
+  { name: "Apple Music" },
+  { name: "iHeartRadio" },
+  { name: "KKBox", region: "TW" },
+  { name: "NetEase", region: "CN" },
+  { name: "Saavn", region: "IN" },
+  { name: "Spotify" },
+  { name: "YouTube Music" },
 ];
 
 type Contributor = {
@@ -80,7 +106,7 @@ export function DistributionWizard({ user, onComplete }: any) {
     secondaryGenre: "",
     labelName: "",
     releaseDate: "13 March 2026",
-    selectedPartners: PARTNERS.map(p => p.name),
+    selectedPartners: [] as string[],
   });
 
   const syncedTracks = user.works || [];
@@ -143,6 +169,23 @@ export function DistributionWizard({ user, onComplete }: any) {
   const updateTrack = (updated: TrackData) => {
     setTracks(prev => prev.map(t => t.id === updated.id ? updated : t));
     setEditingTrack(null);
+  };
+
+  const toggleAllPartners = (checked: boolean) => {
+    if (checked) {
+      setForm({ ...form, selectedPartners: PARTNERS_LIST.map(p => p.name) });
+    } else {
+      setForm({ ...form, selectedPartners: [] });
+    }
+  };
+
+  const togglePartner = (name: string) => {
+    const current = [...form.selectedPartners];
+    if (current.includes(name)) {
+      setForm({ ...form, selectedPartners: current.filter(n => n !== name) });
+    } else {
+      setForm({ ...form, selectedPartners: [...current, name] });
+    }
   };
 
   async function handleSubmit() {
@@ -388,27 +431,40 @@ export function DistributionWizard({ user, onComplete }: any) {
           )}
 
           {step === 3 && (
-            <div className="space-y-8 animate-in fade-in py-6">
-              <div className="flex justify-between items-center px-2">
-                <h3 className="text-xl font-bold">Select Store Partners</h3>
-                <Button variant="ghost" className="text-xs font-bold uppercase text-zinc-500 hover:text-black" onClick={() => setForm({...form, selectedPartners: PARTNERS.map(p => p.name)})}>Select All</Button>
+            <div className="space-y-10 animate-in fade-in py-6">
+              <h3 className="text-xl font-bold tracking-tight">Select Release Partners</h3>
+              
+              <div className="flex items-center gap-3">
+                <Switch 
+                  checked={form.selectedPartners.length === PARTNERS_LIST.length} 
+                  onCheckedChange={toggleAllPartners}
+                  className="data-[state=checked]:bg-zinc-500"
+                />
+                <span className="text-sm font-bold text-zinc-500">Select all</span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {PARTNERS.map(p => (
-                  <div 
-                    key={p.name} 
-                    onClick={() => {
-                      const exists = form.selectedPartners.includes(p.name);
-                      setForm({ ...form, selectedPartners: exists ? form.selectedPartners.filter(x => x !== p.name) : [...form.selectedPartners, p.name] });
-                    }}
-                    className={`p-6 border rounded-2xl cursor-pointer transition-all flex flex-col items-center text-center gap-3 group ${
-                      form.selectedPartners.includes(p.name) ? 'border-zinc-900 bg-zinc-50 ring-1 ring-zinc-900' : 'border-zinc-100 hover:border-zinc-300'
-                    }`}
-                  >
-                    <span className="text-3xl grayscale group-hover:grayscale-0 transition-all">{p.icon}</span>
-                    <p className="text-[10px] font-black uppercase tracking-tight leading-none">{p.name}</p>
-                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${form.selectedPartners.includes(p.name) ? 'bg-black border-black' : 'border-zinc-200'}`}>
-                      {form.selectedPartners.includes(p.name) && <Check className="h-2 w-2 text-white" />}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-4">
+                {PARTNERS_LIST.map((p) => (
+                  <div key={p.name} className="flex items-center gap-3 group">
+                    <Checkbox 
+                      id={`partner-${p.name}`}
+                      checked={form.selectedPartners.includes(p.name)}
+                      onCheckedChange={() => togglePartner(p.name)}
+                      className="w-5 h-5 rounded-[4px] border-zinc-300 data-[state=checked]:bg-black data-[state=checked]:border-black"
+                    />
+                    <div className="flex items-center gap-1.5 cursor-pointer" onClick={() => togglePartner(p.name)}>
+                      <label 
+                        htmlFor={`partner-${p.name}`}
+                        className="text-sm font-bold cursor-pointer group-hover:text-black transition-colors"
+                      >
+                        {p.name}
+                      </label>
+                      {p.region && (
+                        <span className="text-[10px] font-black uppercase text-zinc-400 mt-0.5">{p.region}</span>
+                      )}
+                      {p.info && (
+                        <Info className="h-3 w-3 text-zinc-300" />
+                      )}
                     </div>
                   </div>
                 ))}
@@ -441,7 +497,7 @@ export function DistributionWizard({ user, onComplete }: any) {
           
           <Button 
             onClick={step === 6 ? handleSubmit : next}
-            disabled={(step === 1 && tracks.length === 0) || loading}
+            disabled={(step === 1 && tracks.length === 0) || (step === 3 && form.selectedPartners.length === 0) || loading}
             className="bg-black text-white rounded-md font-black px-12 h-12 hover:bg-zinc-800 shadow-2xl text-sm"
           >
             {loading ? "Processing..." : step === 6 ? "Finish & Submit" : "Next"}
