@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Hammer } from "lucide-react";
+import { Menu, X, Hammer, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DmgLogo } from "./dmg-logo";
@@ -11,7 +11,6 @@ import { TopPlayer } from "./top-player";
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,11 +54,18 @@ export function Navigation() {
               {link.name}
             </Link>
           ))}
-          <Button asChild className="rounded-none px-6 h-10 font-black tracking-tighter bg-primary hover:bg-primary/90 text-xs italic">
-            <Link href="/ferramentas">
-              <Hammer className="mr-2 h-3 w-3" /> FERRAMENTAS DMG
-            </Link>
-          </Button>
+          <div className="flex items-center gap-3 ml-4">
+             <Button asChild variant="outline" className="rounded-none px-6 h-10 font-black tracking-tighter border-primary text-primary hover:bg-primary hover:text-white text-xs italic">
+              <Link href="/hub">
+                <User className="mr-2 h-3 w-3" /> ÁREA DO ARTISTA
+              </Link>
+            </Button>
+            <Button asChild className="rounded-none px-6 h-10 font-black tracking-tighter bg-primary hover:bg-primary/90 text-xs italic">
+              <Link href="/ferramentas">
+                <Hammer className="mr-2 h-3 w-3" /> TOOLS
+              </Link>
+            </Button>
+          </div>
         </nav>
 
         <button
@@ -83,11 +89,18 @@ export function Navigation() {
                 {link.name}
               </Link>
             ))}
-            <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
-              <Link href="/ferramentas" onClick={() => setIsOpen(false)}>
-                ÁREA DO ARTISTA
-              </Link>
-            </Button>
+            <div className="space-y-4">
+              <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
+                <Link href="/hub" onClick={() => setIsOpen(false)}>
+                  ÁREA DO ARTISTA
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter border-primary text-primary">
+                <Link href="/ferramentas" onClick={() => setIsOpen(false)}>
+                  FERRAMENTAS
+                </Link>
+              </Button>
+            </div>
           </nav>
         </div>
       )}
