@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { 
   Globe, ExternalLink, Camera, Image as ImageIcon, 
-  Music, Share2, Save, Loader2, PlayCircle, Info
+  Music, Share2, Save, Loader2, PlayCircle, Info, Smartphone
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
@@ -44,95 +44,99 @@ export function PublicProfilePage({ user, onUpdate }: any) {
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-black italic uppercase tracking-tighter text-white leading-none">Minha Página Pública</h1>
-          <p className="text-zinc-500 text-sm font-medium mt-2">Este é o seu EPK Online oficial. Configure sua vitrine para o mercado musical.</p>
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div className="space-y-3">
+          <h1 className="text-5xl font-black italic uppercase tracking-tighter text-white leading-none">Minha Página Pública</h1>
+          <p className="text-zinc-500 text-lg font-medium">Configure seu EPK Online oficial — Sua vitrine para gravadoras e festivais.</p>
         </div>
-        <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-black uppercase italic tracking-tighter h-12 rounded-none px-8">
+        <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-black uppercase italic tracking-tighter h-14 rounded-none px-10 text-sm">
           <a href={`/${slug}`} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="mr-2 h-4 w-4" /> VER MINHA PÁGINA
+            <ExternalLink className="mr-3 h-5 w-5" /> VISUALIZAR MEU EPK
           </a>
         </Button>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-zinc-950 border border-white/5 p-10 space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="lg:col-span-2 space-y-8">
+          <div className="bg-zinc-950 border border-white/5 p-12 space-y-12 rounded-[40px]">
             
             {/* URL Section */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
-                <Globe className="h-5 w-5 text-primary" /> Endereço Oficial (URL)
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white flex items-center gap-3">
+                <Globe className="h-6 w-6 text-primary" /> Endereço Oficial (URL)
               </h3>
-              <div className="bg-black/40 border border-white/10 p-5 flex items-center gap-2">
-                <span className="text-zinc-600 font-bold text-sm">dmgrecords.com.br/</span>
+              <div className="bg-black border border-white/10 p-6 flex items-center gap-3 rounded-2xl group focus-within:border-primary transition-all">
+                <span className="text-zinc-600 font-black text-lg uppercase italic tracking-tighter">dmgrecords.com.br/</span>
                 <input 
                   value={form.slug}
                   onChange={e => setForm({...form, slug: e.target.value.toLowerCase().replace(/\s+/g, '-')})}
-                  className="bg-transparent border-none p-0 text-primary font-black uppercase italic text-sm focus:ring-0 w-full"
+                  className="bg-transparent border-none p-0 text-primary font-black uppercase italic text-lg focus:ring-0 w-full tracking-tighter"
                   placeholder="seu-nome-artistico"
                 />
               </div>
-              <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.2em]">Este link é único e serve como seu cartão de visitas para gravadoras e festivais.</p>
+              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-[0.3em]">O link único que define sua identidade digital oficial.</p>
             </div>
 
             {/* Media Section */}
-            <div className="space-y-8">
-              <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
-                <ImageIcon className="h-5 w-5 text-primary" /> Identidade Visual
+            <div className="space-y-10">
+              <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white flex items-center gap-3">
+                <ImageIcon className="h-6 w-6 text-primary" /> Identidade Visual
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <Label className="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Foto de Perfil (Quadrada)</Label>
-                  <div className="bg-white/5 border border-white/10 h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary/40 transition-all group relative overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-4">
+                  <Label className="text-[11px] font-black uppercase text-zinc-500 tracking-[0.4em]">Foto de Perfil (Quadrada)</Label>
+                  <div className="bg-white/5 border border-white/10 h-56 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary/40 transition-all group relative overflow-hidden rounded-[32px]">
                     {form.avatarUrl ? (
-                      <Image src={form.avatarUrl} alt="Avatar" fill className="object-cover opacity-40 group-hover:scale-110 transition-all" />
+                      <Image src={form.avatarUrl} alt="Avatar" fill className="object-cover opacity-50 group-hover:scale-110 transition-all" />
                     ) : (
-                      <Camera className="h-8 w-8 text-zinc-600" />
+                      <Camera className="h-10 w-10 text-zinc-600" />
                     )}
-                    <span className="text-[9px] font-black uppercase text-white relative z-10 bg-black/60 px-3 py-1">Alterar Foto</span>
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                      <span className="text-[11px] font-black uppercase text-white bg-primary px-6 py-2 rounded-full">Alterar Foto</span>
+                    </div>
                   </div>
                 </div>
-                <div className="space-y-3">
-                  <Label className="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Banner de Topo (Horizontal)</Label>
-                  <div className="bg-white/5 border border-white/10 h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary/40 transition-all group relative overflow-hidden">
-                    <Image src={form.bannerUrl} alt="Banner" fill className="object-cover opacity-40 group-hover:scale-110 transition-all" />
-                    <span className="text-[9px] font-black uppercase text-white relative z-10 bg-black/60 px-3 py-1">Alterar Banner</span>
+                <div className="space-y-4">
+                  <Label className="text-[11px] font-black uppercase text-zinc-500 tracking-[0.4em]">Banner de Topo (Horizontal)</Label>
+                  <div className="bg-white/5 border border-white/10 h-56 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary/40 transition-all group relative overflow-hidden rounded-[32px]">
+                    <Image src={form.bannerUrl} alt="Banner" fill className="object-cover opacity-50 group-hover:scale-110 transition-all" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                      <span className="text-[11px] font-black uppercase text-white bg-primary px-6 py-2 rounded-full">Alterar Banner</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <Label className="text-[10px] font-black uppercase text-zinc-500 flex items-center gap-2 tracking-widest">
-                  <Music className="h-3 w-3 text-primary" /> Playlist Oficial (Spotify / SoundCloud)
+              <div className="space-y-4">
+                <Label className="text-[11px] font-black uppercase text-zinc-500 flex items-center gap-3 tracking-[0.4em]">
+                  <Music className="h-4 w-4 text-primary" /> Playlist Oficial (Spotify / SoundCloud)
                 </Label>
                 <Input 
                   value={form.playlistUrl}
                   onChange={e => setForm({...form, playlistUrl: e.target.value})}
                   placeholder="https://open.spotify.com/playlist/..." 
-                  className="bg-black/40 border-white/10 h-14 rounded-none focus:border-primary font-medium" 
+                  className="bg-black border-white/10 h-16 rounded-2xl focus:border-primary font-bold text-lg tracking-tighter italic" 
                 />
-                <p className="text-[10px] text-zinc-600 italic tracking-wider flex items-center gap-2">
-                  <Info className="h-3 w-3" /> O player será incorporado automaticamente na sua página pública.
+                <p className="text-[10px] text-zinc-600 italic tracking-[0.2em] flex items-center gap-3 font-bold uppercase">
+                  <Info className="h-4 w-4 text-primary" /> O player será incorporado automaticamente no topo do seu EPK.
                 </p>
               </div>
             </div>
 
             {/* Social Section */}
-            <div className="space-y-8">
-              <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
-                <Share2 className="h-5 w-5 text-primary" /> Canais de Comunicação
+            <div className="space-y-10">
+              <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white flex items-center gap-3">
+                <Share2 className="h-6 w-6 text-primary" /> Canais de Comunicação
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <Label className="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Instagram User (@)</Label>
-                  <Input value={form.instagram} onChange={e => setForm({...form, instagram: e.target.value})} className="bg-black/40 border-white/10 h-12 rounded-none" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-3">
+                  <Label className="text-[11px] font-black uppercase text-zinc-600 tracking-[0.4em]">Instagram User (@)</Label>
+                  <Input value={form.instagram} onChange={e => setForm({...form, instagram: e.target.value})} className="bg-black border-white/10 h-14 rounded-2xl font-bold" />
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Spotify Artist Link</Label>
-                  <Input value={form.spotify} onChange={e => setForm({...form, spotify: e.target.value})} className="bg-black/40 border-white/10 h-12 rounded-none" />
+                <div className="space-y-3">
+                  <Label className="text-[11px] font-black uppercase text-zinc-600 tracking-[0.4em]">Spotify Artist Link</Label>
+                  <Input value={form.spotify} onChange={e => setForm({...form, spotify: e.target.value})} className="bg-black border-white/10 h-14 rounded-2xl font-bold" />
                 </div>
               </div>
             </div>
@@ -140,48 +144,52 @@ export function PublicProfilePage({ user, onUpdate }: any) {
             <Button 
               onClick={handleSave}
               disabled={loading}
-              className="w-full h-20 bg-primary hover:bg-primary/90 rounded-none text-xl font-black italic tracking-tighter uppercase shadow-2xl shadow-primary/20"
+              className="w-full h-24 bg-primary hover:bg-primary/90 rounded-none text-2xl font-black italic tracking-tighter uppercase shadow-[0_20px_50px_rgba(255,0,0,0.3)] transition-all hover:translate-y-[-4px]"
             >
-              {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : <Save className="h-6 w-6 mr-3" />}
-              SALVAR E PUBLICAR EPK OFICIAL
+              {loading ? <Loader2 className="h-8 w-8 animate-spin mr-4" /> : <Save className="h-8 w-8 mr-4" />}
+              SALVAR E PUBLICAR MEU PERFIL DMG
             </Button>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="bg-primary/5 border border-primary/20 p-10 space-y-8">
-            <h3 className="text-sm font-black uppercase tracking-[0.3em] text-primary flex items-center gap-3">
-              <PlayCircle className="h-5 w-5" /> Mobile Preview
+        {/* Preview Mobile Section - Estilo Editorial */}
+        <div className="space-y-8">
+          <div className="bg-zinc-950 border border-white/5 p-12 space-y-10 rounded-[50px] sticky top-32">
+            <h3 className="text-[12px] font-black uppercase tracking-[0.6em] text-primary flex items-center gap-4">
+              <Smartphone className="h-5 w-5" /> MOBILE PREVIEW
             </h3>
-            <div className="bg-black border-[8px] border-zinc-900 rounded-[3rem] overflow-hidden aspect-[9/18] relative shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
+            <div className="bg-black border-[12px] border-zinc-900 rounded-[4rem] overflow-hidden aspect-[9/19] relative shadow-[0_50px_100px_rgba(0,0,0,0.8)]">
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
               <div className="absolute inset-0 bg-zinc-900">
-                <Image src={form.bannerUrl} alt="Preview" fill className="object-cover opacity-30" />
+                <Image src={form.bannerUrl} alt="Preview" fill className="object-cover opacity-40 grayscale" />
               </div>
-              <div className="absolute bottom-12 left-6 right-6 z-20 space-y-4">
-                <div className="w-16 h-16 rounded-xl bg-primary border-4 border-black flex items-center justify-center font-black text-2xl rotate-3 overflow-hidden shadow-lg">
-                   {form.avatarUrl ? <Image src={form.avatarUrl} alt="Av" fill className="object-cover" /> : (user.artistName || user.firstName)[0]}
+              <div className="absolute bottom-16 left-8 right-8 z-20 space-y-6">
+                <div className="w-20 h-20 rounded-2xl bg-primary border-[6px] border-black flex items-center justify-center font-black text-3xl rotate-3 overflow-hidden shadow-2xl">
+                   {form.avatarUrl ? <Image src={form.avatarUrl} alt="Av" fill className="object-cover" /> : <span className="italic">{artistName[0]}</span>}
                 </div>
-                <h4 className="text-3xl font-black italic uppercase leading-[0.9]">{user.artistName || user.firstName}</h4>
-                <div className="h-1 w-10 bg-primary" />
-                <div className="space-y-2">
-                  <div className="h-1.5 w-full bg-white/10 rounded-full" />
-                  <div className="h-1.5 w-3/4 bg-white/10 rounded-full" />
+                <div className="space-y-1">
+                  <h4 className="text-4xl font-black italic uppercase leading-[0.8] tracking-tighter">{user.artistName || user.firstName}</h4>
+                  <p className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">OFFICIAL EPK</p>
                 </div>
-                <div className="flex gap-2 pt-2">
-                  <div className="h-8 flex-1 bg-white/5 border border-white/10" />
-                  <div className="h-8 flex-1 bg-primary" />
+                <div className="h-[2px] w-12 bg-primary" />
+                <div className="space-y-3">
+                  <div className="h-2 w-full bg-white/10 rounded-full" />
+                  <div className="h-2 w-5/6 bg-white/10 rounded-full" />
+                </div>
+                <div className="flex gap-3 pt-4">
+                  <div className="h-12 flex-1 bg-white/5 border border-white/10" />
+                  <div className="h-12 flex-1 bg-primary" />
                 </div>
               </div>
             </div>
-            <div className="text-center space-y-4">
-              <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-[0.2em] leading-relaxed">
-                Este preview mostra como seu perfil aparecerá em dispositivos móveis. Use o link oficial em sua bio do Instagram.
+            <div className="text-center space-y-6">
+              <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-[0.3em] leading-relaxed">
+                Este preview emula sua vitrine digital em dispositivos móveis. Utilize seu link oficial em biografias e apresentações comerciais.
               </p>
-              <div className="p-4 bg-black/40 border border-white/5 flex items-center justify-between">
-                <span className="text-[9px] font-black text-zinc-600 uppercase">Status do Perfil</span>
-                <span className="text-[9px] font-black text-accent uppercase flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" /> ONLINE
+              <div className="p-5 bg-black border border-white/5 rounded-2xl flex items-center justify-between">
+                <span className="text-[10px] font-black text-zinc-700 uppercase tracking-widest">Public Status</span>
+                <span className="text-[10px] font-black text-accent uppercase flex items-center gap-2 italic tracking-widest">
+                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse" /> LIVE NOW
                 </span>
               </div>
             </div>
