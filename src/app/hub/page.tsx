@@ -28,7 +28,6 @@ export default function HubPage() {
   const [user, setUser] = useState<any>(null);
   const [page, setPage] = useState("dashboard");
   const [hydrated, setHydrated] = useState(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
     setUser(getSession());
@@ -52,37 +51,35 @@ export default function HubPage() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-zinc-50">
       <DashboardLayout 
         user={user} 
         activePage={page} 
         onPageChange={setPage} 
         onLogout={onLogout}
-        theme={theme}
-        setTheme={setTheme}
       >
-        {page === "dashboard" && <DashboardHome user={user} theme={theme} />}
-        {page === "profile" && <ProfilePage user={user} onUpdate={setUser} theme={theme} />}
-        {page === "bio" && <BioPage user={user} onUpdate={setUser} theme={theme} />}
-        {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} theme={theme} />}
+        {page === "dashboard" && <DashboardHome user={user} />}
+        {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
+        {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
+        {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} />}
         {page === "distribute" && <DistributionWizard user={user} onComplete={(updatedUser?: any) => { 
           if (updatedUser) setUser(updatedUser);
           setPage("distribution"); 
-        }} theme={theme} />}
-        {page === "register" && <WorkRegistration user={user} onUpdate={setUser} theme={theme} />}
-        {page === "catalog" && <CatalogTable user={user} theme={theme} />}
-        {page === "royalties" && <RoyaltiesPage user={user} theme={theme} />}
-        {page === "licensing" && <LicensingPage user={user} theme={theme} />}
-        {page === "tax" && <IRSFormsPage user={user} theme={theme} />}
-        {page === "ai" && <AIWorkspace user={user} theme={theme} />}
-        {page === "documents" && <DocumentsPage user={user} theme={theme} />}
-        {page === "analytics" && <AnalyticsPage user={user} theme={theme} />}
-        {page === "distribution" && <DistributionPage user={user} onStartCreate={() => setPage("distribute")} theme={theme} />}
-        {page === "education" && <EducationPage user={user} theme={theme} />}
-        {page === "support" && <SupportPage user={user} theme={theme} />}
-        {page === "webradio" && <WebRadioPage user={user} theme={theme} />}
-        {page === "ascap" && <AscapPage user={user} theme={theme} />}
-        {page === "ascap-benefits" && <AscapPage user={user} theme={theme} />}
+        }} />}
+        {page === "register" && <WorkRegistration user={user} onUpdate={setUser} />}
+        {page === "catalog" && <CatalogTable user={user} />}
+        {page === "royalties" && <RoyaltiesPage user={user} />}
+        {page === "licensing" && <LicensingPage user={user} />}
+        {page === "tax" && <IRSFormsPage user={user} />}
+        {page === "ai" && <AIWorkspace user={user} />}
+        {page === "documents" && <DocumentsPage user={user} />}
+        {page === "analytics" && <AnalyticsPage user={user} />}
+        {page === "distribution" && <DistributionPage user={user} onStartCreate={() => setPage("distribute")} />}
+        {page === "education" && <EducationPage user={user} />}
+        {page === "support" && <SupportPage user={user} />}
+        {page === "webradio" && <WebRadioPage user={user} />}
+        {page === "ascap" && <AscapPage user={user} />}
+        {page === "ascap-benefits" && <AscapPage user={user} />}
       </DashboardLayout>
     </main>
   );
