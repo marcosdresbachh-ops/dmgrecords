@@ -16,11 +16,11 @@ export function SectionHeading({ badge, title, description, align = "left", clas
         <div className="h-1 w-12 bg-primary" />
         <span className="text-primary font-black uppercase tracking-[0.3em] text-xs">{badge}</span>
       </div>
-      <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase italic leading-none">
+      <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-zinc-900 uppercase italic leading-none">
         {title}
       </h2>
       {description && (
-        <p className="text-muted-foreground text-lg leading-relaxed">
+        <p className="text-zinc-500 text-lg leading-relaxed font-medium">
           {description}
         </p>
       )}
