@@ -160,33 +160,16 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
             ))}
           </nav>
 
-          <div className="p-3 border-t border-white/5 bg-zinc-950 space-y-2">
-            {/* ASCAP Affiliation Status - Non-clickable indicator */}
-            <div className="p-3 bg-white/5 border border-white/5 rounded-xl space-y-2">
+          <div className="p-4 border-t border-white/5 bg-zinc-950">
+            {/* ASCAP Compact Indicator */}
+            <div className="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
               <div className="flex items-center gap-2">
-                <Star className="h-3 w-3 text-primary" />
-                <p className="text-[9px] font-black uppercase text-zinc-500 tracking-widest leading-none">Status ASCAP</p>
+                <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", isAscapActive ? "bg-accent" : "bg-primary")} />
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">ASCAP</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className={cn(
-                  "w-1.5 h-1.5 rounded-full animate-pulse",
-                  isAscapActive ? "bg-accent" : "bg-primary"
-                )} />
-                <span className={cn(
-                  "text-[10px] font-black uppercase italic tracking-tight",
-                  isAscapActive ? "text-accent" : "text-primary"
-                )}>
-                  {isAscapActive ? "Filiação Ativa" : "Em Processamento"}
-                </span>
-              </div>
-            </div>
-
-            <div className="p-3 bg-zinc-900/50 rounded-xl space-y-2">
-              <p className="text-[9px] font-black uppercase text-zinc-600 tracking-widest">Plano Atual</p>
-              <p className="text-[10px] font-black text-primary italic">DMG PREMIUM ARTIST</p>
-              <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                <div className="h-full bg-primary w-3/4" />
-              </div>
+              <span className="text-[10px] font-mono font-bold text-zinc-400">
+                {user.ipi || "PROCESSANDO"}
+              </span>
             </div>
           </div>
         </aside>

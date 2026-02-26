@@ -21,66 +21,6 @@ export function DashboardHome({ user }: any) {
         <p className="text-zinc-500 text-sm font-medium">Dashboard de carreira — Gerencie seu legado musical e ganhos globais.</p>
       </header>
 
-      {/* ASCAP Global Partner Banner */}
-      <div className="bg-zinc-950 border border-primary/20 p-8 rounded-[32px] relative overflow-hidden group">
-        <div className="absolute -right-20 -top-20 opacity-10 group-hover:scale-110 transition-transform duration-1000">
-          <Star className="h-64 w-64 text-primary" />
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center relative z-10">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="px-3 py-1 bg-primary text-white font-black text-[10px] uppercase tracking-widest italic">ASCAP PARTNER</div>
-              <span className="text-[10px] font-black text-accent uppercase tracking-widest flex items-center gap-1">
-                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" /> FILIAÇÃO ATIVA
-              </span>
-            </div>
-            <h2 className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none">
-              COLETA GLOBAL <br /><span className="text-primary">ATUALIZADA.</span>
-            </h2>
-            <p className="text-xs text-zinc-500 font-medium max-w-xs leading-relaxed">
-              Suas obras estão sendo monitoradas em mais de 150 territórios. A ASCAP garante sua remuneração em TV, Cinema e Rádios internacionais.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl space-y-1">
-              <p className="text-[9px] font-black uppercase text-zinc-600">Seu IPI / CAE</p>
-              <p className="text-sm font-black text-white font-mono">{user.ipi || "GERANDO..."}</p>
-            </div>
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl space-y-1">
-              <p className="text-[9px] font-black uppercase text-zinc-600">Status ASCAP</p>
-              <p className="text-sm font-black text-accent uppercase italic">Processado</p>
-            </div>
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl space-y-1">
-              <p className="text-[9px] font-black uppercase text-zinc-600">Obras na Base</p>
-              <p className="text-sm font-black text-white">{works.length} Verificadas</p>
-            </div>
-            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl space-y-1">
-              <p className="text-[9px] font-black uppercase text-zinc-600">Próximo Repasse</p>
-              <p className="text-sm font-black text-primary uppercase italic">15 de Abr</p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="p-5 bg-primary/10 border border-primary/20 rounded-2xl">
-              <p className="text-[10px] font-black uppercase text-primary mb-2 flex items-center gap-2">
-                <Globe className="h-3 w-3" /> Cobertura Territorial
-              </p>
-              <div className="flex gap-1">
-                {["🇺🇸", "🇬🇧", "🇧🇷", "🇩🇪", "🇯🇵", "🇫🇷", "🇨🇦"].map(flag => (
-                  <span key={flag} className="text-lg opacity-60 hover:opacity-100 cursor-default grayscale hover:grayscale-0 transition-all">{flag}</span>
-                ))}
-                <span className="text-[10px] font-bold text-zinc-600 ml-2">+140</span>
-              </div>
-            </div>
-            <Button variant="outline" className="w-full border-white/10 text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-white rounded-xl h-12">
-              Relatório Completo ASCAP <ArrowUpRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s, i) => (
           <div key={i} className="bg-zinc-950 border border-white/5 p-6 rounded-2xl relative overflow-hidden group">
