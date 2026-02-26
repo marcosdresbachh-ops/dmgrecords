@@ -52,11 +52,9 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         instagram: "",
         spotify: "",
         whatsapp: form.phone || "",
-        // Stripe & KYC Initial State
         stripeAccountId: "acct_tmp_" + Math.random().toString(36).slice(2,10),
         kycStatus: "pending",
         walletBalance: 0,
-        // ASCAP Partnership Data
         ascapStatus: "processing",
         ascapSubmissionDate: new Date().toISOString(),
         ipi: form.ipi || ""
@@ -76,35 +74,35 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
       {step === 1 ? (
         <div className="space-y-8">
           <div className="text-center space-y-2">
-            <h3 className="text-white font-black uppercase text-sm tracking-[0.3em]">Qual seu Papel Principal?</h3>
-            <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">A ASCAP precisa saber como você cria.</p>
+            <h3 className="text-zinc-900 font-black uppercase text-sm tracking-[0.3em]">Qual seu Papel Principal?</h3>
+            <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-widest">A ASCAP precisa saber como você cria.</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={() => setRole("Artista")}
-              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[24px] ${role === "Artista" ? "border-primary bg-primary/10" : "border-white/5 bg-white/5 hover:border-white/20"}`}
+              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[24px] ${role === "Artista" ? "border-primary bg-primary/5" : "border-zinc-100 bg-zinc-50 hover:border-zinc-200"}`}
             >
-              <Headphones className={role === "Artista" ? "text-primary" : "text-zinc-600"} />
+              <Headphones className={role === "Artista" ? "text-primary" : "text-zinc-300"} />
               <div className="text-center">
-                <span className="text-xs font-black uppercase tracking-widest block">Cantor(a)</span>
-                <span className="text-[8px] text-zinc-500 uppercase font-black">Intérprete</span>
+                <span className="text-xs font-black uppercase tracking-widest block text-zinc-900">Cantor(a)</span>
+                <span className="text-[8px] text-zinc-400 uppercase font-black">Intérprete</span>
               </div>
             </button>
             <button 
               onClick={() => setRole("Compositor")}
-              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[24px] ${role === "Compositor" ? "border-primary bg-primary/10" : "border-white/5 bg-white/5 hover:border-white/20"}`}
+              className={`p-8 border-2 flex flex-col items-center gap-4 transition-all rounded-[24px] ${role === "Compositor" ? "border-primary bg-primary/5" : "border-zinc-100 bg-zinc-50 hover:border-zinc-200"}`}
             >
-              <Music2 className={role === "Compositor" ? "text-primary" : "text-zinc-600"} />
+              <Music2 className={role === "Compositor" ? "text-primary" : "text-zinc-300"} />
               <div className="text-center">
-                <span className="text-xs font-black uppercase tracking-widest block">Compositor</span>
-                <span className="text-[8px] text-zinc-500 uppercase font-black">Autor</span>
+                <span className="text-xs font-black uppercase tracking-widest block text-zinc-900">Compositor</span>
+                <span className="text-[8px] text-zinc-400 uppercase font-black">Autor</span>
               </div>
             </button>
           </div>
           
-          <div className="bg-primary/5 border border-primary/20 p-4 rounded-xl flex items-start gap-3">
+          <div className="bg-primary/5 border border-primary/10 p-4 rounded-xl flex items-start gap-3">
              <Star className="h-4 w-4 text-primary shrink-0" />
-             <p className="text-[10px] text-zinc-400 leading-tight font-medium">
+             <p className="text-[10px] text-zinc-500 leading-tight font-bold uppercase">
                 Como parceira oficial, a DMG Records facilita sua entrada na <strong>ASCAP</strong>. Escolha sua função para gerar a documentação automática.
              </p>
           </div>
@@ -112,16 +110,16 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           <Button 
             disabled={!role}
             onClick={() => setStep(2)}
-            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-lg font-black italic tracking-tighter uppercase"
+            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-lg font-black italic tracking-tighter uppercase text-white"
           >
             CONTINUAR PARA DADOS
           </Button>
-          <div className="text-center text-xs text-zinc-500 font-medium">Já tem uma conta? <button onClick={onSwitch} className="text-primary font-black uppercase hover:underline">ENTRAR</button></div>
+          <div className="text-center text-xs text-zinc-400 font-medium uppercase tracking-tight">Já tem uma conta? <button onClick={onSwitch} className="text-primary font-black uppercase hover:underline">ENTRAR</button></div>
         </div>
       ) : (
         <form onSubmit={handleRegister} className="space-y-5">
           <div className="text-center space-y-1">
-            <h3 className="text-white font-black uppercase text-sm tracking-widest">Dados do Criador</h3>
+            <h3 className="text-zinc-900 font-black uppercase text-sm tracking-widest">Dados do Criador</h3>
             <p className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
               <Globe className="h-3 w-3" /> Auto-Filiação ASCAP em tempo real
             </p>
@@ -131,37 +129,37 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Nome *</Label>
-              <Input className="bg-white/5 border-white/10 rounded-xl h-12 text-sm" required value={form.firstName} onChange={e => set("firstName", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Nome *</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900" required value={form.firstName} onChange={e => set("firstName", e.target.value)} />
             </div>
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Sobrenome *</Label>
-              <Input className="bg-white/5 border-white/10 rounded-xl h-12 text-sm" required value={form.lastName} onChange={e => set("lastName", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Sobrenome *</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900" required value={form.lastName} onChange={e => set("lastName", e.target.value)} />
             </div>
           </div>
 
           <div className="space-y-1">
-            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Nome Artístico / Pseudônimo</Label>
-            <Input className="bg-white/5 border-white/10 rounded-xl h-12 text-sm" value={form.artistName} onChange={e => set("artistName", e.target.value)} />
+            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Nome Artístico / Pseudônimo</Label>
+            <Input className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900" value={form.artistName} onChange={e => set("artistName", e.target.value)} />
           </div>
 
           <div className="space-y-1">
-            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">E-mail Profissional *</Label>
-            <Input type="email" className="bg-white/5 border-white/10 rounded-xl h-12 text-sm" required value={form.email} onChange={e => set("email", e.target.value)} />
+            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">E-mail Profissional *</Label>
+            <Input type="email" className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900" required value={form.email} onChange={e => set("email", e.target.value)} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">IPI / CAE (Opcional)</Label>
-              <Input className="bg-white/5 border-white/10 rounded-xl h-12 text-sm font-mono" placeholder="Ex: 001234567" value={form.ipi} onChange={e => set("ipi", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">IPI / CAE (Opcional)</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-mono font-bold text-zinc-900" placeholder="Ex: 001234567" value={form.ipi} onChange={e => set("ipi", e.target.value)} />
             </div>
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">País de Residência *</Label>
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">País de Residência *</Label>
               <Select value={form.country} onValueChange={v => set("country", v)}>
-                <SelectTrigger className="bg-white/5 border-white/10 rounded-xl h-12 text-sm">
+                <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900">
                   <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
-                <SelectContent className="bg-zinc-950 border-white/10 text-white">
+                <SelectContent className="bg-white border-zinc-200 text-zinc-900">
                   {["Brasil", "EUA", "Portugal", "Reino Unido", "Outro"].map(p => (
                     <SelectItem key={p} value={p}>{p}</SelectItem>
                   ))}
@@ -172,17 +170,17 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Senha *</Label>
-              <Input type="password" className="bg-white/5 border-white/10 rounded-xl h-12 text-sm" required value={form.password} onChange={e => set("password", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Senha *</Label>
+              <Input type="password" className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900" required value={form.password} onChange={e => set("password", e.target.value)} />
             </div>
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-600">Confirmar *</Label>
-              <Input type="password" className="bg-white/5 border-white/10 rounded-xl h-12 text-sm" required value={form.confirm} onChange={e => set("confirm", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Confirmar *</Label>
+              <Input type="password" className="bg-zinc-50 border-zinc-200 rounded-xl h-12 text-sm font-bold text-zinc-900" required value={form.confirm} onChange={e => set("confirm", e.target.value)} />
             </div>
           </div>
 
-          <div className="p-4 bg-zinc-900 border border-white/5 rounded-2xl space-y-2">
-            <p className="text-[9px] text-zinc-500 leading-relaxed font-medium">
+          <div className="p-4 bg-zinc-50 border border-zinc-100 rounded-2xl space-y-2 shadow-inner">
+            <p className="text-[9px] text-zinc-400 leading-relaxed font-bold uppercase">
               Ao clicar em finalizar, você autoriza a DMG Records a compartilhar seus dados com a <strong>ASCAP</strong> para fins de filiação e coleta internacional. Se você já possui um IPI, ele será sincronizado. Se não, um novo será solicitado.
             </p>
           </div>
@@ -190,12 +188,12 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           <Button 
             type="submit" 
             disabled={loading}
-            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-lg font-black italic tracking-tighter uppercase shadow-lg shadow-primary/20"
+            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-lg font-black italic tracking-tighter uppercase shadow-lg shadow-primary/20 text-white"
           >
             {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : "FINALIZAR CADASTRO DMG HUB →"}
           </Button>
           
-          <button type="button" onClick={() => setStep(1)} className="w-full text-[10px] text-zinc-600 hover:text-white uppercase font-black text-center">← Voltar</button>
+          <button type="button" onClick={() => setStep(1)} className="w-full text-[10px] text-zinc-400 hover:text-zinc-900 uppercase font-black text-center">← Voltar</button>
         </form>
       )}
     </div>
