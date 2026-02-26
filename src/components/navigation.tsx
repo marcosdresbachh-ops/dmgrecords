@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DmgLogo } from "./dmg-logo";
+import { TopPlayer } from "./top-player";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,23 +35,28 @@ export function Navigation() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-black/95 backdrop-blur-md border-b border-white/10 py-4 shadow-2xl" : "bg-transparent py-6"
+        scrolled ? "bg-black/95 backdrop-blur-md shadow-2xl" : "bg-transparent"
       )}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        <DmgLogo />
+      <TopPlayer />
+      
+      <div className={cn(
+        "container mx-auto px-4 flex items-center justify-between transition-all duration-300",
+        scrolled ? "py-3" : "py-6"
+      )}>
+        <DmgLogo iconSize={scrolled ? 20 : 24} textSize={scrolled ? "text-xl" : "text-2xl"} />
 
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-xs font-bold uppercase tracking-[0.2em] text-white/70 hover:text-primary transition-all hover:translate-y-[-1px]"
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-white/70 hover:text-primary transition-all hover:translate-y-[-1px]"
             >
               {link.name}
             </Link>
           ))}
-          <Button asChild className="rounded-none px-6 font-black tracking-tighter bg-primary hover:bg-primary/90">
+          <Button asChild className="rounded-none px-6 h-10 font-black tracking-tighter bg-primary hover:bg-primary/90 text-xs italic">
             <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
               OUVIR AGORA
             </a>
@@ -66,19 +72,19 @@ export function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 animate-in slide-in-from-top duration-300">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-black/98 backdrop-blur-xl border-b border-white/10 animate-in slide-in-from-top duration-300">
           <nav className="flex flex-col p-8 gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors italic"
+                className="text-2xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors italic"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter">
+            <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
               <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
                 OUVIR NO SOUNDCLOUD
               </a>

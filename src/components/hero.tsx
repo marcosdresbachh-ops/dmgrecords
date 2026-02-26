@@ -10,7 +10,7 @@ export function Hero() {
   const soundcloudUrl = "https://soundcloud.com/vini-amaral-748220502";
 
   return (
-    <section id="inicio" className="relative h-screen w-full flex items-center overflow-hidden">
+    <section id="inicio" className="relative min-h-screen w-full flex items-center overflow-hidden pt-[31px]">
       <div className="absolute inset-0 z-0">
         {heroImage ? (
           <Image
@@ -40,19 +40,14 @@ export function Hero() {
             Definindo o futuro da música urbana brasileira.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild size="lg" className="rounded-none px-10 py-8 text-xl font-black tracking-tighter bg-primary hover:bg-primary/90 shadow-2xl shadow-primary/30">
+            <Button asChild size="lg" className="rounded-none px-10 py-8 text-xl font-black tracking-tighter bg-primary hover:bg-primary/90 shadow-2xl shadow-primary/30 italic">
               <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
                 <PlayCircle className="mr-2 h-7 w-7" /> OUVIR AGORA
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-none px-10 py-8 text-xl font-black tracking-tighter border-white/20 hover:bg-white/10 text-white backdrop-blur-sm">
+            <Button asChild size="lg" variant="outline" className="rounded-none px-10 py-8 text-xl font-black tracking-tighter border-white/20 hover:bg-white/10 text-white backdrop-blur-sm italic">
               <a href="#lancamentos">
                 <Headphones className="mr-2 h-7 w-7" /> LANÇAMENTOS
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="ghost" className="rounded-none px-10 py-8 text-xl font-black tracking-tighter text-accent hover:text-accent hover:bg-accent/10 border border-accent/20">
-              <a href="#contato">
-                <Mail className="mr-2 h-7 w-7" /> CONTATO
               </a>
             </Button>
           </div>
