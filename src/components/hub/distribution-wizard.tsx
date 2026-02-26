@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -191,12 +192,28 @@ export function DistributionWizard({ user, onComplete }: any) {
   async function handleSubmit() {
     setLoading(true);
     setTimeout(() => {
+      // Simulação de persistência no objeto do usuário
+      const users = JSON.parse(localStorage.getItem('dmg_hub_users') || '{}');
+      const updatedUser = { ...user };
+      const newRelease = {
+        id: Math.random().toString(36).substr(2, 9),
+        title: form.title || "Untitled Release",
+        artist: form.mainArtist,
+        status: "In Review",
+        image: tracks[0]?.isExternal ? "/viniamaral/01.Somebody Like A Ghost.png" : "https://picsum.photos/seed/dmg-new/400/400",
+        date: new Date().toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' })
+      };
+      updatedUser.distributedReleases = [...(updatedUser.distributedReleases || []), newRelease];
+      users[user.email] = updatedUser;
+      localStorage.setItem('dmg_hub_users', JSON.stringify(users));
+      localStorage.setItem('dmg_hub_session', JSON.stringify(updatedUser));
+
       setLoading(false);
       toast({
         title: "Lançamento Enviado!",
         description: "Seu material está em processamento industrial. ISRC será gerado em 24h.",
       });
-      onComplete();
+      onComplete(updatedUser);
     }, 2000);
   }
 
@@ -206,7 +223,7 @@ export function DistributionWizard({ user, onComplete }: any) {
       <div className="p-12 pb-6 border-b border-zinc-100 shrink-0">
         <div 
           className="flex items-center gap-2 mb-10 cursor-pointer group w-fit" 
-          onClick={onComplete}
+          onClick={() => onComplete()}
         >
           <div className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center group-hover:bg-zinc-50 transition-colors">
             <MoveLeft className="h-4 w-4" />
@@ -398,7 +415,7 @@ export function DistributionWizard({ user, onComplete }: any) {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <button 
             className="font-bold text-sm text-zinc-900 hover:underline" 
-            onClick={onComplete}
+            onClick={() => onComplete()}
           >
             Cancel
           </button>

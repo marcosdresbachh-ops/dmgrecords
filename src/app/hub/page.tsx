@@ -62,7 +62,10 @@ export default function HubPage() {
         {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
         {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
         {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} />}
-        {page === "distribute" && <DistributionWizard user={user} onComplete={() => setPage("distribution")} />}
+        {page === "distribute" && <DistributionWizard user={user} onComplete={(updatedUser?: any) => { 
+          if (updatedUser) setUser(updatedUser);
+          setPage("distribution"); 
+        }} />}
         {page === "register" && <WorkRegistration user={user} onUpdate={setUser} />}
         {page === "catalog" && <CatalogTable user={user} />}
         {page === "royalties" && <RoyaltiesPage user={user} />}

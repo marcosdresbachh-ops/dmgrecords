@@ -24,24 +24,8 @@ interface DistributionPageProps {
 export function DistributionPage({ user, onStartCreate }: DistributionPageProps) {
   const [search, setSearch] = useState("");
 
-  const releases = [
-    {
-      id: "1",
-      title: "The Road Back Home",
-      artist: user.artistName || user.firstName,
-      status: "Draft",
-      image: "https://picsum.photos/seed/dmg1/400/400",
-      date: "—"
-    },
-    {
-      id: "2",
-      title: "Somebody Like A Ghost",
-      artist: user.artistName || user.firstName,
-      status: "In Review",
-      image: "/viniamaral/01.Somebody Like A Ghost.png",
-      date: "Mar 15, 2025"
-    }
-  ];
+  // Agora busca os lançamentos do objeto do usuário (persistidos via localStorage no Wizard)
+  const releases = user.distributedReleases || [];
 
   return (
     <div className="min-h-screen bg-white text-black -m-8 p-12 space-y-12 animate-in fade-in duration-500">
@@ -96,8 +80,8 @@ export function DistributionPage({ user, onStartCreate }: DistributionPageProps)
           </div>
         </div>
 
-        {/* Lançamentos Existentes */}
-        {releases.map((release) => (
+        {/* Lançamentos Dinâmicos */}
+        {releases.map((release: any) => (
           <div key={release.id} className="group space-y-3">
             <div className="relative aspect-square overflow-hidden rounded-xl bg-zinc-100 border border-zinc-100 shadow-sm">
               <Image 
