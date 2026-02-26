@@ -1,7 +1,17 @@
 
-import { Radio, FileText, BarChart3, Globe } from "lucide-react";
+"use client";
+
+import { Radio, FileText, BarChart3, Globe, Download, Mail } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const FEATURES = [
   {
@@ -52,10 +62,47 @@ export function WebRadioSection() {
               ))}
             </div>
             
-            <div className="pt-8">
+            <div className="pt-8 flex flex-wrap gap-4">
               <Button asChild className="rounded-none bg-primary hover:bg-primary/90 text-white font-black h-14 px-8 tracking-tighter">
                 <a href="#contato">ENVIAR MINHA MÚSICA</a>
               </Button>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="rounded-none border-primary text-primary hover:bg-primary hover:text-white font-black h-14 px-8 tracking-tighter">
+                    <Download className="mr-2 h-5 w-5" /> BAIXAR TERMO DE CONCESSÃO
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-zinc-950 border-white/10 text-white rounded-none max-w-md">
+                  <DialogHeader className="space-y-4">
+                    <DialogTitle className="text-3xl font-black italic tracking-tighter uppercase text-primary">Termos de Concessão</DialogTitle>
+                    <DialogDescription className="text-zinc-400 font-medium">
+                      Escolha o modelo de termo adequado para sua nacionalidade. Após assinar, envie para o e-mail abaixo.
+                    </DialogDescription>
+                  </DialogHeader>
+                  
+                  <div className="grid gap-4 py-6">
+                    <Button asChild className="w-full h-16 bg-white text-black font-black uppercase tracking-tighter hover:bg-zinc-200 rounded-none">
+                      <a href="/termos/concessao-br.pdf" download>TERMO DE CONCESSÃO (BRASILEIROS)</a>
+                    </Button>
+                    <Button asChild className="w-full h-16 bg-zinc-800 text-white font-black uppercase tracking-tighter hover:bg-zinc-700 rounded-none border border-white/10">
+                      <a href="/termos/concessao-intl.pdf" download>TERMO DE CONCESSÃO (NON-BRAZILIANS)</a>
+                    </Button>
+                  </div>
+
+                  <div className="p-4 bg-primary/10 border border-primary/20 space-y-3">
+                    <div className="flex items-center gap-2 text-primary font-black uppercase text-[10px] tracking-widest">
+                      <Mail className="h-4 w-4" /> Instruções de Envio
+                    </div>
+                    <p className="text-xs text-zinc-300 leading-relaxed">
+                      Assine e envie o documento para: <span className="text-white font-bold">radio@dmgrecords.com.br</span>
+                    </p>
+                    <p className="text-[10px] font-black uppercase text-accent tracking-widest">
+                      ⚠️ ATENÇÃO: O PRAZO É DE ATÉ 5 DIAS PARA INSERÇÃO NA GRADE.
+                    </p>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
 
