@@ -7,7 +7,7 @@ import {
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
   MessageSquare, Search, Bell, HelpCircle, ChevronDown, ChevronRight,
   Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool, Layout, FileSearch,
-  Star
+  Star, Send
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/utils";
@@ -21,7 +21,7 @@ interface DashboardLayoutProps {
 }
 
 export function DashboardLayout({ user, activePage, onPageChange, onLogout, children }: DashboardLayoutProps) {
-  const [openSections, setOpenSections] = useState<string[]>([]);
+  const [openSections, setOpenSections] = useState<string[]>(["Obras", "Principal"]);
 
   const toggleSection = (section: string) => {
     setOpenSections(prev => 
@@ -44,6 +44,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       sec: "Obras", 
       icon: <Music className="h-4 w-4" />,
       items: [
+        { id: "distribute", label: "Distribuir Música", icon: <Send className="h-3.5 w-3.5" />, badge: "NEW" },
         { id: "register", label: "Registrar Obra", icon: <PlusCircle className="h-3.5 w-3.5" /> },
         { id: "catalog", label: "Meu Catálogo", icon: <Library className="h-3.5 w-3.5" /> },
       ]
@@ -79,7 +80,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
         { id: "ai", label: "AI Assistant", icon: <Sparkles className="h-3.5 w-3.5" /> },
         { id: "documents", label: "Docs & Legal", icon: <FileText className="h-3.5 w-3.5" /> },
         { id: "analytics", label: "Analytics", icon: <BarChart3 className="h-3.5 w-3.5" /> },
-        { id: "distribution", label: "Distribuição", icon: <Globe className="h-3.5 w-3.5" /> },
+        { id: "distribution", label: "Parceiros", icon: <Globe className="h-3.5 w-3.5" /> },
       ]
     },
     { 

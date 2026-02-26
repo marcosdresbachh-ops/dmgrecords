@@ -21,6 +21,7 @@ import { WebRadioPage } from "@/components/hub/web-radio-page";
 import { PublicProfilePage } from "@/components/hub/public-profile-page";
 import { IRSFormsPage } from "@/components/hub/irs-forms-page";
 import { AscapPage } from "@/components/hub/ascap-page";
+import { DistributionWizard } from "@/components/hub/distribution-wizard";
 import { getSession, clearSession } from "@/lib/hub-auth";
 
 export default function HubPage() {
@@ -61,6 +62,7 @@ export default function HubPage() {
         {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
         {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
         {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} />}
+        {page === "distribute" && <DistributionWizard user={user} onComplete={() => setPage("dashboard")} />}
         {page === "register" && <WorkRegistration user={user} onUpdate={setUser} />}
         {page === "catalog" && <CatalogTable user={user} />}
         {page === "royalties" && <RoyaltiesPage user={user} />}
