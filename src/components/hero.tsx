@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { PlayCircle, Headphones, Mail } from "lucide-react";
+import { PlayCircle, Headphones } from "lucide-react";
 import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 export function Hero() {

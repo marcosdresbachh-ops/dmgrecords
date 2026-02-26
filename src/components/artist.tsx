@@ -23,12 +23,12 @@ export function ArtistSection() {
               src={artistImage.imageUrl}
               alt={artistImage.description}
               fill
-              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+              className="object-cover transition-all duration-1000 group-hover:scale-105"
               data-ai-hint={artistImage.imageHint}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40" />
             <div className="absolute bottom-8 left-8 p-4">
-              <h3 className="text-7xl font-black italic tracking-tighter uppercase leading-[0.8]">
+              <h3 className="text-7xl font-black italic tracking-tighter uppercase leading-[0.8] drop-shadow-lg">
                 <span className="text-white block">VINI</span>
                 <span className="text-primary block">AMARAL</span>
               </h3>

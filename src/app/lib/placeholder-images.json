@@ -3,9 +3,9 @@
   "placeholderImages": [
     {
       "id": "hero-bg",
-      "description": "Professional music recording studio with mixing console",
-      "imageUrl": "https://images.unsplash.com/photo-1601856254555-a9c0ebef8af3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtdXNpYyUyMHN0dWRpb3xlbnwwfHx8fDE3NzIwMzM5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "music studio"
+      "description": "Capa do CD Somebody Like A Ghost - Vini Amaral",
+      "imageUrl": "/viniamaral/01.Somebody Like A Ghost.png",
+      "imageHint": "artist hero"
     },
     {
       "id": "vini-amaral",
