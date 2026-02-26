@@ -1,9 +1,8 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Hammer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { DmgLogo } from "./dmg-logo";
@@ -23,14 +22,12 @@ export function Navigation() {
   }, []);
 
   const navLinks = [
-    { name: "Início", href: "#inicio" },
-    { name: "O Artista", href: "#artista" },
-    { name: "Lançamentos", href: "#lancamentos" },
-    { name: "Produções", href: "#producoes" },
-    { name: "Proteção", href: "#licenciamento" },
-    { name: "Rádio", href: "#radio" },
-    { name: "Sobre", href: "#sobre" },
-    { name: "Contato", href: "#contato" },
+    { name: "Início", href: "/#inicio" },
+    { name: "O Artista", href: "/#artista" },
+    { name: "Lançamentos", href: "/#lancamentos" },
+    { name: "Ferramentas", href: "/ferramentas" },
+    { name: "Rádio", href: "/#radio" },
+    { name: "Contato", href: "/#contato" },
   ];
 
   return (
@@ -59,9 +56,9 @@ export function Navigation() {
             </Link>
           ))}
           <Button asChild className="rounded-none px-6 h-10 font-black tracking-tighter bg-primary hover:bg-primary/90 text-xs italic">
-            <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
-              OUVIR AGORA
-            </a>
+            <Link href="/ferramentas">
+              <Hammer className="mr-2 h-3 w-3" /> FERRAMENTAS DMG
+            </Link>
           </Button>
         </nav>
 
@@ -87,9 +84,9 @@ export function Navigation() {
               </Link>
             ))}
             <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
-              <a href={soundcloudUrl} target="_blank" rel="noopener noreferrer">
-                OUVIR NO SOUNDCLOUD
-              </a>
+              <Link href="/ferramentas" onClick={() => setIsOpen(false)}>
+                ÁREA DO ARTISTA
+              </Link>
             </Button>
           </nav>
         </div>
