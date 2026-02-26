@@ -5,13 +5,17 @@ import {
   Upload, CheckCircle2, Music, Globe, Users, 
   ChevronRight, ChevronLeft, Send, Info,
   Check, Play, AlertCircle, DollarSign,
-  HelpCircle, Settings2, FileText, Trash2, Plus, GripVertical, Edit2, Search, X, Link as LinkIcon
+  HelpCircle, Settings2, FileText, Trash2, Plus, GripVertical, Edit2, Search, X, Link as LinkIcon,
+  PlusCircle, FileUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Slider } from "@/components/ui/slider";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/hooks/use-toast";
 import Image from "next/image";
 import {
@@ -71,12 +75,26 @@ const PARTNERS = [
   { name: "YouTube Music", icon: "🔴" },
 ];
 
+type Contributor = {
+  id: string;
+  name: string;
+  type: string;
+};
+
 type TrackData = {
   id: string;
   title: string;
-  isrc: string;
+  version: string;
+  contributors: Contributor[];
   explicit: string;
-  composers: string;
+  language: string;
+  songwriter: string;
+  songType: string[];
+  previewStart: number;
+  hasIsrc: string;
+  isrc: string;
+  youtubeContentId: boolean;
+  agreedToRules: boolean;
   fileSize?: string;
   isExternal?: boolean;
 };
@@ -104,7 +122,6 @@ export function DistributionWizard({ user, onComplete }: any) {
     splits: [{ name: user.firstName, role: "Owner", percentage: 100 }]
   });
 
-  // Faixas sincronizadas reais do cadastro do usuário
   const syncedTracks = user.works || [];
 
   const next = () => setStep(s => Math.min(s + 1, 6));
@@ -117,9 +134,20 @@ export function DistributionWizard({ user, onComplete }: any) {
     const newTracks: TrackData[] = selectedFiles.map(f => ({
       id: Math.random().toString(36).substr(2, 9),
       title: f.name.replace(/\.[^/.]+$/, ""),
+      version: "Original",
+      contributors: [
+        { id: "1", name: user.artistName || user.firstName, type: "Main Artist" },
+        { id: "2", name: `${user.firstName} ${user.lastName}`, type: "Composer (Legal Name)" }
+      ],
+      explicit: "not_explicit",
+      language: "Portuguese",
+      songwriter: "i_wrote",
+      songType: [],
+      previewStart: 0,
+      hasIsrc: "no",
       isrc: "",
-      explicit: "none",
-      composers: user.artistName || user.firstName,
+      youtubeContentId: true,
+      agreedToRules: true,
       fileSize: (f.size / 1024 / 1024).toFixed(2) + " MB"
     }));
     setTracks(prev => [...prev, ...newTracks]);
@@ -130,9 +158,19 @@ export function DistributionWizard({ user, onComplete }: any) {
     const newTrack: TrackData = {
       id: track.regId || track.id,
       title: track.title,
+      version: "Original",
+      contributors: [
+        { id: "1", name: user.artistName || user.firstName, type: "Main Artist" }
+      ],
+      explicit: "not_explicit",
+      language: track.language || "Portuguese",
+      songwriter: "i_wrote",
+      songType: [],
+      previewStart: 0,
+      hasIsrc: track.isrc ? "yes" : "no",
       isrc: track.isrc || "",
-      explicit: "none",
-      composers: user.artistName || user.firstName,
+      youtubeContentId: true,
+      agreedToRules: true,
       fileSize: "Synced from Catalog",
       isExternal: true
     };
@@ -177,7 +215,7 @@ export function DistributionWizard({ user, onComplete }: any) {
         </div>
       </header>
 
-      {/* Progress Stepper Pro */}
+      {/* Progress Stepper */}
       <div className="flex items-center justify-between max-w-5xl mx-auto px-4 relative mb-20">
         <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/5 -z-10" />
         {STEPS.map((s) => (
@@ -260,6 +298,7 @@ export function DistributionWizard({ user, onComplete }: any) {
           </div>
         )}
 
+        {/* ... (Other steps 2-6 remain same) */}
         {step === 2 && (
           <div className="space-y-12 animate-in slide-in-from-right-4">
             <div className="flex items-center justify-between">
@@ -485,7 +524,7 @@ export function DistributionWizard({ user, onComplete }: any) {
           </div>
         )}
 
-        {/* Navigation Pro */}
+        {/* Navigation */}
         <div className="mt-16 flex justify-between items-center pt-10 border-t border-white/5">
           <Button 
             variant="ghost" 
@@ -516,9 +555,9 @@ export function DistributionWizard({ user, onComplete }: any) {
         </div>
       </div>
 
-      {/* MODAL: Select an existing Track (SoundCloud/Catalog Style) */}
+      {/* MODAL: Select Track */}
       <Dialog open={isSelectModalOpen} onOpenChange={setIsSelectModalOpen}>
-        <DialogContent className="bg-white text-zinc-900 max-w-lg rounded-3xl p-0 overflow-hidden border-none">
+        <DialogContent className="bg-white text-zinc-900 max-w-lg rounded-3xl p-0 overflow-hidden border-none shadow-2xl">
           <div className="p-6 space-y-6">
             <div className="flex justify-between items-start">
               <div>
@@ -538,7 +577,6 @@ export function DistributionWizard({ user, onComplete }: any) {
             </div>
 
             <div className="space-y-4">
-              {/* ÁREA DE UPLOAD SEMPRE VISÍVEL */}
               <div className="border border-dashed border-zinc-200 p-6 flex flex-col items-center justify-center gap-3 hover:bg-zinc-50 transition-all cursor-pointer group relative rounded-2xl">
                 <Upload className="h-6 w-6 text-zinc-300 group-hover:text-primary" />
                 <p className="text-[10px] font-black text-zinc-400 group-hover:text-zinc-600 uppercase tracking-widest">UPLOAD FROM COMPUTER</p>
@@ -550,12 +588,9 @@ export function DistributionWizard({ user, onComplete }: any) {
                   <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest pl-1">Faixas Disponíveis no Catálogo</p>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
-                    <Input 
-                      className="bg-zinc-100 border-none pl-10 h-10 rounded-xl text-xs focus-visible:ring-1 focus-visible:ring-zinc-300" 
-                      placeholder="Search for tracks" 
-                    />
+                    <Input className="bg-zinc-100 border-none pl-10 h-10 rounded-xl text-xs" placeholder="Search for tracks" />
                   </div>
-                  <div className="space-y-1 max-h-[250px] overflow-y-auto no-scrollbar pr-1">
+                  <ScrollArea className="h-[250px] pr-4">
                     {syncedTracks.map((t: any) => (
                       <div 
                         key={t.regId || t.id} 
@@ -563,91 +598,276 @@ export function DistributionWizard({ user, onComplete }: any) {
                         onClick={() => handleSelectSyncedTrack(t)}
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 relative rounded-lg overflow-hidden bg-zinc-100 border border-zinc-200">
-                            <div className="flex items-center justify-center h-full text-zinc-300"><Music className="h-4 w-4" /></div>
-                          </div>
+                          <div className="w-10 h-10 relative rounded-lg overflow-hidden bg-zinc-100 flex items-center justify-center text-zinc-300"><Music className="h-4 w-4" /></div>
                           <div>
                             <span className="font-bold text-xs text-zinc-800 uppercase tracking-tighter block">{t.title}</span>
                             <span className="text-[9px] text-zinc-400 font-mono">{t.isrc || "NO ISRC"}</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="bg-[#00b388] text-white text-[8px] font-black px-2 py-0.5 rounded-sm uppercase">Registered</span>
-                        </div>
+                        <span className="bg-[#00b388] text-white text-[8px] font-black px-2 py-0.5 rounded-sm uppercase">Registered</span>
                       </div>
                     ))}
-                  </div>
+                  </ScrollArea>
                 </div>
               ) : (
                 <div className="py-10 text-center bg-zinc-50 rounded-2xl border border-zinc-100">
                   <Music className="h-8 w-8 text-zinc-200 mx-auto mb-2" />
                   <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest">Nenhuma faixa encontrada no catálogo</p>
-                  <p className="text-[9px] text-zinc-400 mt-1">Faça o upload do seu computador acima.</p>
                 </div>
               )}
             </div>
           </div>
-
-          <div className="border-t border-zinc-100 p-4 flex justify-end gap-3 bg-zinc-50/50">
-            <Button variant="ghost" onClick={() => setIsSelectModalOpen(false)} className="text-[10px] font-black uppercase tracking-widest text-zinc-800 hover:bg-zinc-100">Cancel</Button>
-          </div>
         </DialogContent>
       </Dialog>
 
-      {/* Track Metadata Editor Dialog */}
+      {/* MODAL: Edit Track Metadata (IMAGE REPLICA) */}
       {editingTrack && (
         <Dialog open={!!editingTrack} onOpenChange={() => setEditingTrack(null)}>
-          <DialogContent className="bg-zinc-950 border-white/10 text-white max-w-2xl rounded-[32px]">
-            <DialogHeader className="space-y-4">
-              <DialogTitle className="text-3xl font-black italic uppercase tracking-tighter text-primary">Editar Metadados da Faixa</DialogTitle>
-              <DialogDescription className="text-zinc-500 font-bold uppercase text-[10px] tracking-widest">Configuração individual para: {editingTrack.title}</DialogDescription>
-            </DialogHeader>
+          <DialogContent className="bg-white text-zinc-900 max-w-3xl rounded-none p-0 overflow-hidden border-none shadow-2xl h-[95vh] flex flex-col">
+            <div className="p-8 flex-1 overflow-y-auto no-scrollbar space-y-10">
+              <div className="flex justify-between items-start">
+                <DialogTitle className="text-2xl font-bold tracking-tight">{editingTrack.title}</DialogTitle>
+                <Button variant="ghost" size="icon" onClick={() => setEditingTrack(null)} className="rounded-full hover:bg-zinc-100">
+                  <X className="h-5 w-5 text-zinc-400" />
+                </Button>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6">
-              <div className="space-y-3">
-                <Label className="text-[10px] font-black uppercase text-zinc-500">Título da Faixa *</Label>
-                <Input 
-                  value={editingTrack.title} 
-                  onChange={e => setEditingTrack({...editingTrack, title: e.target.value})}
-                  className="bg-black border-white/10 h-14 rounded-xl" 
-                />
+              {/* Title & Version */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <Label className="text-[11px] font-bold text-zinc-800">Track title <span className="text-red-500">*</span></Label>
+                  <Input 
+                    value={editingTrack.title} 
+                    onChange={e => setEditingTrack({...editingTrack, title: e.target.value})}
+                    className="bg-zinc-50 border-zinc-200 rounded-none h-12 text-sm focus-visible:ring-zinc-400" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-1.5">
+                    <Label className="text-[11px] font-bold text-zinc-800">Version</Label>
+                    <Info className="h-3 w-3 text-zinc-400" />
+                  </div>
+                  <Select value={editingTrack.version} onValueChange={v => setEditingTrack({...editingTrack, version: v})}>
+                    <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-none h-12 text-sm">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white">
+                      <SelectItem value="Original">Original</SelectItem>
+                      <SelectItem value="Radio Edit">Radio Edit</SelectItem>
+                      <SelectItem value="Remix">Remix</SelectItem>
+                      <SelectItem value="Live">Live</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <div className="space-y-3">
-                <Label className="text-[10px] font-black uppercase text-zinc-500">ISRC Customizado (Opcional)</Label>
-                <Input 
-                  value={editingTrack.isrc} 
-                  onChange={e => setEditingTrack({...editingTrack, isrc: e.target.value})}
-                  className="bg-black border-white/10 h-14 rounded-xl font-mono" 
-                  placeholder="BR-XXX-25-00000"
-                />
+
+              {/* Contributors */}
+              <div className="space-y-6">
+                <div className="flex items-center gap-1.5">
+                  <Label className="text-sm font-bold text-zinc-900">Contributors</Label>
+                  <Info className="h-3.5 w-3.5 text-zinc-400" />
+                </div>
+                
+                <div className="space-y-4">
+                  {editingTrack.contributors.map((c, i) => (
+                    <div key={c.id} className="grid grid-cols-12 gap-4 items-end">
+                      <div className="col-span-1 flex items-center justify-center pb-3">
+                        <GripVertical className="h-4 w-4 text-zinc-300" />
+                      </div>
+                      <div className="col-span-5 space-y-2">
+                        {i === 0 && <Label className="text-[11px] font-bold text-zinc-800">Contributor name <span className="text-red-500">*</span></Label>}
+                        <Input value={c.name} className="bg-zinc-50 border-zinc-200 rounded-none h-12 text-sm" />
+                      </div>
+                      <div className="col-span-1 flex items-center justify-center pb-3">
+                        <span className="text-[11px] font-bold text-zinc-400">is the</span>
+                      </div>
+                      <div className="col-span-5 space-y-2">
+                        {i === 0 && <Label className="text-[11px] font-bold text-zinc-800">Contributor type</Label>}
+                        <div className="bg-zinc-200 text-zinc-600 h-12 flex items-center px-4 text-sm font-medium italic italic">
+                          {c.type}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Button variant="outline" className="rounded-none border-zinc-300 text-zinc-800 font-bold h-10 px-6 bg-zinc-50 hover:bg-zinc-100">
+                  Add a contributor
+                </Button>
               </div>
-              <div className="space-y-3">
-                <Label className="text-[10px] font-black uppercase text-zinc-500">Compositores / Autores</Label>
-                <Input 
-                  value={editingTrack.composers} 
-                  onChange={e => setEditingTrack({...editingTrack, composers: e.target.value})}
-                  className="bg-black border-white/10 h-14 rounded-xl" 
-                />
+
+              {/* Track Info */}
+              <div className="space-y-8 pt-4">
+                <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-widest">Track info</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <Label className="text-[11px] font-bold text-zinc-800">Content rating <span className="text-red-500">*</span></Label>
+                    <Select value={editingTrack.explicit} onValueChange={v => setEditingTrack({...editingTrack, explicit: v})}>
+                      <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-none h-12 text-sm">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="not_explicit">Not Explicit</SelectItem>
+                        <SelectItem value="explicit">Explicit</SelectItem>
+                        <SelectItem value="clean">Clean</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-[10px] text-zinc-400">This track contains no explicit language.</p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[11px] font-bold text-zinc-800">Audio language <span className="text-red-500">*</span></Label>
+                    <Select value={editingTrack.language} onValueChange={v => setEditingTrack({...editingTrack, language: v})}>
+                      <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-none h-12 text-sm">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="Portuguese">Portuguese</SelectItem>
+                        <SelectItem value="English">English</SelectItem>
+                        <SelectItem value="Spanish">Spanish</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-[10px] text-zinc-400">For an instrumental track, select "None (Instrumental)".</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <Label className="text-[11px] font-bold text-zinc-800">Songwriter <span className="text-red-500">*</span></Label>
+                    <RadioGroup value={editingTrack.songwriter} onValueChange={v => setEditingTrack({...editingTrack, songwriter: v})} className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="i_wrote" id="sw1" className="border-zinc-400 text-zinc-900" />
+                        <Label htmlFor="sw1" className="text-xs font-bold text-zinc-700">I wrote this song/I represent the writer(s)</Label>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="another" id="sw2" className="border-zinc-400 text-zinc-900" />
+                        <Label htmlFor="sw2" className="text-xs font-bold text-zinc-700">Another artist/writer wrote the song</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-1.5">
+                      <Label className="text-[11px] font-bold text-zinc-800">Song type</Label>
+                      <Info className="h-3 w-3 text-zinc-400" />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <Checkbox id="st1" className="rounded-none border-zinc-400" />
+                        <Label htmlFor="st1" className="text-xs font-bold text-zinc-700">Remix</Label>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <Checkbox id="st2" className="rounded-none border-zinc-400" disabled />
+                        <Label htmlFor="st2" className="text-xs font-bold text-zinc-300">Cover</Label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex items-center gap-1.5">
+                    <Label className="text-[11px] font-bold text-zinc-800">Preview start time</Label>
+                    <Info className="h-3 w-3 text-zinc-400" />
+                  </div>
+                  <div className="max-w-md">
+                    <Slider defaultValue={[0]} max={100} step={1} className="py-4" />
+                    <span className="text-xs font-bold text-zinc-900">0:00</span>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-3">
-                <Label className="text-[10px] font-black uppercase text-zinc-500">Conteúdo Explícito</Label>
-                <Select value={editingTrack.explicit} onValueChange={v => setEditingTrack({...editingTrack, explicit: v})}>
-                  <SelectTrigger className="bg-black border-white/10 h-14 rounded-xl">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-zinc-900 text-white">
-                    <SelectItem value="none">Not Explicit</SelectItem>
-                    <SelectItem value="explicit">Explicit Content</SelectItem>
-                    <SelectItem value="cleaned">Clean Version</SelectItem>
-                  </SelectContent>
-                </Select>
+
+              {/* ISRC */}
+              <div className="space-y-6 pt-4 border-t border-zinc-100">
+                <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-widest">ISRC</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-1.5">
+                      <Label className="text-[11px] font-bold text-zinc-800">Do you have an ISRC for this track? <span className="text-red-500">*</span></Label>
+                      <Info className="h-3 w-3 text-zinc-400" />
+                    </div>
+                    <RadioGroup value={editingTrack.hasIsrc} onValueChange={v => setEditingTrack({...editingTrack, hasIsrc: v})} className="space-y-2">
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="yes" id="isrc1" className="border-zinc-400 text-zinc-900" />
+                        <Label htmlFor="isrc1" className="text-xs font-bold text-zinc-700">Yes</Label>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <RadioGroupItem value="no" id="isrc2" className="border-zinc-400 text-zinc-900" />
+                        <Label htmlFor="isrc2" className="text-xs font-bold text-zinc-700">No</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[11px] font-bold text-zinc-800">ISRC</Label>
+                    <Input 
+                      value={editingTrack.isrc} 
+                      disabled={editingTrack.hasIsrc === "no"}
+                      placeholder="QZYB42524252"
+                      className="bg-zinc-100 border-none rounded-none h-12 text-sm font-mono focus-visible:ring-0" 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* License Documentation */}
+              <div className="space-y-4 pt-4">
+                <div className="flex items-center gap-1.5">
+                  <Label className="text-sm font-bold text-zinc-900">License documentation</Label>
+                  <Info className="h-3.5 w-3.5 text-zinc-400" />
+                </div>
+                <p className="text-[10px] text-zinc-400">Does this track require additional licenses?</p>
+                <Button variant="ghost" className="text-primary font-bold text-xs p-0 h-fit flex items-center gap-2 hover:bg-transparent">
+                  <PlusCircle className="h-4 w-4" /> Upload documentation
+                </Button>
+                <p className="text-[9px] text-zinc-400 italic">Accepted file types PDF, JPG, PNG, Word document</p>
+              </div>
+
+              {/* YouTube Content ID */}
+              <div className="space-y-6 pt-10 border-t border-zinc-100">
+                <h3 className="text-sm font-bold text-zinc-900">YouTube Content ID</h3>
+                <p className="text-xs text-zinc-500">Monetize with YouTube Content ID to get paid whenever someone uses your tracks on YouTube.</p>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-3">
+                    <Checkbox 
+                      id="yt1" 
+                      checked={editingTrack.youtubeContentId} 
+                      onCheckedChange={v => setEditingTrack({...editingTrack, youtubeContentId: !!v})}
+                      className="border-zinc-400 rounded-none mt-1" 
+                    />
+                    <Label htmlFor="yt1" className="text-xs font-bold text-zinc-800">Enable this track for YouTube Content ID</Label>
+                  </div>
+
+                  <div className="pl-8 space-y-4">
+                    <p className="text-[11px] text-zinc-600 leading-relaxed">
+                      When you enable tracks for YouTube Content ID, you must adhere to YouTube's guidelines and have exclusive rights to the material in all territories. The following examples are not eligible for YouTube Content ID:
+                    </p>
+                    <ul className="text-[11px] text-zinc-600 space-y-1 list-disc pl-4">
+                      <li>Content including leased or licensed beats</li>
+                      <li>Content that uses royalty-free / non-exclusive samples (e.g. samples from Splice)</li>
+                      <li>Content in the public domain or released under Creative Commons license</li>
+                      <li>Clips from other sources used under fair use principles</li>
+                    </ul>
+                    <p className="text-[11px] font-bold text-zinc-800">Abuse of these guidelines will result in the removal of your content and may result in account suspension.</p>
+                  </div>
+
+                  <div className="flex items-center space-x-3">
+                    <Checkbox 
+                      id="yt2" 
+                      checked={editingTrack.agreedToRules} 
+                      onCheckedChange={v => setEditingTrack({...editingTrack, agreedToRules: !!v})}
+                      className="border-zinc-400 rounded-none" 
+                    />
+                    <Label htmlFor="yt2" className="text-xs font-bold text-zinc-800">I understand and agree to these rules</Label>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <DialogFooter className="gap-3 mt-4">
-              <Button variant="outline" onClick={() => setEditingTrack(null)} className="border-white/10 text-zinc-500 hover:text-white rounded-xl h-12 px-8 uppercase text-[10px] font-black">Cancelar</Button>
-              <Button onClick={() => updateTrack(editingTrack)} className="bg-primary rounded-xl h-12 px-10 uppercase text-[10px] font-black">Salvar Alterações</Button>
-            </DialogFooter>
+            <div className="p-6 border-t border-zinc-100 bg-zinc-50 flex justify-start">
+              <Button 
+                onClick={() => updateTrack(editingTrack)} 
+                className="bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-bold rounded-none px-10 h-12 text-xs border border-zinc-200 shadow-sm"
+              >
+                Save and close
+              </Button>
+            </div>
           </DialogContent>
         </Dialog>
       )}
