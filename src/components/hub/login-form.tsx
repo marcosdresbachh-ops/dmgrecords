@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getUsers, saveSession } from "@/lib/hub-auth";
-import { Loader2, Lock, Mail, Eye, EyeOff } from "lucide-react";
+import { Loader2, Mail, Eye, EyeOff, ArrowRight } from "lucide-react";
 
 export function LoginForm({ onLogin, onSwitch }: any) {
   const [email, setEmail] = useState("");
@@ -18,6 +19,8 @@ export function LoginForm({ onLogin, onSwitch }: any) {
     e.preventDefault();
     if (!email || !pw) return setError("Preencha todos os campos.");
     setLoading(true);
+    setError("");
+    
     setTimeout(() => {
       const users = getUsers();
       const u = (users as any)[email];
@@ -34,29 +37,21 @@ export function LoginForm({ onLogin, onSwitch }: any) {
   }
 
   return (
-    <div className="bg-zinc-950 border border-white/10 p-10 rounded-none animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="text-center mb-10">
-        <div className="w-16 h-16 bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-6">
-          <Lock className="text-primary h-8 w-8" />
-        </div>
-        <h2 className="text-3xl font-black italic uppercase tracking-tighter text-white">HUB DO ARTISTA</h2>
-        <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mt-2">Área de Membros DMG Records</p>
-      </div>
-
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       {error && (
-        <div className="mb-6 p-4 bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase text-center">
+        <div className="mb-6 p-4 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest text-center rounded-xl">
           {error}
         </div>
       )}
 
       <form onSubmit={handleLogin} className="space-y-6">
         <div className="space-y-2">
-          <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">E-mail</Label>
+          <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">E-mail de Acesso</Label>
           <div className="relative">
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
             <Input 
               type="email" 
-              className="bg-white/5 border-white/10 pl-12 h-14 rounded-none focus:border-primary" 
+              className="bg-white/5 border-white/10 pl-12 h-14 rounded-2xl focus:border-primary text-sm font-medium transition-all" 
               placeholder="seu@email.com"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -65,11 +60,14 @@ export function LoginForm({ onLogin, onSwitch }: any) {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Senha</Label>
+          <div className="flex justify-between items-center">
+            <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Sua Senha</Label>
+            <button type="button" className="text-[9px] font-black uppercase text-primary hover:underline">Esqueceu?</button>
+          </div>
           <div className="relative">
             <Input 
               type={showPw ? "text" : "password"} 
-              className="bg-white/5 border-white/10 h-14 rounded-none focus:border-primary" 
+              className="bg-white/5 border-white/10 h-14 rounded-2xl focus:border-primary text-sm font-medium transition-all" 
               placeholder="••••••••"
               value={pw}
               onChange={e => setPw(e.target.value)}
@@ -87,14 +85,14 @@ export function LoginForm({ onLogin, onSwitch }: any) {
         <Button 
           type="submit" 
           disabled={loading}
-          className="w-full h-16 bg-primary hover:bg-primary/90 rounded-none text-lg font-black italic tracking-tighter uppercase"
+          className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-lg font-black italic tracking-tighter uppercase group shadow-lg shadow-primary/20"
         >
-          {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : "ENTRAR NO HUB"}
+          {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : <>ACESSAR PAINEL <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" /></>}
         </Button>
       </form>
 
-      <div className="mt-8 text-center text-xs text-zinc-500">
-        Ainda não é membro? <button onClick={onSwitch} className="text-primary font-black uppercase hover:underline">REGISTRE-SE</button>
+      <div className="mt-10 text-center text-xs text-zinc-500 font-medium">
+        Ainda não faz parte? <button onClick={onSwitch} className="text-primary font-black uppercase hover:underline">REGISTRE-SE AGORA</button>
       </div>
     </div>
   );
