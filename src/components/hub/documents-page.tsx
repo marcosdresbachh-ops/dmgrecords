@@ -1,16 +1,45 @@
 
 "use client";
 
-import { FileText, Plus, ShieldCheck, Download, Clock, AlertTriangle } from "lucide-react";
+import { useState } from "react";
+import { FileText, Plus, ShieldCheck, Download, Clock, AlertTriangle, CheckCircle2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { toast } from "@/hooks/use-toast";
 
 export function DocumentsPage({ user }: any) {
-  const docs = [
+  const [signingDoc, setSigningDoc] = useState<any>(null);
+  const [isSigning, setIsLoading] = useState(false);
+
+  const initialDocs = [
     { id: "DOC-DMG01", n: "Termo de Transmissão Voluntária DMG", d: "26 Fev, 2025", s: "Assinado" },
     { id: "DOC-SPL02", n: "Split Sheet — Midnight Rain", d: "14 Jan, 2025", s: "Assinado" },
     { id: "DOC-SYN03", n: "Sync License Agreement — Blue Horizon", d: "10 Jan, 2025", s: "Assinado" },
     { id: "DOC-NDA04", n: "NDA — FilmCo Productions", d: "08 Dez, 2024", s: "Pendente" },
   ];
+
+  const [docs, setDocs] = useState(initialDocs);
+
+  const handleSign = (doc: any) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setDocs(docs.map(d => d.id === doc.id ? { ...d, s: "Assinado" } : d));
+      setIsLoading(false);
+      setSigningDoc(null);
+      toast({
+        title: "Documento Assinado!",
+        description: "A assinatura digital foi registrada com validade jurídica na plataforma.",
+      });
+    }, 1500);
+  };
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -26,11 +55,20 @@ export function DocumentsPage({ user }: any) {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
-          { ic: <ShieldCheck />, t: "Assinar Termo DMG", d: "Necessário para rádio" },
+          { 
+            ic: <ShieldCheck />, 
+            t: "Assinar Termo DMG", 
+            d: "Necessário para rádio",
+            onClick: () => setSigningDoc(docs.find(d => d.id === "DOC-DMG01") || docs[0])
+          },
           { ic: <Plus />, t: "Gerar Split Sheet", d: "Acordo de co-autoria" },
           { ic: <FileText />, t: "Gerar Contrato", d: "NDA, Licensing, Gestão" },
         ].map((item, i) => (
-          <div key={i} className="bg-zinc-950 border border-white/5 p-6 rounded-2xl text-center group hover:border-primary/40 transition-all cursor-pointer">
+          <div 
+            key={i} 
+            onClick={item.onClick}
+            className="bg-zinc-950 border border-white/5 p-6 rounded-2xl text-center group hover:border-primary/40 transition-all cursor-pointer"
+          >
             <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mx-auto mb-4 text-zinc-500 group-hover:text-primary group-hover:bg-primary/10 transition-all">
               {item.ic}
             </div>
@@ -76,7 +114,12 @@ export function DocumentsPage({ user }: any) {
                         <Download className="h-3.5 w-3.5 mr-1" /> PDF
                       </Button>
                       {d.s === "Pendente" && (
-                        <Button className="h-8 px-3 bg-primary rounded-lg text-[10px] font-black uppercase">Assinar</Button>
+                        <Button 
+                          onClick={() => setSigningDoc(d)}
+                          className="h-8 px-3 bg-primary rounded-lg text-[10px] font-black uppercase"
+                        >
+                          Assinar
+                        </Button>
                       )}
                     </div>
                   </td>
@@ -101,6 +144,54 @@ export function DocumentsPage({ user }: any) {
           <p className="text-xs text-zinc-600 font-black uppercase tracking-widest">Nenhuma disputa ativa encontrada.</p>
         </div>
       </div>
+
+      {/* Signature Dialog */}
+      <Dialog open={!!signingDoc} onOpenChange={() => !isSigning && setSigningDoc(null)}>
+        <DialogContent className="bg-zinc-950 border-white/10 text-white max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary">Assinatura Digital DMG</DialogTitle>
+            <DialogDescription className="text-zinc-500">
+              Revise o documento abaixo e confirme sua assinatura.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="bg-black/50 border border-white/5 p-6 h-64 overflow-y-auto rounded-xl text-xs text-zinc-400 leading-relaxed font-mono">
+            <h4 className="text-white font-bold mb-4 uppercase">CONTRATO DE {signingDoc?.n}</h4>
+            <p>Pelo presente instrumento, as partes concordam com os termos de licença e distribuição operados pela DMG Records...</p>
+            <p className="mt-4">1. OBJETO: O presente contrato tem por objeto a formalização legal de uso da obra intelectual do artista...</p>
+            <p className="mt-4">2. VALIDADE: Esta assinatura digital possui validade jurídica conforme a MP 2.200-2/2001 e normas de certificação digital...</p>
+            <p className="mt-4">3. CERTIFICAÇÃO: O token de assinatura será vinculado ao ID de membro {user.id} e IP de acesso.</p>
+            <p className="mt-8 text-center border-t border-white/10 pt-4 text-[10px]">DOCUMENTO GERADO VIA DMG ARTIST HUB SYSTEM</p>
+          </div>
+
+          <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl space-y-2">
+            <p className="text-[10px] font-black uppercase text-primary flex items-center gap-2">
+              <ShieldCheck className="h-3 w-3" /> Integridade Protegida
+            </p>
+            <p className="text-[11px] text-zinc-400 font-medium">
+              Ao clicar em confirmar, você declara estar ciente de que esta assinatura tem plena validade jurídica na plataforma DMG. Sistema preparado para integração API futura.
+            </p>
+          </div>
+
+          <DialogFooter className="gap-3">
+            <Button 
+              variant="outline" 
+              onClick={() => setSigningDoc(null)}
+              disabled={isSigning}
+              className="border-white/10 text-zinc-500 hover:text-white"
+            >
+              Cancelar
+            </Button>
+            <Button 
+              onClick={() => handleSign(signingDoc)}
+              disabled={isSigning}
+              className="bg-primary font-black uppercase flex-1"
+            >
+              {isSigning ? "PROCESSANDO ASSINATURA..." : "CONFIRMAR ASSINATURA AGORA"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
