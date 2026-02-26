@@ -35,7 +35,7 @@ export function ArtistSection() {
             </div>
           </div>
 
-          {/* Lado Direito: Conteúdo conforme a imagem */}
+          {/* Lado Direito: Conteúdo */}
           <div className="space-y-10">
             <SectionHeading 
               badge="O Artista"

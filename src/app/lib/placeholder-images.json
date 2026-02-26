@@ -9,9 +9,9 @@
     },
     {
       "id": "vini-amaral",
-      "description": "Portrait of singer Vini Amaral performing",
-      "imageUrl": "https://images.unsplash.com/photo-1561314105-3d4ae46aa6e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYWxlJTIwc2luZ2VyfGVufDB8fHx8MTc3MjA1NzYyOXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "male singer"
+      "description": "Capa do CD Somebody Like A Ghost - Vini Amaral",
+      "imageUrl": "/viniamaral/01.Somebody Like A Ghost.png",
+      "imageHint": "artist photo"
     },
     {
       "id": "release-1",
