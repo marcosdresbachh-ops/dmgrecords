@@ -1,4 +1,3 @@
-
 "use client";
 
 import { FileDown, Upload, ShieldAlert, CheckCircle2, ExternalLink, Info, Clock } from "lucide-react";
@@ -52,42 +51,41 @@ export function IRSFormsPage({ user }: any) {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <header>
-        <h1 className="text-4xl font-black italic uppercase tracking-tighter text-white leading-none">Tax & IRS Forms</h1>
+        <h1 className="text-4xl font-black italic uppercase tracking-tighter text-zinc-900 leading-none">Tax & IRS Forms</h1>
         <p className="text-zinc-500 text-sm font-medium mt-2">Gerencie sua conformidade fiscal para recebimento de royalties globais.</p>
       </header>
 
-      <div className="bg-primary/10 border border-primary/20 p-6 rounded-2xl space-y-4">
+      <div className="bg-primary/5 border border-primary/10 p-8 rounded-[32px] space-y-4 shadow-sm">
         <div className="flex items-center gap-3 text-primary">
           <ShieldAlert className="h-6 w-6" />
-          <h3 className="font-black uppercase tracking-widest text-sm">Importância Tributária Internacional</h3>
+          <h3 className="font-black uppercase tracking-widest text-sm italic">Importância Tributária Internacional</h3>
         </div>
-        <p className="text-sm text-zinc-300 leading-relaxed font-medium">
+        <p className="text-sm text-zinc-600 leading-relaxed font-bold uppercase">
           Para receber royalties provenientes dos EUA e outros territórios sem a retenção máxima de impostos (30%), 
-          você deve manter seus formulários fiscais atualizados. A DMG Records facilita esse processo, mas a 
-          veracidade das informações é de sua total responsabilidade.
+          você deve manter seus formulários fiscais atualizados.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <div className="bg-zinc-950 border border-white/5 p-8 rounded-3xl space-y-6">
-            <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
+          <div className="bg-white border border-zinc-200 p-10 rounded-[32px] space-y-8 shadow-sm">
+            <h3 className="text-lg font-black italic uppercase tracking-tighter text-zinc-900 flex items-center gap-2">
               <FileDown className="h-5 w-5 text-primary" /> Formulários para Download
             </h3>
             
             <div className="grid gap-4">
               {forms.map((form, i) => (
-                <div key={i} className="p-5 bg-white/5 border border-white/5 rounded-2xl hover:border-primary/30 transition-all group">
+                <div key={i} className="p-6 bg-zinc-50 border border-zinc-100 rounded-2xl hover:border-primary/20 transition-all group">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-bold text-white text-sm uppercase">{form.name}</h4>
+                    <h4 className="font-black text-zinc-900 text-sm uppercase italic tracking-tighter">{form.name}</h4>
                     <Button asChild variant="ghost" size="sm" className="h-8 w-8 p-0 text-primary">
                       <a href={form.url} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
                       </a>
                     </Button>
                   </div>
-                  <p className="text-[11px] text-zinc-500 leading-relaxed">{form.desc}</p>
-                  <Button asChild className="w-full mt-4 bg-zinc-900 border border-white/5 hover:bg-primary hover:text-white rounded-xl h-10 text-[10px] font-black uppercase tracking-widest">
+                  <p className="text-[11px] text-zinc-500 font-bold leading-relaxed uppercase">{form.desc}</p>
+                  <Button asChild className="w-full mt-6 bg-white border border-zinc-200 hover:bg-primary hover:text-white hover:border-primary rounded-xl h-12 text-[10px] font-black uppercase tracking-widest transition-all shadow-sm">
                     <a href={form.url} target="_blank" rel="noopener noreferrer">
                       Download PDF Oficial
                     </a>
@@ -99,15 +97,15 @@ export function IRSFormsPage({ user }: any) {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-zinc-950 border border-white/5 p-8 rounded-3xl space-y-6">
-            <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
+          <div className="bg-white border border-zinc-200 p-10 rounded-[32px] space-y-8 shadow-sm">
+            <h3 className="text-lg font-black italic uppercase tracking-tighter text-zinc-900 flex items-center gap-2">
               <Upload className="h-5 w-5 text-primary" /> Enviar Documento Assinado
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Tipo de Formulário</Label>
-                <select className="w-full bg-white/5 border border-white/10 h-12 rounded-xl px-4 text-sm text-white focus:border-primary outline-none">
+                <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Tipo de Formulário</Label>
+                <select className="w-full bg-zinc-50 border border-zinc-200 h-14 rounded-2xl px-6 text-sm text-zinc-900 font-black uppercase italic outline-none focus:border-primary transition-all">
                   <option value="w7">W-7 (ITIN Application)</option>
                   <option value="w8ben">W-8BEN (Foreign Status)</option>
                   <option value="other">Outros Documentos Fiscais</option>
@@ -115,7 +113,7 @@ export function IRSFormsPage({ user }: any) {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Arquivo (PDF Digitalizado)</Label>
+                <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Arquivo (PDF Digitalizado)</Label>
                 <div className="relative group">
                   <input 
                     type="file" 
@@ -123,12 +121,12 @@ export function IRSFormsPage({ user }: any) {
                     onChange={(e) => setFile(e.target.files?.[0] || null)}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
                   />
-                  <div className="bg-white/5 border-2 border-dashed border-white/10 rounded-2xl p-10 text-center group-hover:border-primary/40 transition-all">
-                    <Upload className="h-10 w-10 text-zinc-600 mx-auto mb-3 group-hover:text-primary transition-colors" />
-                    <p className="text-sm text-zinc-400 font-bold uppercase tracking-tighter">
+                  <div className="bg-zinc-50 border-2 border-dashed border-zinc-200 rounded-[32px] p-12 text-center group-hover:border-primary/40 transition-all shadow-inner">
+                    <Upload className="h-12 w-12 text-zinc-300 mx-auto mb-4 group-hover:text-primary transition-colors" />
+                    <p className="text-sm text-zinc-900 font-black uppercase italic tracking-tighter">
                       {file ? file.name : "Selecione o PDF preenchido"}
                     </p>
-                    <p className="text-[10px] text-zinc-600 uppercase font-black mt-2">Clique para selecionar o arquivo</p>
+                    <p className="text-[10px] text-zinc-400 uppercase font-black mt-2">Clique para selecionar o arquivo</p>
                   </div>
                 </div>
               </div>
@@ -136,24 +134,24 @@ export function IRSFormsPage({ user }: any) {
               <Button 
                 type="submit" 
                 disabled={loading}
-                className="w-full bg-primary font-black uppercase h-16 rounded-xl shadow-lg shadow-primary/20 text-lg italic tracking-tighter"
+                className="w-full bg-primary font-black uppercase h-20 rounded-2xl shadow-xl shadow-primary/20 text-lg italic tracking-tighter text-white"
               >
                 {loading ? "ENVIANDO..." : "CONFIRMAR E ENVIAR AO FISCAL"}
               </Button>
             </form>
           </div>
 
-          <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl space-y-4">
-            <h3 className="text-xs font-black uppercase tracking-widest text-primary flex items-center gap-2">
-              <Clock className="h-4 w-4" /> Status de Processamento
+          <div className="bg-white border border-zinc-200 p-8 rounded-[32px] space-y-4 shadow-sm">
+            <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+              <Clock className="h-4 w-4 text-primary" /> Status de Processamento
             </h3>
-            <div className="flex items-center justify-between py-2 border-b border-white/5">
-              <span className="text-[10px] font-black uppercase text-zinc-500">Último Envio</span>
-              <span className="text-[10px] font-bold text-zinc-400">Nenhum pendente</span>
+            <div className="flex items-center justify-between py-3 border-b border-zinc-100">
+              <span className="text-[10px] font-black uppercase text-zinc-400">Último Envio</span>
+              <span className="text-[10px] font-black text-zinc-900">Nenhum pendente</span>
             </div>
-            <div className="flex items-center justify-between py-2">
-              <span className="text-[10px] font-black uppercase text-zinc-500">Validade W-8BEN</span>
-              <span className="text-[10px] font-bold text-accent">Regular</span>
+            <div className="flex items-center justify-between py-3">
+              <span className="text-[10px] font-black uppercase text-zinc-400">Validade W-8BEN</span>
+              <span className="text-[10px] font-black text-accent uppercase italic">Regular</span>
             </div>
           </div>
         </div>

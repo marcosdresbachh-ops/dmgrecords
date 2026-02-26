@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -16,7 +15,6 @@ export function BioPage({ user, onUpdate }: any) {
 
   async function handleSave() {
     setLoading(true);
-    // Simulação de atualização no localStorage
     const users = JSON.parse(localStorage.getItem('dmg_hub_users') || '{}');
     const updatedUser = { ...user, bio };
     users[user.email] = { ...users[user.email], bio };
@@ -55,15 +53,15 @@ export function BioPage({ user, onUpdate }: any) {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <header className="space-y-2">
-        <h1 className="text-4xl font-black italic uppercase tracking-tighter text-white leading-none">Minha Bio</h1>
+        <h1 className="text-4xl font-black italic uppercase tracking-tighter text-zinc-900 leading-none">Minha Bio</h1>
         <p className="text-zinc-500 text-sm font-medium mt-2">Gerencie sua biografia oficial para plataformas, assessoria e EPKs.</p>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-zinc-950 border border-white/5 rounded-3xl p-8 space-y-6">
+          <div className="bg-white border border-zinc-200 rounded-[32px] p-8 space-y-6 shadow-sm">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
+              <h3 className="text-lg font-black italic uppercase tracking-tighter text-zinc-900 flex items-center gap-2">
                 <User className="h-5 w-5 text-primary" /> Texto da Biografia
               </h3>
               <div className="flex gap-2">
@@ -72,7 +70,7 @@ export function BioPage({ user, onUpdate }: any) {
                   size="sm" 
                   onClick={improveWithAI}
                   disabled={aiLoading}
-                  className="text-[10px] font-black uppercase tracking-widest border-primary/20 text-primary hover:bg-primary/10 h-8"
+                  className="text-[10px] font-black uppercase tracking-widest border-primary/20 text-primary hover:bg-primary/5 h-8 rounded-lg"
                 >
                   {aiLoading ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Wand2 className="h-3 w-3 mr-1" />}
                   Melhorar com IA
@@ -81,7 +79,7 @@ export function BioPage({ user, onUpdate }: any) {
                   variant="ghost" 
                   size="sm" 
                   onClick={() => navigator.clipboard.writeText(bio)}
-                  className="text-[10px] font-black uppercase tracking-widest text-zinc-500 h-8"
+                  className="text-[10px] font-black uppercase tracking-widest text-zinc-400 h-8 hover:text-zinc-900"
                 >
                   <Copy className="h-3 w-3 mr-1" /> Copiar
                 </Button>
@@ -89,7 +87,7 @@ export function BioPage({ user, onUpdate }: any) {
             </div>
 
             <Textarea 
-              className="bg-black/40 border-white/10 rounded-2xl min-h-[400px] focus:border-primary text-base p-6 leading-relaxed text-zinc-300" 
+              className="bg-zinc-50 border-zinc-200 rounded-2xl min-h-[400px] focus:border-primary text-base p-8 leading-relaxed text-zinc-700 font-medium" 
               placeholder="Escreva sua trajetória, conquistas e estilo musical..."
               value={bio}
               onChange={e => setBio(e.target.value)}
@@ -98,7 +96,7 @@ export function BioPage({ user, onUpdate }: any) {
             <Button 
               onClick={handleSave}
               disabled={loading}
-              className="w-full h-14 bg-primary hover:bg-primary/90 rounded-xl text-sm font-black uppercase tracking-widest"
+              className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-sm font-black uppercase tracking-widest text-white shadow-lg shadow-primary/20"
             >
               {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Save className="h-5 w-5 mr-2" />}
               SALVAR BIOGRAFIA OFICIAL
@@ -107,43 +105,43 @@ export function BioPage({ user, onUpdate }: any) {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 space-y-4">
+          <div className="bg-primary/5 border border-primary/10 rounded-[32px] p-8 space-y-6 shadow-sm">
             <h3 className="text-xs font-black uppercase tracking-widest text-primary flex items-center gap-2">
               <Megaphone className="h-4 w-4" /> Dicas da Curadoria
             </h3>
             <div className="space-y-4">
-              <div className="p-4 bg-black/40 border border-white/5 rounded-xl space-y-2">
+              <div className="p-5 bg-white border border-zinc-100 rounded-2xl space-y-2 shadow-sm">
                 <p className="text-[10px] font-black uppercase text-accent">⚡ SEJA DIRETO</p>
-                <p className="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                <p className="text-[11px] text-zinc-500 font-bold leading-relaxed uppercase">
                   Os primeiros parágrafos devem conter quem você é e seu gênero principal.
                 </p>
               </div>
-              <div className="p-4 bg-black/40 border border-white/5 rounded-xl space-y-2">
-                <p className="text-[10px] font-black uppercase text-white">🏆 DESTAQUE CONQUISTAS</p>
-                <p className="text-[11px] text-zinc-400 font-medium leading-relaxed">
+              <div className="p-5 bg-white border border-zinc-100 rounded-2xl space-y-2 shadow-sm">
+                <p className="text-[10px] font-black uppercase text-zinc-900">🏆 DESTAQUE CONQUISTAS</p>
+                <p className="text-[11px] text-zinc-500 font-bold leading-relaxed uppercase">
                   Mencione números de streams, parcerias e palcos importantes que já pisou.
                 </p>
               </div>
-              <div className="p-4 bg-black/40 border border-white/5 rounded-xl space-y-2">
+              <div className="p-5 bg-white border border-zinc-100 rounded-2xl space-y-2 shadow-sm">
                 <p className="text-[10px] font-black uppercase text-primary">🤖 USE O ASSISTENTE</p>
-                <p className="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                <p className="text-[11px] text-zinc-500 font-bold leading-relaxed uppercase">
                   Nossa IA é treinada para o mercado fonográfico. Deixe ela refinar seu tom de voz.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-zinc-950 border border-white/5 rounded-3xl p-6">
-            <h3 className="text-xs font-black uppercase tracking-widest text-zinc-500 mb-4">Status da Bio</h3>
-            <div className="flex items-center justify-between py-2 border-b border-white/5">
-              <span className="text-[10px] font-black uppercase text-zinc-600">Comprimento</span>
-              <span className={`text-[10px] font-bold ${bio.length > 300 ? 'text-accent' : 'text-zinc-400'}`}>
+          <div className="bg-white border border-zinc-200 rounded-[32px] p-8 shadow-sm">
+            <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4">Status da Bio</h3>
+            <div className="flex items-center justify-between py-3 border-b border-zinc-100">
+              <span className="text-[10px] font-black uppercase text-zinc-400">Comprimento</span>
+              <span className={`text-[10px] font-black ${bio.length > 300 ? 'text-accent' : 'text-zinc-400'}`}>
                 {bio.length} caracteres
               </span>
             </div>
-            <div className="flex items-center justify-between py-2">
-              <span className="text-[10px] font-black uppercase text-zinc-600">Recomendado</span>
-              <span className="text-[10px] font-bold text-zinc-400">800 - 1500</span>
+            <div className="flex items-center justify-between py-3">
+              <span className="text-[10px] font-black uppercase text-zinc-400">Recomendado</span>
+              <span className="text-[10px] font-black text-zinc-900">800 - 1500</span>
             </div>
           </div>
         </div>

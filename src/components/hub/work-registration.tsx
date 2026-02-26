@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -53,30 +52,30 @@ export function WorkRegistration({ user, onUpdate }: any) {
   return (
     <div className="space-y-12">
       <header className="space-y-2">
-        <h1 className="text-5xl font-black italic uppercase tracking-tighter text-white">Registrar Obra</h1>
+        <h1 className="text-5xl font-black italic uppercase tracking-tighter text-zinc-900 leading-none">Registrar Obra</h1>
         <p className="text-zinc-500 text-lg font-medium">Cadastre suas composições e fonogramas no catálogo oficial DMG.</p>
       </header>
 
       <div className="max-w-4xl">
-        <form onSubmit={handleSubmit} className="bg-black/40 border border-white/5 p-10 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <form onSubmit={handleSubmit} className="bg-white border border-zinc-200 p-12 space-y-10 rounded-[40px] shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="md:col-span-2 space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Título da Obra *</Label>
-              <Input className="bg-white/5 border-white/10 rounded-none h-14 focus:border-primary" required value={form.title} onChange={e => set("title", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Título da Obra *</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-16 focus:border-primary text-lg font-black italic uppercase tracking-tighter" required value={form.title} onChange={e => set("title", e.target.value)} />
             </div>
 
             <div className="md:col-span-2 space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Título Alternativo / AKA</Label>
-              <Input className="bg-white/5 border-white/10 rounded-none h-14" value={form.altTitle} onChange={e => set("altTitle", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Título Alternativo / AKA</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-bold" value={form.altTitle} onChange={e => set("altTitle", e.target.value)} />
             </div>
             
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Gênero Principal *</Label>
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Gênero Principal *</Label>
               <Select value={form.genre} onValueChange={v => set("genre", v)}>
-                <SelectTrigger className="bg-white/5 border-white/10 rounded-none h-14">
+                <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-bold uppercase">
                   <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
-                <SelectContent className="bg-zinc-900 border-white/10 text-white">
+                <SelectContent className="bg-white border-zinc-200 text-zinc-900">
                   {GENRES.map(g => (
                     <SelectItem key={g} value={g}>{g}</SelectItem>
                   ))}
@@ -85,22 +84,22 @@ export function WorkRegistration({ user, onUpdate }: any) {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Subgênero</Label>
-              <Input className="bg-white/5 border-white/10 rounded-none h-14" placeholder="Ex: Trap Soul" value={form.subgenre} onChange={e => set("subgenre", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Subgênero</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-bold" placeholder="Ex: Trap Soul" value={form.subgenre} onChange={e => set("subgenre", e.target.value)} />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Duração (00:00)</Label>
-              <Input className="bg-white/5 border-white/10 rounded-none h-14" placeholder="3:45" value={form.duration} onChange={e => set("duration", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Duração (00:00)</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-bold" placeholder="3:45" value={form.duration} onChange={e => set("duration", e.target.value)} />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Idioma</Label>
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Idioma</Label>
               <Select value={form.language} onValueChange={v => set("language", v)}>
-                <SelectTrigger className="bg-white/5 border-white/10 rounded-none h-14">
+                <SelectTrigger className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-bold uppercase">
                   <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
-                <SelectContent className="bg-zinc-900 border-white/10 text-white">
+                <SelectContent className="bg-white border-zinc-200 text-zinc-900">
                   {["Português", "Inglês", "Espanhol", "Instrumental"].map(l => (
                     <SelectItem key={l} value={l}>{l}</SelectItem>
                   ))}
@@ -109,22 +108,22 @@ export function WorkRegistration({ user, onUpdate }: any) {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">ISRC</Label>
-              <Input className="bg-white/5 border-white/10 rounded-none h-14" placeholder="BR-XXX-24-00001" value={form.isrc} onChange={e => set("isrc", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">ISRC</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-mono font-bold" placeholder="BR-XXX-24-00001" value={form.isrc} onChange={e => set("isrc", e.target.value)} />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">ISWC</Label>
-              <Input className="bg-white/5 border-white/10 rounded-none h-14" placeholder="T-123.456.789-C" value={form.iswc} onChange={e => set("iswc", e.target.value)} />
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">ISWC</Label>
+              <Input className="bg-zinc-50 border-zinc-200 rounded-2xl h-14 font-mono font-bold" placeholder="T-123.456.789-C" value={form.iswc} onChange={e => set("iswc", e.target.value)} />
             </div>
           </div>
 
           <Button 
             type="submit" 
             disabled={loading}
-            className="w-full h-16 bg-primary hover:bg-primary/90 rounded-none text-lg font-black italic tracking-tighter uppercase"
+            className="w-full h-20 bg-primary hover:bg-primary/90 rounded-2xl text-xl font-black italic tracking-tighter uppercase text-white shadow-xl shadow-primary/20 transition-all hover:translate-y-[-2px]"
           >
-            {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : <PlusCircle className="h-6 w-6 mr-3" />}
+            {loading ? <Loader2 className="h-8 w-8 animate-spin mr-3" /> : <PlusCircle className="h-8 w-8 mr-3" />}
             REGISTRAR OBRA NO CATÁLOGO
           </Button>
         </form>
