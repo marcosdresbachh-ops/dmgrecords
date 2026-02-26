@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "backend": "tsx backend/server.ts"
+    "backend": "tsx backend/server.ts",
+    "env:pull": "vercel env pull .env.development.local"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.28.0",

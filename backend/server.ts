@@ -3,15 +3,15 @@ import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
-// Carrega variáveis de ambiente do arquivo .env na raiz
+// Carrega variáveis de ambiente
 dotenv.config();
 
 const app = express();
 const port = process.env.BACKEND_PORT || 3001;
 
-// Configuração do cliente Supabase
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || '';
+// Configuração do cliente Supabase (usando NEXT_PUBLIC para consistência)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 app.use(express.json());
