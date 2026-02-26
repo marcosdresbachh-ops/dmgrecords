@@ -44,7 +44,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       sec: "Obras", 
       icon: <Music className="h-4 w-4" />,
       items: [
-        { id: "distribute", label: "Distribuir Música", icon: <Send className="h-3.5 w-3.5" />, badge: "NEW" },
+        { id: "distribution", label: "Distribuir Música", icon: <Send className="h-3.5 w-3.5" />, badge: "NEW" },
         { id: "register", label: "Registrar Obra", icon: <PlusCircle className="h-3.5 w-3.5" /> },
         { id: "catalog", label: "Meu Catálogo", icon: <Library className="h-3.5 w-3.5" /> },
       ]
@@ -80,7 +80,6 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
         { id: "ai", label: "AI Assistant", icon: <Sparkles className="h-3.5 w-3.5" /> },
         { id: "documents", label: "Docs & Legal", icon: <FileText className="h-3.5 w-3.5" /> },
         { id: "analytics", label: "Analytics", icon: <BarChart3 className="h-3.5 w-3.5" /> },
-        { id: "distribution", label: "Parceiros", icon: <Globe className="h-3.5 w-3.5" /> },
       ]
     },
     { 
