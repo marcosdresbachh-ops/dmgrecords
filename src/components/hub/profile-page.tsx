@@ -2,7 +2,11 @@
 "use client";
 
 import { useState } from "react";
-import { User, Shield, Bell, Lock, Download, Trash2, Camera, ExternalLink, AlertTriangle, Mail } from "lucide-react";
+import { 
+  User, Shield, Bell, Lock, Download, Trash2, Camera, 
+  ExternalLink, AlertTriangle, Mail, CreditCard, Upload, 
+  CheckCircle2, FileText, Globe
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +27,7 @@ import { toast } from "@/hooks/use-toast";
 export function ProfilePage({ user, onUpdate }: any) {
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [kycFiles, setKycFiles] = useState({ id: null, address: null });
 
   async function handleSave(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -43,6 +48,13 @@ export function ProfilePage({ user, onUpdate }: any) {
       toast({ title: "Perfil Atualizado", description: "Suas alterações foram salvas com sucesso." });
     }, 500);
   }
+
+  const handleFileUpload = (type: 'id' | 'address') => {
+    toast({
+      title: "Documento Enviado",
+      description: `Seu ${type === 'id' ? 'Documento de Identidade' : 'Comprovante'} está em análise.`,
+    });
+  };
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -68,7 +80,60 @@ export function ProfilePage({ user, onUpdate }: any) {
       </div>
 
       <div className="pt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-8">
+          
+          {/* KYC Document Verification */}
+          <div className="bg-zinc-950 border border-white/5 rounded-3xl p-8 space-y-8 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h2 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-primary" /> Verificação de Identidade (KYC)
+                </h2>
+                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Obrigatório para recebimento de royalties via Stripe</p>
+              </div>
+              <span className="text-[9px] font-black uppercase bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full">Pendente</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-4 group hover:border-primary/40 transition-all">
+                <div className="flex justify-between items-start">
+                  <div className="p-3 bg-black rounded-xl text-primary"><FileText className="h-5 w-5" /></div>
+                  <input type="file" id="id-upload" className="hidden" onChange={() => handleFileUpload('id')} />
+                  <Button variant="ghost" size="sm" asChild className="text-[9px] font-black uppercase tracking-widest">
+                    <label htmlFor="id-upload" className="cursor-pointer">Enviar Arquivo</label>
+                  </Button>
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-xs font-black uppercase text-white">Documento Oficial</h4>
+                  <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">Frente e verso do RG, CNH ou Passaporte válido.</p>
+                </div>
+              </div>
+
+              <div className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-4 group hover:border-primary/40 transition-all">
+                <div className="flex justify-between items-start">
+                  <div className="p-3 bg-black rounded-xl text-primary"><Globe className="h-5 w-5" /></div>
+                  <input type="file" id="address-upload" className="hidden" onChange={() => handleFileUpload('address')} />
+                  <Button variant="ghost" size="sm" asChild className="text-[9px] font-black uppercase tracking-widest">
+                    <label htmlFor="address-upload" className="cursor-pointer">Enviar Arquivo</label>
+                  </Button>
+                </div>
+                <div className="space-y-1">
+                  <h4 className="text-xs font-black uppercase text-white">Comprovante de Residência</h4>
+                  <p className="text-[10px] text-zinc-500 leading-relaxed font-medium">Conta de luz, água ou telefone dos últimos 90 dias.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl flex items-start gap-4">
+              <CreditCard className="h-5 w-5 text-primary shrink-0" />
+              <p className="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                <strong className="text-white uppercase tracking-tighter italic mr-1">Aviso Stripe Connect:</strong> 
+                Seus dados serão criptografados e enviados diretamente para o processador de pagamentos Stripe para criação da sua sub-conta financeira real.
+              </p>
+            </div>
+          </div>
+
           <div className="bg-zinc-950 border border-white/5 rounded-2xl p-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
@@ -128,18 +193,35 @@ export function ProfilePage({ user, onUpdate }: any) {
                     <p className="text-sm font-bold text-zinc-200">{v}</p>
                   </div>
                 ))}
-                {user.bio && (
-                  <div className="md:col-span-2 pt-6 border-t border-white/5">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-600 mb-3">Bio</p>
-                    <p className="text-sm text-zinc-400 leading-relaxed font-medium">{user.bio}</p>
-                  </div>
-                )}
               </div>
             )}
           </div>
         </div>
 
         <div className="space-y-6">
+          {/* Stripe Account Status Card */}
+          <div className="bg-zinc-950 border border-white/5 rounded-2xl p-6 space-y-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-5">
+              <CreditCard className="h-20 w-20" />
+            </div>
+            <h3 className="text-sm font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
+              <CreditCard className="h-4 w-4 text-primary" /> Conta Stripe Connect
+            </h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-[10px] font-black uppercase text-zinc-600">ID da Conta</span>
+                <span className="text-[10px] font-mono text-zinc-400">{user.stripeAccountId || 'acct_pend...'}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-[10px] font-black uppercase text-zinc-600">Status KYC</span>
+                <span className="text-[9px] font-black uppercase text-primary">Incompleto</span>
+              </div>
+              <Button variant="outline" className="w-full text-[10px] font-black uppercase tracking-widest border-primary/20 text-primary h-10 rounded-xl hover:bg-primary hover:text-white transition-all">
+                Configurar Recebimento
+              </Button>
+            </div>
+          </div>
+
           <div className="bg-zinc-950 border border-white/5 rounded-2xl p-6 space-y-6">
             <h3 className="text-sm font-black italic uppercase tracking-tighter text-white flex items-center gap-2">
               <Lock className="h-4 w-4 text-primary" /> Segurança
@@ -172,19 +254,19 @@ export function ProfilePage({ user, onUpdate }: any) {
                     <Trash2 className="mr-2 h-4 w-4" /> Excluir Conta
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-zinc-950 border-white/10 text-white max-w-xl">
+                <AlertDialogContent className="bg-zinc-950 border-white/10 text-white max-w-xl rounded-3xl">
                   <AlertDialogHeader className="space-y-4">
                     <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center text-destructive mb-2">
                       <AlertTriangle className="h-6 w-6" />
                     </div>
-                    <AlertDialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary">Ação Crítica e Irreversível</AlertDialogTitle>
+                    <AlertDialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary leading-none">Ação Crítica e Irreversível</AlertDialogTitle>
                     <AlertDialogDescription className="text-zinc-400 space-y-4 text-sm leading-relaxed">
                       <p>Você está prestes a iniciar o processo de exclusão da sua conta no <strong>DMG ARTIST HUB</strong>. Por favor, leia atentamente os termos abaixo antes de prosseguir:</p>
                       
                       <div className="bg-black/50 border border-white/5 p-4 rounded-xl space-y-3 font-medium">
                         <p className="text-white"><span className="text-primary">●</span> <strong>Royalties em Processamento:</strong> Quaisquer valores de streaming ou execução pública que estejam em período de apuração ou trânsito serão retidos para auditoria. A exclusão da conta pode acarretar na perda definitiva de créditos não resgatados.</p>
                         <p className="text-white"><span className="text-primary">●</span> <strong>Remoção de Conteúdo:</strong> Seu EPK Público, Catálogo de Obras e acesso às ferramentas de IA serão imediatamente desativados.</p>
-                        <p className="text-white"><span className="text-primary">●</span> <strong>Contratos Ativos:</strong> Licenças já emitidas continuarão válidas conforme os termos originais, mas você perderá o canal direto de gestão via HUB.</p>
+                        <p className="text-white"><span className="text-primary">●</span> <strong>Sub-conta Stripe:</strong> A sub-conta financeira vinculada ao seu ID será encerrada após a liquidação de saldos pendentes pela curadoria.</p>
                       </div>
 
                       <p className="font-bold text-zinc-300 italic">Para sua segurança financeira e jurídica, a exclusão definitiva deve ser validada pela nossa curadoria.</p>

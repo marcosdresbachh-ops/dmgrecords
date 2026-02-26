@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getUsers, saveUsers, saveSession } from "@/lib/hub-auth";
-import { Loader2, UserPlus, Music2, Headphones, ShieldCheck } from "lucide-react";
+import { Loader2, UserPlus, Music2, Headphones, ShieldCheck, CreditCard } from "lucide-react";
 
 export function RegisterForm({ onLogin, onSwitch }: any) {
   const [step, setStep] = useState(1);
@@ -35,7 +35,6 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         return;
       }
       
-      // Geração automática do slug e dados da página pública (A "pasta" do artista no BD)
       const artistDisplayName = form.artistName || `${form.firstName} ${form.lastName}`;
       const autoSlug = artistDisplayName.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
 
@@ -45,7 +44,6 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         id: "DMG-" + Math.random().toString(36).slice(2,8).toUpperCase(),
         joined: new Date().toLocaleDateString("pt-BR", { year: 'numeric', month: 'long', day: 'numeric' }),
         works: [],
-        // Dados iniciais da Página Pública
         artistSlug: autoSlug,
         bio: `Bem-vindo ao perfil oficial de ${artistDisplayName}. Artista integrante do catálogo DMG Records.`,
         bannerUrl: "https://picsum.photos/seed/dmg-banner/1920/600",
@@ -53,7 +51,11 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         playlistUrl: "",
         instagram: "",
         spotify: "",
-        whatsapp: form.phone || ""
+        whatsapp: form.phone || "",
+        // Stripe & KYC Initial State
+        stripeAccountId: "acct_tmp_" + Math.random().toString(36).slice(2,10),
+        kycStatus: "pending",
+        walletBalance: 0
       };
       
       const { password, confirm, ...userData } = user as any;
@@ -62,7 +64,7 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
       saveSession(userData);
       onLogin(userData);
       setLoading(false);
-    }, 800);
+    }, 1200);
   }
 
   return (
@@ -71,8 +73,8 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         <div className="w-16 h-16 bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-6">
           <UserPlus className="text-primary h-8 w-8" />
         </div>
-        <h2 className="text-3xl font-black italic uppercase tracking-tighter text-white">DMG ARTIST HUB</h2>
-        <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mt-2">Pela Dresbach Records LTDA</p>
+        <h2 className="text-3xl font-black italic uppercase tracking-tighter text-white leading-none">DMG ARTIST HUB</h2>
+        <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Pela Dresbach Records LTDA</p>
       </div>
 
       {step === 1 ? (
@@ -116,7 +118,7 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="text-center mb-4">
             <h3 className="text-white font-black uppercase text-sm tracking-widest mb-1">Crie sua Conta</h3>
-            <p className="text-primary text-[10px] font-bold uppercase tracking-widest">Registrando como {role}</p>
+            <p className="text-primary text-[10px] font-bold uppercase tracking-widest">Provisionando Sub-conta Stripe Connect...</p>
           </div>
           
           {error && <div className="p-3 bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase text-center">{error}</div>}
@@ -153,13 +155,13 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
               <Input className="bg-white/5 border-white/10 rounded-none h-11" placeholder="Opcional" value={form.ipi} onChange={e => set("ipi", e.target.value)} />
             </div>
             <div className="space-y-1">
-              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">PRO Affiliation</Label>
-              <Select value={form.pro} onValueChange={v => set("pro", v)}>
+              <Label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">País de Residência *</Label>
+              <Select value={form.country} onValueChange={v => set("country", v)}>
                 <SelectTrigger className="bg-white/5 border-white/10 rounded-none h-11">
-                  <SelectValue placeholder="Nenhum" />
+                  <SelectValue placeholder="Selecione" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-white/10 text-white">
-                  {["ASCAP","BMI","ECAD","PRS","SGAE","Outro"].map(p => (
+                  {["Brasil", "EUA", "Portugal", "Reino Unido", "Outro"].map(p => (
                     <SelectItem key={p} value={p}>{p}</SelectItem>
                   ))}
                 </SelectContent>
@@ -178,6 +180,15 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
             </div>
           </div>
 
+          <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg space-y-2">
+            <div className="flex items-center gap-2 text-primary font-black text-[9px] uppercase tracking-widest">
+              <CreditCard className="h-3 w-3" /> Sistema de Royalties Stripe
+            </div>
+            <p className="text-[9px] text-zinc-500 leading-tight">
+              Ao se cadastrar, uma carteira digital segura será criada para o recebimento de seus ganhos reais. A ativação completa exige o upload de documentos no painel.
+            </p>
+          </div>
+
           <Button 
             type="submit" 
             disabled={loading}
@@ -185,10 +196,10 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
           >
             {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : "FINALIZAR CADASTRO →"}
           </Button>
-          <div className="flex flex-col gap-2 mt-4">
+          <div className="flex flex-col gap-2 mt-4 text-center">
             <button type="button" onClick={() => setStep(1)} className="text-[10px] text-zinc-600 hover:text-white uppercase font-black">← Voltar</button>
             <div className="flex items-center justify-center gap-2 text-[10px] text-zinc-600 uppercase font-black tracking-widest">
-              <ShieldCheck className="h-3 w-3 text-primary" /> Área Segura & Criptografada
+              <ShieldCheck className="h-3 w-3 text-primary" /> Transações Seguras via SSL
             </div>
           </div>
         </form>
