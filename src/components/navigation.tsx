@@ -28,6 +28,7 @@ export function Navigation() {
     { name: "Lançamentos", href: "#lancamentos" },
     { name: "Produções", href: "#producoes" },
     { name: "Proteção", href: "#licenciamento" },
+    { name: "Rádio", href: "#radio" },
     { name: "Sobre", href: "#sobre" },
     { name: "Contato", href: "#contato" },
   ];

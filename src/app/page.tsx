@@ -5,6 +5,7 @@ import { ArtistSection } from "@/components/artist";
 import { ReleasesSection } from "@/components/releases";
 import { ProductionsSection } from "@/components/productions";
 import { LicensingSection } from "@/components/licensing";
+import { WebRadioSection } from "@/components/web-radio";
 import { AboutSection } from "@/components/about";
 import { DistributionSection } from "@/components/distribution";
 import { CopyAssistant } from "@/components/copy-assistant";
@@ -25,8 +26,9 @@ export default function Home() {
       
       <ProductionsSection />
       
-      {/* Seção de Proteção Global (Brasil e EUA) */}
       <LicensingSection />
+
+      <WebRadioSection />
       
       <AboutSection />
       
