@@ -62,7 +62,7 @@ export default function HubPage() {
         {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
         {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
         {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} />}
-        {page === "distribute" && <DistributionWizard user={user} onComplete={() => setPage("dashboard")} />}
+        {page === "distribute" && <DistributionWizard user={user} onComplete={() => setPage("distribution")} />}
         {page === "register" && <WorkRegistration user={user} onUpdate={setUser} />}
         {page === "catalog" && <CatalogTable user={user} />}
         {page === "royalties" && <RoyaltiesPage user={user} />}
@@ -71,7 +71,7 @@ export default function HubPage() {
         {page === "ai" && <AIWorkspace user={user} />}
         {page === "documents" && <DocumentsPage user={user} />}
         {page === "analytics" && <AnalyticsPage user={user} />}
-        {page === "distribution" && <DistributionPage user={user} />}
+        {page === "distribution" && <DistributionPage user={user} onStartCreate={() => setPage("distribute")} />}
         {page === "education" && <EducationPage user={user} />}
         {page === "support" && <SupportPage user={user} />}
         {page === "webradio" && <WebRadioPage user={user} />}
