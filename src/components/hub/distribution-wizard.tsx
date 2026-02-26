@@ -1,11 +1,10 @@
-
 "use client";
 
 import { useState } from "react";
 import { 
   Upload, CheckCircle2, Music, Globe, Users, 
   ChevronRight, ChevronLeft, Send, Search, Info,
-  Check, Play, AlertCircle
+  Check, Play, AlertCircle, DollarSign
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -347,7 +346,3 @@ export function DistributionWizard({ user, onComplete }: any) {
     </div>
   );
 }
-
-const DollarSign = ({ className }: { className?: string }) => (
-  <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-);
