@@ -103,17 +103,20 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
         </div>
       </header>
 
-      {/* Header Fixo 2: Sub-header / Search */}
-      <div className="h-12 bg-black border-b border-white/5 flex items-center justify-between px-6 z-40 flex-shrink-0">
-        <div className="relative w-64">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-zinc-600" />
+      {/* Header Fixo 2: Sub-header com Busca Centralizada */}
+      <div className="h-12 bg-black border-b border-white/5 flex items-center px-6 z-40 flex-shrink-0">
+        {/* Espaçador para manter a busca no centro real */}
+        <div className="hidden md:block flex-1" />
+
+        <div className="relative w-full max-w-md mx-auto">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-600" />
           <Input 
-            className="bg-zinc-900/30 border-white/5 pl-8 h-8 text-[10px] rounded-lg focus:border-primary transition-all placeholder:text-zinc-700" 
-            placeholder="BUSCAR OBRAS, LICENÇAS..." 
+            className="bg-zinc-900/50 border-white/5 pl-10 h-8 text-[11px] rounded-full focus:border-primary/50 transition-all placeholder:text-zinc-700 w-full" 
+            placeholder="BUSCAR OBRAS, LICENÇAS, DOCUMENTOS..." 
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex-1 flex justify-end items-center gap-2">
           <div className="relative">
             <button 
               onClick={() => setNotifOpen(!notifOpen)}
@@ -149,7 +152,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar com Dropdowns e Scroll Oculto */}
+        {/* Sidebar posicionada entre Cabeçalho e Rodapé */}
         <aside className="w-56 bg-zinc-950 border-r border-white/5 flex flex-col z-30 flex-shrink-0">
           <nav className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
             {menu.map(section => (
@@ -189,7 +192,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
             ))}
           </nav>
 
-          <div className="p-3 border-t border-white/5">
+          <div className="p-3 border-t border-white/5 bg-zinc-950">
             <div className="p-3 bg-zinc-900/50 rounded-xl space-y-2">
               <p className="text-[9px] font-black uppercase text-zinc-600 tracking-widest">Plano Atual</p>
               <p className="text-[10px] font-black text-primary italic">DMG PREMIUM ARTIST</p>
@@ -200,22 +203,27 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
           </div>
         </aside>
 
-        {/* Área de Conteúdo com Scroll Independente */}
+        {/* Área de Conteúdo principal */}
         <main className="flex-1 overflow-y-auto no-scrollbar bg-black relative">
-          <div className="p-8 pb-32 max-w-6xl mx-auto">
+          <div className="p-8 pb-20 max-w-6xl mx-auto">
             {children}
           </div>
-          
-          {/* Rodapé Interno do Main */}
-          <footer className="absolute bottom-0 left-0 w-full p-6 border-t border-white/5 bg-black/80 backdrop-blur-sm flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-zinc-700">
-            <p>© 2025 DMG RECORDS — AREA RESTRITA</p>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-zinc-400">TERMOS</a>
-              <a href="#" className="hover:text-zinc-400">PRIVACIDADE</a>
-            </div>
-          </footer>
         </main>
       </div>
+
+      {/* Rodapé Fixo na base de todo o app */}
+      <footer className="h-10 bg-zinc-950 border-t border-white/5 flex items-center justify-between px-6 z-50 flex-shrink-0 text-[9px] font-black uppercase tracking-widest text-zinc-700">
+        <div className="flex items-center gap-4">
+          <p>© 2025 DMG RECORDS — ÁREA RESTRITA</p>
+          <span className="w-1 h-1 bg-zinc-800 rounded-full" />
+          <p className="text-zinc-800">DRESBACH RECORDS LTDA</p>
+        </div>
+        <div className="flex gap-6">
+          <a href="#" className="hover:text-zinc-400 transition-colors">TERMOS DE USO</a>
+          <a href="#" className="hover:text-zinc-400 transition-colors">PRIVACIDADE</a>
+          <a href="#" className="hover:text-zinc-400 transition-colors text-primary">SUPORTE TÉCNICO</a>
+        </div>
+      </footer>
 
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
