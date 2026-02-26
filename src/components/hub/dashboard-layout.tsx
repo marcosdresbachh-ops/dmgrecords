@@ -1,13 +1,13 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   LayoutDashboard, PlusCircle, Library, Sparkles, LogOut, 
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
   MessageSquare, Search, Bell, HelpCircle, ChevronDown, ChevronRight,
   Music, ShieldCheck, CreditCard, BookOpen, Radio, PenTool, Layout, FileSearch,
-  Star, Send
+  Star, Send, Moon, Sun
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ user, activePage, onPageChange, onLogout, children }: DashboardLayoutProps) {
   const [openSections, setOpenSections] = useState<string[]>(["Obras", "Principal"]);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   const toggleSection = (section: string) => {
     setOpenSections(prev => 
@@ -93,41 +94,85 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
   ];
 
   const isAscapActive = user.ascapStatus === "active";
+  const isDark = theme === "dark";
 
   return (
-    <div className="flex flex-col h-screen bg-black overflow-hidden">
-      <header className="h-14 bg-zinc-950 border-b border-white/5 flex items-center justify-between px-6 z-50 flex-shrink-0">
+    <div className={cn(
+      "flex flex-col h-screen overflow-hidden transition-colors duration-500",
+      isDark ? "bg-black text-white" : "bg-white text-zinc-900"
+    )}>
+      {/* Header Adaptativo */}
+      <header className={cn(
+        "h-14 border-b flex items-center justify-between px-6 z-50 flex-shrink-0 transition-colors",
+        isDark ? "bg-zinc-950 border-white/5" : "bg-zinc-50 border-zinc-200"
+      )}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-center font-black text-primary text-lg italic">
             ♪
           </div>
-          <h2 className="text-sm font-black uppercase tracking-tighter italic text-white">DMG ARTIST HUB</h2>
+          <h2 className={cn(
+            "text-sm font-black uppercase tracking-tighter italic",
+            isDark ? "text-white" : "text-zinc-900"
+          )}>DMG ARTIST HUB</h2>
         </div>
         
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/5 border border-primary/20 rounded-full">
-            <div className="w-5 h-5 bg-primary rounded-md flex items-center justify-center font-black text-white text-[10px]">
-              {(user.artistName || user.firstName)?.[0]?.toUpperCase()}
-            </div>
-            <span className="text-[10px] font-black italic uppercase text-white truncate max-w-[100px]">
-              {user.artistName || user.firstName}
-            </span>
-          </div>
+        <div className="flex items-center gap-6">
+          {/* Theme Toggle */}
           <button 
-            onClick={onLogout}
-            className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-primary transition-colors flex items-center gap-2"
+            onClick={() => setTheme(isDark ? "light" : "dark")}
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all",
+              isDark ? "bg-white/5 text-zinc-400 hover:text-white" : "bg-zinc-200 text-zinc-600 hover:bg-zinc-300"
+            )}
           >
-            Sair <LogOut className="h-3 w-3" />
+            {isDark ? (
+              <><Sun className="h-3.5 w-3.5" /> MODO CLARO</>
+            ) : (
+              <><Moon className="h-3.5 w-3.5" /> MODO ESCURO</>
+            )}
           </button>
+
+          <div className="flex items-center gap-4">
+            <div className={cn(
+              "flex items-center gap-2 px-3 py-1.5 border rounded-full",
+              isDark ? "bg-primary/5 border-primary/20" : "bg-white border-zinc-200"
+            )}>
+              <div className="w-5 h-5 bg-primary rounded-md flex items-center justify-center font-black text-white text-[10px]">
+                {(user.artistName || user.firstName)?.[0]?.toUpperCase()}
+              </div>
+              <span className={cn(
+                "text-[10px] font-black italic uppercase truncate max-w-[100px]",
+                isDark ? "text-white" : "text-zinc-900"
+              )}>
+                {user.artistName || user.firstName}
+              </span>
+            </div>
+            <button 
+              onClick={onLogout}
+              className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-primary transition-colors flex items-center gap-2"
+            >
+              Sair <LogOut className="h-3 w-3" />
+            </button>
+          </div>
         </div>
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        <aside className="w-56 bg-zinc-950 border-r border-white/5 flex flex-col z-30 flex-shrink-0">
-          <div className="h-12 border-b border-white/5 flex items-center px-4">
+        {/* Sidebar Adaptativa */}
+        <aside className={cn(
+          "w-56 border-r flex flex-col z-30 flex-shrink-0 transition-colors",
+          isDark ? "bg-zinc-950 border-white/5" : "bg-zinc-100 border-zinc-200"
+        )}>
+          <div className={cn("h-12 border-b flex items-center px-4", isDark ? "border-white/5" : "border-zinc-200")}>
              <div className="relative w-full">
                 <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-zinc-600" />
-                <Input className="bg-transparent border-none pl-7 h-8 text-[10px] uppercase font-bold tracking-widest focus-visible:ring-0 placeholder:text-zinc-700" placeholder="Buscar..." />
+                <Input 
+                  className={cn(
+                    "border-none pl-7 h-8 text-[10px] uppercase font-bold tracking-widest focus-visible:ring-0",
+                    isDark ? "bg-transparent text-white placeholder:text-zinc-700" : "bg-zinc-200 text-zinc-900 placeholder:text-zinc-400"
+                  )} 
+                  placeholder="Buscar..." 
+                />
              </div>
           </div>
           <nav className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
@@ -135,7 +180,10 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
               <div key={section.sec} className="space-y-1">
                 <button
                   onClick={() => toggleSection(section.sec)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600 hover:text-zinc-400 transition-colors group"
+                  className={cn(
+                    "w-full flex items-center justify-between px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] transition-colors group",
+                    isDark ? "text-zinc-600 hover:text-zinc-400" : "text-zinc-400 hover:text-zinc-600"
+                  )}
                 >
                   <div className="flex items-center gap-2">
                     {section.icon}
@@ -145,7 +193,7 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
                 </button>
                 
                 {openSections.includes(section.sec) && (
-                  <div className="space-y-0.5 ml-2 border-l border-white/5 pl-2 animate-in slide-in-from-top-1 duration-200">
+                  <div className={cn("space-y-0.5 ml-2 border-l pl-2 animate-in slide-in-from-top-1 duration-200", isDark ? "border-white/5" : "border-zinc-200")}>
                     {section.items.map(item => (
                       <button
                         key={item.id}
@@ -153,8 +201,8 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
                         className={cn(
                           "w-full flex items-center gap-2.5 px-3 py-2 text-[11px] font-bold uppercase tracking-wider transition-all rounded-lg",
                           activePage === item.id 
-                            ? "bg-primary/10 text-primary border border-primary/20" 
-                            : "text-zinc-500 hover:bg-white/5 hover:text-zinc-300"
+                            ? (isDark ? "bg-primary/10 text-primary border border-primary/20" : "bg-white text-zinc-900 shadow-sm border border-zinc-200") 
+                            : (isDark ? "text-zinc-500 hover:bg-white/5 hover:text-zinc-300" : "text-zinc-500 hover:bg-white hover:text-zinc-900")
                         )}
                       >
                         {item.icon}
@@ -168,32 +216,41 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
             ))}
           </nav>
 
-          <div className="p-4 border-t border-white/5 bg-zinc-950">
-            {/* ASCAP Compact Indicator */}
-            <div className="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
+          <div className={cn("p-4 border-t transition-colors", isDark ? "border-white/5 bg-zinc-950" : "border-zinc-200 bg-zinc-100")}>
+            <div className={cn("flex items-center justify-between p-3 rounded-xl border", isDark ? "bg-white/5 border-white/5" : "bg-white border-zinc-200 shadow-sm")}>
               <div className="flex items-center gap-2">
                 <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", isAscapActive ? "bg-accent" : "bg-primary")} />
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">ASCAP</span>
+                <span className={cn("text-[10px] font-black uppercase tracking-widest", isDark ? "text-white/40" : "text-zinc-400")}>ASCAP</span>
               </div>
-              <span className="text-[10px] font-mono font-bold text-zinc-400">
+              <span className={cn("text-[10px] font-mono font-bold", isDark ? "text-zinc-400" : "text-zinc-600")}>
                 {user.ipi || "PROCESSANDO"}
               </span>
             </div>
           </div>
         </aside>
 
-        <main className="flex-1 overflow-y-auto no-scrollbar bg-black relative">
-          <div className="p-8 pb-20 max-w-6xl mx-auto">
+        <main className={cn(
+          "flex-1 overflow-y-auto no-scrollbar relative transition-colors",
+          isDark ? "bg-black" : "bg-zinc-50"
+        )}>
+          {/* Se estiver na distribuição, forçamos o fundo branco industrial independentemente do tema */}
+          <div className={cn(
+            "p-8 pb-20 max-w-6xl mx-auto",
+            (activePage === "distribution" || activePage === "distribute") && "max-w-none p-0"
+          )}>
             {children}
           </div>
         </main>
       </div>
 
-      <footer className="h-10 bg-zinc-950 border-t border-white/5 flex items-center justify-between px-6 z-50 flex-shrink-0 text-[9px] font-black uppercase tracking-widest text-zinc-700">
+      <footer className={cn(
+        "h-10 border-t flex items-center justify-between px-6 z-50 flex-shrink-0 text-[9px] font-black uppercase tracking-widest transition-colors",
+        isDark ? "bg-zinc-950 border-white/5 text-zinc-700" : "bg-zinc-50 border-zinc-200 text-zinc-400"
+      )}>
         <div className="flex items-center gap-4">
           <p>© 2025 DMG RECORDS — ÁREA RESTRITA</p>
           <span className="w-1 h-1 bg-zinc-800 rounded-full" />
-          <p className="text-zinc-800">DRESBACH RECORDS LTDA</p>
+          <p className={isDark ? "text-zinc-800" : "text-zinc-300"}>DRESBACH RECORDS LTDA</p>
         </div>
         <div className="flex gap-6">
           <a href="#" className="hover:text-zinc-400 transition-colors">TERMOS DE USO</a>

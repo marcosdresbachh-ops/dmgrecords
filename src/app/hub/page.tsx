@@ -28,6 +28,7 @@ export default function HubPage() {
   const [user, setUser] = useState<any>(null);
   const [page, setPage] = useState("dashboard");
   const [hydrated, setHydrated] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
     setUser(getSession());
@@ -51,14 +52,14 @@ export default function HubPage() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen">
       <DashboardLayout 
         user={user} 
         activePage={page} 
         onPageChange={setPage} 
         onLogout={onLogout}
       >
-        {page === "dashboard" && <DashboardHome user={user} />}
+        {page === "dashboard" && <DashboardHome user={user} theme={theme} />}
         {page === "profile" && <ProfilePage user={user} onUpdate={setUser} />}
         {page === "bio" && <BioPage user={user} onUpdate={setUser} />}
         {page === "public-profile" && <PublicProfilePage user={user} onUpdate={setUser} />}

@@ -3,9 +3,11 @@
 
 import { Music, DollarSign, FileCheck, Play, ArrowUpRight, TrendingUp, Calendar, Info, Globe, ShieldCheck, Star, Cloud, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-export function DashboardHome({ user }: any) {
+export function DashboardHome({ user, theme = "dark" }: any) {
   const works = user.works || [];
+  const isDark = theme === "dark";
   
   const stats = [
     { label: "Obras Registradas", value: works.length, sub: "No catálogo ativo", trend: "↑ Ativo", icon: <Music className="text-primary" /> },
@@ -18,7 +20,10 @@ export function DashboardHome({ user }: any) {
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <header className="flex justify-between items-start">
         <div className="space-y-3">
-          <h1 className="text-5xl font-black italic uppercase tracking-tighter text-white leading-none">Bem-vindo, {user.artistName || user.firstName} ♪</h1>
+          <h1 className={cn(
+            "text-5xl font-black italic uppercase tracking-tighter leading-none",
+            isDark ? "text-white" : "text-black"
+          )}>Bem-vindo, {user.artistName || user.firstName} ♪</h1>
           <p className="text-zinc-500 text-lg font-medium">Sua central de controle de carreira — SoundCloud & DMG Network Integradas.</p>
         </div>
         <div className="flex items-center gap-4">
@@ -32,19 +37,28 @@ export function DashboardHome({ user }: any) {
         </div>
       </header>
 
-      {/* Grid de Estatísticas - Estilo Dashboard de Performance */}
+      {/* Grid de Estatísticas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((s, i) => (
-          <div key={i} className="bg-zinc-950 border border-white/5 p-8 rounded-[32px] relative overflow-hidden group hover:border-primary/40 transition-all">
+          <div key={i} className={cn(
+            "border p-8 rounded-[32px] relative overflow-hidden group transition-all",
+            isDark ? "bg-zinc-950 border-white/5 hover:border-primary/40" : "bg-white border-zinc-200 hover:border-primary/40 shadow-sm"
+          )}>
             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-primary to-transparent opacity-40" />
             <div className="flex justify-between items-start mb-6">
-              <div className="p-4 bg-white/5 border border-white/10 rounded-2xl group-hover:scale-110 transition-transform text-primary">
+              <div className={cn(
+                "p-4 border rounded-2xl group-hover:scale-110 transition-transform",
+                isDark ? "bg-white/5 border-white/10" : "bg-zinc-50 border-zinc-100"
+              )}>
                 {s.icon}
               </div>
               <span className="text-[11px] font-black uppercase text-accent tracking-[0.2em] bg-accent/10 px-3 py-1 rounded-full">{s.trend}</span>
             </div>
             <p className="text-[11px] font-black uppercase tracking-[0.3em] text-zinc-600 mb-2">{s.label}</p>
-            <p className="text-4xl font-black italic uppercase tracking-tighter text-white">{s.value}</p>
+            <p className={cn(
+              "text-4xl font-black italic uppercase tracking-tighter",
+              isDark ? "text-white" : "text-black"
+            )}>{s.value}</p>
             <p className="text-[10px] text-zinc-700 mt-4 font-black uppercase tracking-widest">{s.sub}</p>
           </div>
         ))}
@@ -54,10 +68,16 @@ export function DashboardHome({ user }: any) {
         <div className="lg:col-span-2 space-y-8">
           
           {/* Sincronização em Tempo Real */}
-          <div className="bg-zinc-950 border border-white/5 rounded-[40px] p-10">
+          <div className={cn(
+            "border rounded-[40px] p-10",
+            isDark ? "bg-zinc-950 border-white/5" : "bg-white border-zinc-200 shadow-sm"
+          )}>
             <div className="flex items-center justify-between mb-10">
               <div className="space-y-1">
-                <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white flex items-center gap-3">
+                <h3 className={cn(
+                  "text-2xl font-black italic uppercase tracking-tighter flex items-center gap-3",
+                  isDark ? "text-white" : "text-black"
+                )}>
                   <Music className="h-6 w-6 text-primary" /> SoundCloud Track Sync
                 </h3>
                 <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Sincronização automática com a API SoundCloud for Artists</p>
@@ -68,7 +88,10 @@ export function DashboardHome({ user }: any) {
             </div>
             
             {works.length === 0 ? (
-              <div className="py-20 text-center border-2 border-dashed border-white/5 rounded-[32px] space-y-6">
+              <div className={cn(
+                "py-20 text-center border-2 border-dashed rounded-[32px] space-y-6",
+                isDark ? "border-white/5" : "border-zinc-100"
+              )}>
                 <Zap className="h-12 w-12 text-zinc-800 mx-auto" />
                 <p className="text-zinc-600 text-sm font-black uppercase tracking-widest">Nenhuma obra sincronizada via SoundCloud.</p>
                 <Button className="bg-primary/10 text-primary border border-primary/20 text-[10px] font-black uppercase tracking-widest rounded-full px-8 h-12">Conectar SoundCloud Account →</Button>
@@ -77,7 +100,10 @@ export function DashboardHome({ user }: any) {
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="border-b border-white/5 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-700">
+                    <tr className={cn(
+                      "border-b text-[10px] font-black uppercase tracking-[0.3em]",
+                      isDark ? "border-white/5 text-zinc-700" : "border-zinc-100 text-zinc-400"
+                    )}>
                       <th className="pb-6">Título da Faixa</th>
                       <th className="pb-6">Monetização</th>
                       <th className="pb-6">Plays Cloud</th>
@@ -86,8 +112,11 @@ export function DashboardHome({ user }: any) {
                   </thead>
                   <tbody>
                     {[...works].reverse().slice(0, 5).map((w, i) => (
-                      <tr key={i} className="group hover:bg-white/5 transition-all">
-                        <td className="py-6 font-black text-lg text-white italic tracking-tighter uppercase">{w.title}</td>
+                      <tr key={i} className="group hover:bg-zinc-500/5 transition-all">
+                        <td className={cn(
+                          "py-6 font-black text-lg italic tracking-tighter uppercase",
+                          isDark ? "text-white" : "text-black"
+                        )}>{w.title}</td>
                         <td className="py-6">
                            <span className="text-[10px] font-black text-accent border border-accent/20 bg-accent/5 px-3 py-1 rounded-full uppercase tracking-widest">Active</span>
                         </td>
@@ -104,11 +133,17 @@ export function DashboardHome({ user }: any) {
           </div>
 
           {/* Receita Detalhada */}
-          <div className="bg-zinc-950 border border-white/5 rounded-[40px] p-10 relative overflow-hidden">
+          <div className={cn(
+            "border rounded-[40px] p-10 relative overflow-hidden",
+            isDark ? "bg-zinc-950 border-white/5" : "bg-white border-zinc-200 shadow-sm"
+          )}>
             <div className="absolute -right-20 -bottom-20 opacity-5 grayscale">
                <TrendingUp className="h-64 w-64 text-primary" />
             </div>
-            <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white mb-10 flex items-center gap-3">
+            <h3 className={cn(
+              "text-2xl font-black italic uppercase tracking-tighter mb-10 flex items-center gap-3",
+              isDark ? "text-white" : "text-black"
+            )}>
               <TrendingUp className="h-6 w-6 text-primary" /> Receita SoundCloud for Artists
             </h3>
             <div className="space-y-8">
@@ -119,9 +154,12 @@ export function DashboardHome({ user }: any) {
                 <div key={i} className="space-y-4">
                   <div className="flex justify-between text-xs font-black uppercase tracking-[0.3em]">
                     <span className="text-zinc-500">{item.l}</span>
-                    <span className="text-white italic">{item.v}</span>
+                    <span className={isDark ? "text-white italic" : "text-black italic"}>{item.v}</span>
                   </div>
-                  <div className="h-3 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/5">
+                  <div className={cn(
+                    "h-3 rounded-full overflow-hidden p-0.5 border",
+                    isDark ? "bg-white/5 border-white/5" : "bg-zinc-100 border-zinc-200"
+                  )}>
                     <div className={`h-full ${item.c} rounded-full transition-all duration-1000`} style={{ width: `${item.p}%` }} />
                   </div>
                 </div>
@@ -132,11 +170,17 @@ export function DashboardHome({ user }: any) {
 
         <div className="space-y-8">
           {/* Profile Card Sidebar */}
-          <div className="bg-zinc-950 border border-white/5 rounded-[32px] p-8 space-y-8 relative overflow-hidden">
+          <div className={cn(
+            "border rounded-[32px] p-8 space-y-8 relative overflow-hidden",
+            isDark ? "bg-zinc-950 border-white/5" : "bg-white border-zinc-200 shadow-sm"
+          )}>
             <div className="absolute top-0 right-0 p-4 opacity-5">
                <Cloud className="h-20 w-20 text-[#ff5500]" />
             </div>
-            <h3 className="text-lg font-black italic uppercase tracking-tighter text-white flex items-center gap-3">
+            <h3 className={cn(
+              "text-lg font-black italic uppercase tracking-tighter flex items-center gap-3",
+              isDark ? "text-white" : "text-black"
+            )}>
               <Cloud className="h-5 w-5 text-[#ff5500]" /> SoundCloud Profile
             </h3>
             <div className="space-y-5">
@@ -147,20 +191,32 @@ export function DashboardHome({ user }: any) {
                 ["Track Count", works.length || "0"],
                 ["Monetization", "Enabled"],
               ].map(([k, v]) => (
-                <div key={k} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
+                <div key={k} className={cn(
+                  "flex justify-between items-center py-3 border-b last:border-0",
+                  isDark ? "border-white/5" : "border-zinc-100"
+                )}>
                   <span className="text-[11px] font-black uppercase tracking-widest text-zinc-600">{k}</span>
-                  <span className="text-xs font-bold text-zinc-300 italic">{v}</span>
+                  <span className={cn(
+                    "text-xs font-bold italic",
+                    isDark ? "text-zinc-300" : "text-zinc-900"
+                  )}>{v}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Vantagens Card */}
-          <div className="bg-primary/5 border border-primary/20 rounded-[32px] p-8 space-y-6">
+          <div className={cn(
+            "border border-primary/20 rounded-[32px] p-8 space-y-6",
+            isDark ? "bg-primary/5" : "bg-zinc-50"
+          )}>
             <h3 className="text-sm font-black uppercase tracking-[0.3em] text-primary flex items-center gap-3">
               <Star className="h-5 w-5" /> Vantagens DMG Next Pro
             </h3>
-            <div className="p-6 bg-black/40 border border-white/5 rounded-2xl space-y-3 hover:border-accent/40 transition-all group">
+            <div className={cn(
+              "p-6 border rounded-2xl space-y-3 hover:border-accent/40 transition-all group",
+              isDark ? "bg-black/40 border-white/5" : "bg-white border-zinc-200"
+            )}>
               <p className="text-[11px] font-black uppercase text-accent tracking-widest flex items-center gap-2">
                 <Zap className="h-3.5 w-3.5" /> ⚡ UPLOAD ILIMITADO
               </p>
@@ -168,7 +224,10 @@ export function DashboardHome({ user }: any) {
                 Como parceiro DMG, você tem upload infinito e ferramentas avançadas de substituição de áudio sem perda de plays.
               </p>
             </div>
-            <div className="p-6 bg-black/40 border border-white/5 rounded-2xl space-y-3 hover:border-[#ff5500]/40 transition-all group">
+            <div className={cn(
+              "p-6 border rounded-2xl space-y-3 hover:border-[#ff5500]/40 transition-all group",
+              isDark ? "bg-black/40 border-white/5" : "bg-white border-zinc-200"
+            )}>
               <p className="text-[11px] font-black uppercase text-[#ff5500] tracking-widest flex items-center gap-2">
                 <ShieldCheck className="h-3.5 w-3.5" /> 🛡️ CONTENT ID CLOUD
               </p>
