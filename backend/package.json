@@ -1,0 +1,17 @@
+
+{
+  "name": "dmg-backend",
+  "version": "1.0.0",
+  "description": "Servidor Express para o ecossistema DMG Records",
+  "main": "server.ts",
+  "scripts": {
+    "start": "tsx server.ts",
+    "dev": "tsx --watch server.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "@supabase/supabase-js": "^2.48.1"
+  }
+}
