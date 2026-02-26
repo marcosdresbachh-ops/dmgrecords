@@ -25,6 +25,7 @@ export default function Home() {
       
       <ProductionsSection />
       
+      {/* Seção de Proteção Global (Brasil e EUA) */}
       <LicensingSection />
       
       <AboutSection />
