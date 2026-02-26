@@ -35,12 +35,25 @@ export function RegisterForm({ onLogin, onSwitch }: any) {
         return;
       }
       
+      // Geração automática do slug e dados da página pública (A "pasta" do artista no BD)
+      const artistDisplayName = form.artistName || `${form.firstName} ${form.lastName}`;
+      const autoSlug = artistDisplayName.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+
       const user = {
         ...form,
         role,
         id: "DMG-" + Math.random().toString(36).slice(2,8).toUpperCase(),
         joined: new Date().toLocaleDateString("pt-BR", { year: 'numeric', month: 'long', day: 'numeric' }),
-        works: []
+        works: [],
+        // Dados iniciais da Página Pública
+        artistSlug: autoSlug,
+        bio: `Bem-vindo ao perfil oficial de ${artistDisplayName}. Artista integrante do catálogo DMG Records.`,
+        bannerUrl: "https://picsum.photos/seed/dmg-banner/1920/600",
+        avatarUrl: `https://picsum.photos/seed/${autoSlug}/400/400`,
+        playlistUrl: "",
+        instagram: "",
+        spotify: "",
+        whatsapp: form.phone || ""
       };
       
       const { password, confirm, ...userData } = user as any;

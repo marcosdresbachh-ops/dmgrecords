@@ -7,7 +7,7 @@ import Image from "next/image";
 import { 
   Instagram, Music2, Youtube, ExternalLink, 
   Mail, MessageCircle, Play, ShoppingCart, 
-  Globe, Info, Share2 
+  Globe, Info, Share2, Award, Zap, Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,7 @@ export default function ArtistPublicPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulação de busca de dados no DB local
+    // Busca dados no "servidor" (localStorage simulando BD)
     const users = JSON.parse(localStorage.getItem('dmg_hub_users') || '{}');
     const artistData = Object.values(users).find((u: any) => u.artistSlug === slug);
     
@@ -37,151 +37,182 @@ export default function ArtistPublicPage() {
 
   if (!artist) return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6 text-center space-y-6">
+      <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+        <Zap className="h-12 w-12 text-primary" />
+      </div>
       <h1 className="text-6xl font-black italic tracking-tighter text-primary">404</h1>
-      <p className="text-xl font-medium text-zinc-500 uppercase tracking-widest">Artista não encontrado no catálogo DMG.</p>
+      <p className="text-xl font-medium text-zinc-500 uppercase tracking-widest max-w-xs">Artista não encontrado ou perfil ainda não publicado.</p>
       <Button asChild className="bg-primary rounded-none h-14 px-8 font-black uppercase italic">
         <a href="/">VOLTAR PARA A HOME</a>
       </Button>
     </div>
   );
 
+  const artistName = artist.artistName || `${artist.firstName} ${artist.lastName}`;
+
   return (
     <main className="min-h-screen bg-black text-white font-body selection:bg-primary">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
+      {/* Premium Hero Section */}
+      <section className="relative h-[75vh] w-full overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10" />
         <div className="absolute inset-0 bg-zinc-900">
           {artist.bannerUrl && (
             <Image 
               src={artist.bannerUrl} 
               alt="Banner" 
               fill 
-              className="object-cover opacity-60"
+              className="object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-1000"
+              priority
             />
           )}
         </div>
         
-        <div className="container mx-auto px-6 relative z-20 h-full flex flex-col justify-end pb-12">
-          <div className="flex flex-col md:flex-row items-end gap-8">
-            <div className="w-40 h-40 md:w-56 md:h-56 rounded-3xl bg-primary border-4 border-black flex items-center justify-center text-7xl font-black shadow-2xl relative overflow-hidden shrink-0">
+        <div className="container mx-auto px-6 relative z-20 h-full flex flex-col justify-end pb-16">
+          <div className="flex flex-col md:flex-row items-end gap-10">
+            <div className="w-48 h-48 md:w-64 md:h-64 rounded-none bg-primary border-[12px] border-black flex items-center justify-center text-8xl font-black shadow-2xl relative overflow-hidden shrink-0 rotate-2">
               {artist.avatarUrl ? (
-                <Image src={artist.avatarUrl} alt={artist.artistName} fill className="object-cover" />
+                <Image src={artist.avatarUrl} alt={artistName} fill className="object-cover" />
               ) : (
-                (artist.artistName || artist.firstName)?.[0].toUpperCase()
+                artistName[0].toUpperCase()
               )}
             </div>
-            <div className="space-y-4 pb-4">
+            <div className="space-y-6 pb-4">
               <div className="flex flex-wrap gap-2">
-                <Badge className="bg-primary text-white font-black uppercase text-[10px] tracking-widest rounded-none">{artist.role}</Badge>
-                <Badge variant="outline" className="border-white/20 text-white font-black uppercase text-[10px] tracking-widest rounded-none">DMG ARTIST</Badge>
+                <Badge className="bg-primary text-white font-black uppercase text-[10px] tracking-[0.3em] rounded-none px-4 py-1.5">{artist.role || "ARTIST"}</Badge>
+                <Badge variant="outline" className="border-white/20 text-white font-black uppercase text-[10px] tracking-[0.3em] rounded-none px-4 py-1.5">DMG VERIFIED</Badge>
               </div>
-              <h1 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter leading-none">
-                {artist.artistName || `${artist.firstName} ${artist.lastName}`}
+              <h1 className="text-7xl md:text-[10rem] font-black italic uppercase tracking-tighter leading-[0.8] mb-2 drop-shadow-2xl">
+                {artistName}
               </h1>
-              <p className="text-zinc-400 font-medium text-lg uppercase tracking-[0.2em] flex items-center gap-2">
-                <Globe className="h-4 w-4 text-primary" /> {artist.country || "GLOBAL"}
-              </p>
+              <div className="flex flex-wrap items-center gap-6">
+                <p className="text-zinc-400 font-bold text-xl uppercase tracking-[0.3em] flex items-center gap-3">
+                  <Globe className="h-5 w-5 text-primary" /> {artist.country || "GLOBAL"}
+                </p>
+                <div className="h-1 w-12 bg-primary/30 hidden md:block" />
+                <p className="text-primary font-black text-xl uppercase tracking-[0.3em] italic">
+                  OFFICIAL ARTIST HUB
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Content Section */}
-      <section className="py-20 container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-          <div className="lg:col-span-2 space-y-12">
-            {/* Bio */}
-            <div className="space-y-6">
-              <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3">
-                <Info className="h-4 w-4" /> Trajetória e Release
-              </h3>
-              <div className="text-xl text-zinc-300 leading-relaxed font-medium whitespace-pre-wrap">
-                {artist.bio || "Nenhuma biografia disponível."}
+      {/* Main Content Grid */}
+      <section className="py-24 container mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
+          <div className="lg:col-span-2 space-y-20">
+            
+            {/* Trayetória / Release Section */}
+            <div className="space-y-10">
+              <div className="flex items-center gap-4">
+                <div className="h-[2px] w-16 bg-primary" />
+                <h3 className="text-xs font-black uppercase tracking-[0.5em] text-primary">Trajetória e Release</h3>
+              </div>
+              <div className="text-2xl text-zinc-300 leading-relaxed font-medium whitespace-pre-wrap first-letter:text-7xl first-letter:font-black first-letter:text-primary first-letter:mr-3 first-letter:float-left">
+                {artist.bio || "Esta biografia está sendo processada pela curadoria DMG."}
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-10">
+                <div className="p-8 bg-zinc-900/50 border border-white/5 flex gap-6 items-start">
+                  <Award className="h-8 w-8 text-primary shrink-0" />
+                  <div>
+                    <h4 className="font-black uppercase italic text-sm mb-2">Qualidade DMG</h4>
+                    <p className="text-xs text-zinc-500 font-medium">Artista com produção e direção artística assinada pela Dresbach Records.</p>
+                  </div>
+                </div>
+                <div className="p-8 bg-zinc-900/50 border border-white/5 flex gap-6 items-start">
+                  <Star className="h-8 w-8 text-primary shrink-0" />
+                  <div>
+                    <h4 className="font-black uppercase italic text-sm mb-2">Presença Global</h4>
+                    <p className="text-xs text-zinc-500 font-medium">Distribuição garantida em mais de 150 plataformas digitais simultaneamente.</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Music Embed */}
+            {/* Music Embed Section */}
             {artist.playlistUrl && (
-              <div className="space-y-6">
-                <h3 className="text-sm font-black uppercase tracking-[0.4em] text-primary flex items-center gap-3">
-                  <Music2 className="h-4 w-4" /> Discografia e Playlist
-                </h3>
-                <div className="bg-zinc-950 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-                  {/* Simplificação: Se for spotify, gera embed */}
+              <div className="space-y-10">
+                <div className="flex items-center gap-4">
+                  <div className="h-[2px] w-16 bg-primary" />
+                  <h3 className="text-xs font-black uppercase tracking-[0.5em] text-primary">Discografia em Destaque</h3>
+                </div>
+                <div className="bg-zinc-950 border border-white/10 p-2 shadow-2xl relative">
+                  <div className="absolute -inset-1 bg-primary/5 blur-xl -z-10" />
                   <iframe 
-                    src={artist.playlistUrl.replace("open.spotify.com", "open.spotify.com/embed")}
+                    src={artist.playlistUrl.includes('spotify') ? artist.playlistUrl.replace("open.spotify.com", "open.spotify.com/embed") : artist.playlistUrl}
                     width="100%" 
-                    height="380" 
+                    height="450" 
                     frameBorder="0" 
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                     loading="lazy"
-                    className="rounded-3xl"
+                    className="grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
                   />
                 </div>
               </div>
             )}
           </div>
 
-          {/* Sidebar - Links and Contacts */}
-          <div className="space-y-8">
-            <div className="bg-zinc-950 border border-white/10 p-8 rounded-3xl space-y-8 sticky top-24">
-              <h3 className="text-xs font-black uppercase tracking-widest text-zinc-500">Conecte-se e Contrate</h3>
-              
-              <div className="grid gap-4">
-                {artist.instagram && (
-                  <Button asChild className="w-full h-14 bg-zinc-900 hover:bg-zinc-800 text-white font-bold uppercase italic tracking-tighter border border-white/5 justify-start px-6">
-                    <a href={`https://instagram.com/${artist.instagram.replace('@','')}`} target="_blank">
-                      <Instagram className="mr-4 h-5 w-5 text-pink-500" /> INSTAGRAM
-                    </a>
-                  </Button>
-                )}
-                {artist.spotify && (
-                  <Button asChild className="w-full h-14 bg-zinc-900 hover:bg-zinc-800 text-white font-bold uppercase italic tracking-tighter border border-white/5 justify-start px-6">
-                    <a href={artist.spotify} target="_blank">
-                      <Music2 className="mr-4 h-5 w-5 text-green-500" /> SPOTIFY ARTIST
-                    </a>
-                  </Button>
-                )}
-                {artist.phone && (
-                  <Button asChild className="w-full h-14 bg-green-600 hover:bg-green-500 text-white font-black uppercase italic tracking-tighter justify-start px-6">
-                    <a href={`https://wa.me/${artist.phone.replace(/[^0-9]/g,'')}`} target="_blank">
-                      <MessageCircle className="mr-4 h-5 w-5" /> WHATSAPP DIRECT
-                    </a>
-                  </Button>
-                )}
+          {/* Sidebar - Booking & Interaction */}
+          <div className="space-y-10">
+            <div className="bg-zinc-950 border border-white/5 p-10 space-y-10 sticky top-32">
+              <div>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-600 mb-8 border-b border-white/5 pb-4">Conecte-se e Contrate</h3>
+                
+                <div className="grid gap-4">
+                  {artist.instagram && (
+                    <Button asChild className="w-full h-16 bg-zinc-900 hover:bg-white hover:text-black text-white font-black uppercase italic tracking-tighter border border-white/5 justify-start px-8 group transition-all">
+                      <a href={`https://instagram.com/${artist.instagram.replace('@','')}`} target="_blank">
+                        <Instagram className="mr-6 h-6 w-6 text-primary group-hover:text-black" /> INSTAGRAM
+                      </a>
+                    </Button>
+                  )}
+                  {artist.spotify && (
+                    <Button asChild className="w-full h-16 bg-zinc-900 hover:bg-white hover:text-black text-white font-black uppercase italic tracking-tighter border border-white/5 justify-start px-8 group transition-all">
+                      <a href={artist.spotify} target="_blank">
+                        <Music2 className="mr-6 h-6 w-6 text-primary group-hover:text-black" /> SPOTIFY ARTIST
+                      </a>
+                    </Button>
+                  )}
+                  {artist.whatsapp && (
+                    <Button asChild className="w-full h-16 bg-primary hover:bg-white hover:text-black text-white font-black uppercase italic tracking-tighter justify-start px-8 group transition-all">
+                      <a href={`https://wa.me/${artist.whatsapp.replace(/[^0-9]/g,'')}`} target="_blank">
+                        <MessageCircle className="mr-6 h-6 w-6 group-hover:text-black" /> WHATSAPP DIRECT
+                      </a>
+                    </Button>
+                  )}
+                </div>
               </div>
 
-              <div className="pt-8 border-t border-white/5">
-                <p className="text-[10px] font-black uppercase text-zinc-600 tracking-widest mb-4">Agenciamento DMG</p>
-                <div className="flex items-center gap-3 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                    <Mail className="h-4 w-4" />
-                  </div>
+              <div className="pt-10 border-t border-white/5">
+                <p className="text-[9px] font-black uppercase text-zinc-600 tracking-[0.3em] mb-6">Booking & Management</p>
+                <div className="flex items-center gap-4 group cursor-pointer">
+                  <div className="w-12 h-12 bg-primary flex items-center justify-center font-black text-white italic text-xl">DMG</div>
                   <div>
-                    <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">E-mail Profissional</p>
-                    <p className="text-xs font-black text-white">contato@dmgrecords.com.br</p>
+                    <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">E-mail Profissional</p>
+                    <p className="text-sm font-black text-white">contato@dmgrecords.com.br</p>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-6">
-                <Button className="w-full bg-white text-black font-black uppercase h-14 rounded-xl hover:bg-zinc-200">
-                  <Share2 className="mr-2 h-4 w-4" /> COMPARTILHAR PERFIL
-                </Button>
-              </div>
+              <Button className="w-full bg-white text-black font-black uppercase h-16 rounded-none hover:bg-primary hover:text-white transition-all">
+                <Share2 className="mr-3 h-5 w-5" /> COMPARTILHAR EPK
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer Minimalista */}
-      <footer className="py-20 border-t border-white/5 bg-black">
-        <div className="container mx-auto px-6 flex flex-col items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary flex items-center justify-center font-black text-white rounded-lg italic">♪</div>
-            <span className="text-2xl font-black uppercase italic tracking-tighter">DMG <span className="text-primary">RECORDS</span></span>
+      {/* Footer Branding */}
+      <footer className="py-24 border-t border-white/5 bg-black">
+        <div className="container mx-auto px-6 flex flex-col items-center gap-8">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-primary flex items-center justify-center font-black text-white italic text-2xl">♪</div>
+            <span className="text-3xl font-black uppercase italic tracking-tighter">DMG <span className="text-primary">RECORDS</span></span>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600">Artist Official Hub System — © 2025</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-700">Official Artist EPK System — © 2025 Dresbach Records</p>
         </div>
       </footer>
     </main>
