@@ -5,7 +5,7 @@ import { useState } from "react";
 import { LoginForm } from "./login-form";
 import { RegisterForm } from "./register-form";
 import Link from "next/link";
-import { ChevronLeft, Lock } from "lucide-react";
+import { ChevronLeft, Lock, AlertTriangle } from "lucide-react";
 
 interface AuthLayoutProps {
   onLogin: (user: any) => void;
@@ -39,6 +39,17 @@ export function AuthLayout({ onLogin }: AuthLayoutProps) {
             </div>
             <h2 className="text-3xl font-black italic uppercase tracking-tighter text-zinc-900 leading-none">DMG ARTIST HUB</h2>
             <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Área Restrita Dresbach Records</p>
+          </div>
+
+          {/* Aviso de Sistema em Construção */}
+          <div className="mb-8 p-4 bg-amber-50 border border-amber-100 rounded-2xl flex gap-3 items-start">
+            <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-amber-700 uppercase tracking-widest leading-none">Aviso de Desenvolvimento</p>
+              <p className="text-[11px] text-amber-600 font-bold leading-relaxed uppercase">
+                Você pode se cadastrar e logar normalmente, mas esteja ciente: o sistema está em construção e pode apresentar instabilidades.
+              </p>
+            </div>
           </div>
 
           {view === "login" ? (
