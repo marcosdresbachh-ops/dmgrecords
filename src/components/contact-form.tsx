@@ -17,38 +17,37 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 relative z-10 bg-card p-10 border border-white/5">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full" />
-      <div className="space-y-2">
-        <label className="text-xs font-bold uppercase tracking-widest text-white/60">Nome Completo</label>
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="space-y-3">
+        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Nome Completo</label>
         <Input 
           placeholder="Seu nome artístico ou comercial" 
-          className="bg-black/50 border-white/10 rounded-none h-14 focus:border-primary transition-all" 
+          className="bg-zinc-50 border-zinc-200 rounded-none h-16 focus:border-zinc-900 transition-all font-bold uppercase text-xs tracking-widest px-6" 
           required 
         />
       </div>
-      <div className="space-y-2">
-        <label className="text-xs font-bold uppercase tracking-widest text-white/60">Endereço de E-mail</label>
+      <div className="space-y-3">
+        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Endereço de E-mail</label>
         <Input 
           type="email" 
           placeholder="seuemail@exemplo.com" 
-          className="bg-black/50 border-white/10 rounded-none h-14 focus:border-primary transition-all" 
+          className="bg-zinc-50 border-zinc-200 rounded-none h-16 focus:border-zinc-900 transition-all font-bold uppercase text-xs tracking-widest px-6" 
           required 
         />
       </div>
-      <div className="space-y-2">
-        <label className="text-xs font-bold uppercase tracking-widest text-white/60">Sua Mensagem</label>
+      <div className="space-y-3">
+        <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Sua Mensagem</label>
         <Textarea 
           placeholder="Como podemos ajudar na sua carreira?" 
-          className="bg-black/50 border-white/10 rounded-none min-h-[150px] focus:border-primary transition-all" 
+          className="bg-zinc-50 border-zinc-200 rounded-none min-h-[180px] focus:border-zinc-900 transition-all font-bold uppercase text-xs tracking-widest p-6 leading-loose" 
           required 
         />
       </div>
       <Button 
         type="submit" 
-        className="w-full h-16 bg-primary text-lg font-black tracking-tighter hover:bg-primary/90 rounded-none transition-all shadow-lg shadow-primary/20"
+        className="w-full h-20 bg-zinc-900 text-lg font-black tracking-tighter hover:bg-primary rounded-none transition-all shadow-xl text-white uppercase italic"
       >
-        ENVIAR AGORA <Send className="ml-2 h-5 w-5" />
+        ENVIAR AGORA <Send className="ml-3 h-6 w-6" />
       </Button>
     </form>
   );

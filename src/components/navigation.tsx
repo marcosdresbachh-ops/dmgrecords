@@ -31,8 +31,8 @@ export function Navigation() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-black/95 backdrop-blur-md shadow-2xl" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        scrolled ? "bg-white/90 backdrop-blur-md border-zinc-200 shadow-sm" : "bg-white/50 backdrop-blur-sm border-transparent"
       )}
     >
       <TopPlayer />
@@ -41,20 +41,20 @@ export function Navigation() {
         "container mx-auto px-4 flex items-center justify-between transition-all duration-300",
         scrolled ? "py-3" : "py-6"
       )}>
-        <DmgLogo iconSize={scrolled ? 20 : 24} textSize={scrolled ? "text-xl" : "text-2xl"} />
+        <DmgLogo iconSize={scrolled ? 20 : 24} textSize={scrolled ? "text-xl" : "text-2xl"} dark />
 
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-[10px] font-black uppercase tracking-[0.2em] text-white/70 hover:text-primary transition-all hover:translate-y-[-1px]"
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-primary transition-all hover:translate-y-[-1px]"
             >
               {link.name}
             </Link>
           ))}
           <div className="flex items-center gap-3 ml-4">
-             <Button asChild className="rounded-none px-8 h-12 font-black tracking-tighter bg-primary hover:bg-primary/90 text-sm italic shadow-xl shadow-primary/20">
+             <Button asChild className="rounded-none px-8 h-12 font-black tracking-tighter bg-primary hover:bg-zinc-900 text-sm italic shadow-xl shadow-primary/10 transition-all">
               <Link href="/hub">
                 <User className="mr-2 h-4 w-4" /> ÁREA DO ARTISTA
               </Link>
@@ -63,7 +63,7 @@ export function Navigation() {
         </nav>
 
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden text-zinc-900 p-2"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X className="h-8 w-8 text-primary" /> : <Menu className="h-8 w-8" />}
@@ -71,13 +71,13 @@ export function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-black/98 backdrop-blur-xl border-b border-white/10 animate-in slide-in-from-top duration-300">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-zinc-200 animate-in slide-in-from-top duration-300">
           <nav className="flex flex-col p-8 gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-2xl font-black uppercase tracking-tighter text-white hover:text-primary transition-colors italic"
+                className="text-2xl font-black uppercase tracking-tighter text-zinc-900 hover:text-primary transition-colors italic"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

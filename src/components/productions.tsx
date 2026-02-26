@@ -37,27 +37,27 @@ const SERVICES = [
 
 export function ProductionsSection() {
   return (
-    <section id="producoes" className="py-32 bg-background relative overflow-hidden">
+    <section id="producoes" className="py-32 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 h-[600px] w-[600px] bg-primary/5 rounded-full blur-[150px] -mr-64 -mt-64" />
-      <div className="absolute bottom-0 left-0 h-[600px] w-[600px] bg-accent/5 rounded-full blur-[150px] -ml-64 -mb-64" />
+      <div className="absolute bottom-0 left-0 h-[600px] w-[600px] bg-zinc-50 rounded-full blur-[150px] -ml-64 -mb-64" />
 
       <div className="container mx-auto px-4 relative z-10">
         <SectionHeading 
           badge="Serviços Profissionais"
-          title={<>QUALIDADE <span className="text-accent italic">DMG.</span></>}
+          title={<>QUALIDADE <span className="text-zinc-900 italic underline decoration-primary decoration-4">DMG.</span></>}
           description="Oferecemos uma estrutura completa de produção para elevar sua carreira artística ao patamar dos grandes nomes do mercado."
           align="center"
           className="mb-24"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {SERVICES.map((service, idx) => (
-            <div key={idx} className="p-10 bg-card border border-white/5 hover:border-primary/40 transition-all duration-500 group hover:-translate-y-3 shadow-xl">
-              <div className="mb-8 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+            <div key={idx} className="p-12 bg-white border border-zinc-100 hover:border-primary/20 transition-all duration-500 group hover:-translate-y-3 shadow-sm hover:shadow-2xl">
+              <div className="mb-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 p-4 bg-zinc-50 inline-block">
                 {service.icon}
               </div>
-              <h3 className="text-3xl font-black text-white mb-6 uppercase italic tracking-tighter leading-none">{service.title}</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <h3 className="text-3xl font-black text-zinc-900 mb-6 uppercase italic tracking-tighter leading-none">{service.title}</h3>
+              <p className="text-zinc-500 text-lg leading-relaxed font-medium">
                 {service.desc}
               </p>
             </div>
