@@ -39,7 +39,7 @@ export function LoginForm({ onLogin, onSwitch }: any) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       {error && (
-        <div className="mb-6 p-4 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest text-center rounded-xl">
+        <div className="mb-6 p-4 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest text-center rounded-2xl">
           {error}
         </div>
       )}
@@ -51,7 +51,7 @@ export function LoginForm({ onLogin, onSwitch }: any) {
             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-300" />
             <Input 
               type="email" 
-              className="bg-zinc-50 border-zinc-200 pl-12 h-14 rounded-2xl focus:border-primary text-sm font-medium transition-all text-zinc-900 placeholder:text-zinc-300" 
+              className="bg-zinc-50 border-zinc-200 pl-12 h-14 rounded-2xl focus:border-primary text-sm font-medium transition-all text-zinc-900 placeholder:text-zinc-300 shadow-inner" 
               placeholder="seu@email.com"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -67,7 +67,7 @@ export function LoginForm({ onLogin, onSwitch }: any) {
           <div className="relative">
             <Input 
               type={showPw ? "text" : "password"} 
-              className="bg-zinc-50 border-zinc-200 h-14 rounded-2xl focus:border-primary text-sm font-medium transition-all text-zinc-900 placeholder:text-zinc-300" 
+              className="bg-zinc-50 border-zinc-200 h-14 rounded-2xl focus:border-primary text-sm font-medium transition-all text-zinc-900 placeholder:text-zinc-300 shadow-inner" 
               placeholder="••••••••"
               value={pw}
               onChange={e => setPw(e.target.value)}
@@ -85,7 +85,7 @@ export function LoginForm({ onLogin, onSwitch }: any) {
         <Button 
           type="submit" 
           disabled={loading}
-          className="w-full h-16 bg-primary hover:bg-primary/90 rounded-2xl text-lg font-black italic tracking-tighter uppercase group shadow-lg shadow-primary/20 text-white"
+          className="w-full h-16 bg-primary hover:bg-primary/90 rounded-full text-lg font-black italic tracking-tighter uppercase group shadow-lg shadow-primary/20 text-white"
         >
           {loading ? <Loader2 className="h-6 w-6 animate-spin mr-3" /> : <>ACESSAR PAINEL <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" /></>}
         </Button>

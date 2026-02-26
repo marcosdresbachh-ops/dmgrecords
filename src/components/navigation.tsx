@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -54,7 +55,7 @@ export function Navigation() {
             </Link>
           ))}
           <div className="flex items-center gap-3 ml-4">
-             <Button asChild className="rounded-none px-8 h-12 font-black tracking-tighter bg-primary hover:bg-zinc-900 text-sm italic shadow-xl shadow-primary/10 transition-all">
+             <Button asChild className="rounded-full px-8 h-12 font-black tracking-tighter bg-primary hover:bg-zinc-900 text-sm italic shadow-xl shadow-primary/10 transition-all">
               <Link href="/hub">
                 <User className="mr-2 h-4 w-4" /> ÁREA DO ARTISTA
               </Link>
@@ -84,7 +85,7 @@ export function Navigation() {
               </Link>
             ))}
             <div className="space-y-4">
-              <Button asChild className="rounded-none w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
+              <Button asChild className="rounded-full w-full py-8 text-xl font-black italic tracking-tighter bg-primary">
                 <Link href="/hub" onClick={() => setIsOpen(false)}>
                   ÁREA DO ARTISTA
                 </Link>
