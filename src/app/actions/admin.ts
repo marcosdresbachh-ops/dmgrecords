@@ -5,14 +5,23 @@ import { revalidatePath } from 'next/cache';
 
 /**
  * @fileOverview Ponte de Dados Industrial entre Next.js e Backend Express.
- * Todas as chamadas para o banco de dados agora ocorrem via backend Express (porta 3001).
+ * Resolve a URL do backend dinamicamente para evitar dependência de porta fixa.
  */
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+function getBackendUrl() {
+  // Em produção, a URL deve estar no env. Em dev, usa localhost com fallback de porta.
+  const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (baseUrl) return baseUrl;
+  
+  const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
+  return `http://localhost:${port}`;
+}
+
+const API_BASE = `${getBackendUrl()}/api/admin`;
 
 async function apiFetch(endpoint: string, options: RequestInit = {}) {
   try {
-    const res = await fetch(`${BACKEND_URL}/api/admin${endpoint}`, {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
       ...options,
       cache: 'no-store',
       headers: {
@@ -23,7 +32,7 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
     if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
     return await res.json();
   } catch (e) {
-    console.error(`Erro na chamada ${endpoint}:`, e);
+    console.error(`Erro na chamada ${endpoint} em ${API_BASE}:`, e);
     return null;
   }
 }

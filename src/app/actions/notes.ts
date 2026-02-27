@@ -1,16 +1,24 @@
+
 'use server';
 
 import { revalidatePath } from 'next/cache';
 
 /**
- * @fileOverview Server Action que consome o Backend Express da DMG Records.
+ * @fileOverview Server Action que consome o Backend Express da DMG Records com resolução de porta dinâmica.
  */
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+function getBackendUrl() {
+  const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (baseUrl) return baseUrl;
+  const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
+  return `http://localhost:${port}`;
+}
+
+const API_BASE = `${getBackendUrl()}/api`;
 
 export async function getNotes() {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/notes`, {
+    const response = await fetch(`${API_BASE}/notes`, {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -25,7 +33,7 @@ export async function getNotes() {
 
 export async function addNote(title: string) {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/notes`, {
+    const response = await fetch(`${API_BASE}/notes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title }),
@@ -33,7 +41,6 @@ export async function addNote(title: string) {
 
     if (!response.ok) throw new Error('Falha ao salvar nota no banco real.');
     
-    // Força o Next.js a atualizar os dados na página do HUB
     revalidatePath('/hub');
     return await response.json();
   } catch (error) {

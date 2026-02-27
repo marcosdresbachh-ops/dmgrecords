@@ -9,7 +9,9 @@ import adminRoutes from './routes/admin.routes';
 dotenv.config();
 
 const app = express();
-const port = process.env.BACKEND_PORT || 3001;
+
+// Detecção dinâmica de porta: prioriza PORT (nuvem), depois BACKEND_PORT, depois fallback 3001
+const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
 
 // Middlewares Corporativos
 app.use(cors({
@@ -40,7 +42,8 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`🚀 MOTOR BACKEND DMG RODANDO NA PORTA ${port}`);
+const server = app.listen(port, () => {
+  const actualPort = (server.address() as any).port;
+  console.log(`🚀 MOTOR BACKEND DMG RODANDO NA PORTA ${actualPort}`);
   console.log(`🔒 SEGURANÇA: Chaves Supabase carregadas internamente.`);
 });

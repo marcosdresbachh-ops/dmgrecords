@@ -1,14 +1,22 @@
+
 'use server';
 
 /**
- * @fileOverview Server Action para tarefas via Backend Express.
+ * @fileOverview Server Action para tarefas via Backend Express com resolução de porta dinâmica.
  */
 
+function getBackendUrl() {
+  const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (baseUrl) return baseUrl;
+  const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
+  return `http://localhost:${port}`;
+}
+
 export async function getTodos() {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
+  const API_BASE = `${getBackendUrl()}/api`;
   
   try {
-    const response = await fetch(`${backendUrl}/api/todos`, {
+    const response = await fetch(`${API_BASE}/todos`, {
       cache: 'no-store',
     });
 
