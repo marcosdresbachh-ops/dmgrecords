@@ -1,0 +1,55 @@
+
+.sync-container {
+  display: flex;
+  flex-direction: column;
+  items-center: center;
+  justify-content: center;
+  padding: 128px 0;
+  text-align: center;
+}
+
+.sync-icon-box {
+  width: 96px;
+  height: 96px;
+  background: rgba(184, 134, 42, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-gold);
+  margin-bottom: 32px;
+  box-shadow: 0 20px 40px rgba(184, 134, 42, 0.05);
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.shimmer-track {
+  margin-top: 48px;
+  height: 4px;
+  width: 192px;
+  background: var(--admin-surface2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.shimmer-fill {
+  height: 100%;
+  background: var(--admin-gold);
+  width: 100%;
+  position: absolute;
+  left: -100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  from { left: -100%; }
+  to { left: 100%; }
+}

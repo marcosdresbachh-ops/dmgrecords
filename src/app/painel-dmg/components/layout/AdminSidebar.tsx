@@ -7,6 +7,7 @@ import {
   ChevronDown, ChevronRight, Activity, Wallet, CreditCard, Receipt,
   Rocket, Scale, Layout, GraduationCap, PieChart
 } from "lucide-react";
+import "./AdminSidebar.css";
 
 export function AdminSidebar({ activePage, onPageChange }: { activePage: string, onPageChange: (p: string) => void }) {
   const [openCats, setOpenCats] = useState<string[]>(['Principal', 'Artistas & Música']);
@@ -80,7 +81,7 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
           <div key={cat.title} className="mb-2">
             <button 
               onClick={() => toggleCat(cat.title)}
-              className="w-full flex items-center justify-between px-6 py-3 text-[10px] font-black uppercase text-white/30 tracking-[0.2em] hover:text-white/50 transition-colors"
+              className="nav-cat-btn outline-none"
             >
               {cat.title}
               {openCats.includes(cat.title) ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -91,11 +92,7 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
                   <button
                     key={item.id}
                     onClick={() => onPageChange(item.id)}
-                    className={`w-full flex items-center gap-4 px-8 py-3 text-xs font-bold transition-all border-l-4 ${
-                      activePage === item.id 
-                        ? 'text-admin-gold border-admin-gold bg-admin-gold/10' 
-                        : 'text-white/40 border-transparent hover:text-white hover:bg-white/5'
-                    }`}
+                    className={`nav-item-btn outline-none ${activePage === item.id ? 'active' : ''}`}
                   >
                     <span className="opacity-70">{item.icon}</span>
                     {item.label}

@@ -1,26 +1,27 @@
 
 "use client";
 import { AdminDB } from "../../lib/admin-db";
-import { Users, Mail, Phone, Globe, Star } from "lucide-react";
+import { Mail, Globe, Star } from "lucide-react";
+import "./ArtistsPage.css";
 
 export function ArtistsPage() {
   const artists = AdminDB.getArtists();
 
   return (
     <div className="animate-in fade-in duration-500">
-      <div className="flex justify-between items-start mb-10">
+      <div className="ph flex justify-between items-start mb-10">
         <div>
-          <h1 className="text-4xl font-black italic uppercase tracking-tighter text-admin-text font-bebas">Roster de Artistas</h1>
-          <p className="text-admin-muted text-xs font-bold uppercase tracking-widest mt-1">{artists.length} Artistas sob gestão Dresbach Records</p>
+          <h1>Roster de Artistas</h1>
+          <p>{artists.length} Artistas sob gestão Dresbach Records</p>
         </div>
-        <button className="admin-btn admin-btn-gold">+ Novo Artista</button>
+        <button className="admin-btn btn-gold">+ Novo Artista</button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {artists.map((a: any) => (
-          <div key={a.id} className="admin-card group hover:border-admin-gold transition-all">
+          <div key={a.id} className="artist-card group">
             <div className="flex items-center gap-6 mb-6">
-              <div className="w-16 h-16 bg-admin-text rounded-2xl flex items-center justify-center font-bebas text-2xl text-admin-gold shadow-lg group-hover:rotate-3 transition-transform">
+              <div className="artist-avatar group-hover:rotate-3 transition-transform">
                 {a.name.substring(0,2).toUpperCase()}
               </div>
               <div>
@@ -29,7 +30,7 @@ export function ArtistsPage() {
               </div>
             </div>
             
-            <div className="space-y-4 pt-4 border-t border-admin-bg">
+            <div className="space-y-4 pt-4 border-t border-admin-surface2">
               <div className="flex items-center justify-between text-[10px] font-bold uppercase">
                 <span className="text-admin-muted flex items-center gap-2"><Mail className="h-3 w-3" /> Email</span>
                 <span>{a.email}</span>

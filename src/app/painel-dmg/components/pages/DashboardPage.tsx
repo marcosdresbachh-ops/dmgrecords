@@ -2,6 +2,7 @@
 "use client";
 import { TrendingUp, Users, Music, Radio, Wallet } from "lucide-react";
 import { AdminDB } from "../../lib/admin-db";
+import "./DashboardPage.css";
 
 export function DashboardPage() {
   const artists = AdminDB.getArtists();
@@ -17,23 +18,23 @@ export function DashboardPage() {
 
   return (
     <div className="animate-in fade-in duration-500">
-      <div className="flex justify-between items-start mb-10">
+      <div className="ph flex justify-between items-start mb-10">
         <div>
-          <h1 className="text-4xl font-black italic uppercase tracking-tighter text-admin-text font-bebas">Dashboard Executivo</h1>
-          <p className="text-admin-muted text-xs font-bold uppercase tracking-widest mt-1">Gerenciamento Global Dresbach Records — Março 2025</p>
+          <h1>Dashboard Executivo</h1>
+          <p>Gerenciamento Global Dresbach Records — Março 2025</p>
         </div>
-        <button className="admin-btn admin-btn-gold">+ Novo Artista</button>
+        <button className="admin-btn btn-gold">+ Novo Artista</button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+      <div className="stats-grid">
         {stats.map((s, i) => (
-          <div key={i} className="bg-white p-6 rounded-[24px] border-b-4 border-admin-gold shadow-sm group hover:shadow-xl transition-all">
+          <div key={i} className="stat-card group">
             <div className="flex justify-between items-center mb-4">
               <div className="p-3 bg-admin-bg rounded-xl text-admin-gold group-hover:scale-110 transition-transform">{s.icon}</div>
               <span className="text-[10px] font-black text-admin-green bg-admin-green/10 px-2 py-1 rounded-full">{s.trend}</span>
             </div>
             <p className="text-[9px] font-black text-admin-muted uppercase tracking-widest mb-1">{s.label}</p>
-            <p className="text-3xl font-black italic tracking-tighter text-admin-text font-bebas">{s.value}</p>
+            <p className="stat-value">{s.value}</p>
             <p className="text-[10px] text-admin-muted mt-2 font-bold uppercase">{s.sub}</p>
           </div>
         ))}
@@ -41,7 +42,7 @@ export function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 admin-card">
-          <h3 className="text-xl font-black italic uppercase tracking-tighter mb-8 font-bebas flex items-center gap-3">
+          <h3 className="text-xl font-black italic uppercase tracking-tighter mb-8 flex items-center gap-3">
             <Users className="text-admin-gold h-5 w-5" /> Roster de Destaque
           </h3>
           <table className="admin-table">
@@ -61,14 +62,14 @@ export function DashboardPage() {
                   <td className="text-admin-muted font-semibold uppercase text-[10px]">{a.genre}</td>
                   <td className="font-bold">{a.tracks}</td>
                   <td className="font-bold">{a.streams}</td>
-                  <td><span className="admin-badge badge-green">Ativo</span></td>
+                  <td><span className="bg-admin-green/10 text-admin-green text-[9px] font-black uppercase px-2 py-1 rounded-full border border-admin-green/20">Ativo</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <div className="admin-card">
-          <h3 className="text-xl font-black italic uppercase tracking-tighter mb-8 font-bebas">Receita por Fonte</h3>
+          <h3 className="text-xl font-black italic uppercase tracking-tighter mb-8">Receita por Fonte</h3>
           <div className="space-y-8">
             {[
               { l: 'Streaming Digital', p: '72%', v: '$19,570' },

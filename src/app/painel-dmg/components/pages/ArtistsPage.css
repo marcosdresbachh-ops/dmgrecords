@@ -1,0 +1,27 @@
+
+.artist-card {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.artist-card:hover {
+  border-color: var(--admin-gold);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+}
+
+.artist-avatar {
+  width: 64px;
+  height: 64px;
+  background: var(--admin-text);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue';
+  font-size: 24px;
+  color: var(--admin-gold);
+}

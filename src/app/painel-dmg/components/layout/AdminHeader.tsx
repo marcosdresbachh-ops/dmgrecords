@@ -2,6 +2,7 @@
 "use client";
 import Image from "next/image";
 import { Search, LogOut, Bell } from "lucide-react";
+import "./AdminHeader.css";
 
 export function AdminHeader({ onLogout }: { onLogout: () => void }) {
   return (
@@ -14,7 +15,7 @@ export function AdminHeader({ onLogout }: { onLogout: () => void }) {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
           <input 
             placeholder="Buscar artistas, músicas, contratos..." 
-            className="w-full bg-white/10 border-none py-3 pl-12 pr-4 rounded-xl text-white text-xs focus:ring-2 focus:ring-admin-gold outline-none transition-all"
+            className="header-search-input outline-none"
           />
         </div>
       </div>

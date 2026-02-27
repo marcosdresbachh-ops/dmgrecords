@@ -4,7 +4,8 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import "./admin.css";
+import "./base.css";
+import "./login.css";
 
 // Layout
 import { AdminHeader } from "./components/layout/AdminHeader";
@@ -77,9 +78,9 @@ export default function PainelDmgPage() {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-[#1a1814] flex items-center justify-center p-6 admin-body">
+      <div className="login-screen admin-body">
         <Head><title>Login — Central de Comando DMG</title></Head>
-        <div className="bg-white w-full max-w-md rounded-[40px] p-12 shadow-2xl border-t-8 border-admin-gold animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="login-card">
           <div className="text-center mb-10">
             <Image src="/logodmg.png" alt="DMG Logo" width={180} height={60} className="mx-auto mb-8 object-contain" priority />
             <h1 className="text-3xl font-black italic uppercase tracking-tighter text-admin-text">Central de Comando</h1>
@@ -88,28 +89,28 @@ export default function PainelDmgPage() {
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-admin-muted">Identificação</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-admin-muted ml-4">Identificação</label>
               <input 
                 value={loginForm.user} 
                 onChange={e => setLoginForm({...loginForm, user: e.target.value})} 
                 placeholder="nome de usuário" 
-                className="w-full bg-admin-bg border-2 border-transparent focus:border-admin-gold rounded-full h-14 px-6 font-bold outline-none transition-all"
+                className="login-input"
                 required 
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-admin-muted">Chave de Segurança</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-admin-muted ml-4">Chave de Segurança</label>
               <input 
                 type="password" 
                 value={loginForm.pass} 
                 onChange={e => setLoginForm({...loginForm, pass: e.target.value})} 
                 placeholder="••••••••" 
-                className="w-full bg-admin-bg border-2 border-transparent focus:border-admin-gold rounded-full h-14 px-6 font-bold outline-none transition-all"
+                className="login-input"
                 required 
               />
             </div>
             {error && <div className="bg-admin-red/10 text-admin-red text-[10px] font-black uppercase p-4 rounded-2xl text-center border border-admin-red/20">{error}</div>}
-            <button type="submit" className="w-full bg-admin-gold hover:bg-admin-gold2 text-white font-black h-16 rounded-full shadow-xl shadow-admin-gold/20 transition-all text-sm uppercase tracking-widest italic">
+            <button type="submit" className="admin-btn btn-gold w-full h-16 shadow-xl shadow-admin-gold/20 italic">
               ACESSAR MOTOR INDUSTRIAL
             </button>
           </form>
@@ -124,10 +125,8 @@ export default function PainelDmgPage() {
   return (
     <div className="admin-body min-h-screen">
       <Head><title>Dresbach Records — Painel Administrativo</title></Head>
-      
       <AdminHeader onLogout={handleLogout} />
       <AdminSidebar activePage={activePage} onPageChange={setActivePage} />
-
       <main className="admin-main">
         <div className="p-10 pb-32">
           {renderActivePage()}
