@@ -4,39 +4,47 @@ import * as AdminController from '../controllers/admin.controller';
 
 const router = Router();
 
-// Dashboard & Stats
+// Mapeamento Industrial das 20 Subpáginas
+
+// 1 & 2. Core Dashboard & Activity
 router.get('/stats', AdminController.getStats);
 router.get('/activity', AdminController.getActivity);
 
-// Gestão de Artistas
+// 3. Gestão de Artistas
 router.get('/artists', AdminController.getArtists);
 router.post('/artists', AdminController.createArtist);
-router.get('/artists/:id', AdminController.getArtistById);
 
-// Catálogo & Obras
+// 4. Catálogo & Obras
 router.get('/tracks', AdminController.getTracks);
 router.post('/tracks', AdminController.createTrack);
-router.patch('/tracks/:id/status', AdminController.updateTrackStatus);
 
-// Financeiro
+// 5. Álbuns & EPs
+router.get('/albums', AdminController.getAlbums);
+
+// 6. Contratos
+router.get('/contracts', AdminController.getContracts);
+
+// 7, 8 & 9. Distribuição, Plataformas e Lançamentos
+router.get('/distribution', AdminController.getDistributionStatus);
+router.get('/platforms', AdminController.getPlatforms);
+router.get('/releases', AdminController.getReleases);
+
+// 10, 11 & 12. Financeiro (Royalties, Pagamentos, NFs)
 router.get('/royalties', AdminController.getRoyalties);
-router.post('/royalties/process', AdminController.processRoyalties);
 router.get('/payments', AdminController.getPayments);
 router.get('/invoices', AdminController.getInvoices);
 
-// Jurídico & Contratos
-router.get('/contracts', AdminController.getContracts);
-router.post('/contracts', AdminController.createContract);
+// 13, 14 & 15. Ferramentas (Analytics, Marketing, Licenças)
+router.get('/analytics', AdminController.getAnalytics);
+router.get('/marketing', AdminController.getMarketingCampaigns);
 router.get('/licenses', AdminController.getLicenses);
 
-// Operacional
-router.get('/distribution', AdminController.getDistributionStatus);
-router.get('/releases', AdminController.getReleases);
-router.get('/analytics', AdminController.getAnalytics);
-
-// Plataforma
+// 16, 17 & 18. Plataforma (Site, Hub, Relatórios)
 router.get('/site', AdminController.getSiteConfig);
-router.patch('/site', AdminController.updateSiteConfig);
+router.get('/hub/members', AdminController.getHubMembers);
+router.post('/reports/generate', AdminController.generateReport);
+
+// 19 & 20. Admin (Usuários, Configurações)
 router.get('/users', AdminController.getAdminUsers);
 router.get('/settings', AdminController.getSettings);
 
