@@ -11,7 +11,7 @@ import "./login.css";
 import { AdminHeader } from "./components/layout/AdminHeader";
 import { AdminSidebar } from "./components/layout/AdminSidebar";
 
-// Páginas Modulares (20 Módulos)
+// Páginas Modulares
 import { DashboardPage } from "./components/pages/DashboardPage/DashboardPage";
 import { ActivityPage } from "./components/pages/ActivityPage/ActivityPage";
 import { ArtistsPage } from "./components/pages/ArtistsPage/ArtistsPage";
@@ -56,7 +56,7 @@ export default function PainelDmgPage() {
       localStorage.setItem('dr_admin_auth', 'true');
       setError("");
     } else {
-      setError("Credenciais executivas inválidas.");
+      setError("Acesso não autorizado.");
       setTimeout(() => setError(""), 3000);
     }
   }
@@ -95,27 +95,27 @@ export default function PainelDmgPage() {
   if (!isLoggedIn) {
     return (
       <div className="login-screen admin-body">
-        <Head><title>Login — Central de Comando DMG</title></Head>
+        <Head><title>Comando DMG — Acesso Restrito</title></Head>
         <div className="login-card">
           <div className="text-center mb-10">
             <Image src="/logodmg.png" alt="DMG Logo" width={180} height={60} className="mx-auto mb-8 object-contain" priority />
-            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-admin-text">Central de Comando</h1>
-            <p className="text-[10px] font-black text-admin-gold uppercase tracking-[0.3em] mt-2">Acesso Restrito Executivo</p>
+            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-zinc-900 leading-none">Comando Administrativo</h1>
+            <p className="text-[10px] font-black text-admin-primary uppercase tracking-[0.3em] mt-2">Industrial Management Suite</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-admin-muted ml-4">Identificação</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-4">Identidade</label>
               <input 
                 value={loginForm.user} 
                 onChange={e => setLoginForm({...loginForm, user: e.target.value})} 
-                placeholder="nome de usuário" 
+                placeholder="usuário" 
                 className="login-input"
                 required 
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-admin-muted ml-4">Chave de Segurança</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-4">Chave</label>
               <input 
                 type="password" 
                 value={loginForm.pass} 
@@ -125,13 +125,13 @@ export default function PainelDmgPage() {
                 required 
               />
             </div>
-            {error && <div className="bg-admin-red/10 text-admin-red text-[10px] font-black uppercase p-4 rounded-2xl text-center border border-admin-red/20">{error}</div>}
-            <button type="submit" className="admin-btn btn-gold w-full h-16 shadow-xl shadow-admin-gold/20 italic">
-              ACESSAR MOTOR INDUSTRIAL
+            {error && <div className="bg-red-50 text-red-600 text-[10px] font-black uppercase p-4 rounded-2xl text-center border border-red-100">{error}</div>}
+            <button type="submit" className="admin-btn btn-primary w-full h-16 shadow-xl shadow-red-500/10 italic">
+              INGRESSAR NO SISTEMA
             </button>
           </form>
-          <div className="mt-12 text-center text-[9px] font-bold text-admin-muted uppercase tracking-widest opacity-40">
-            DRESBACH GROUP © 2025 — ENCRYPTED SESSION
+          <div className="mt-12 text-center text-[9px] font-bold text-zinc-300 uppercase tracking-widest">
+            DRESBACH GROUP © 2025 — ENCRYPTED
           </div>
         </div>
       </div>
@@ -142,8 +142,8 @@ export default function PainelDmgPage() {
     <div className="admin-body min-h-screen">
       <AdminHeader onLogout={handleLogout} />
       <AdminSidebar activePage={activePage} onPageChange={setActivePage} />
-      <main className="admin-main" style={{ marginLeft: 'var(--admin-sidebar-w)', paddingTop: 'var(--admin-topbar-h)' }}>
-        <div className="p-10 pb-32">
+      <main className="admin-main" style={{ marginLeft: 'var(--admin-sidebar-w)', paddingTop: 'var(--admin-topbar-h)', minHeight: '100vh' }}>
+        <div className="p-10 pb-32 max-w-[1600px] mx-auto">
           {renderActivePage()}
         </div>
       </main>

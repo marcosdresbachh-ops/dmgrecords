@@ -1,20 +1,20 @@
 
 :root {
-  --admin-bg: #f5f3ef;
+  --admin-bg: #ffffff;
   --admin-surface: #ffffff;
-  --admin-surface2: #f0ede8;
-  --admin-surface3: #e8e4dc;
-  --admin-text: #1a1814;
-  --admin-muted: #7a7570;
-  --admin-muted2: #b0aca5;
-  --admin-gold: #b8862a;
-  --admin-gold2: #d4a43a;
-  --admin-goldbg: rgba(184,134,42,0.08);
-  --admin-goldborder: rgba(184,134,42,0.25);
-  --admin-red: #c0392b;
-  --admin-green: #27ae60;
-  --admin-blue: #2980b9;
-  --admin-purple: #8e44ad;
+  --admin-surface2: #f4f4f5;
+  --admin-surface3: #e4e4e7;
+  --admin-text: #09090b;
+  --admin-muted: #71717a;
+  --admin-muted2: #a1a1aa;
+  --admin-primary: #ff0000;
+  --admin-primary-hover: #cc0000;
+  --admin-primary-bg: rgba(255, 0, 0, 0.05);
+  --admin-primary-border: rgba(255, 0, 0, 0.1);
+  --admin-red: #ef4444;
+  --admin-green: #22c55e;
+  --admin-blue: #3b82f6;
+  --admin-purple: #a855f7;
   --admin-sidebar-w: 260px;
   --admin-topbar-h: 70px;
 }
@@ -34,11 +34,11 @@
 
 .admin-card {
   background-color: var(--admin-surface);
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid var(--admin-surface3);
   border-radius: 24px;
   padding: 30px;
   margin-bottom: 25px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
 }
 
 .admin-btn {
@@ -57,11 +57,11 @@
   letter-spacing: 1px;
 }
 
-.btn-gold { background-color: var(--admin-gold); color: white; }
-.btn-gold:hover { background-color: var(--admin-gold2); transform: translateY(-2px); }
+.btn-primary { background-color: var(--admin-primary); color: white; }
+.btn-primary:hover { background-color: var(--admin-primary-hover); transform: translateY(-2px); box-shadow: 0 10px 20px var(--admin-primary-bg); }
 
-.btn-outline { background-color: transparent; border: 1px solid rgba(0,0,0,0.1); color: var(--admin-muted); }
-.btn-outline:hover { background-color: rgba(0,0,0,0.02); color: var(--admin-text); border-color: var(--admin-text); }
+.btn-outline { background-color: transparent; border: 1px solid var(--admin-surface3); color: var(--admin-muted); }
+.btn-outline:hover { background-color: var(--admin-surface2); color: var(--admin-text); border-color: var(--admin-text); }
 
 .admin-table { width: 100%; border-collapse: collapse; }
 .admin-table th {
@@ -75,7 +75,7 @@
   border-bottom: 2px solid var(--admin-surface2);
   background-color: var(--admin-surface2);
 }
-.admin-table td { padding: 18px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 12px; }
+.admin-table td { padding: 18px 20px; border-bottom: 1px solid var(--admin-surface2); font-size: 12px; }
 
 .admin-badge {
   padding: 4px 10px;
@@ -86,10 +86,10 @@
   letter-spacing: 1px;
   display: inline-block;
 }
-.badge-green { background-color: rgba(39,174,96,0.1); color: var(--admin-green); }
-.badge-gold { background-color: var(--admin-goldbg); color: var(--admin-gold); }
-.badge-blue { background-color: rgba(41,128,185,0.1); color: var(--admin-blue); }
-.badge-red { background-color: rgba(192,57,43,0.1); color: var(--admin-red); }
+.badge-green { background-color: rgba(34, 197, 94, 0.1); color: var(--admin-green); }
+.badge-primary { background-color: var(--admin-primary-bg); color: var(--admin-primary); }
+.badge-blue { background-color: rgba(59, 130, 246, 0.1); color: var(--admin-blue); }
+.badge-red { background-color: rgba(239, 68, 68, 0.1); color: var(--admin-red); }
 
 .ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 30px; }
 .ph h1 { font-family: 'Bebas Neue', cursive; font-size: 42px; letter-spacing: 1px; color: var(--admin-text); line-height: 1; text-transform: uppercase; font-style: italic; }
@@ -104,11 +104,11 @@
   transition: all 0.3s ease;
 }
 .fld input:focus, .fld select:focus, .fld textarea:focus {
-  border-color: var(--admin-gold); background-color: white; box-shadow: 0 0 0 5px var(--admin-goldbg);
+  border-color: var(--admin-primary); background-color: white; box-shadow: 0 0 0 5px var(--admin-primary-bg);
 }
 
 .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-bottom: 30px; }
-.stat-card { background-color: white; border-radius: 24px; padding: 25px; border-bottom: 4px solid var(--admin-gold); box-shadow: 0 4px 20px rgba(0,0,0,0.02); transition: all 0.3s ease; }
+.stat-card { background-color: white; border-radius: 24px; padding: 25px; border-bottom: 4px solid var(--admin-primary); border-left: 1px solid var(--admin-surface3); border-right: 1px solid var(--admin-surface3); border-top: 1px solid var(--admin-surface3); box-shadow: 0 4px 20px rgba(0,0,0,0.02); transition: all 0.3s ease; }
 .stat-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
 .stat-label { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--admin-muted); margin-bottom: 10px; }
 .stat-value { font-family: 'Bebas Neue'; font-size: 36px; color: var(--admin-text); line-height: 1; font-style: italic; }
@@ -116,10 +116,10 @@
 .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 .bar-lbl { width: 130px; font-size: 10px; font-weight: 800; color: var(--admin-muted); text-align: right; flex-shrink: 0; text-transform: uppercase; }
 .bar-track { flex: 1; height: 10px; background-color: var(--admin-surface3); border-radius: 5px; overflow: hidden; }
-.bar-fill { height: 100%; background: linear-gradient(90deg, var(--admin-gold), var(--admin-gold2)); border-radius: 5px; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--admin-primary), var(--admin-primary-hover)); border-radius: 5px; }
 .bar-val { width: 70px; font-size: 11px; font-weight: 800; color: var(--admin-text); }
 
-.feed-item { display: flex; align-items: flex-start; gap: 15px; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.feed-item { display: flex; align-items: flex-start; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--admin-surface2); }
 .feed-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
 .feed-content { flex: 1; }
 .feed-title { font-size: 12px; font-weight: 700; color: var(--admin-text); }

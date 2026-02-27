@@ -1,7 +1,7 @@
 
 .login-screen {
-  min-height: 100 screen;
-  background: #1a1814;
+  min-height: 100vh;
+  background: #fafafa;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,24 +14,26 @@
   max-width: 450px;
   border-radius: 40px;
   padding: 48px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  border-top: 8px solid var(--admin-gold);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e4e4e7;
+  border-top: 8px solid #ff0000;
   animation: fadeUp 0.5s ease;
 }
 
 .login-input {
   width: 100%;
   padding: 16px 24px;
-  background: var(--admin-surface2);
+  background: #f4f4f5;
   border: 2px solid transparent;
   border-radius: 50px;
   font-weight: 700;
   outline: none;
   transition: all 0.3s ease;
+  color: #09090b;
 }
 
 .login-input:focus {
-  border-color: var(--admin-gold);
+  border-color: #ff0000;
   background: white;
-  box-shadow: 0 0 0 5px var(--admin-goldbg);
+  box-shadow: 0 0 0 5px rgba(255, 0, 0, 0.05);
 }
