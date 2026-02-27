@@ -4,7 +4,7 @@ import { Mail, Globe, Star, Plus, Search } from "lucide-react";
 import { AdminDB } from "../../../lib/admin-db";
 import "./ArtistsPage.css";
 
-export function ArtistsPage() {
+export function ArtistsPage({ openModal }: any) {
   const artists = AdminDB.getArtists();
 
   return (
@@ -17,9 +17,9 @@ export function ArtistsPage() {
         <div className="flex gap-3">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-admin-muted" />
-            <input placeholder="Buscar artista..." className="bg-zinc-50 border border-zinc-100 rounded-full h-12 pl-12 pr-6 text-xs outline-none focus:border-admin-primary" />
+            <input placeholder="Buscar artista..." className="bg-zinc-50 border border-zinc-100 rounded-full h-12 pl-12 pr-6 text-xs outline-none focus:border-admin-primary transition-all" />
           </div>
-          <button className="admin-btn btn-primary"><Plus size={16} /> Novo Artista</button>
+          <button onClick={() => openModal('addArtist')} className="admin-btn btn-primary"><Plus size={16} /> Novo Artista</button>
         </div>
       </div>
 
@@ -31,42 +31,47 @@ export function ArtistsPage() {
                 {a.name.substring(0,2).toUpperCase()}
               </div>
               <div>
-                <h3 className="text-xl font-black italic uppercase tracking-tighter leading-none">{a.name}</h3>
+                <h3 className="text-xl font-black italic uppercase tracking-tighter leading-none text-zinc-900">{a.name}</h3>
                 <p className="text-[10px] text-admin-muted font-bold uppercase tracking-widest mt-2">{a.role} · {a.genre}</p>
               </div>
             </div>
             
             <div className="space-y-4 pt-6 border-t border-zinc-100">
               <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
-                <span className="text-admin-muted flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> Email</span>
-                <span className="text-admin-text truncate max-w-[150px]">{a.email}</span>
+                <span className="text-zinc-400 flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> Email</span>
+                <span className="text-zinc-900 truncate max-w-[150px]">{a.email}</span>
               </div>
               <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
-                <span className="text-admin-muted flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> Território</span>
-                <span className="text-admin-text">{a.country}</span>
+                <span className="text-zinc-400 flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> Território</span>
+                <span className="text-zinc-900">{a.country}</span>
               </div>
               <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
-                <span className="text-admin-muted flex items-center gap-2"><Star className="h-3.5 w-3.5" /> PRO</span>
+                <span className="text-zinc-400 flex items-center gap-2"><Star className="h-3.5 w-3.5" /> PRO</span>
                 <span className="text-admin-primary">{a.pro}</span>
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-3 mt-8">
-              <div className="text-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
-                <p className="text-[8px] font-black text-admin-muted uppercase mb-1">Músicas</p>
-                <p className="text-sm font-black text-admin-text">{a.tracks}</p>
+              <div className="text-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100 group-hover:bg-white transition-all shadow-inner">
+                <p className="text-[8px] font-black text-zinc-400 uppercase mb-1">Músicas</p>
+                <p className="text-sm font-black text-zinc-900 italic">{a.tracks}</p>
               </div>
-              <div className="text-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
-                <p className="text-[8px] font-black text-admin-muted uppercase mb-1">Streams</p>
-                <p className="text-sm font-black text-admin-text">{a.streams}</p>
+              <div className="text-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100 group-hover:bg-white transition-all shadow-inner">
+                <p className="text-[8px] font-black text-zinc-400 uppercase mb-1">Streams</p>
+                <p className="text-sm font-black text-zinc-900 italic">{a.streams}</p>
               </div>
-              <div className="text-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
-                <p className="text-[8px] font-black text-admin-muted uppercase mb-1">Ganhos</p>
-                <p className="text-sm font-black text-admin-green">{a.royalties}</p>
+              <div className="text-center p-4 bg-zinc-50 rounded-2xl border border-zinc-100 group-hover:bg-white transition-all shadow-inner">
+                <p className="text-[8px] font-black text-zinc-400 uppercase mb-1">Ganhos</p>
+                <p className="text-sm font-black text-admin-green italic">{a.royalties}</p>
               </div>
             </div>
             
-            <button className="admin-btn btn-outline w-full mt-6 py-3 text-[9px]">Ver Perfil</button>
+            <button 
+              onClick={() => openModal('artistDetail', a)}
+              className="admin-btn btn-outline w-full mt-6 py-3 text-[9px]"
+            >
+              Ver Perfil Completo
+            </button>
           </div>
         ))}
       </div>
