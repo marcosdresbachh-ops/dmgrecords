@@ -2,12 +2,25 @@
 {
   "name": "dmg-backend",
   "version": "1.0.0",
-  "description": "Servidor Express Independente para DMG Records",
+  "description": "Motor de Processamento Industrial DMG Records",
   "main": "server.ts",
+  "scripts": {
+    "start": "ts-node server.ts",
+    "dev": "nodemon --exec ts-node server.ts"
+  },
   "dependencies": {
     "express": "^4.21.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "@supabase/supabase-js": "^2.48.1"
+    "@supabase/supabase-js": "^2.48.1",
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "nodemon": "^3.0.2"
   }
 }
