@@ -13,6 +13,7 @@ export default function PainelDmgPage() {
   const [hydrated, setHydrated] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginForm, setLoginForm] = useState({ user: "", pass: "" });
+  const [openCats, setOpenCats] = useState<string[]>(['Principal', 'Artistas & Música']);
   
   const [state, setState] = useState({
     page: 'dashboard',
@@ -97,6 +98,10 @@ export default function PainelDmgPage() {
     setIsLoggedIn(false);
     localStorage.removeItem('dr_admin_auth');
   }
+
+  const toggleCat = (sec: string) => {
+    setOpenCats(prev => prev.includes(sec) ? prev.filter(c => c !== sec) : [...prev, sec]);
+  };
 
   const nav = [
     { 
@@ -303,8 +308,9 @@ export default function PainelDmgPage() {
         .header-logo { width: var(--sidebar); padding: 0 30px; display: flex; align-items: center; border-right: 1px solid rgba(255,255,255,0.1); height: 100%; }
         
         .sidebar { width: var(--sidebar); background: #1a1814; position: fixed; top: var(--topbar); left: 0; bottom: 0; overflow-y: auto; z-index: 100; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; }
-        .nav-sec { padding: 25px 25px 10px; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-        .nav-item { display: flex; align-items: center; gap: 15px; padding: 14px 25px; cursor: pointer; color: rgba(255,255,255,0.6); border-left: 5px solid transparent; transition: .25s; font-weight: 600; position: relative; }
+        .nav-sec { padding: 25px 25px 10px; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: .2s; }
+        .nav-sec:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-item { display: flex; align-items: center; gap: 15px; padding: 12px 35px; cursor: pointer; color: rgba(255,255,255,0.6); border-left: 5px solid transparent; transition: .25s; font-weight: 600; position: relative; font-size: 12px; }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-item.active { color: var(--gold2); border-left-color: var(--gold); background: rgba(184,134,42,0.15); }
         .nav-bdg { position: absolute; right: 25px; background: var(--red); color: white; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 10px; }
@@ -357,7 +363,7 @@ export default function PainelDmgPage() {
             <div style={{ flex: 1, padding: '0 35px' }}>
               <input 
                 placeholder="Busca administrativa global…" 
-                style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '12px 25px', borderRadius: '50px', color: 'white', width: '450px', fontSize: '13px', fontWeight: 500 }} 
+                style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '12px 25px', borderRadius: '50px', color: 'white', width: '450px', fontSize: '13px', fontSofa: 500 }} 
               />
             </div>
             <div style={{ padding: '0 35px', color: 'var(--gold)', fontWeight: 800, fontSize: '11px', display: 'flex', alignItems: 'center', gap: '25px', letterSpacing: '1.5px' }}>
@@ -374,17 +380,26 @@ export default function PainelDmgPage() {
           </header>
 
           <aside className="sidebar">
-            {nav.map(s => (
-              <div key={s.sec}>
-                <div className="nav-sec">{s.sec}</div>
-                {s.items.map(it => (
-                  <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id })}>
-                    <span style={{ fontSize: '18px' }}>{it.ic}</span> {it.l}
-                    {it.badge && <span className="nav-bdg">{it.badge}</span>}
+            <div style={{ padding: '10px 0' }}>
+              {nav.map(s => (
+                <div key={s.sec}>
+                  <div className="nav-sec" onClick={() => toggleCat(s.sec)}>
+                    {s.sec}
+                    <span style={{ fontSize: '12px', opacity: 0.5 }}>{openCats.includes(s.sec) ? '−' : '+'}</span>
                   </div>
-                ))}
-              </div>
-            ))}
+                  {openCats.includes(s.sec) && (
+                    <div style={{ animation: 'fadeUp 0.3s ease' }}>
+                      {s.items.map(it => (
+                        <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id })}>
+                          <span style={{ fontSize: '18px' }}>{it.ic}</span> {it.l}
+                          {it.badge && <span className="nav-bdg">{it.badge}</span>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
             
             <div className="sidebar-footer">
               <div className="sb-company">
