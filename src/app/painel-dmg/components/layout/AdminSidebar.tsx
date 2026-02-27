@@ -10,7 +10,7 @@ import {
 import "./AdminSidebar.css";
 
 export function AdminSidebar({ activePage, onPageChange }: { activePage: string, onPageChange: (p: string) => void }) {
-  const [openCats, setOpenCats] = useState<string[]>(['Principal', 'Artistas & Música']);
+  const [openCats, setOpenCats] = useState<string[]>(['Principal', 'Artistas & Música', 'Distribuição', 'Financeiro', 'Ferramentas', 'Plataforma', 'Admin']);
 
   const toggleCat = (cat: string) => {
     setOpenCats(prev => prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]);
@@ -96,7 +96,7 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
                   >
                     <span className="opacity-70">{item.icon}</span>
                     {item.label}
-                    {item.badge && <span className="ml-auto bg-admin-red text-white text-[8px] font-black px-2 py-0.5 rounded-full">{item.badge}</span>}
+                    {item.badge && <span className="ml-auto bg-admin-primary text-white text-[8px] font-black px-2 py-0.5 rounded-full">{item.badge}</span>}
                   </button>
                 ))}
               </div>
@@ -104,11 +104,11 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
           </div>
         ))}
       </nav>
-      <div className="p-8 border-t border-white/5 bg-admin-text">
-        <div className="text-[10px] text-white/20 leading-relaxed uppercase font-black tracking-widest">
-          <strong className="text-white/40">Dresbach Records LTDA</strong><br />
+      <div className="p-8 border-t border-zinc-100 bg-zinc-50">
+        <div className="text-[10px] text-zinc-400 leading-relaxed uppercase font-black tracking-widest">
+          <strong className="text-zinc-900">Dresbach Records LTDA</strong><br />
           CNPJ 63.187.175/0001-70<br />
-          Taquara, Rs Brasil<br />
+          Taquara, RS Brasil<br />
           v2.0.0 · DMG Hub
         </div>
       </div>

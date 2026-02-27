@@ -11,7 +11,7 @@ import "./login.css";
 import { AdminHeader } from "./components/layout/AdminHeader";
 import { AdminSidebar } from "./components/layout/AdminSidebar";
 
-// Páginas Modulares
+// Páginas Modulares (Portadas do exemplo.md)
 import { DashboardPage } from "./components/pages/DashboardPage/DashboardPage";
 import { ActivityPage } from "./components/pages/ActivityPage/ActivityPage";
 import { ArtistsPage } from "./components/pages/ArtistsPage/ArtistsPage";
@@ -40,6 +40,7 @@ export default function PainelDmgPage() {
   const [loginForm, setLoginForm] = useState({ user: "", pass: "" });
   const [activePage, setActivePage] = useState('dashboard');
   const [error, setError] = useState("");
+  const [modal, setModal] = useState<string | null>(null);
 
   useEffect(() => {
     setHydrated(true);
@@ -126,7 +127,7 @@ export default function PainelDmgPage() {
               />
             </div>
             {error && <div className="bg-red-50 text-red-600 text-[10px] font-black uppercase p-4 rounded-2xl text-center border border-red-100">{error}</div>}
-            <button type="submit" className="admin-btn btn-primary w-full h-16 shadow-xl shadow-red-500/10 italic">
+            <button type="submit" className="admin-btn btn-primary w-full h-16 shadow-xl italic">
               INGRESSAR NO SISTEMA
             </button>
           </form>
