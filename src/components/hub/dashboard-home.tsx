@@ -1,34 +1,55 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { 
   Music, DollarSign, FileCheck, ArrowUpRight, 
   TrendingUp, Zap, Cloud, Star, ShieldCheck, 
-  StickyNote, Loader2 
+  StickyNote, Loader2, Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getNotes } from "@/app/actions/notes";
-import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { getNotes, addNote } from "@/app/actions/notes";
+import { toast } from "@/hooks/use-toast";
 
 export function DashboardHome({ user }: any) {
   const works = user.works || [];
   const [notes, setNotes] = useState<any[]>([]);
   const [loadingNotes, setLoadingNotes] = useState(true);
+  const [newNote, setNewNote] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
-  useEffect(() => {
-    async function loadNotes() {
-      try {
-        const data = await getNotes();
-        setNotes(data || []);
-      } catch (e) {
-        console.error("Erro ao carregar notas no dashboard");
-      } finally {
-        setLoadingNotes(false);
-      }
+  async function loadNotes() {
+    setLoadingNotes(true);
+    try {
+      const data = await getNotes();
+      setNotes(data || []);
+    } catch (e) {
+      console.error("Erro ao carregar notas");
+    } finally {
+      setLoadingNotes(false);
     }
+  }
+
+  useEffect(() => {
     loadNotes();
   }, []);
+
+  async function handleAddNote(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newNote.trim()) return;
+
+    setIsSubmitting(true);
+    const result = await addNote(newNote);
+    
+    if (result) {
+      toast({ title: "Sucesso!", description: "Nota salva no banco de dados real." });
+      setNewNote("");
+      loadNotes(); // Recarrega a lista
+    } else {
+      toast({ title: "Erro", description: "Não foi possível conectar ao backend.", variant: "destructive" });
+    }
+    setIsSubmitting(false);
+  }
 
   const stats = [
     { label: "Obras Registradas", value: works.length, sub: "No catálogo ativo", trend: "↑ Ativo", icon: <Music className="text-primary" /> },
@@ -76,7 +97,61 @@ export function DashboardHome({ user }: any) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           
-          {/* Sincronização em Tempo Real Industrial */}
+          {/* Notas da Gravadora (CONEXÃO REAL SUPABASE) */}
+          <div className="border rounded-[40px] p-10 bg-white border-zinc-200 shadow-lg space-y-8">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h3 className="text-2xl font-black italic uppercase tracking-tighter flex items-center gap-3 text-zinc-900">
+                  <StickyNote className="h-6 w-6 text-primary" /> Notas de Produção (Live DB)
+                </h3>
+                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Dados sincronizados via DMG API Engine & Supabase</p>
+              </div>
+              <Button onClick={loadNotes} variant="ghost" size="icon" className="text-zinc-400 hover:text-primary">
+                <Zap className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Input Real para salvar no banco */}
+            <form onSubmit={handleAddNote} className="flex gap-3">
+              <Input 
+                placeholder="Nova nota de produção..." 
+                className="rounded-full bg-zinc-50 border-zinc-200 h-12 text-sm px-6 font-bold uppercase tracking-widest focus:border-primary transition-all"
+                value={newNote}
+                onChange={(e) => setNewNote(e.target.value)}
+                disabled={isSubmitting}
+              />
+              <Button 
+                type="submit" 
+                disabled={isSubmitting || !newNote.trim()}
+                className="rounded-full bg-primary h-12 w-12 p-0 flex items-center justify-center shrink-0"
+              >
+                {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4 text-white" />}
+              </Button>
+            </form>
+            
+            {loadingNotes ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-zinc-300" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {notes.map((note) => (
+                  <div key={note.id} className="p-6 bg-zinc-50 border border-zinc-100 rounded-3xl space-y-2 hover:border-primary/20 transition-all shadow-inner group">
+                    <div className="flex justify-between items-start">
+                      <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Nota #{note.id}</p>
+                      <span className="text-[8px] font-bold text-zinc-300 uppercase">Real-time</span>
+                    </div>
+                    <p className="text-sm font-bold text-zinc-700 leading-relaxed uppercase">{note.title}</p>
+                  </div>
+                ))}
+                {notes.length === 0 && (
+                  <p className="col-span-full text-center py-8 text-zinc-400 font-bold uppercase text-[10px] tracking-widest">Nenhuma nota oficial no momento.</p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Sincronização SoundCloud */}
           <div className="border rounded-[40px] p-10 transition-all bg-white border-zinc-200 shadow-lg">
             <div className="flex items-center justify-between mb-10">
               <div className="space-y-1">
@@ -90,65 +165,11 @@ export function DashboardHome({ user }: any) {
               </Button>
             </div>
             
-            {works.length === 0 ? (
-              <div className="py-20 text-center border-2 border-dashed rounded-[32px] space-y-6 border-zinc-100 bg-zinc-50">
-                <Zap className="h-12 w-12 text-zinc-300 mx-auto" />
-                <p className="text-zinc-500 text-sm font-black uppercase tracking-widest">Nenhuma obra sincronizada via SoundCloud.</p>
-                <Button className="bg-primary/10 text-primary border border-primary/20 text-[10px] font-black uppercase tracking-widest rounded-full px-8 h-12">Conectar SoundCloud Account →</Button>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b text-[10px] font-black uppercase tracking-[0.3em] border-zinc-100 text-zinc-400">
-                      <th className="pb-6">Título da Faixa</th>
-                      <th className="pb-6">Monetização</th>
-                      <th className="pb-6">Plays Cloud</th>
-                      <th className="pb-6 text-right">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...works].reverse().slice(0, 5).map((w, i) => (
-                      <tr key={i} className="group transition-all border-b last:border-0 hover:bg-zinc-50 border-zinc-100">
-                        <td className="py-6 font-black text-lg italic tracking-tighter uppercase text-zinc-900">{w.title}</td>
-                        <td className="py-6">
-                           <span className="text-[10px] font-black text-accent border border-accent/20 bg-accent/5 px-3 py-1 rounded-full uppercase tracking-widest">Active</span>
-                        </td>
-                        <td className="py-6 text-sm font-mono font-bold text-zinc-500">{(Math.random() * 2000 + 100).toFixed(0)}</td>
-                        <td className="py-6 text-right">
-                          <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full italic">Sincronizado</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-
-          {/* Notas da Gravadora (Supabase Integration) */}
-          <div className="border rounded-[40px] p-10 bg-white border-zinc-200 shadow-lg space-y-8">
-            <h3 className="text-2xl font-black italic uppercase tracking-tighter flex items-center gap-3 text-zinc-900">
-              <StickyNote className="h-6 w-6 text-primary" /> Notas de Produção
-            </h3>
-            
-            {loadingNotes ? (
-              <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-zinc-300" />
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {notes.map((note) => (
-                  <div key={note.id} className="p-6 bg-zinc-50 border border-zinc-100 rounded-3xl space-y-2 hover:border-primary/20 transition-all shadow-inner group">
-                    <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Nota #{note.id}</p>
-                    <p className="text-sm font-bold text-zinc-700 leading-relaxed uppercase">{note.title}</p>
-                  </div>
-                ))}
-                {notes.length === 0 && (
-                  <p className="col-span-full text-center py-8 text-zinc-400 font-bold uppercase text-[10px] tracking-widest">Nenhuma nota oficial no momento.</p>
-                )}
-              </div>
-            )}
+            <div className="py-20 text-center border-2 border-dashed rounded-[32px] space-y-6 border-zinc-100 bg-zinc-50">
+              <Zap className="h-12 w-12 text-zinc-300 mx-auto" />
+              <p className="text-zinc-500 text-sm font-black uppercase tracking-widest">Conecte sua conta para visualizar plays em tempo real.</p>
+              <Button className="bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full px-10 h-12 shadow-lg shadow-primary/20">Conectar SoundCloud Account →</Button>
+            </div>
           </div>
         </div>
 

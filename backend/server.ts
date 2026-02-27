@@ -16,7 +16,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Middlewares Industriais
 app.use(cors({
-  origin: '*', // Em produção, restringir para o domínio do frontend
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -34,7 +34,48 @@ app.get('/', (req, res) => {
 });
 
 /**
- * Rota para buscar tarefas (todos) do Supabase via Motor Express
+ * Rota para buscar notas do Supabase
+ */
+app.get('/api/notes', async (req, res) => {
+  try {
+    console.log('📡 Buscando notas no Supabase...');
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .order('id', { ascending: false });
+    
+    if (error) throw error;
+    res.json(data);
+  } catch (err: any) {
+    console.error('Erro na Rota Notes (GET):', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Rota para criar nova nota no Supabase
+ */
+app.post('/api/notes', async (req, res) => {
+  try {
+    const { title } = req.body;
+    if (!title) return res.status(400).json({ error: 'Título é obrigatório' });
+
+    console.log(`📝 Inserindo nova nota: ${title}`);
+    const { data, error } = await supabase
+      .from('notes')
+      .insert([{ title }])
+      .select();
+
+    if (error) throw error;
+    res.status(201).json(data[0]);
+  } catch (err: any) {
+    console.error('Erro na Rota Notes (POST):', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * Rota para buscar tarefas (todos)
  */
 app.get('/api/todos', async (req, res) => {
   try {
@@ -42,22 +83,6 @@ app.get('/api/todos', async (req, res) => {
     if (error) throw error;
     res.json(data);
   } catch (err: any) {
-    console.error('Erro na Rota Todos:', err.message);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-/**
- * Rota para buscar notas do Supabase via Motor Express
- */
-app.get('/api/notes', async (req, res) => {
-  try {
-    console.log('📡 Buscando notas no Supabase...');
-    const { data, error } = await supabase.from('notes').select('*').order('id', { ascending: false });
-    if (error) throw error;
-    res.json(data);
-  } catch (err: any) {
-    console.error('Erro na Rota Notes:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
