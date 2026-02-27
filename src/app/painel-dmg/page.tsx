@@ -32,6 +32,7 @@ import { HubPage } from "./components/pages/HubPage/HubPage";
 import { ReportsPage } from "./components/pages/ReportsPage/ReportsPage";
 import { UsersPage } from "./components/pages/UsersPage/UsersPage";
 import { SettingsPage } from "./components/pages/SettingsPage/SettingsPage";
+import { SyncPage } from "./components/pages/SyncPage";
 
 export default function PainelDmgPage() {
   const [hydrated, setHydrated] = useState(false);
@@ -87,7 +88,7 @@ export default function PainelDmgPage() {
       case 'reports': return <ReportsPage />;
       case 'users': return <UsersPage />;
       case 'settings': return <SettingsPage />;
-      default: return <DashboardPage />;
+      default: return <SyncPage pageName={activePage} />;
     }
   };
 

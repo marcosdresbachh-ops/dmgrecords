@@ -18,7 +18,7 @@ export function DashboardPage() {
 
   return (
     <div className="animate-in fade-in duration-500">
-      <div className="ph flex justify-between items-start mb-10">
+      <div className="ph">
         <div>
           <h1>Dashboard Executivo</h1>
           <p>Visão geral da gravadora — Março 2025</p>
@@ -29,14 +29,14 @@ export function DashboardPage() {
         </div>
       </div>
 
-      <div className="dashboard-stats-grid">
+      <div className="stats-grid">
         {stats.map((s, i) => (
           <div key={i} className="stat-card group">
             <div className="flex justify-between items-center mb-4">
               <div className="p-3 bg-admin-bg rounded-xl text-admin-gold group-hover:scale-110 transition-transform">{s.icon}</div>
               <span className="text-[10px] font-black text-admin-green bg-admin-green/10 px-2 py-1 rounded-full">{s.trend}</span>
             </div>
-            <p className="text-[9px] font-black text-admin-muted uppercase tracking-widest mb-1">{s.label}</p>
+            <p className="stat-label">{s.label}</p>
             <p className="stat-value">{s.value}</p>
             <p className="text-[10px] text-admin-muted mt-2 font-bold uppercase">{s.sub}</p>
           </div>
@@ -52,23 +52,25 @@ export function DashboardPage() {
               </h3>
               <button className="text-[10px] font-black text-admin-gold uppercase hover:underline">Ver Todos</button>
             </div>
-            <table className="admin-table">
-              <thead>
-                <tr><th>Artista</th><th>Gênero</th><th>Músicas</th><th>Streams</th><th>Royalties</th><th>Status</th></tr>
-              </thead>
-              <tbody>
-                {artists.slice(0, 5).map((a: any, i: number) => (
-                  <tr key={i}>
-                    <td className="font-bold text-admin-gold italic uppercase tracking-tighter">{a.name}</td>
-                    <td className="text-admin-muted font-bold uppercase text-[10px]">{a.genre}</td>
-                    <td className="font-bold">{a.tracks}</td>
-                    <td className="font-bold">{a.streams}</td>
-                    <td className="font-bold text-admin-green">{a.royalties}</td>
-                    <td><span className="admin-badge badge-green">Ativo</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="admin-table">
+                <thead>
+                  <tr><th>Artista</th><th>Gênero</th><th>Músicas</th><th>Streams</th><th>Royalties</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                  {artists.slice(0, 5).map((a: any, i: number) => (
+                    <tr key={i}>
+                      <td className="font-bold text-admin-gold italic uppercase tracking-tighter">{a.name}</td>
+                      <td className="text-admin-muted font-bold uppercase text-[10px]">{a.genre}</td>
+                      <td className="font-bold">{a.tracks}</td>
+                      <td className="font-bold">{a.streams}</td>
+                      <td className="font-bold text-admin-green">{a.royalties}</td>
+                      <td><span className="admin-badge badge-green">Ativo</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div className="admin-card">
@@ -78,22 +80,24 @@ export function DashboardPage() {
               </h3>
               <button className="text-[10px] font-black text-admin-gold uppercase hover:underline">Ir ao Catálogo</button>
             </div>
-            <table className="admin-table">
-              <thead>
-                <tr><th>Título</th><th>Artista</th><th>Tipo</th><th>Status</th><th>Streams</th></tr>
-              </thead>
-              <tbody>
-                {tracks.slice(0, 5).map((t: any, i: number) => (
-                  <tr key={i}>
-                    <td className="font-bold italic uppercase tracking-tighter">{t.title}</td>
-                    <td className="text-admin-muted font-bold uppercase text-[10px]">{t.artist}</td>
-                    <td><span className="admin-badge badge-blue">{t.type}</span></td>
-                    <td><span className="admin-badge badge-green">Distribuída</span></td>
-                    <td className="font-bold">{t.streams}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="admin-table">
+                <thead>
+                  <tr><th>Título</th><th>Artista</th><th>Tipo</th><th>Status</th><th>Streams</th></tr>
+                </thead>
+                <tbody>
+                  {tracks.slice(0, 5).map((t: any, i: number) => (
+                    <tr key={i}>
+                      <td className="font-bold italic uppercase tracking-tighter">{t.title}</td>
+                      <td className="text-admin-muted font-bold uppercase text-[10px]">{t.artist}</td>
+                      <td><span className="admin-badge badge-blue">{t.type}</span></td>
+                      <td><span className="admin-badge badge-green">Distribuída</span></td>
+                      <td className="font-bold">{t.streams}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 

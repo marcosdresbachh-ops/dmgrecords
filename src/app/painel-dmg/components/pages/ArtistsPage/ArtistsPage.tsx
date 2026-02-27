@@ -1,0 +1,75 @@
+
+"use client";
+import { Mail, Globe, Star, Plus, Search } from "lucide-react";
+import { AdminDB } from "../../../lib/admin-db";
+import "./ArtistsPage.css";
+
+export function ArtistsPage() {
+  const artists = AdminDB.getArtists();
+
+  return (
+    <div className="animate-in fade-in duration-500">
+      <div className="ph">
+        <div>
+          <h1>Roster de Artistas</h1>
+          <p>{artists.length} Artistas sob gestão oficial DMG</p>
+        </div>
+        <div className="flex gap-3">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-admin-muted" />
+            <input placeholder="Buscar artista..." className="bg-white border border-admin-surface2 rounded-full h-12 pl-12 pr-6 text-xs outline-none focus:border-admin-gold" />
+          </div>
+          <button className="admin-btn btn-gold"><Plus size={16} /> Novo Artista</button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {artists.map((a: any) => (
+          <div key={a.id} className="artist-card group">
+            <div className="flex items-center gap-6 mb-8">
+              <div className="artist-avatar group-hover:scale-110 transition-transform">
+                {a.name.substring(0,2).toUpperCase()}
+              </div>
+              <div>
+                <h3 className="text-xl font-black italic uppercase tracking-tighter leading-none">{a.name}</h3>
+                <p className="text-[10px] text-admin-muted font-bold uppercase tracking-widest mt-2">{a.role} · {a.genre}</p>
+              </div>
+            </div>
+            
+            <div className="space-y-4 pt-6 border-t border-admin-surface2">
+              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+                <span className="text-admin-muted flex items-center gap-2"><Mail className="h-3.5 w-3.5" /> Email</span>
+                <span className="text-admin-text truncate max-w-[150px]">{a.email}</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+                <span className="text-admin-muted flex items-center gap-2"><Globe className="h-3.5 w-3.5" /> Território</span>
+                <span className="text-admin-text">{a.country}</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest">
+                <span className="text-admin-muted flex items-center gap-2"><Star className="h-3.5 w-3.5" /> PRO</span>
+                <span className="text-admin-gold">{a.pro}</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mt-8">
+              <div className="text-center p-4 bg-admin-bg rounded-2xl border border-admin-surface2">
+                <p className="text-[8px] font-black text-admin-muted uppercase mb-1">Músicas</p>
+                <p className="text-sm font-black text-admin-text">{a.tracks}</p>
+              </div>
+              <div className="text-center p-4 bg-admin-bg rounded-2xl border border-admin-surface2">
+                <p className="text-[8px] font-black text-admin-muted uppercase mb-1">Streams</p>
+                <p className="text-sm font-black text-admin-text">{a.streams}</p>
+              </div>
+              <div className="text-center p-4 bg-admin-bg rounded-2xl border border-admin-surface2">
+                <p className="text-[8px] font-black text-admin-muted uppercase mb-1">Royalties</p>
+                <p className="text-sm font-black text-admin-green">{a.royalties}</p>
+              </div>
+            </div>
+            
+            <button className="admin-btn btn-outline w-full mt-6 py-3 text-[9px]">Ver Perfil Industrial</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
