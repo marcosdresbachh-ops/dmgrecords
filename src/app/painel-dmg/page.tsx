@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,12 +10,21 @@ import "./login.css";
 import { AdminHeader } from "./components/layout/AdminHeader";
 import { AdminSidebar } from "./components/layout/AdminSidebar";
 
+// API Bridge
+import { 
+  getAdminStats, 
+  getAdminArtists, 
+  getAdminTracks, 
+  createAdminArtist, 
+  createAdminTrack,
+  updateTrackStatus 
+} from "@/app/actions/admin";
+
 // Modais UI
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Páginas
@@ -40,7 +48,6 @@ import { HubPage } from "./components/pages/HubPage/HubPage";
 import { ReportsPage } from "./components/pages/ReportsPage/ReportsPage";
 import { UsersPage } from "./components/pages/UsersPage/UsersPage";
 import { SettingsPage } from "./components/pages/SettingsPage/SettingsPage";
-import { AdminDB } from "./lib/admin-db";
 
 export default function PainelDmgPage() {
   const [hydrated, setHydrated] = useState(false);
@@ -49,24 +56,41 @@ export default function PainelDmgPage() {
   const [activePage, setActivePage] = useState('dashboard');
   const [modal, setModal] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [refresh, setRefresh] = useState(0);
+  
+  // Estados de Dados do Backend
+  const [data, setData] = useState({
+    artists: [] as any[],
+    tracks: [] as any[],
+    stats: {} as any
+  });
+
+  const loadData = async () => {
+    const [artists, tracks, stats] = await Promise.all([
+      getAdminArtists(),
+      getAdminTracks(),
+      getAdminStats()
+    ]);
+    setData({ artists, tracks, stats });
+  };
 
   useEffect(() => {
     setHydrated(true);
     const auth = localStorage.getItem('dr_admin_auth');
-    if (auth === 'true') setIsLoggedIn(true);
+    if (auth === 'true') {
+      setIsLoggedIn(true);
+      loadData();
+    }
   }, []);
 
   if (!hydrated) return null;
-
-  const triggerRefresh = () => setRefresh(prev => prev + 1);
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     if (loginForm.user.toLowerCase() === "marcos dresbach" && loginForm.pass === "Ma596220@") {
       setIsLoggedIn(true);
       localStorage.setItem('dr_admin_auth', 'true');
-      toast({ title: "Acesso Concedido", description: "Bem-vindo ao motor industrial DMG." });
+      loadData();
+      toast({ title: "Acesso Concedido", description: "Backend sincronizado com sucesso." });
     } else {
       toast({ title: "Erro de Acesso", description: "Identidade ou chave incorreta.", variant: "destructive" });
     }
@@ -75,28 +99,23 @@ export default function PainelDmgPage() {
   function handleLogout() {
     setIsLoggedIn(false);
     localStorage.removeItem('dr_admin_auth');
-    toast({ title: "Sessão Encerrada", description: "Você saiu do painel administrativo." });
+    toast({ title: "Sessão Encerrada", description: "Você saiu do sistema." });
   }
 
-  const openModal = (type: string, data: any = null) => {
-    setSelectedItem(data);
+  const openModal = (type: string, item: any = null) => {
+    setSelectedItem(item);
     setModal(type);
   };
 
-  const handleSaveArtist = (e: React.FormEvent) => {
+  const handleSaveArtist = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget as HTMLFormElement);
-    const name = formData.get("name") as string;
-    if (!name) return;
-
-    const artists = AdminDB.getArtists();
-    const newArtist = {
-      id: 'A' + Math.random().toString(36).substr(2, 4).toUpperCase(),
-      name,
-      role: formData.get("role") || 'Artista',
-      genre: formData.get("genre") || 'Pop',
+    const payload = {
+      name: formData.get("name"),
+      genre: formData.get("genre"),
       email: formData.get("email"),
-      country: formData.get("country") || 'Brasil',
+      country: formData.get("country"),
+      role: formData.get("role") || 'Artista',
       status: 'active',
       tracks: 0,
       streams: '0',
@@ -105,39 +124,38 @@ export default function PainelDmgPage() {
       pro: 'ECAD'
     };
 
-    AdminDB.saveArtists([...artists, newArtist]);
-    setModal(null);
-    triggerRefresh();
-    toast({ title: "Sucesso", description: `${name} foi adicionado ao roster.` });
+    const result = await createAdminArtist(payload);
+    if (result) {
+      toast({ title: "Sucesso", description: "Artista salvo no banco de dados." });
+      setModal(null);
+      loadData();
+    }
   };
 
-  const handleSaveTrack = (e: React.FormEvent) => {
+  const handleSaveTrack = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget as HTMLFormElement);
-    const title = formData.get("title") as string;
-    if (!title) return;
-
-    const tracks = AdminDB.getTracks();
-    const newTrack = {
-      id: 'T' + Math.random().toString(36).substr(2, 4).toUpperCase(),
-      title,
-      artist: formData.get("artist") || "Vini Amaral",
-      genre: formData.get("genre") || "Pop",
-      isrc: formData.get("isrc") || "BRA123...",
+    const payload = {
+      title: formData.get("title"),
+      artist: formData.get("artist"),
+      genre: formData.get("genre"),
+      isrc: formData.get("isrc"),
       status: 'pending',
       streams: '0',
       royalties: '$0',
       type: 'Single'
     };
 
-    AdminDB.saveTracks([...tracks, newTrack]);
-    setModal(null);
-    triggerRefresh();
-    toast({ title: "Obra Registrada", description: `"${title}" entrou no catálogo.` });
+    const result = await createAdminTrack(payload);
+    if (result) {
+      toast({ title: "Obra Registrada", description: "Track enviada ao backend." });
+      setModal(null);
+      loadData();
+    }
   };
 
   const renderActivePage = () => {
-    const props = { openModal, refresh };
+    const props = { openModal, data, loadData };
     switch (activePage) {
       case 'dashboard': return <DashboardPage {...props} />;
       case 'activity': return <ActivityPage />;
@@ -198,14 +216,13 @@ export default function PainelDmgPage() {
         </div>
       </main>
 
-      {/* Gerenciador de Modais Reais */}
       <Dialog open={!!modal} onOpenChange={() => setModal(null)}>
         <DialogContent className="bg-white text-zinc-900 max-w-2xl rounded-[32px] border-zinc-200">
           {modal === 'addArtist' && (
             <form onSubmit={handleSaveArtist}>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-black italic uppercase tracking-tighter">Novo Artista DMG</DialogTitle>
-                <DialogDescription className="text-[10px] font-black uppercase">Cadastro oficial no roster da gravadora.</DialogDescription>
+                <DialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary">Novo Artista DMG</DialogTitle>
+                <DialogDescription className="text-[10px] font-black uppercase">Processamento real via API Engine.</DialogDescription>
               </DialogHeader>
               <div className="grid grid-cols-2 gap-6 py-6">
                 <div className="space-y-2">
@@ -227,7 +244,7 @@ export default function PainelDmgPage() {
               </div>
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setModal(null)} className="rounded-xl text-[10px] font-black uppercase">Cancelar</Button>
-                <Button type="submit" className="bg-primary text-white rounded-xl text-[10px] font-black uppercase px-8">Salvar Registro</Button>
+                <Button type="submit" className="bg-primary text-white rounded-xl text-[10px] font-black uppercase px-8">Salvar no Banco</Button>
               </DialogFooter>
             </form>
           )}
@@ -235,8 +252,8 @@ export default function PainelDmgPage() {
           {modal === 'addTrack' && (
             <form onSubmit={handleSaveTrack}>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-black italic uppercase tracking-tighter">Registrar Obra</DialogTitle>
-                <DialogDescription className="text-[10px] font-black uppercase">Inserção de fonograma no catálogo oficial.</DialogDescription>
+                <DialogTitle className="text-2xl font-black italic uppercase tracking-tighter text-primary">Registrar Obra</DialogTitle>
+                <DialogDescription className="text-[10px] font-black uppercase">Persistência direta no catálogo oficial.</DialogDescription>
               </DialogHeader>
               <div className="grid grid-cols-2 gap-6 py-6">
                 <div className="col-span-2 space-y-2">
@@ -245,12 +262,12 @@ export default function PainelDmgPage() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[10px] font-black uppercase">Artista Principal</Label>
-                  <Select name="artist" defaultValue="Vini Amaral">
+                  <Select name="artist" defaultValue={data.artists[0]?.name || "Vini Amaral"}>
                     <SelectTrigger className="rounded-xl bg-zinc-50 border-zinc-200">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white text-zinc-900">
-                      {AdminDB.getArtists().map((a: any) => (
+                      {data.artists.map((a: any) => (
                         <SelectItem key={a.id} value={a.name}>{a.name}</SelectItem>
                       ))}
                     </SelectContent>
@@ -263,43 +280,9 @@ export default function PainelDmgPage() {
               </div>
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setModal(null)} className="rounded-xl text-[10px] font-black uppercase">Cancelar</Button>
-                <Button type="submit" className="bg-primary text-white rounded-xl text-[10px] font-black uppercase px-8">Confirmar Obra</Button>
+                <Button type="submit" className="bg-primary text-white rounded-xl text-[10px] font-black uppercase px-8">Confirmar API</Button>
               </DialogFooter>
             </form>
-          )}
-
-          {modal === 'artistDetail' && selectedItem && (
-            <div className="space-y-8 py-4">
-              <DialogHeader>
-                <div className="flex items-center gap-6">
-                  <div className="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center text-white text-3xl font-black italic">
-                    {selectedItem.name[0]}
-                  </div>
-                  <div>
-                    <DialogTitle className="text-3xl font-black italic uppercase tracking-tighter">{selectedItem.name}</DialogTitle>
-                    <p className="text-[10px] font-black uppercase text-zinc-400 tracking-widest">{selectedItem.role} · {selectedItem.genre}</p>
-                  </div>
-                </div>
-              </DialogHeader>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  ["ID Único", selectedItem.id],
-                  ["Email", selectedItem.email],
-                  ["Streams Totais", selectedItem.streams],
-                  ["Royalties", selectedItem.royalties],
-                  ["Membro desde", selectedItem.joined],
-                  ["Status", selectedItem.status.toUpperCase()],
-                ].map(([k, v]) => (
-                  <div key={k} className="p-4 bg-zinc-50 border border-zinc-100 rounded-2xl">
-                    <p className="text-[8px] font-black text-zinc-400 uppercase mb-1">{k}</p>
-                    <p className="text-xs font-bold text-zinc-900">{v}</p>
-                  </div>
-                ))}
-              </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setModal(null)} className="rounded-xl w-full text-[10px] font-black uppercase">Fechar Detalhes</Button>
-              </DialogFooter>
-            </div>
           )}
         </DialogContent>
       </Dialog>

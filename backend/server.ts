@@ -17,7 +17,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // Middlewares Industriais
 app.use(cors({
   origin: '*', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
@@ -34,54 +34,101 @@ app.get('/', (req, res) => {
 });
 
 /**
- * Rota para buscar notas do Supabase
+ * GESTÃO DE ARTISTAS
  */
-app.get('/api/notes', async (req, res) => {
+app.get('/api/admin/artists', async (req, res) => {
   try {
-    console.log('📡 Buscando notas no Supabase...');
     const { data, error } = await supabase
-      .from('notes')
+      .from('artists')
       .select('*')
-      .order('id', { ascending: false });
+      .order('name', { ascending: true });
     
     if (error) throw error;
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
-    console.error('Erro na Rota Notes (GET):', err.message);
     res.status(500).json({ error: err.message });
   }
 });
 
-/**
- * Rota para criar nova nota no Supabase
- */
-app.post('/api/notes', async (req, res) => {
+app.post('/api/admin/artists', async (req, res) => {
   try {
-    const { title } = req.body;
-    if (!title) return res.status(400).json({ error: 'Título é obrigatório' });
-
-    console.log(`📝 Inserindo nova nota: ${title}`);
+    const artist = req.body;
     const { data, error } = await supabase
-      .from('notes')
-      .insert([{ title }])
+      .from('artists')
+      .insert([artist])
       .select();
 
     if (error) throw error;
     res.status(201).json(data[0]);
   } catch (err: any) {
-    console.error('Erro na Rota Notes (POST):', err.message);
     res.status(500).json({ error: err.message });
   }
 });
 
 /**
- * Rota para buscar tarefas (todos)
+ * GESTÃO DE OBRAS (TRACKS)
  */
-app.get('/api/todos', async (req, res) => {
+app.get('/api/admin/tracks', async (req, res) => {
   try {
-    const { data, error } = await supabase.from('todos').select('*').order('id', { ascending: true });
+    const { data, error } = await supabase
+      .from('tracks')
+      .select('*')
+      .order('id', { ascending: false });
+    
     if (error) throw error;
-    res.json(data);
+    res.json(data || []);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/admin/tracks', async (req, res) => {
+  try {
+    const track = req.body;
+    const { data, error } = await supabase
+      .from('tracks')
+      .insert([track])
+      .select();
+
+    if (error) throw error;
+    res.status(201).json(data[0]);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.patch('/api/admin/tracks/:id/status', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const { data, error } = await supabase
+      .from('tracks')
+      .update({ status })
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
+    res.json(data[0]);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * ESTATÍSTICAS DO DASHBOARD (Processamento em Backend)
+ */
+app.get('/api/admin/stats', async (req, res) => {
+  try {
+    const { count: artistsCount } = await supabase.from('artists').select('*', { count: 'exact', head: true });
+    const { count: tracksCount } = await supabase.from('tracks').select('*', { count: 'exact', head: true });
+    
+    res.json({
+      activeArtists: artistsCount || 0,
+      totalTracks: tracksCount || 0,
+      platforms: 18,
+      royaltiesQ1: "R$ 27.180",
+      monthlyStreams: "1.2M"
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -89,5 +136,4 @@ app.get('/api/todos', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`🚀 MOTOR BACKEND DMG RODANDO: http://localhost:${port}`);
-  console.log(`🔗 Conectado ao Supabase: ${supabaseUrl ? 'OK' : 'PENDENTE'}`);
 });
