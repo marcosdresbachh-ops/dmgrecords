@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 
 /**
- * @fileOverview Dresbach Records — Painel Administrativo Executivo Absoluto.
- * Acesso exclusivo para marcos dresbach.
+ * @fileOverview Painel Administrativo DMG Records — Versão Absoluta.
+ * Central de comando executiva com 20 módulos integrados.
  */
 
 export default function PainelDmgPage() {
@@ -99,11 +99,14 @@ export default function PainelDmgPage() {
     localStorage.removeItem('dr_admin_auth');
   }
 
+  function openModal(m: string) { set({ modal: m }); }
+  function closeModal() { set({ modal: null }); }
+
   const toggleCat = (sec: string) => {
     setOpenCats(prev => prev.includes(sec) ? prev.filter(c => c !== sec) : [...prev, sec]);
   };
 
-  const nav = [
+  const navGroups = [
     { 
       sec: 'Principal', 
       items: [
@@ -161,48 +164,21 @@ export default function PainelDmgPage() {
     },
   ];
 
-  function renderLogin() {
-    return (
-      <div className="login-gate">
-        <div className="login-box fade-up">
-          <div className="login-header">
-            <img src="/logodmg.png" alt="DMG Logo" style={{ height: '90px', margin: '0 auto 30px', display: 'block', objectFit: 'contain' }} />
-            <h1>Central de Comando</h1>
-            <p>Acesso Restrito — Dresbach Records</p>
-          </div>
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div className="fld">
-              <label>Identificação do Administrador</label>
-              <input 
-                value={loginForm.user} 
-                onChange={e => setLoginForm({...loginForm, user: e.target.value})} 
-                placeholder="marcos dresbach" 
-                required 
-                style={{ borderRadius: '50px', padding: '16px 24px' }}
-              />
-            </div>
-            <div className="fld">
-              <label>Chave de Segurança</label>
-              <input 
-                type="password" 
-                value={loginForm.pass} 
-                onChange={e => setLoginForm({...loginForm, pass: e.target.value})} 
-                placeholder="••••••••" 
-                required 
-                style={{ borderRadius: '50px', padding: '16px 24px' }}
-              />
-            </div>
-            {state.error && <div className="msg msg-err" style={{ borderRadius: '50px', textAlign: 'center' }}>{state.error}</div>}
-            <button type="submit" className="btn btn-gold btn-full" style={{ height: '60px', fontSize: '14px', marginTop: '10px', borderRadius: '50px', fontWeight: 800, letterSpacing: '1px' }}>
-              ACESSAR MOTOR INDUSTRIAL
-            </button>
-          </form>
-          <div className="login-footer-info" style={{ opacity: 0.5, marginTop: '40px', textAlign: 'center', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            DRESBACH GROUP © 2025 — ENCRYPTED SESSION
-          </div>
+  function renderPage() {
+    switch (state.page) {
+      case 'dashboard': return renderDashboard();
+      case 'artists': return renderArtists();
+      case 'catalog': return renderCatalog();
+      case 'royalties': return renderRoyalties();
+      case 'distribution': return renderDistribution();
+      default: return (
+        <div style={{ textAlign: 'center', padding: '100px 20px' }}>
+          <h2 style={{ fontFamily: 'Bebas Neue', fontSize: '42px', color: 'var(--text)' }}>Módulo em Sincronização</h2>
+          <p style={{ color: var('--muted'), marginTop: '10px' }}>A funcionalidade "{state.page.toUpperCase()}" está sendo integrada ao motor industrial.</p>
+          <button className="btn btn-gold" style={{ marginTop: '20px' }} onClick={() => set({ page: 'dashboard' })}>Voltar ao Dashboard</button>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   function renderDashboard() {
@@ -213,8 +189,8 @@ export default function PainelDmgPage() {
         <div className="ph">
           <div className="ph-left"><h1>Dashboard Executivo</h1><p>Gerenciamento Global Dresbach Records — {today()}</p></div>
           <div className="ph-actions">
-            <button className="btn btn-outline btn-sm" style={{ borderRadius: '50px', padding: '10px 25px' }} onClick={() => set({ page: 'reports' })}>📈 Relatórios</button>
-            <button className="btn btn-gold btn-sm" style={{ borderRadius: '50px', padding: '10px 25px' }} onClick={() => set({ modal: 'addArtist' })}>+ Novo Artista</button>
+            <button className="btn btn-outline btn-sm" onClick={() => set({ page: 'reports' })}>📈 Relatórios</button>
+            <button className="btn btn-gold btn-sm" onClick={() => openModal('addArtist')}>+ Novo Artista</button>
           </div>
         </div>
 
@@ -226,7 +202,7 @@ export default function PainelDmgPage() {
             ['Royalties Q1', '$27,180', 'Distribuídos', '↑ +22% vs Q4'],
             ['Streams (est.)', '1.2M', 'Todas as plataformas', '↑ +14% este mês'],
           ].map(([l, v, s, t], i) => (
-            <div key={i} className="stat-card" style={{ borderRadius: '24px' }}>
+            <div key={i} className="stat-card">
               <div className="stat-label">{l}</div>
               <div className="stat-value">{v}</div>
               <div className="stat-sub">{s}</div>
@@ -236,7 +212,7 @@ export default function PainelDmgPage() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px' }}>
-          <div className="card" style={{ borderRadius: '24px' }}>
+          <div className="card">
             <div className="card-head"><div className="card-title"><span className="ic">🎤</span> Roster de Destaque</div></div>
             <div className="tbl-wrap">
               <table className="tbl">
@@ -247,21 +223,125 @@ export default function PainelDmgPage() {
                     <td style={{ color: 'var(--muted)' }}>{a.genre}</td>
                     <td>{a.tracks}</td>
                     <td style={{ fontWeight: 600 }}>{a.streams}</td>
-                    <td><span className={`badge ${a.status === 'active' ? 'bg' : 'bgo'}`} style={{ borderRadius: '50px' }}>{a.status}</span></td>
+                    <td><span className={`badge ${a.status === 'active' ? 'bg' : 'bgo'}`}>{a.status}</span></td>
                   </tr>
                 ))}</tbody>
               </table>
             </div>
           </div>
-          <div className="card" style={{ borderRadius: '24px' }}>
-            <div className="card-title" style={{ marginBottom: '20px' }}><span className="ic">💰</span> Performance Financeira</div>
+          <div className="card">
+            <div className="card-title" style={{ marginBottom: '20px' }}><span className="ic">💰</span> Receita por Fonte</div>
             {[
               ['Streaming', 72, '$19,570'], ['Performance', 14, '$3,805'], ['Sync / Licença', 8, '$2,175']
             ].map(([l, p, v], i) => (
               <div key={i} className="bar-row" style={{ marginBottom: '15px' }}>
                 <div className="bar-lbl">{l}</div>
-                <div className="bar-track" style={{ height: '10px' }}><div className="bar-fill" style={{ width: `${p}%` }}></div></div>
+                <div className="bar-track"><div className="bar-fill" style={{ width: `${p}%` }}></div></div>
                 <div className="bar-val">{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function renderArtists() {
+    return (
+      <div className="fade-up">
+        <div className="ph">
+          <div className="ph-left"><h1>Roster de Artistas</h1><p>Gestão completa de talentos Dresbach Records</p></div>
+          <div className="ph-actions">
+            <button className="btn btn-gold btn-sm" onClick={() => openModal('addArtist')}>+ Novo Artista</button>
+          </div>
+        </div>
+        <div className="card">
+          <table className="tbl">
+            <thead><tr><th>ID</th><th>Nome</th><th>Gênero</th><th>País</th><th>Streams</th><th>Status</th></tr></thead>
+            <tbody>{artists.map(a => (
+              <tr key={a.id}>
+                <td><span className="mono">{a.id}</span></td>
+                <td className="t-name">{a.name}</td>
+                <td style={{ color: 'var(--muted)' }}>{a.genre}</td>
+                <td>{a.country}</td>
+                <td style={{ fontWeight: 600 }}>{a.streams}</td>
+                <td><span className={`badge ${a.status === 'active' ? 'bg' : 'bgo'}`}>{a.status}</span></td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  function renderCatalog() {
+    return (
+      <div className="fade-up">
+        <div className="ph">
+          <div className="ph-left"><h1>Catálogo de Músicas</h1><p>Todas as faixas distribuídas e pendentes</p></div>
+          <div className="ph-actions">
+            <button className="btn btn-gold btn-sm" onClick={() => openModal('addTrack')}>+ Adicionar Faixa</button>
+          </div>
+        </div>
+        <div className="card">
+          <table className="tbl">
+            <thead><tr><th>Título</th><th>Artista</th><th>Gênero</th><th>ISRC</th><th>Status</th></tr></thead>
+            <tbody>{tracks.map(t => (
+              <tr key={t.id}>
+                <td className="t-name">{t.title}</td>
+                <td style={{ color: 'var(--muted)' }}>{t.artist}</td>
+                <td>{t.genre}</td>
+                <td><span className="mono">{t.isrc}</span></td>
+                <td><span className={`badge ${t.status === 'distributed' ? 'bg' : 'bgo'}`}>{t.status}</span></td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  function renderRoyalties() {
+    return (
+      <div className="fade-up">
+        <div className="ph">
+          <div className="ph-left"><h1>Gestão de Royalties</h1><p>Relatórios financeiros e distribuição de ganhos</p></div>
+          <div className="ph-actions">
+            <button className="btn btn-gold btn-sm" onClick={() => alert('Processando pagamentos…')}>Processar Ciclo Q1</button>
+          </div>
+        </div>
+        <div className="stats-grid">
+          {[
+            ['Receita Total Q1', '$27,180', 'Distribuído', '↑ +22%'],
+            ['Saldo Gravadora', '$8,154', '30% retido', 'Líquido'],
+            ['A Pagar Artistas', '$19,026', '70% split', 'Pendente'],
+          ].map(([l, v, s, t], i) => (
+            <div key={i} className="stat-card">
+              <div className="stat-label">{l}</div>
+              <div className="stat-value" style={{ color: 'var(--green)' }}>{v}</div>
+              <div className="stat-sub">{s}</div>
+              <div className="stat-up">{t}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function renderDistribution() {
+    return (
+      <div className="fade-up">
+        <div className="ph">
+          <div className="ph-left"><h1>Distribuição Digital</h1><p>Status de entrega nas plataformas globais</p></div>
+        </div>
+        <div className="card">
+          <div className="card-title" style={{ marginBottom: '20px' }}><span className="ic">📡</span> Parceiros de Streaming Ativos</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
+            {['Spotify', 'Apple Music', 'YouTube Music', 'Deezer', 'Amazon', 'Tidal', 'TikTok', 'Instagram'].map(p => (
+              <div key={p} style={{ padding: '20px', background: 'var(--surface2)', borderRadius: '15px', textAlign: 'center' }}>
+                <div style={{ fontSize: '24px', marginBottom: '5px' }}>📡</div>
+                <div style={{ fontWeight: 700 }}>{p}</div>
+                <div style={{ fontSize: '10px', color: 'var(--green)', textTransform: 'uppercase', fontWeight: 800 }}>Conectado</div>
               </div>
             ))}
           </div>
@@ -282,6 +362,7 @@ export default function PainelDmgPage() {
           --bg: #f5f3ef;
           --surface: #ffffff;
           --surface2: #f0ede8;
+          --surface3: #e8e4dc;
           --text: #1a1814;
           --muted: #7a7570;
           --muted2: #b0aca5;
@@ -349,12 +430,54 @@ export default function PainelDmgPage() {
         .fade-up { animation: fadeUp .5s ease both; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .badge { padding: 5px 12px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .badge { padding: 5px 12px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; }
         .badge.bg { background: var(--green); color: white; }
         .badge.bgo { background: var(--gold); color: white; }
+
+        .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; z-index: 500; padding: 24px; backdrop-filter: blur(8px); }
+        .modal { background: white; border-radius: 40px; width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; padding: 50px; border-top: 10px solid var(--gold); animation: fadeUp .3s ease; }
+        .modal h2 { font-family: 'Bebas Neue'; font-size: 32px; margin-bottom: 30px; letter-spacing: 1px; }
       ` }} />
 
-      {!isLoggedIn ? renderLogin() : (
+      {!isLoggedIn ? (
+        <div className="login-gate">
+          <div className="login-box fade-up">
+            <div className="login-header">
+              <img src="/logodmg.png" alt="DMG Logo" style={{ height: '90px', margin: '0 auto 30px', display: 'block', objectFit: 'contain' }} />
+              <h1>Central de Comando</h1>
+              <p>Acesso Restrito — Dresbach Records</p>
+            </div>
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div className="fld">
+                <label>Identificação do Administrador</label>
+                <input 
+                  value={loginForm.user} 
+                  onChange={e => setLoginForm({...loginForm, user: e.target.value})} 
+                  placeholder="marcos dresbach" 
+                  required 
+                />
+              </div>
+              <div className="fld">
+                <label>Chave de Segurança</label>
+                <input 
+                  type="password" 
+                  value={loginForm.pass} 
+                  onChange={e => setLoginForm({...loginForm, pass: e.target.value})} 
+                  placeholder="••••••••" 
+                  required 
+                />
+              </div>
+              {state.error && <div className="msg msg-err" style={{ textAlign: 'center', color: 'var(--red)', fontSize: '11px', fontWeight: 800 }}>{state.error}</div>}
+              <button type="submit" className="btn btn-gold btn-full" style={{ height: '60px', marginTop: '10px' }}>
+                ACESSAR MOTOR INDUSTRIAL
+              </button>
+            </form>
+            <div style={{ opacity: 0.5, marginTop: '40px', textAlign: 'center', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              DRESBACH GROUP © 2025 — ENCRYPTED SESSION
+            </div>
+          </div>
+        </div>
+      ) : (
         <>
           <header className="header">
             <div className="header-logo">
@@ -363,32 +486,31 @@ export default function PainelDmgPage() {
             <div style={{ flex: 1, padding: '0 35px' }}>
               <input 
                 placeholder="Busca administrativa global…" 
-                style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '12px 25px', borderRadius: '50px', color: 'white', width: '450px', fontSize: '13px', fontSofa: 500 }} 
+                style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '12px 25px', borderRadius: '50px', color: 'white', width: '450px', fontSize: '13px' }} 
               />
             </div>
             <div style={{ padding: '0 35px', color: 'var(--gold)', fontWeight: 800, fontSize: '11px', display: 'flex', alignItems: 'center', gap: '25px', letterSpacing: '1.5px' }}>
               MARCOS DRESBACH (ADMIN)
               <button 
                 onClick={handleLogout} 
-                style={{ background: 'rgba(255,255,255,0.15)', color: 'white', border: 'none', cursor: 'pointer', padding: '10px 20px', borderRadius: '50px', fontSize: '10px', fontWeight: 800, transition: '.3s' }}
-                onMouseOver={(e) => e.currentTarget.style.background = 'var(--red)'}
-                onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+                className="btn-outline btn-xs"
+                style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: 'none', padding: '10px 20px' }}
               >
-                ENCERRAR SESSÃO
+                SAIR
               </button>
             </div>
           </header>
 
           <aside className="sidebar">
             <div style={{ padding: '10px 0' }}>
-              {nav.map(s => (
+              {navGroups.map(s => (
                 <div key={s.sec}>
                   <div className="nav-sec" onClick={() => toggleCat(s.sec)}>
                     {s.sec}
                     <span style={{ fontSize: '12px', opacity: 0.5 }}>{openCats.includes(s.sec) ? '−' : '+'}</span>
                   </div>
                   {openCats.includes(s.sec) && (
-                    <div style={{ animation: 'fadeUp 0.3s ease' }}>
+                    <div className="fade-up">
                       {s.items.map(it => (
                         <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id })}>
                           <span style={{ fontSize: '18px' }}>{it.ic}</span> {it.l}
@@ -413,22 +535,45 @@ export default function PainelDmgPage() {
 
           <main className="main">
             <div className="page-content">
-              {state.page === 'dashboard' ? renderDashboard() : (
-                <div style={{ textAlign: 'center', padding: '150px 50px' }}>
-                  <h2 style={{ fontFamily: 'Bebas Neue', fontSize: '48px', color: 'var(--text)' }}>Módulo em Sincronização</h2>
-                  <p style={{ color: 'var(--muted)', marginTop: '15px', fontSize: '16px', fontWeight: 500 }}>A página {state.page.toUpperCase()} está sendo processada pelo motor industrial da DMG Records.</p>
-                  <button 
-                    className="btn btn-gold" 
-                    style={{ marginTop: '35px', borderRadius: '50px' }} 
-                    onClick={() => set({ page: 'dashboard' })}
-                  >
-                    Voltar ao Dashboard de Comando
-                  </button>
-                </div>
-              )}
+              {renderPage()}
             </div>
           </main>
         </>
+      )}
+
+      {state.modal === 'addArtist' && (
+        <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && closeModal()}>
+          <div className="modal">
+            <h2>Cadastrar Novo Artista</h2>
+            <div className="fg">
+              <div className="fld"><label>Nome do Artista</label><input placeholder="Ex: Luna Verona" /></div>
+              <div className="fld"><label>Gênero</label><input placeholder="Ex: R&B / Soul" /></div>
+              <div className="fld"><label>Email de Contato</label><input type="email" placeholder="artista@exemplo.com" /></div>
+              <div className="fld"><label>País</label><input defaultValue="Brasil" /></div>
+            </div>
+            <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
+              <button className="btn btn-gold btn-full">SALVAR NO ROSTER</button>
+              <button className="btn btn-outline" onClick={closeModal}>CANCELAR</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {state.modal === 'addTrack' && (
+        <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && closeModal()}>
+          <div className="modal">
+            <h2>Adicionar Faixa ao Catálogo</h2>
+            <div className="fg">
+              <div className="fld" style={{ gridColumn: '1 / -1' }}><label>Título da Obra</label><input placeholder="Nome da música" /></div>
+              <div className="fld"><label>ISRC</label><input placeholder="BR-XXX-25-00001" /></div>
+              <div className="fld"><label>Artista</label><select><option>Luna Verona</option><option>Marco Esteves</option></select></div>
+            </div>
+            <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
+              <button className="btn btn-gold btn-full">REGISTRAR FAIXA</button>
+              <button className="btn btn-outline" onClick={closeModal}>CANCELAR</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
