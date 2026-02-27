@@ -1,11 +1,10 @@
-
 import { Request, Response } from 'express';
 import { createClient } from '@supabase/supabase-js';
 
-// Inicialização do Supabase usando variáveis privadas do Backend
+// Inicialização do Supabase usando as novas variáveis de ambiente fornecidas
 const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_ANON_KEY || ''
+  process.env.NEXT_PUBLIC_DMGSUPABASE_URL || '',
+  process.env.NEXT_PUBLIC_DMGSUPABASE_ANON_KEY || ''
 );
 
 /**
