@@ -10,10 +10,19 @@ import "./admin.css";
 import { AdminHeader } from "./components/layout/AdminHeader";
 import { AdminSidebar } from "./components/layout/AdminSidebar";
 
-// Páginas Implementadas
+// Páginas Modulares
 import { DashboardPage } from "./components/pages/DashboardPage";
+import { ActivityPage } from "./components/pages/ActivityPage";
 import { ArtistsPage } from "./components/pages/ArtistsPage";
 import { CatalogPage } from "./components/pages/CatalogPage";
+import { AlbumsPage } from "./components/pages/AlbumsPage";
+import { ContractsPage } from "./components/pages/ContractsPage";
+import { DistributionPage } from "./components/pages/DistributionPage";
+import { RoyaltiesPage } from "./components/pages/RoyaltiesPage";
+import { AnalyticsPage } from "./components/pages/AnalyticsPage";
+import { SitePage } from "./components/pages/SitePage";
+import { UsersPage } from "./components/pages/UsersPage";
+import { SettingsPage } from "./components/pages/SettingsPage";
 import { SyncPage } from "./components/pages/SyncPage";
 
 export default function PainelDmgPage() {
@@ -51,8 +60,17 @@ export default function PainelDmgPage() {
   const renderActivePage = () => {
     switch (activePage) {
       case 'dashboard': return <DashboardPage />;
+      case 'activity': return <ActivityPage />;
       case 'artists': return <ArtistsPage />;
       case 'catalog': return <CatalogPage />;
+      case 'albums': return <AlbumsPage />;
+      case 'contracts': return <ContractsPage />;
+      case 'distribution': return <DistributionPage />;
+      case 'royalties': return <RoyaltiesPage />;
+      case 'analytics': return <AnalyticsPage />;
+      case 'site': return <SitePage />;
+      case 'users': return <UsersPage />;
+      case 'settings': return <SettingsPage />;
       default: return <SyncPage pageName={activePage} />;
     }
   };
@@ -64,7 +82,7 @@ export default function PainelDmgPage() {
         <div className="bg-white w-full max-w-md rounded-[40px] p-12 shadow-2xl border-t-8 border-admin-gold animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="text-center mb-10">
             <Image src="/logodmg.png" alt="DMG Logo" width={180} height={60} className="mx-auto mb-8 object-contain" priority />
-            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-admin-text font-bebas">Central de Comando</h1>
+            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-admin-text">Central de Comando</h1>
             <p className="text-[10px] font-black text-admin-gold uppercase tracking-[0.3em] mt-2">Acesso Restrito Executivo</p>
           </div>
 
@@ -111,7 +129,7 @@ export default function PainelDmgPage() {
       <AdminSidebar activePage={activePage} onPageChange={setActivePage} />
 
       <main className="admin-main">
-        <div className="p-10">
+        <div className="p-10 pb-32">
           {renderActivePage()}
         </div>
       </main>

@@ -5,7 +5,7 @@ import {
   LayoutDashboard, Users, Music, Disc, FileText, 
   Globe, Radio, BarChart3, Megaphone, Settings, 
   ChevronDown, ChevronRight, Activity, Wallet, CreditCard, Receipt,
-  Rocket, Scale, Layout, GraduationCap, FileSearch, PieChart
+  Rocket, Scale, Layout, GraduationCap, PieChart
 } from "lucide-react";
 
 export function AdminSidebar({ activePage, onPageChange }: { activePage: string, onPageChange: (p: string) => void }) {
@@ -19,71 +19,71 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
     {
       title: 'Principal',
       items: [
-        { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard /> },
-        { id: 'activity', label: 'Atividade', icon: <Activity />, badge: '3' },
+        { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={16} /> },
+        { id: 'activity', label: 'Atividade', icon: <Activity size={16} />, badge: '3' },
       ]
     },
     {
       title: 'Artistas & Música',
       items: [
-        { id: 'artists', label: 'Artistas', icon: <Users /> },
-        { id: 'catalog', label: 'Catálogo de Músicas', icon: <Music /> },
-        { id: 'albums', label: 'Álbuns & EPs', icon: <Disc /> },
-        { id: 'contracts', label: 'Contratos', icon: <FileText /> },
+        { id: 'artists', label: 'Artistas', icon: <Users size={16} /> },
+        { id: 'catalog', label: 'Catálogo de Músicas', icon: <Music size={16} /> },
+        { id: 'albums', label: 'Álbuns & EPs', icon: <Disc size={16} /> },
+        { id: 'contracts', label: 'Contratos', icon: <FileText size={16} /> },
       ]
     },
     {
       title: 'Distribuição',
       items: [
-        { id: 'distribution', label: 'Distribuição', icon: <Globe /> },
-        { id: 'platforms', label: 'Plataformas', icon: <Radio /> },
-        { id: 'releases', label: 'Lançamentos', icon: <Rocket /> },
+        { id: 'distribution', label: 'Distribuição', icon: <Globe size={16} /> },
+        { id: 'platforms', label: 'Plataformas', icon: <Radio size={16} /> },
+        { id: 'releases', label: 'Lançamentos', icon: <Rocket size={16} /> },
       ]
     },
     {
       title: 'Financeiro',
       items: [
-        { id: 'royalties', label: 'Royalties', icon: <Wallet /> },
-        { id: 'payments', label: 'Pagamentos', icon: <CreditCard /> },
-        { id: 'invoices', label: 'Notas Fiscais', icon: <Receipt /> },
+        { id: 'royalties', label: 'Royalties', icon: <Wallet size={16} /> },
+        { id: 'payments', label: 'Pagamentos', icon: <CreditCard size={16} /> },
+        { id: 'invoices', label: 'Notas Fiscais', icon: <Receipt size={16} /> },
       ]
     },
     {
       title: 'Ferramentas',
       items: [
-        { id: 'analytics', label: 'Analytics', icon: <BarChart3 /> },
-        { id: 'marketing', label: 'Marketing', icon: <Megaphone /> },
-        { id: 'licenses', label: 'Licenciamento', icon: <Scale /> },
+        { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={16} /> },
+        { id: 'marketing', label: 'Marketing', icon: <Megaphone size={16} /> },
+        { id: 'licenses', label: 'Licenciamento', icon: <Scale size={16} /> },
       ]
     },
     {
       title: 'Plataforma',
       items: [
-        { id: 'site', label: 'Gerenciar Site', icon: <Layout /> },
-        { id: 'hub', icon: <GraduationCap />, label: 'Artist Hub' },
-        { id: 'reports', label: 'Relatórios', icon: <PieChart /> },
+        { id: 'site', label: 'Gerenciar Site', icon: <Layout size={16} /> },
+        { id: 'hub', label: 'Artist Hub', icon: <GraduationCap size={16} /> },
+        { id: 'reports', label: 'Relatórios', icon: <PieChart size={16} /> },
       ]
     },
     {
       title: 'Admin',
       items: [
-        { id: 'users', label: 'Usuários Admin', icon: <Users /> },
-        { id: 'settings', label: 'Configurações', icon: <Settings /> },
+        { id: 'users', label: 'Usuários Admin', icon: <Users size={16} /> },
+        { id: 'settings', label: 'Configurações', icon: <Settings size={16} /> },
       ]
     }
   ];
 
   return (
     <aside className="admin-sidebar no-scrollbar">
-      <nav className="py-6">
+      <nav className="py-6 flex-1">
         {menu.map(cat => (
           <div key={cat.title} className="mb-2">
             <button 
               onClick={() => toggleCat(cat.title)}
-              className="w-full flex items-center justify-between px-6 py-3 text-[9px] font-black uppercase text-white/20 tracking-[0.2em] hover:text-white/40 transition-colors"
+              className="w-full flex items-center justify-between px-6 py-3 text-[10px] font-black uppercase text-white/30 tracking-[0.2em] hover:text-white/50 transition-colors"
             >
               {cat.title}
-              {openCats.includes(cat.title) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+              {openCats.includes(cat.title) ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
             </button>
             {openCats.includes(cat.title) && (
               <div className="space-y-0.5">
@@ -97,7 +97,7 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
                         : 'text-white/40 border-transparent hover:text-white hover:bg-white/5'
                     }`}
                   >
-                    <span className="opacity-70 scale-90">{item.icon}</span>
+                    <span className="opacity-70">{item.icon}</span>
                     {item.label}
                     {item.badge && <span className="ml-auto bg-admin-red text-white text-[8px] font-black px-2 py-0.5 rounded-full">{item.badge}</span>}
                   </button>
@@ -107,11 +107,12 @@ export function AdminSidebar({ activePage, onPageChange }: { activePage: string,
           </div>
         ))}
       </nav>
-      <div className="p-8 border-t border-white/5 bg-admin-text mt-10">
+      <div className="p-8 border-t border-white/5 bg-admin-text">
         <div className="text-[10px] text-white/20 leading-relaxed uppercase font-black tracking-widest">
           <strong className="text-white/40">Dresbach Records LTDA</strong><br />
           CNPJ 63.187.175/0001-70<br />
-          Taquara, Rs Brasil
+          Taquara, Rs Brasil<br />
+          v2.0.0 · DMG Hub
         </div>
       </div>
     </aside>
