@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 /**
  * @fileOverview Ponte de Dados Industrial entre Next.js e Backend Express.
- * Todas as chamadas para o backend na porta 3001 passam por aqui.
+ * Todas as chamadas para o banco de dados agora ocorrem via backend Express (porta 3001).
  */
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
@@ -28,7 +28,7 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
   }
 }
 
-// 1 & 2. Dashboard
+// 1 & 2. Dashboard & Stats
 export async function getAdminStats() {
   return await apiFetch('/stats');
 }
@@ -74,7 +74,7 @@ export async function getAdminContracts() {
   return await apiFetch('/contracts');
 }
 
-// 7, 8 & 9. Distribuição
+// 7, 8 & 9. Distribuição, Plataformas e Lançamentos
 export async function getAdminDistribution() {
   return await apiFetch('/distribution');
 }
@@ -87,7 +87,7 @@ export async function getAdminReleases() {
   return await apiFetch('/releases');
 }
 
-// 10, 11 & 12. Financeiro
+// 10, 11 & 12. Financeiro (Royalties, Pagamentos, NFs)
 export async function getAdminRoyalties() {
   return await apiFetch('/royalties');
 }

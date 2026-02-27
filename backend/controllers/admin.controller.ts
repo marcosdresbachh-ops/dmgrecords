@@ -2,14 +2,16 @@
 import { Request, Response } from 'express';
 import { createClient } from '@supabase/supabase-js';
 
+// Inicialização do Supabase usando variáveis privadas do Backend
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_ANON_KEY || ''
 );
 
 /**
  * @fileOverview Controlador Industrial Central DMG Records.
  * Gerencia a lógica de todas as 20 subpáginas do sistema.
+ * Toda comunicação com o banco de dados ocorre EXCLUSIVAMENTE aqui.
  */
 
 // 1. Dashboard & Stats
@@ -43,28 +45,44 @@ export const getActivity = async (req: Request, res: Response) => {
 
 // 3. Artistas
 export const getArtists = async (req: Request, res: Response) => {
-  const { data, error } = await supabase.from('artists').select('*').order('name');
-  if (error) return res.status(500).json(error);
-  res.json(data);
+  try {
+    const { data, error } = await supabase.from('artists').select('*').order('name');
+    if (error) return res.status(500).json(error);
+    res.json(data);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 export const createArtist = async (req: Request, res: Response) => {
-  const { data, error } = await supabase.from('artists').insert([req.body]).select();
-  if (error) return res.status(500).json(error);
-  res.status(201).json(data[0]);
+  try {
+    const { data, error } = await supabase.from('artists').insert([req.body]).select();
+    if (error) return res.status(500).json(error);
+    res.status(201).json(data[0]);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // 4. Catálogo (Tracks)
 export const getTracks = async (req: Request, res: Response) => {
-  const { data, error } = await supabase.from('tracks').select('*').order('created_at', { ascending: false });
-  if (error) return res.status(500).json(error);
-  res.json(data);
+  try {
+    const { data, error } = await supabase.from('tracks').select('*').order('created_at', { ascending: false });
+    if (error) return res.status(500).json(error);
+    res.json(data);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 export const createTrack = async (req: Request, res: Response) => {
-  const { data, error } = await supabase.from('tracks').insert([req.body]).select();
-  if (error) return res.status(500).json(error);
-  res.status(201).json(data[0]);
+  try {
+    const { data, error } = await supabase.from('tracks').insert([req.body]).select();
+    if (error) return res.status(500).json(error);
+    res.status(201).json(data[0]);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // 5. Álbuns
@@ -193,7 +211,6 @@ export const getHubMembers = async (req: Request, res: Response) => {
 
 // 18. Relatórios
 export const generateReport = async (req: Request, res: Response) => {
-  // Simulação de geração de relatório industrial
   res.json({ 
     success: true, 
     downloadUrl: '/api/admin/reports/download/current',

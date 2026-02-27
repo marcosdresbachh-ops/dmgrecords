@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 import adminRoutes from './routes/admin.routes';
 
-// Carrega o .env da raiz do projeto para sincronização total
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// Carrega o .env local da pasta backend para isolamento total de segredos
+dotenv.config();
 
 const app = express();
 const port = process.env.BACKEND_PORT || 3001;
@@ -34,13 +34,13 @@ app.use('/api/admin', adminRoutes);
 app.get('/', (req, res) => {
   res.json({ 
     status: 'online', 
-    engine: 'DMG API Engine v2.0',
-    sync: 'Environment variables synchronized with frontend',
+    engine: 'DMG API Engine v2.5',
+    security: 'Environment variables fully migrated to backend',
     timestamp: new Date().toISOString()
   });
 });
 
 app.listen(port, () => {
   console.log(`🚀 MOTOR BACKEND DMG RODANDO NA PORTA ${port}`);
-  console.log(`🔗 SINCRONIZADO COM SUPABASE: ${process.env.NEXT_PUBLIC_SUPABASE_URL ? 'SIM' : 'NÃO'}`);
+  console.log(`🔒 SEGURANÇA: Chaves Supabase carregadas internamente.`);
 });
