@@ -79,12 +79,10 @@ export default function PainelDmgPage() {
   }
 
   const set = (patch: Partial<typeof state>) => setState(prev => ({ ...prev, ...patch }));
-  const closeModal = () => set({ modal: null });
   const today = () => new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    // Credenciais exclusivas solicitadas pelo usuário
     if (loginForm.user.toLowerCase() === "marcos dresbach" && loginForm.pass === "Ma596220@") {
       setIsLoggedIn(true);
       localStorage.setItem('dr_admin_auth', 'true');
@@ -99,6 +97,64 @@ export default function PainelDmgPage() {
     setIsLoggedIn(false);
     localStorage.removeItem('dr_admin_auth');
   }
+
+  const nav = [
+    { 
+      sec: 'Principal', 
+      items: [
+        { id: 'dashboard', ic: '⊞', l: 'Dashboard' },
+        { id: 'activity', ic: '⏱', l: 'Atividade', badge: 3 }
+      ] 
+    },
+    { 
+      sec: 'Artistas & Música', 
+      items: [
+        { id: 'artists', ic: '🎤', l: 'Artistas' },
+        { id: 'catalog', ic: '🎵', l: 'Catálogo de Músicas' },
+        { id: 'albums', ic: '💿', l: 'Álbuns & EPs' },
+        { id: 'contracts', ic: '📋', l: 'Contratos' }
+      ] 
+    },
+    { 
+      sec: 'Distribuição', 
+      items: [
+        { id: 'distribution', ic: '🌐', l: 'Distribuição' },
+        { id: 'platforms', ic: '📡', l: 'Plataformas' },
+        { id: 'releases', ic: '🚀', l: 'Lançamentos' }
+      ] 
+    },
+    { 
+      sec: 'Financeiro', 
+      items: [
+        { id: 'royalties', ic: '💰', l: 'Royalties' },
+        { id: 'payments', ic: '💳', l: 'Pagamentos' },
+        { id: 'invoices', ic: '🧾', l: 'Notas Fiscais' }
+      ] 
+    },
+    { 
+      sec: 'Ferramentas', 
+      items: [
+        { id: 'analytics', ic: '📊', l: 'Analytics' },
+        { id: 'marketing', ic: '📣', l: 'Marketing' },
+        { id: 'licenses', ic: '⚖', l: 'Licenciamento' }
+      ] 
+    },
+    { 
+      sec: 'Plataforma', 
+      items: [
+        { id: 'site', ic: '🌍', l: 'Gerenciar Site' },
+        { id: 'hub', ic: '🎸', l: 'Artist Hub' },
+        { id: 'reports', ic: '📈', l: 'Relatórios' }
+      ] 
+    },
+    { 
+      sec: 'Admin', 
+      items: [
+        { id: 'users', ic: '👥', l: 'Usuários Admin' },
+        { id: 'settings', ic: '⚙', l: 'Configurações' }
+      ] 
+    },
+  ];
 
   function renderLogin() {
     return (
@@ -136,7 +192,7 @@ export default function PainelDmgPage() {
               ACESSAR MOTOR INDUSTRIAL
             </button>
           </form>
-          <div className="login-footer-info" style={{ opacity: 0.5, marginTop: '40px' }}>
+          <div className="login-footer-info" style={{ opacity: 0.5, marginTop: '40px', textAlign: 'center', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
             DRESBACH GROUP © 2025 — ENCRYPTED SESSION
           </div>
         </div>
@@ -209,13 +265,6 @@ export default function PainelDmgPage() {
     );
   }
 
-  const nav = [
-    { sec: 'Principal', items: [{ id: 'dashboard', ic: '⊞', l: 'Dashboard' }] },
-    { sec: 'Artistas & Música', items: [{ id: 'artists', ic: '🎤', l: 'Artistas' }, { id: 'catalog', ic: '🎵', l: 'Catálogo' }] },
-    { sec: 'Financeiro', items: [{ id: 'royalties', ic: '💰', l: 'Royalties' }] },
-    { sec: 'Admin', items: [{ id: 'settings', ic: '⚙', l: 'Configurações' }] },
-  ];
-
   return (
     <div className="painel-dmg">
       <Head>
@@ -253,12 +302,16 @@ export default function PainelDmgPage() {
         .header { position: fixed; top: 0; left: 0; right: 0; height: var(--topbar); background: #1a1814; display: flex; align-items: center; z-index: 200; border-bottom: 4px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .header-logo { width: var(--sidebar); padding: 0 30px; display: flex; align-items: center; border-right: 1px solid rgba(255,255,255,0.1); height: 100%; }
         
-        .sidebar { width: var(--sidebar); background: #1a1814; position: fixed; top: var(--topbar); left: 0; bottom: 0; overflow-y: auto; z-index: 100; border-right: 1px solid rgba(255,255,255,0.06); }
+        .sidebar { width: var(--sidebar); background: #1a1814; position: fixed; top: var(--topbar); left: 0; bottom: 0; overflow-y: auto; z-index: 100; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; }
         .nav-sec { padding: 25px 25px 10px; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-        .nav-item { display: flex; align-items: center; gap: 15px; padding: 14px 25px; cursor: pointer; color: rgba(255,255,255,0.6); border-left: 5px solid transparent; transition: .25s; font-weight: 600; }
+        .nav-item { display: flex; align-items: center; gap: 15px; padding: 14px 25px; cursor: pointer; color: rgba(255,255,255,0.6); border-left: 5px solid transparent; transition: .25s; font-weight: 600; position: relative; }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-item.active { color: var(--gold2); border-left-color: var(--gold); background: rgba(184,134,42,0.15); }
+        .nav-bdg { position: absolute; right: 25px; background: var(--red); color: white; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 10px; }
         
+        .sidebar-footer { margin-top: auto; padding: 30px 25px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .sb-company { font-size: 10px; color: rgba(255,255,255,0.3); line-height: 1.8; letter-spacing: 0.5px; }
+
         .main { margin-left: var(--sidebar); padding-top: var(--topbar); min-height: 100vh; }
         .page-content { padding: 40px; animation: fadeUp .4s ease; }
         .ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 35px; }
@@ -327,14 +380,18 @@ export default function PainelDmgPage() {
                 {s.items.map(it => (
                   <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id })}>
                     <span style={{ fontSize: '18px' }}>{it.ic}</span> {it.l}
+                    {it.badge && <span className="nav-bdg">{it.badge}</span>}
                   </div>
                 ))}
               </div>
             ))}
-            <div style={{ padding: '40px 25px', marginTop: 'auto' }}>
-              <div style={{ background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '9px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Sistema de Segurança</p>
-                <p style={{ color: 'var(--green)', fontSize: '11px', fontWeight: 700, marginTop: '5px' }}>● CONEXÃO CRIPTOGRAFADA</p>
+            
+            <div className="sidebar-footer">
+              <div className="sb-company">
+                <strong style={{ color: 'white', opacity: 0.8 }}>Dresbach Records LTDA</strong><br />
+                CNPJ 63.187.175/0001-70<br />
+                Taquara, Rs Brasil<br />
+                <span style={{ opacity: 0.5 }}>v2.0.0 · DMG Hub</span>
               </div>
             </div>
           </aside>
