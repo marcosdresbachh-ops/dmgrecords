@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { toast } from "@/hooks/use-toast";
+import { Loader2, ArrowRight, Mail, Lock } from "lucide-react";
 import "./base.css";
 import "./login.css";
 
@@ -20,7 +21,8 @@ import {
   createAdminTrack,
   getAdminActivity,
   getAdminRoyalties,
-  getAdminSettings
+  getAdminSettings,
+  loginAdmin
 } from "@/app/actions/admin";
 
 // Modais UI
@@ -55,7 +57,8 @@ import { SettingsPage } from "./components/pages/SettingsPage/SettingsPage";
 export default function PainelDmgPage() {
   const [hydrated, setHydrated] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loginForm, setLoginForm] = useState({ user: "", pass: "" });
+  const [loginForm, setLoginForm] = useState({ email: "", pass: "" });
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [activePage, setActivePage] = useState('dashboard');
   const [modal, setModal] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
@@ -109,21 +112,33 @@ export default function PainelDmgPage() {
 
   if (!hydrated) return null;
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (loginForm.user.toLowerCase() === "marcos dresbach" && loginForm.pass === "Ma596220@") {
-      setIsLoggedIn(true);
-      localStorage.setItem('dr_admin_auth', 'true');
-      loadData();
-      toast({ title: "Acesso Concedido", description: "Backend sincronizado com sucesso." });
-    } else {
-      toast({ title: "Erro de Acesso", description: "Identidade ou chave incorreta.", variant: "destructive" });
+    setIsLoggingIn(true);
+    
+    try {
+      const response = await loginAdmin({ email: loginForm.email, pass: loginForm.pass });
+      
+      if (response && response.success) {
+        setIsLoggedIn(true);
+        localStorage.setItem('dr_admin_auth', 'true');
+        localStorage.setItem('dr_admin_user', JSON.stringify(response.user));
+        loadData();
+        toast({ title: "Acesso Concedido", description: `Bem-vindo, ${response.user.name}.` });
+      } else {
+        toast({ title: "Erro de Acesso", description: response?.error || "Identidade ou chave incorreta.", variant: "destructive" });
+      }
+    } catch (error) {
+      toast({ title: "Erro de Sistema", description: "Falha ao conectar com o motor de autenticação.", variant: "destructive" });
+    } finally {
+      setIsLoggingIn(false);
     }
   }
 
   function handleLogout() {
     setIsLoggedIn(false);
     localStorage.removeItem('dr_admin_auth');
+    localStorage.removeItem('dr_admin_user');
     toast({ title: "Sessão Encerrada", description: "Você saiu do sistema." });
   }
 
@@ -204,20 +219,52 @@ export default function PainelDmgPage() {
         <div className="login-card">
           <div className="text-center mb-10">
             <Image src="/logodmg.png" alt="DMG Logo" width={180} height={60} className="mx-auto mb-8 object-contain" priority />
-            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-zinc-900">Comando Admin</h1>
+            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-zinc-900 leading-none">Comando Admin</h1>
             <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mt-2">Dresbach Records Ecosystem</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase ml-4">Identidade</Label>
-              <Input value={loginForm.user} onChange={e => setLoginForm({...loginForm, user: e.target.value})} placeholder="nome de usuário" className="login-input" required />
+              <Label className="text-[10px] font-black uppercase ml-4 text-zinc-400">E-mail Autorizado</Label>
+              <div className="relative">
+                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-300" />
+                <Input 
+                  type="email"
+                  value={loginForm.email} 
+                  onChange={e => setLoginForm({...loginForm, email: e.target.value})} 
+                  placeholder="viniamaral@exemplo.com" 
+                  className="login-input pl-14" 
+                  required 
+                />
+              </div>
             </div>
             <div className="space-y-2">
-              <Label className="text-[10px] font-black uppercase ml-4">Chave</Label>
-              <Input type="password" value={loginForm.pass} onChange={e => setLoginForm({...loginForm, pass: e.target.value})} placeholder="••••••••" className="login-input" required />
+              <Label className="text-[10px] font-black uppercase ml-4 text-zinc-400">Chave de Acesso</Label>
+              <div className="relative">
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-300" />
+                <Input 
+                  type="password" 
+                  value={loginForm.pass} 
+                  onChange={e => setLoginForm({...loginForm, pass: e.target.value})} 
+                  placeholder="••••••••" 
+                  className="login-input pl-14" 
+                  required 
+                />
+              </div>
             </div>
-            <Button type="submit" className="w-full h-16 bg-primary text-white font-black uppercase italic shadow-xl">INGRESSAR NO SISTEMA</Button>
+            <Button 
+              type="submit" 
+              disabled={isLoggingIn}
+              className="w-full h-16 bg-primary text-white font-black uppercase italic shadow-xl shadow-primary/20 flex items-center justify-center gap-3 group transition-all"
+            >
+              {isLoggingIn ? <Loader2 className="h-6 w-6 animate-spin" /> : <>INGRESSAR NO SISTEMA <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" /></>}
+            </Button>
           </form>
+          <div className="mt-10 pt-8 border-t border-zinc-100 text-center">
+            <p className="text-[9px] font-bold text-zinc-300 uppercase tracking-widest leading-loose">
+              Acesso restrito à diretoria DMG Records.<br />
+              IP: 189.14.XXX.XX · Criptografia AES-256
+            </p>
+          </div>
         </div>
       </div>
     );

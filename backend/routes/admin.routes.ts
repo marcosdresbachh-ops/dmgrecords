@@ -4,7 +4,8 @@ import * as AdminController from '../controllers/admin.controller';
 
 const router = Router();
 
-// Mapeamento Industrial das 20 Subpáginas
+// 0. Autenticação Admin
+router.post('/login', AdminController.login);
 
 // 1 & 2. Core Dashboard & Activity
 router.get('/stats', AdminController.getStats);

@@ -9,15 +9,9 @@ import { revalidatePath } from 'next/cache';
  */
 
 function getBackendUrl() {
-  // 1. Prioridade para variáveis de ambiente (Produção/Nuvem)
   const envUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
   if (envUrl) return envUrl;
-  
-  // 2. Fallback para detecção de porta local (Desenvolvimento)
-  // Em ambientes locais, o backend roda geralmente na 3001
   const port = process.env.BACKEND_PORT || '3001';
-  
-  // Se estivermos no servidor Next.js, usamos localhost.
   return `http://localhost:${port}`;
 }
 
@@ -26,7 +20,6 @@ const API_BASE = `${getBackendUrl()}/api/admin`;
 async function apiFetch(endpoint: string, options: RequestInit = {}) {
   try {
     const url = `${API_BASE}${endpoint}`;
-    console.log(`[DMG-BRIDGE] Chamando API: ${url}`);
     
     const res = await fetch(url, {
       ...options,
@@ -47,6 +40,14 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
     console.error(`[DMG-BRIDGE] Falha crítica em ${endpoint}:`, e);
     return null;
   }
+}
+
+// 0. Autenticação Admin
+export async function loginAdmin(credentials: { email: string; pass: string }) {
+  return await apiFetch('/login', {
+    method: 'POST',
+    body: JSON.stringify({ email: credentials.email, password: credentials.pass }),
+  });
 }
 
 // 1 & 2. Dashboard & Stats

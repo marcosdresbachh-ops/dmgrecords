@@ -13,6 +13,34 @@ const supabase = createClient(
  * Processamento real conectado ao Supabase para todos os 20 módulos.
  */
 
+// 0. Autenticação Admin
+export const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const authorizedEmail = 'viniamaral2026@gmail.com';
+  const masterUid = '1d0a9a13-f959-4e2b-b9e7-4d22fa6e317f';
+
+  try {
+    // Simulação de verificação de senha (em produção usar Supabase Auth real)
+    // Para este MVP industrial, validamos o e-mail mestre fornecido
+    if (email === authorizedEmail && password === 'Ma596220@') {
+      res.json({
+        success: true,
+        user: {
+          id: masterUid,
+          email: authorizedEmail,
+          role: 'Super Admin',
+          name: 'Vini Amaral (Admin)'
+        },
+        token: 'dmg_master_session_token_' + Date.now()
+      });
+    } else {
+      res.status(401).json({ error: 'Credenciais inválidas para o portal DMG.' });
+    }
+  } catch (err: any) {
+    res.status(500).json({ error: 'Erro no motor de autenticação.' });
+  }
+};
+
 // 1. Dashboard & Stats
 export const getStats = async (req: Request, res: Response) => {
   try {
@@ -75,7 +103,6 @@ export const createArtist = async (req: Request, res: Response) => {
 // 4. Catálogo (Tracks)
 export const getTracks = async (req: Request, res: Response) => {
   try {
-    // Join real com artistas para exibir o nome
     const { data, error } = await supabase
       .from('tracks')
       .select('*, artists(name)')
@@ -83,7 +110,6 @@ export const getTracks = async (req: Request, res: Response) => {
     
     if (error) throw error;
     
-    // Formata a resposta para manter o padrão que o front espera
     const formatted = data?.map(t => ({
       ...t,
       artist: (t.artists as any)?.name || 'Desconhecido'
