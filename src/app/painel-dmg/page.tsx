@@ -6,7 +6,7 @@ import Head from "next/head";
 
 /**
  * @fileOverview Dresbach Records — Painel Administrativo Executivo Completo.
- * Versão portage integral com correção de login e estilos globais.
+ * Versão atualizada com a logomarca oficial logodmg.png.
  */
 
 export default function PainelDmgPage() {
@@ -34,9 +34,6 @@ export default function PainelDmgPage() {
   const [artists, setArtists] = useState<any[]>([]);
   const [tracks, setTracks] = useState<any[]>([]);
 
-  // ═══════════════════════════════════════════════════
-  // DATA MANAGEMENT & AUTH
-  // ═══════════════════════════════════════════════════
   useEffect(() => {
     setHydrated(true);
     const auth = localStorage.getItem('dr_admin_auth');
@@ -82,10 +79,8 @@ export default function PainelDmgPage() {
   }
 
   const set = (patch: Partial<typeof state>) => setState(prev => ({ ...prev, ...patch }));
-  const openModal = (type: string) => set({ modal: type });
   const closeModal = () => set({ modal: null });
   const today = () => new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-  const genId = (p: string) => p + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -104,18 +99,14 @@ export default function PainelDmgPage() {
     localStorage.removeItem('dr_admin_auth');
   }
 
-  // ═══════════════════════════════════════════════════
-  // UI RENDERERS
-  // ════════════════════════───────────────────────────
-
   function renderLogin() {
     return (
       <div className="login-gate">
         <div className="login-box fade-up">
           <div className="login-header">
-            <div className="login-logo-glyph">DR</div>
-            <h1>Dresbach Records</h1>
-            <p>Painel Administrativo Executivo</p>
+            <img src="/logodmg.png" alt="DMG Logo" style={{ height: '80px', margin: '0 auto 25px', display: 'block' }} />
+            <h1>Painel Administrativo</h1>
+            <p>Acesso Executivo Dresbach Records</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="fld">
@@ -138,7 +129,7 @@ export default function PainelDmgPage() {
               />
             </div>
             {state.error && <div className="msg msg-err">{state.error}</div>}
-            <button type="submit" className="btn btn-gold btn-full" style={{ height: '54px', fontSize: '14px', marginTop: '10px' }}>
+            <button type="submit" className="btn btn-gold btn-full" style={{ height: '54px', fontSize: '14px', marginTop: '10px', borderRadius: '50px' }}>
               ACESSAR CENTRAL DE COMANDO
             </button>
           </form>
@@ -158,8 +149,8 @@ export default function PainelDmgPage() {
         <div className="ph">
           <div className="ph-left"><h1>Dashboard</h1><p>Visão geral da gravadora — {today()}</p></div>
           <div className="ph-actions">
-            <button className="btn btn-outline btn-sm" onClick={() => set({ page: 'reports' })}>📈 Relatórios</button>
-            <button className="btn btn-gold btn-sm" onClick={() => openModal('addArtist')}>+ Novo Artista</button>
+            <button className="btn btn-outline btn-sm" style={{ borderRadius: '50px' }} onClick={() => set({ page: 'reports' })}>📈 Relatórios</button>
+            <button className="btn btn-gold btn-sm" style={{ borderRadius: '50px' }} onClick={() => set({ modal: 'addArtist' })}>+ Novo Artista</button>
           </div>
         </div>
 
@@ -215,10 +206,6 @@ export default function PainelDmgPage() {
     );
   }
 
-  // ═══════════════════════════════════════════════════
-  // MAIN WRAPPER
-  // ═══════════════════════════════════════════════════
-
   const nav = [
     { sec: 'Principal', items: [{ id: 'dashboard', ic: '⊞', l: 'Dashboard' }] },
     { sec: 'Artistas & Música', items: [{ id: 'artists', ic: '🎤', l: 'Artistas' }, { id: 'catalog', ic: '🎵', l: 'Catálogo' }] },
@@ -248,81 +235,53 @@ export default function PainelDmgPage() {
           --red: #c0392b;
           --green: #27ae60;
           --sidebar: 240px;
-          --topbar: 58px;
+          --topbar: 64px;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--bg); color: var(--text); font-family: 'Sora', sans-serif; font-size: 13px; }
 
-        /* LOGIN GATE */
-        .login-gate { 
-          min-height: 100vh; 
-          background: #1a1814; 
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-          position: fixed;
-          inset: 0;
-          z-index: 1000;
-        }
-        .login-box { 
-          background: white; 
-          border-radius: 24px; 
-          width: 420px; 
-          padding: 50px; 
-          box-shadow: 0 40px 100px rgba(0,0,0,0.6); 
-          border-top: 6px solid var(--gold); 
-        }
-        .login-header { text-align: center; margin-bottom: 35px; }
-        .login-logo-glyph { 
-          width: 54px; height: 54px; background: var(--gold); 
-          border-radius: 12px; margin: 0 auto 20px; 
-          display: flex; align-items: center; justify-content: center; 
-          font-size: 26px; font-family: 'Bebas Neue'; color: #1a1814;
-        }
-        .login-header h1 { font-family: 'Bebas Neue'; font-size: 36px; color: #1a1814; letter-spacing: 1px; line-height: 1; }
-        .login-header p { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-top: 8px; }
-        .login-footer-info { text-align: center; font-size: 9px; color: #bbb; margin-top: 25px; letter-spacing: 1px; }
+        .login-gate { min-height: 100vh; background: #1a1814; display: flex; align-items: center; justify-content: center; position: fixed; inset: 0; z-index: 1000; }
+        .login-box { background: white; border-radius: 32px; width: 440px; padding: 60px; box-shadow: 0 40px 100px rgba(0,0,0,0.6); border-top: 8px solid var(--gold); }
+        .login-header { text-align: center; margin-bottom: 40px; }
+        .login-header h1 { font-family: 'Bebas Neue'; font-size: 32px; color: #1a1814; letter-spacing: 1px; line-height: 1; }
+        .login-header p { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-top: 10px; }
+        .login-footer-info { text-align: center; font-size: 9px; color: #bbb; margin-top: 30px; letter-spacing: 1px; }
 
-        /* DASHBOARD LAYOUT */
         .header { position: fixed; top: 0; left: 0; right: 0; height: var(--topbar); background: #1a1814; display: flex; align-items: center; z-index: 200; border-bottom: 3px solid var(--gold); }
-        .header-logo { width: var(--sidebar); padding: 0 22px; display: flex; align-items: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
-        .logo-glyph { width: 32px; height: 32px; background: var(--gold); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 18px; color: #1a1814; }
-        .logo-text { font-family: 'Bebas Neue'; font-size: 20px; color: white; letter-spacing: 1px; }
+        .header-logo { width: var(--sidebar); padding: 0 25px; display: flex; align-items: center; border-right: 1px solid rgba(255,255,255,0.1); height: 100%; }
         
         .sidebar { width: var(--sidebar); background: #1a1814; position: fixed; top: var(--topbar); left: 0; bottom: 0; overflow-y: auto; z-index: 100; border-right: 1px solid rgba(255,255,255,0.06); }
-        .nav-sec { padding: 18px 20px 6px; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); }
-        .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 20px; cursor: pointer; color: rgba(255,255,255,0.55); border-left: 3px solid transparent; transition: .15s; }
+        .nav-sec { padding: 22px 20px 8px; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: rgba(255,255,255,0.55); border-left: 4px solid transparent; transition: .2s; }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.04); }
         .nav-item.active { color: var(--gold2); border-left-color: var(--gold); background: rgba(184,134,42,0.12); }
         
         .main { margin-left: var(--sidebar); padding-top: var(--topbar); min-height: 100vh; }
-        .page-content { padding: 30px; animation: fadeUp .3s ease; }
-        .ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
-        .ph h1 { font-family: 'Bebas Neue'; font-size: 34px; color: var(--text); }
+        .page-content { padding: 35px; animation: fadeUp .3s ease; }
+        .ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 30px; }
+        .ph h1 { font-family: 'Bebas Neue'; font-size: 38px; color: var(--text); letter-spacing: 1px; }
         
-        .card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 22px; }
-        .stat-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 18px; border-bottom: 3px solid var(--gold); }
-        .stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-        .stat-value { font-family: 'Bebas Neue'; font-size: 32px; color: var(--text); }
+        .card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 25px; }
+        .stat-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 20px; border-bottom: 4px solid var(--gold); }
+        .stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 1px; }
+        .stat-value { font-family: 'Bebas Neue'; font-size: 34px; color: var(--text); line-height: 1; }
         
         .tbl { width: 100%; border-collapse: collapse; }
-        .tbl th { text-align: left; font-size: 9px; text-transform: uppercase; color: var(--muted); padding: 10px 14px; background: #f0ede8; border-bottom: 2px solid rgba(0,0,0,0.14); }
-        .tbl td { padding: 12px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 12px; }
+        .tbl th { text-align: left; font-size: 9px; text-transform: uppercase; color: var(--muted); padding: 12px 15px; background: #f0ede8; border-bottom: 2px solid rgba(0,0,0,0.1); }
+        .tbl td { padding: 14px 15px; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 12px; }
         
-        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: .2s; border: none; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
-        .btn-gold { background: var(--gold); color: white; }
-        .btn-gold:hover { background: var(--gold2); }
-        .btn-outline { background: transparent; border: 1px solid rgba(0,0,0,0.14); color: var(--muted); }
-        .btn-full { width: 100%; }
+        .btn { padding: 12px 22px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: .2s; border: none; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; text-transform: uppercase; letter-spacing: .5px; }
+        .btn-gold { background: var(--gold); color: white; box-shadow: 0 4px 15px rgba(184,134,42,0.3); }
+        .btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 2px solid rgba(0,0,0,0.1); color: var(--muted); }
+        .btn-outline:hover { border-color: var(--text); color: var(--text); }
         
-        .fld { margin-bottom: 15px; }
-        .fld label { display: block; font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; color: var(--muted); }
-        .fld input { width: 100%; padding: 12px; border: 1px solid rgba(0,0,0,0.14); border-radius: 10px; background: #f0ede8; outline: none; transition: .2s; }
-        .fld input:focus { background: white; border-color: var(--gold); }
-        
-        .msg-err { background: rgba(192,57,43,.1); color: var(--red); padding: 10px; border-radius: 8px; font-size: 11px; text-align: center; border: 1px solid rgba(192,57,43,.2); }
+        .fld { margin-bottom: 18px; }
+        .fld label { display: block; font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; color: var(--muted); letter-spacing: 1px; }
+        .fld input { width: 100%; padding: 14px; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; background: #f0ede8; outline: none; transition: .2s; font-weight: 500; }
+        .fld input:focus { background: white; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(184,134,42,0.1); }
         
         .fade-up { animation: fadeUp .4s ease both; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -332,15 +291,14 @@ export default function PainelDmgPage() {
         <>
           <header className="header">
             <div className="header-logo">
-              <div className="logo-glyph">DR</div>
-              <div className="logo-text">Dresbach Records</div>
+              <img src="/logodmg.png" alt="DMG Logo" style={{ height: '38px', width: 'auto', objectContain: 'contain' }} />
             </div>
-            <div style={{ flex: 1, padding: '0 20px' }}>
-              <input placeholder="Busca administrativa…" style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '8px 15px', borderRadius: '8px', color: 'white', width: '300px' }} />
+            <div style={{ flex: 1, padding: '0 25px' }}>
+              <input placeholder="Busca administrativa…" style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '10px 20px', borderRadius: '50px', color: 'white', width: '350px', fontSize: '12px' }} />
             </div>
-            <div style={{ padding: '0 20px', color: 'var(--gold)', fontWeight: 700, fontSize: '10px' }}>
+            <div style={{ padding: '0 25px', color: 'var(--gold)', fontWeight: 700, fontSize: '10px', display: 'flex', alignItems: 'center', gap: '20px' }}>
               ADMIN CONECTADO
-              <button onClick={handleLogout} style={{ marginLeft: '15px', background: 'transparent', color: 'white', border: 'none', cursor: 'pointer', opacity: 0.5 }}>SAIR</button>
+              <button onClick={handleLogout} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: 'none', cursor: 'pointer', padding: '6px 15px', borderRadius: '50px', fontSize: '9px', fontWeight: 700 }}>SAIR DO SISTEMA</button>
             </div>
           </header>
 
@@ -350,7 +308,7 @@ export default function PainelDmgPage() {
                 <div className="nav-sec">{s.sec}</div>
                 {s.items.map(it => (
                   <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id })}>
-                    {it.ic} {it.l}
+                    <span style={{ fontSize: '16px' }}>{it.ic}</span> {it.l}
                   </div>
                 ))}
               </div>
@@ -361,9 +319,9 @@ export default function PainelDmgPage() {
             <div className="page-content">
               {state.page === 'dashboard' ? renderDashboard() : (
                 <div style={{ textAlign: 'center', padding: '100px' }}>
-                  <h2>Módulo em Construção</h2>
-                  <p>A página {state.page.toUpperCase()} está sendo portada para o sistema industrial.</p>
-                  <button className="btn btn-gold btn-sm" onClick={() => set({ page: 'dashboard' })}>Voltar</button>
+                  <h2 style={{ fontFamily: 'Bebas Neue', fontSize: '32px' }}>Módulo em Construção</h2>
+                  <p style={{ color: 'var(--muted)', marginTop: '10px' }}>A página {state.page.toUpperCase()} está sendo sincronizada com o motor industrial.</p>
+                  <button className="btn btn-gold btn-sm" style={{ marginTop: '25px', borderRadius: '50px' }} onClick={() => set({ page: 'dashboard' })}>Voltar ao Dashboard</button>
                 </div>
               )}
             </div>

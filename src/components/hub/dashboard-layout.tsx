@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { 
   LayoutDashboard, PlusCircle, Library, Sparkles, LogOut, 
   User, DollarSign, FileText, BarChart3, Globe, GraduationCap, 
@@ -99,10 +100,14 @@ export function DashboardLayout({ user, activePage, onPageChange, onLogout, chil
       {/* Header Industrial */}
       <header className="h-14 border-b flex items-center justify-between px-6 z-50 flex-shrink-0 bg-white border-zinc-200">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-center font-black text-primary text-lg italic">
-            ♪
-          </div>
-          <h2 className="text-sm font-black uppercase tracking-tighter italic text-zinc-900">DMG ARTIST HUB</h2>
+          <Image 
+            src="/logodmg.png" 
+            alt="DMG Logo" 
+            width={120} 
+            height={32} 
+            className="h-8 w-auto object-contain"
+            priority
+          />
         </div>
         
         <div className="flex items-center gap-6">
