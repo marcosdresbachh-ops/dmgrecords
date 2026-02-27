@@ -1,21 +1,29 @@
-
 'use server';
 
 /**
- * @fileOverview Server Action para buscar notas do Supabase.
+ * @fileOverview Server Action que consome o Backend Express da DMG Records.
+ * O fluxo de dados é: Next.js -> Node.js Express -> Supabase.
  */
 
-import { supabase } from '@/lib/supabase';
-
 export async function getNotes() {
-  const { data, error } = await supabase
-    .from('notes')
-    .select();
-    
-  if (error) {
-    console.error('Erro ao buscar notas do Supabase:', error);
-    throw new Error('Falha na comunicação com o banco de dados.');
-  }
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
   
-  return data;
+  try {
+    const response = await fetch(`${backendUrl}/api/notes`, {
+      cache: 'no-store', // Garante dados sempre frescos (Real-time feel)
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro na API Backend: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Falha ao conectar com o Motor API DMG:', error);
+    return [];
+  }
 }
