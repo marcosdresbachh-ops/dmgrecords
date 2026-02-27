@@ -13,6 +13,8 @@
   --admin-goldborder: rgba(184,134,42,0.25);
   --admin-red: #c0392b;
   --admin-green: #27ae60;
+  --admin-blue: #2980b9;
+  --admin-purple: #8e44ad;
   --admin-sidebar-w: 260px;
   --admin-topbar-h: 70px;
 }
@@ -21,6 +23,7 @@
   background: var(--admin-bg);
   color: var(--admin-text);
   font-family: 'Sora', sans-serif;
+  font-size: 13px;
 }
 
 .admin-header {
@@ -52,6 +55,8 @@
   margin-left: var(--admin-sidebar-w);
   padding-top: var(--admin-topbar-h);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-card {
@@ -60,7 +65,7 @@
   border-radius: 24px;
   padding: 30px;
   margin-bottom: 25px;
-  shadow: 0 10px 40px rgba(0,0,0,0.03);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
 }
 
 .admin-btn {
@@ -73,30 +78,14 @@
   align-items: center;
   gap: 10px;
   text-transform: uppercase;
-  font-size: 12px;
-}
-
-.admin-btn-gold {
-  background: var(--admin-gold);
-  color: white;
+  font-size: 11px;
   border: none;
 }
 
-.admin-btn-gold:hover {
-  background: var(--admin-gold2);
-  transform: translateY(-2px);
-}
-
-.admin-badge {
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.admin-badge-green { background: rgba(39,174,96,0.1); color: var(--admin-green); }
-.admin-badge-gold { background: var(--admin-goldbg); color: var(--admin-gold); }
+.admin-btn-gold { background: var(--admin-gold); color: white; }
+.admin-btn-gold:hover { background: var(--admin-gold2); transform: translateY(-2px); }
+.admin-btn-outline { background: transparent; border: 1px solid var(--admin-muted2); color: var(--admin-muted); }
+.admin-btn-outline:hover { border-color: var(--admin-text); color: var(--admin-text); }
 
 .admin-table {
   width: 100%;
@@ -110,9 +99,33 @@
   color: var(--admin-muted);
   padding: 15px 20px;
   background: #f0ede8;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
 }
 
 .admin-table td {
   padding: 18px 20px;
   border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 12px;
 }
+
+.admin-badge {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.badge-green { background: rgba(39,174,96,0.1); color: var(--admin-green); border-color: rgba(39,174,96,0.2); }
+.badge-gold { background: var(--admin-goldbg); color: var(--admin-gold); border-color: var(--admin-goldborder); }
+.badge-red { background: rgba(192,57,43,0.1); color: var(--admin-red); border-color: rgba(192,57,43,0.2); }
+.badge-blue { background: rgba(41,128,185,0.1); color: var(--admin-blue); border-color: rgba(41,128,185,0.2); }
+
+.font-bebas { font-family: 'Bebas Neue', cursive; }
+
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.bar-lbl { width: 120px; font-size: 11px; color: var(--admin-muted); font-weight: 600; }
+.bar-track { flex: 1; height: 10px; background: var(--admin-surface3); border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--admin-gold), var(--admin-gold2)); border-radius: 5px; }
+.bar-val { width: 70px; font-size: 11px; font-weight: 800; text-align: right; }

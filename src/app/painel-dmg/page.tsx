@@ -6,10 +6,15 @@ import Head from "next/head";
 import Image from "next/image";
 import "./admin.css";
 
-// Importando os novos componentes modulares
+// Layout
 import { AdminHeader } from "./components/layout/AdminHeader";
 import { AdminSidebar } from "./components/layout/AdminSidebar";
+
+// Páginas Implementadas
 import { DashboardPage } from "./components/pages/DashboardPage";
+import { ArtistsPage } from "./components/pages/ArtistsPage";
+import { CatalogPage } from "./components/pages/CatalogPage";
+import { SyncPage } from "./components/pages/SyncPage";
 
 export default function PainelDmgPage() {
   const [hydrated, setHydrated] = useState(false);
@@ -43,6 +48,15 @@ export default function PainelDmgPage() {
     localStorage.removeItem('dr_admin_auth');
   }
 
+  const renderActivePage = () => {
+    switch (activePage) {
+      case 'dashboard': return <DashboardPage />;
+      case 'artists': return <ArtistsPage />;
+      case 'catalog': return <CatalogPage />;
+      default: return <SyncPage pageName={activePage} />;
+    }
+  };
+
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-[#1a1814] flex items-center justify-center p-6 admin-body">
@@ -50,7 +64,7 @@ export default function PainelDmgPage() {
         <div className="bg-white w-full max-w-md rounded-[40px] p-12 shadow-2xl border-t-8 border-admin-gold animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="text-center mb-10">
             <Image src="/logodmg.png" alt="DMG Logo" width={180} height={60} className="mx-auto mb-8 object-contain" priority />
-            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-admin-text font-headline">Central de Comando</h1>
+            <h1 className="text-3xl font-black italic uppercase tracking-tighter text-admin-text font-bebas">Central de Comando</h1>
             <p className="text-[10px] font-black text-admin-gold uppercase tracking-[0.3em] mt-2">Acesso Restrito Executivo</p>
           </div>
 
@@ -98,37 +112,9 @@ export default function PainelDmgPage() {
 
       <main className="admin-main">
         <div className="p-10">
-          {activePage === 'dashboard' ? (
-            <DashboardPage />
-          ) : (
-            <div className="flex flex-col items-center justify-center py-32 text-center animate-in zoom-in-95 duration-500">
-              <div className="w-24 h-24 bg-admin-gold/10 rounded-full flex items-center justify-center text-admin-gold mb-6">
-                <Settings className="h-12 w-12 animate-spin-slow" />
-              </div>
-              <h2 className="text-5xl font-black italic uppercase tracking-tighter text-admin-text font-headline">Módulo em Sincronização</h2>
-              <p className="text-admin-muted font-semibold mt-4 max-w-md uppercase text-xs tracking-widest leading-loose">
-                A funcionalidade "{activePage.toUpperCase()}" está sendo integrada ao motor industrial da Dresbach Records.
-              </p>
-              <button 
-                onClick={() => setActivePage('dashboard')}
-                className="mt-10 admin-btn admin-btn-gold"
-              >
-                Voltar ao Dashboard
-              </button>
-            </div>
-          )}
+          {renderActivePage()}
         </div>
       </main>
-
-      <style jsx global>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 8s linear infinite;
-        }
-      `}</style>
     </div>
   );
 }
