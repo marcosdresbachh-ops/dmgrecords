@@ -11,20 +11,27 @@ import "./login.css";
 import { AdminHeader } from "./components/layout/AdminHeader";
 import { AdminSidebar } from "./components/layout/AdminSidebar";
 
-// Páginas Modulares
-import { DashboardPage } from "./components/pages/DashboardPage";
-import { ActivityPage } from "./components/pages/ActivityPage";
-import { ArtistsPage } from "./components/pages/ArtistsPage";
-import { CatalogPage } from "./components/pages/CatalogPage";
-import { AlbumsPage } from "./components/pages/AlbumsPage";
-import { ContractsPage } from "./components/pages/ContractsPage";
-import { DistributionPage } from "./components/pages/DistributionPage";
-import { RoyaltiesPage } from "./components/pages/RoyaltiesPage";
-import { AnalyticsPage } from "./components/pages/AnalyticsPage";
-import { SitePage } from "./components/pages/SitePage";
-import { UsersPage } from "./components/pages/UsersPage";
-import { SettingsPage } from "./components/pages/SettingsPage";
-import { SyncPage } from "./components/pages/SyncPage";
+// Páginas Modulares (20 Módulos)
+import { DashboardPage } from "./components/pages/DashboardPage/DashboardPage";
+import { ActivityPage } from "./components/pages/ActivityPage/ActivityPage";
+import { ArtistsPage } from "./components/pages/ArtistsPage/ArtistsPage";
+import { CatalogPage } from "./components/pages/CatalogPage/CatalogPage";
+import { AlbumsPage } from "./components/pages/AlbumsPage/AlbumsPage";
+import { ContractsPage } from "./components/pages/ContractsPage/ContractsPage";
+import { DistributionPage } from "./components/pages/DistributionPage/DistributionPage";
+import { PlatformsPage } from "./components/pages/PlatformsPage/PlatformsPage";
+import { ReleasesPage } from "./components/pages/ReleasesPage/ReleasesPage";
+import { RoyaltiesPage } from "./components/pages/RoyaltiesPage/RoyaltiesPage";
+import { PaymentsPage } from "./components/pages/PaymentsPage/PaymentsPage";
+import { InvoicesPage } from "./components/pages/InvoicesPage/InvoicesPage";
+import { AnalyticsPage } from "./components/pages/AnalyticsPage/AnalyticsPage";
+import { MarketingPage } from "./components/pages/MarketingPage/MarketingPage";
+import { LicensesPage } from "./components/pages/LicensesPage/LicensesPage";
+import { SitePage } from "./components/pages/SitePage/SitePage";
+import { HubPage } from "./components/pages/HubPage/HubPage";
+import { ReportsPage } from "./components/pages/ReportsPage/ReportsPage";
+import { UsersPage } from "./components/pages/UsersPage/UsersPage";
+import { SettingsPage } from "./components/pages/SettingsPage/SettingsPage";
 
 export default function PainelDmgPage() {
   const [hydrated, setHydrated] = useState(false);
@@ -67,12 +74,20 @@ export default function PainelDmgPage() {
       case 'albums': return <AlbumsPage />;
       case 'contracts': return <ContractsPage />;
       case 'distribution': return <DistributionPage />;
+      case 'platforms': return <PlatformsPage />;
+      case 'releases': return <ReleasesPage />;
       case 'royalties': return <RoyaltiesPage />;
+      case 'payments': return <PaymentsPage />;
+      case 'invoices': return <InvoicesPage />;
       case 'analytics': return <AnalyticsPage />;
+      case 'marketing': return <MarketingPage />;
+      case 'licenses': return <LicensesPage />;
       case 'site': return <SitePage />;
+      case 'hub': return <HubPage />;
+      case 'reports': return <ReportsPage />;
       case 'users': return <UsersPage />;
       case 'settings': return <SettingsPage />;
-      default: return <SyncPage pageName={activePage} />;
+      default: return <DashboardPage />;
     }
   };
 
@@ -124,7 +139,6 @@ export default function PainelDmgPage() {
 
   return (
     <div className="admin-body min-h-screen">
-      <Head><title>Dresbach Records — Painel Administrativo</title></Head>
       <AdminHeader onLogout={handleLogout} />
       <AdminSidebar activePage={activePage} onPageChange={setActivePage} />
       <main className="admin-main" style={{ marginLeft: 'var(--admin-sidebar-w)', paddingTop: 'var(--admin-topbar-h)' }}>

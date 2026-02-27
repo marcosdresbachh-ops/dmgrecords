@@ -1,0 +1,49 @@
+
+.platform-card {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.platform-card:hover {
+  border-color: var(--admin-gold);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+}
+
+.platform-card.active {
+  border-bottom: 4px solid var(--admin-green);
+}
+
+.platform-icon {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.platform-name {
+  font-family: 'Bebas Neue';
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: var(--admin-text);
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.platform-tracks {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--admin-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.platform-type {
+  font-size: 10px;
+  color: var(--admin-muted2);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 2px;
+}
