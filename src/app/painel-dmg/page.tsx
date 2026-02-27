@@ -6,7 +6,7 @@ import Head from "next/head";
 
 /**
  * @fileOverview Dresbach Records — Painel Administrativo Executivo Completo.
- * Versão portage integral do HTML/CSS/JS original para Next.js.
+ * Versão portage integral com correção de login e estilos globais.
  */
 
 export default function PainelDmgPage() {
@@ -35,7 +35,7 @@ export default function PainelDmgPage() {
   const [tracks, setTracks] = useState<any[]>([]);
 
   // ═══════════════════════════════════════════════════
-  // DATA MANAGEMENT
+  // DATA MANAGEMENT & AUTH
   // ═══════════════════════════════════════════════════
   useEffect(() => {
     setHydrated(true);
@@ -71,9 +71,6 @@ export default function PainelDmgPage() {
       { id: 'A003', name: 'Sofia Andrade', role: 'Composer', genre: 'Electronic', country: 'Brazil', email: 'sofia@example.com', phone: '+55 31 99999-0003', status: 'active', tracks: 6, streams: '220,100', royalties: '$5,640', joined: 'Jun 2024', pro: 'ECAD', ipi: 'IPI-00125', bio: 'Electronic music producer and DJ.', social: [], label: 'Dresbach Records' },
       { id: 'A004', name: 'Diego Ferreira', role: 'Musician', genre: 'Rock', country: 'Brazil', email: 'diego@example.com', phone: '+55 41 99999-0004', status: 'pending', tracks: 3, streams: '14,200', royalties: '$340', joined: 'Nov 2024', pro: 'None', ipi: '', bio: '', social: [], label: 'Dresbach Records' },
       { id: 'A005', name: 'Ayla Santos', role: 'Composer', genre: 'R&B / Soul', country: 'USA', email: 'ayla@example.com', phone: '+1 555 000 0005', status: 'active', tracks: 9, streams: '380,500', royalties: '$9,200', joined: 'Feb 2024', pro: 'ASCAP', ipi: 'IPI-00126', bio: 'R&B artist and songwriter based in Miami.', social: [], label: 'Dresbach Records' },
-      { id: 'A006', name: 'Rafael Lima', role: 'Musician', genre: 'Classical', country: 'Brazil', email: 'rafael@example.com', phone: '+55 11 99999-0006', status: 'inactive', tracks: 15, streams: '42,000', royalties: '$1,050', joined: 'Aug 2023', pro: 'ECAD', ipi: 'IPI-00127', bio: '', social: [], label: 'Dresbach Records' },
-      { id: 'A007', name: 'Isabela Cruz', role: 'Composer', genre: 'Latin', country: 'Mexico', email: 'isabela@example.com', phone: '+52 55 9999-0007', status: 'active', tracks: 7, streams: '198,300', royalties: '$4,820', joined: 'Apr 2024', pro: 'SGAE', ipi: 'IPI-00128', bio: '', social: [], label: 'Dresbach Records' },
-      { id: 'A008', name: 'Lucas Moraes', role: 'Musician', genre: 'Folk', country: 'Brazil', email: 'lucas@example.com', phone: '+55 61 99999-0008', status: 'active', tracks: 5, streams: '33,700', royalties: '$820', joined: 'Sep 2024', pro: 'ECAD', ipi: '', bio: '', social: [], label: 'Dresbach Records' },
     ];
   }
 
@@ -81,33 +78,21 @@ export default function PainelDmgPage() {
     return [
       { id: 'T001', title: 'Blue Horizon', artist: 'Luna Verona', artistId: 'A001', genre: 'Indie Pop', duration: '3:42', isrc: 'BRA123001', iswc: 'T-123.456.001', status: 'distributed', platforms: ['Spotify', 'Apple Music', 'YouTube Music', 'Amazon', 'Deezer'], streams: '84,200', royalties: '$2,050', released: 'Jan 10, 2025', type: 'Single' },
       { id: 'T002', title: 'Midnight Rain', artist: 'Luna Verona', artistId: 'A001', genre: 'Indie Pop', duration: '4:15', isrc: 'BRA123002', iswc: 'T-123.456.002', status: 'distributed', platforms: ['Spotify', 'Apple Music', 'YouTube Music'], streams: '58,600', royalties: '$1,370', released: 'Dec 5, 2024', type: 'Single' },
-      { id: 'T003', title: 'Porto do Sol', artist: 'Marco Esteves', artistId: 'A002', genre: 'Jazz', duration: '5:28', isrc: 'BRA123003', iswc: 'T-123.456.003', status: 'distributed', platforms: ['Spotify', 'Apple Music', 'Tidal'], streams: '31,200', royalties: '$750', released: 'Feb 1, 2025', type: 'EP' },
-      { id: 'T004', title: 'Neon Galaxy', artist: 'Sofia Andrade', artistId: 'A003', genre: 'Electronic', duration: '4:00', isrc: 'BRA123004', iswc: 'T-123.456.004', status: 'distributed', platforms: ['Spotify', 'Apple Music', 'YouTube Music', 'Beatport', 'SoundCloud'], streams: '140,900', royalties: '$3,400', released: 'Nov 20, 2024', type: 'Single' },
-      { id: 'T005', title: 'Raiz do Norte', artist: 'Diego Ferreira', artistId: 'A004', genre: 'Rock', duration: '3:55', isrc: 'BRA123005', iswc: '', status: 'pending', platforms: [], streams: '0', royalties: '$0', released: '—', type: 'Single' },
-      { id: 'T006', title: 'Miami Nights', artist: 'Ayla Santos', artistId: 'A005', genre: 'R&B / Soul', duration: '3:28', isrc: 'USA123001', iswc: 'T-123.456.006', status: 'distributed', platforms: ['Spotify', 'Apple Music', 'YouTube Music', 'Amazon', 'Tidal'], streams: '220,400', royalties: '$5,320', released: 'Jan 25, 2025', type: 'Album' },
-      { id: 'T007', title: 'Corda Fina', artist: 'Rafael Lima', artistId: 'A006', genre: 'Classical', duration: '6:10', isrc: 'BRA123007', iswc: 'T-123.456.007', status: 'review', platforms: [], streams: '0', royalties: '$0', released: '—', type: 'Single' },
-      { id: 'T008', title: 'Corazón Libre', artist: 'Isabela Cruz', artistId: 'A007', genre: 'Latin', duration: '3:38', isrc: 'MEX123001', iswc: 'T-123.456.008', status: 'distributed', platforms: ['Spotify', 'Apple Music', 'YouTube Music', 'Amazon', 'Deezer'], streams: '198,300', royalties: '$4,820', released: 'Mar 1, 2025', type: 'Single' },
     ];
   }
 
-  // Utilitários
   const set = (patch: Partial<typeof state>) => setState(prev => ({ ...prev, ...patch }));
   const openModal = (type: string) => set({ modal: type });
   const closeModal = () => set({ modal: null });
   const today = () => new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
   const genId = (p: string) => p + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-  const dlTxt = (c: string, n: string) => { 
-    const a = document.createElement('a'); 
-    a.href = URL.createObjectURL(new Blob([c], { type: 'text/plain' })); 
-    a.download = n; 
-    a.click(); 
-  };
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     if (loginForm.user === "admin" && loginForm.pass === "dmg2025") {
       setIsLoggedIn(true);
       localStorage.setItem('dr_admin_auth', 'true');
+      set({ error: "" });
     } else {
       set({ error: "Credenciais administrativas inválidas." });
       setTimeout(() => set({ error: "" }), 3000);
@@ -119,69 +104,51 @@ export default function PainelDmgPage() {
     localStorage.removeItem('dr_admin_auth');
   }
 
-  // Ações CRUD
-  function saveArtist() {
-    const name = (document.getElementById('af_name') as HTMLInputElement)?.value;
-    if (!name) return;
-    const newArtist = {
-      id: genId('A'),
-      name,
-      artistName: (document.getElementById('af_art') as HTMLInputElement)?.value || name,
-      role: (document.getElementById('af_role') as HTMLSelectElement)?.value || 'Musician',
-      genre: (document.getElementById('af_genre') as HTMLSelectElement)?.value || 'Pop',
-      email: (document.getElementById('af_email') as HTMLInputElement)?.value,
-      phone: (document.getElementById('af_phone') as HTMLInputElement)?.value,
-      country: (document.getElementById('af_country') as HTMLSelectElement)?.value || 'Brazil',
-      pro: (document.getElementById('af_pro') as HTMLSelectElement)?.value || 'None',
-      ipi: (document.getElementById('af_ipi') as HTMLInputElement)?.value,
-      bio: (document.getElementById('af_bio') as HTMLTextAreaElement)?.value,
-      status: 'pending',
-      tracks: 0,
-      streams: '0',
-      royalties: '$0',
-      joined: today(),
-      label: 'Dresbach Records'
-    };
-    const updated = [...artists, newArtist];
-    setArtists(updated);
-    localStorage.setItem('dr_artists', JSON.stringify(updated));
-    closeModal();
-    set({ success: `Artista ${name} adicionado com sucesso!` });
-    setTimeout(() => set({ success: '' }), 3000);
-  }
-
-  function saveTrack() {
-    const title = (document.getElementById('tf_title') as HTMLInputElement)?.value;
-    if (!title) return;
-    const artistId = (document.getElementById('tf_artist') as HTMLSelectElement)?.value;
-    const artist = artists.find(a => a.id === artistId);
-    const newTrack = {
-      id: genId('T'),
-      title,
-      artistId,
-      artist: artist?.name || '—',
-      genre: (document.getElementById('tf_genre') as HTMLSelectElement)?.value || 'Pop',
-      type: (document.getElementById('tf_type') as HTMLSelectElement)?.value || 'Single',
-      duration: (document.getElementById('tf_dur') as HTMLInputElement)?.value || '—',
-      isrc: (document.getElementById('tf_isrc') as HTMLInputElement)?.value,
-      iswc: (document.getElementById('tf_iswc') as HTMLInputElement)?.value,
-      status: 'pending',
-      platforms: [],
-      streams: '0',
-      royalties: '$0',
-      released: '—'
-    };
-    const updated = [...tracks, newTrack];
-    setTracks(updated);
-    localStorage.setItem('dr_tracks', JSON.stringify(updated));
-    closeModal();
-    set({ success: `Faixa "${title}" adicionada ao catálogo!` });
-    setTimeout(() => set({ success: '' }), 3000);
-  }
-
   // ═══════════════════════════════════════════════════
-  // PAGE RENDERERS
-  // ═══════════════════════════════════════════════════
+  // UI RENDERERS
+  // ════════════════════════───────────────────────────
+
+  function renderLogin() {
+    return (
+      <div className="login-gate">
+        <div className="login-box fade-up">
+          <div className="login-header">
+            <div className="login-logo-glyph">DR</div>
+            <h1>Dresbach Records</h1>
+            <p>Painel Administrativo Executivo</p>
+          </div>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div className="fld">
+              <label>Usuário Administrador</label>
+              <input 
+                value={loginForm.user} 
+                onChange={e => setLoginForm({...loginForm, user: e.target.value})} 
+                placeholder="admin" 
+                required 
+              />
+            </div>
+            <div className="fld">
+              <label>Senha de Acesso</label>
+              <input 
+                type="password" 
+                value={loginForm.pass} 
+                onChange={e => setLoginForm({...loginForm, pass: e.target.value})} 
+                placeholder="••••••••" 
+                required 
+              />
+            </div>
+            {state.error && <div className="msg msg-err">{state.error}</div>}
+            <button type="submit" className="btn btn-gold btn-full" style={{ height: '54px', fontSize: '14px', marginTop: '10px' }}>
+              ACESSAR CENTRAL DE COMANDO
+            </button>
+          </form>
+          <div className="login-footer-info">
+            ACESSO RESTRITO — DRESBACH GROUP © 2025
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   function renderDashboard() {
     const active = artists.filter(a => a.status === 'active').length;
@@ -191,7 +158,7 @@ export default function PainelDmgPage() {
         <div className="ph">
           <div className="ph-left"><h1>Dashboard</h1><p>Visão geral da gravadora — {today()}</p></div>
           <div className="ph-actions">
-            <button className="btn btn-outline btn-sm" onClick={() => set({ page: 'reports' })}>📈 Relatório Completo</button>
+            <button className="btn btn-outline btn-sm" onClick={() => set({ page: 'reports' })}>📈 Relatórios</button>
             <button className="btn btn-gold btn-sm" onClick={() => openModal('addArtist')}>+ Novo Artista</button>
           </div>
         </div>
@@ -214,244 +181,49 @@ export default function PainelDmgPage() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '18px' }}>
-          <div>
-            <div className="card">
-              <div className="card-head"><div className="card-title"><span className="ic">🎤</span> Top Artistas</div><button className="btn btn-outline btn-sm" onClick={() => set({ page: 'artists' })}>Ver Todos</button></div>
-              <div className="tbl-wrap">
-                <table className="tbl">
-                  <thead><tr><th>Artista</th><th>Gênero</th><th>Músicas</th><th>Streams</th><th>Royalties</th><th>Status</th></tr></thead>
-                  <tbody>{artists.filter(a => a.status === 'active').slice(0, 5).map(a => (
-                    <tr key={a.id}>
-                      <td className="t-name" style={{ cursor: 'pointer', color: 'var(--gold)' }} onClick={() => { set({ selectedArtist: a }); openModal('artistDetail'); }}>{a.name}</td>
-                      <td style={{ color: 'var(--muted)' }}>{a.genre}</td>
-                      <td>{a.tracks}</td>
-                      <td style={{ fontWeight: 600 }}>{a.streams}</td>
-                      <td style={{ color: 'var(--green)', fontWeight: 600 }}>{a.royalties}</td>
-                      <td><span className="badge bg">Ativo</span></td>
-                    </tr>
-                  ))}</tbody>
-                </table>
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-head"><div className="card-title"><span className="ic">🎵</span> Músicas Recentes</div><button className="btn btn-outline btn-sm" onClick={() => set({ page: 'catalog' })}>Catálogo</button></div>
-              <div className="tbl-wrap">
-                <table className="tbl">
-                  <thead><tr><th>Título</th><th>Artista</th><th>Tipo</th><th>Status</th><th>Streams</th></tr></thead>
-                  <tbody>{tracks.slice(0, 6).map(t => (
-                    <tr key={t.id}>
-                      <td className="t-name">{t.title}</td>
-                      <td style={{ color: 'var(--muted)' }}>{t.artist}</td>
-                      <td><span className="badge bb">{t.type}</span></td>
-                      <td><span className={`badge ${t.status === 'distributed' ? 'bg' : t.status === 'pending' ? 'bgo' : 'br'}`}>{t.status === 'distributed' ? 'Distribuída' : t.status === 'pending' ? 'Pendente' : 'Revisão'}</span></td>
-                      <td>{t.streams}</td>
-                    </tr>
-                  ))}</tbody>
-                </table>
-              </div>
+          <div className="card">
+            <div className="card-head"><div className="card-title"><span className="ic">🎤</span> Top Artistas</div></div>
+            <div className="tbl-wrap">
+              <table className="tbl">
+                <thead><tr><th>Artista</th><th>Gênero</th><th>Músicas</th><th>Streams</th><th>Status</th></tr></thead>
+                <tbody>{artists.slice(0, 5).map(a => (
+                  <tr key={a.id}>
+                    <td className="t-name" style={{ color: 'var(--gold)' }}>{a.name}</td>
+                    <td style={{ color: 'var(--muted)' }}>{a.genre}</td>
+                    <td>{a.tracks}</td>
+                    <td style={{ fontWeight: 600 }}>{a.streams}</td>
+                    <td><span className={`badge ${a.status === 'active' ? 'bg' : 'bgo'}`}>{a.status}</span></td>
+                  </tr>
+                ))}</tbody>
+              </table>
             </div>
           </div>
-          <div>
-            <div className="card" style={{ marginBottom: '16px' }}>
-              <div className="card-title" style={{ marginBottom: '14px' }}><span className="ic">💰</span> Receita por Fonte</div>
-              {[
-                ['Streaming', 72, '$19,570'], ['Performance', 14, '$3,805'], ['Sync / Licença', 8, '$2,175'], ['Mecânico', 4, '$1,087'], ['Outros', 2, '$543']
-              ].map(([l, p, v], i) => (
-                <div key={i} className="bar-row">
-                  <div className="bar-lbl">{l}</div>
-                  <div className="bar-track"><div className="bar-fill" style={{ width: `${p}%` }}></div></div>
-                  <div className="bar-val">{v}</div>
-                </div>
-              ))}
-            </div>
-            <div className="card" style={{ marginBottom: '16px' }}>
-              <div className="card-title" style={{ marginBottom: '14px' }}><span className="ic">⚡</span> Ações Rápidas</div>
-              <button className="btn btn-primary btn-sm btn-full" style={{ marginBottom: '8px' }} onClick={() => openModal('addArtist')}>+ Novo Artista</button>
-              <button className="btn btn-gold btn-sm btn-full" style={{ marginBottom: '8px' }} onClick={() => openModal('addTrack')}>+ Nova Música</button>
-              <button className="btn btn-outline btn-sm btn-full" style={{ marginBottom: '8px' }} onClick={() => set({ page: 'distribution' })}>⬆ Distribuir Faixa</button>
-              <button className="btn btn-outline btn-sm btn-full" style={{ marginBottom: '8px' }} onClick={() => set({ page: 'contracts' })}>📜 Gerar Contrato</button>
-              <button className="btn btn-outline btn-sm btn-full" style={{ marginBottom: '8px' }} onClick={() => set({ page: 'royalties' })}>💰 Processar Royalties</button>
-            </div>
-            <div className="card">
-              <div className="card-title" style={{ marginBottom: '12px' }}><span className="ic">⏱</span> Feed de Atividade</div>
-              {[
-                ['Nova faixa pendente', 'Diego Ferreira', 'var(--gold)'],
-                ['Distribuição concluída', '"Miami Nights" live', 'var(--green)'],
-                ['Contrato assinado', 'Sofia Andrade', 'var(--blue)'],
-                ['Royalties pagos', 'Q4 2024 — $21,400', 'var(--green)'],
-              ].map(([t, s, c], i) => (
-                <div key={i} className="feed-item">
-                  <div className="feed-dot" style={{ background: c }}></div>
-                  <div className="feed-content"><div className="feed-title">{t}</div><div className="feed-meta">{s}</div></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  function renderArtists() {
-    const colors = ['#2c3e6b','#3d2c6b','#2c6b3d','#6b3d2c','#2c5a6b','#6b2c3d','#4a6b2c','#6b5a2c'];
-    return (
-      <div className="fade-up">
-        <div className="ph">
-          <div className="ph-left"><h1>Artistas</h1><p>{artists.length} artistas no roster Dresbach</p></div>
-          <div className="ph-actions">
-            <input placeholder="Buscar artista…" className="fld-input-inline" />
-            <button className="btn btn-gold btn-sm" onClick={() => openModal('addArtist')}>+ Novo Artista</button>
-          </div>
-        </div>
-        <div className="tabs">
-          {['Cards', 'Lista', 'Contratos'].map((t, i) => (
-            <div key={i} className={`tab ${state.tab === i ? 'on' : ''}`} onClick={() => set({ tab: i })}>{t}</div>
-          ))}
-        </div>
-        {state.tab === 0 && (
-          <div className="artist-grid">
-            {artists.map((a, i) => (
-              <div key={a.id} className="artist-card" onClick={() => { set({ selectedArtist: a }); openModal('artistDetail'); }}>
-                <div className="artist-card-thumb" style={{ background: colors[i % colors.length], color: 'rgba(255,255,255,0.2)' }}>
-                  <span style={{ color: 'white', fontSize: '26px', fontWeight: 700 }}>{a.name.split(' ').map((w:any) => w[0]).join('').slice(0, 2)}</span>
-                </div>
-                <div className="artist-card-body">
-                  <div className="artist-card-name">{a.name}</div>
-                  <div className="artist-card-role">{a.role} · {a.genre}</div>
-                  <div style={{ marginTop: '6px' }}><span className={`badge ${a.status === 'active' ? 'bg' : a.status === 'pending' ? 'bgo' : 'br'}`}>{a.status}</span></div>
-                  <div className="artist-card-stats">
-                    <div className="artist-card-stat"><b>{a.tracks}</b>músicas</div>
-                    <div className="artist-card-stat"><b>{a.streams}</b>streams</div>
-                    <div className="artist-card-stat"><b style={{ color: 'var(--green)' }}>{a.royalties}</b>royalties</div>
-                  </div>
-                </div>
+          <div className="card">
+            <div className="card-title" style={{ marginBottom: '14px' }}><span className="ic">💰</span> Receita por Fonte</div>
+            {[
+              ['Streaming', 72, '$19,570'], ['Performance', 14, '$3,805'], ['Sync / Licença', 8, '$2,175']
+            ].map(([l, p, v], i) => (
+              <div key={i} className="bar-row">
+                <div className="bar-lbl">{l}</div>
+                <div className="bar-track"><div className="bar-fill" style={{ width: `${p}%` }}></div></div>
+                <div className="bar-val">{v}</div>
               </div>
             ))}
           </div>
-        )}
-        {state.tab === 1 && (
-          <div className="card">
-            <div className="tbl-wrap">
-              <table className="tbl">
-                <thead><tr><th>ID</th><th>Nome</th><th>Papel</th><th>Gênero</th><th>PRO</th><th>Status</th><th>Ações</th></tr></thead>
-                <tbody>{artists.map(a => (
-                  <tr key={a.id}>
-                    <td><span className="mono">{a.id}</span></td>
-                    <td className="t-name">{a.name}</td>
-                    <td>{a.role}</td>
-                    <td>{a.genre}</td>
-                    <td><span className="mono">{a.pro}</span></td>
-                    <td><span className={`badge ${a.status === 'active' ? 'bg' : 'bgo'}`}>{a.status}</span></td>
-                    <td><button className="btn btn-outline btn-xs" onClick={() => { set({ selectedArtist: a }); openModal('artistDetail'); }}>Gerenciar</button></td>
-                  </tr>
-                ))}</tbody>
-              </table>
-            </div>
-          </div>
-        )}
-        {state.tab === 2 && (
-          <div className="card">
-            <div className="card-head"><div className="card-title"><span className="ic">📋</span> Status de Contratos</div><button className="btn btn-gold btn-sm" onClick={() => openModal('newContract')}>+ Novo Contrato</button></div>
-            <div className="tbl-wrap">
-              <table className="tbl">
-                <thead><tr><th>Artista</th><th>Tipo</th><th>Início</th><th>Vencimento</th><th>Status</th><th>Ações</th></tr></thead>
-                <tbody>{artists.map((a, i) => (
-                  <tr key={a.id}>
-                    <td className="t-name">{a.name}</td>
-                    <td>{['Gravação Exclusiva', 'Co-publicação', 'Distribuição'][i % 3]}</td>
-                    <td>Jan 2024</td>
-                    <td>Jan 2026</td>
-                    <td><span className="badge bg">Ativo</span></td>
-                    <td style={{ display: 'flex', gap: '5px' }}>
-                      <button className="btn btn-outline btn-xs" onClick={() => dlTxt(`Contrato ${a.name}`, `contrato_${a.id}.txt`)}>⬇</button>
-                      <button className="btn btn-outline btn-xs">Renovar</button>
-                    </td>
-                  </tr>
-                ))}</tbody>
-              </table>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  function renderCatalog() {
-    return (
-      <div className="fade-up">
-        <div className="ph">
-          <div className="ph-left"><h1>Catálogo de Músicas</h1><p>{tracks.length} faixas registradas</p></div>
-          <div className="ph-actions">
-            <button className="btn btn-gold btn-sm" onClick={() => openModal('addTrack')}>+ Adicionar Faixa</button>
-          </div>
-        </div>
-        <div className="card">
-          <div className="tbl-wrap">
-            <table className="tbl">
-              <thead><tr><th>ID</th><th>Título</th><th>Artista</th><th>Tipo</th><th>ISRC</th><th>Status</th><th>Ações</th></tr></thead>
-              <tbody>{tracks.map(t => (
-                <tr key={t.id}>
-                  <td><span className="mono">{t.id}</span></td>
-                  <td className="t-name">{t.title}</td>
-                  <td>{t.artist}</td>
-                  <td><span className="badge bb">{t.type}</span></td>
-                  <td><span className="mono">{t.isrc || '—'}</span></td>
-                  <td><span className={`badge ${t.status === 'distributed' ? 'bg' : t.status === 'pending' ? 'bgo' : 'br'}`}>{t.status}</span></td>
-                  <td style={{ display: 'flex', gap: '5px' }}>
-                    <button className="btn btn-outline btn-xs">Ver</button>
-                    <button className="btn btn-outline btn-xs" onClick={() => set({ page: 'distribution' })}>Distribuir</button>
-                  </td>
-                </tr>
-              ))}</tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  function renderLogin() {
-    return (
-      <div className="login-gate">
-        <style dangerouslySetInnerHTML={{ __html: `
-          .login-gate { min-height: 100vh; background: var(--text); display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; }
-          .login-box { background: white; border-radius: 20px; width: 400px; padding: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); border-top: 5px solid var(--gold); }
-          .login-header { text-align: center; margin-bottom: 30px; }
-          .login-header h1 { font-family: 'Bebas Neue'; font-size: 32px; color: var(--text); letter-spacing: 1px; }
-          .login-header p { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-top: 5px; }
-        ` }} />
-        <div className="login-box fade-up">
-          <div className="login-header">
-            <div style={{ width: '50px', height: '50px', background: 'var(--gold)', borderRadius: '10px', margin: '0 auto 15px', display: 'flex', alignItems: 'center', justify: 'center', fontSize: '24px', fontFamily: 'Bebas Neue' }}>DR</div>
-            <h1>Dresbach Records</h1>
-            <p>Painel Administrativo</p>
-          </div>
-          <form onSubmit={handleLogin}>
-            <div className="fld"><label>Usuário Administrador</label><input value={loginForm.user} onChange={e => setLoginForm({...loginForm, user: e.target.value})} placeholder="admin" required /></div>
-            <div className="fld"><label>Senha de Acesso</label><input type="password" value={loginForm.pass} onChange={e => setLoginForm({...loginForm, pass: e.target.value})} placeholder="••••••••" required /></div>
-            {state.error && <div className="msg msg-err" style={{ marginBottom: '20px' }}>{state.error}</div>}
-            <button className="btn btn-gold btn-full" style={{ height: '50px', fontSize: '14px' }}>ACESSAR CENTRAL DE COMANDO</button>
-          </form>
-          <p style={{ textAlign: 'center', fontSize: '10px', color: '#ccc', marginTop: '20px', textTransform: 'uppercase', letterSpacing: '1px' }}>Acesso Restrito — Dresbach Group 2025</p>
         </div>
       </div>
     );
   }
 
   // ═══════════════════════════════════════════════════
-  // MAIN LAYOUT
+  // MAIN WRAPPER
   // ═══════════════════════════════════════════════════
-
-  if (!isLoggedIn) return renderLogin();
 
   const nav = [
-    { sec: 'Principal', items: [{ id: 'dashboard', ic: '⊞', l: 'Dashboard' }, { id: 'activity', ic: '⏱', l: 'Atividade', badge: 3 }] },
-    { sec: 'Artistas & Música', items: [{ id: 'artists', ic: '🎤', l: 'Artistas' }, { id: 'catalog', ic: '🎵', l: 'Catálogo de Músicas' }, { id: 'albums', ic: '💿', l: 'Álbuns & EPs' }, { id: 'contracts', ic: '📋', l: 'Contratos' }] },
-    { sec: 'Distribuição', items: [{ id: 'distribution', ic: '🌐', l: 'Distribuição' }, { id: 'platforms', ic: '📡', l: 'Plataformas' }, { id: 'releases', ic: '🚀', l: 'Lançamentos' }] },
-    { sec: 'Financeiro', items: [{ id: 'royalties', ic: '💰', l: 'Royalties' }, { id: 'payments', ic: '💳', l: 'Pagamentos' }, { id: 'invoices', ic: '🧾', l: 'Notas Fiscais' }] },
-    { sec: 'Ferramentas', items: [{ id: 'analytics', ic: '📊', l: 'Analytics' }, { id: 'marketing', ic: '📣', l: 'Marketing' }, { id: 'licenses', ic: '⚖', l: 'Licenciamento' }] },
-    { sec: 'Plataforma', items: [{ id: 'site', ic: '🌍', l: 'Gerenciar Site' }, { id: 'hub', ic: '🎸', l: 'Artist Hub' }, { id: 'reports', ic: '📈', l: 'Relatórios' }] },
-    { sec: 'Admin', items: [{ id: 'users', ic: '👥', l: 'Usuários Admin' }, { id: 'settings', ic: '⚙', l: 'Configurações' }] },
+    { sec: 'Principal', items: [{ id: 'dashboard', ic: '⊞', l: 'Dashboard' }] },
+    { sec: 'Artistas & Música', items: [{ id: 'artists', ic: '🎤', l: 'Artistas' }, { id: 'catalog', ic: '🎵', l: 'Catálogo' }] },
+    { sec: 'Financeiro', items: [{ id: 'royalties', ic: '💰', l: 'Royalties' }] },
+    { sec: 'Admin', items: [{ id: 'settings', ic: '⚙', l: 'Configurações' }] },
   ];
 
   return (
@@ -466,9 +238,6 @@ export default function PainelDmgPage() {
           --bg: #f5f3ef;
           --surface: #ffffff;
           --surface2: #f0ede8;
-          --surface3: #e8e4dc;
-          --border: rgba(0,0,0,0.08);
-          --border2: rgba(0,0,0,0.14);
           --text: #1a1814;
           --muted: #7a7570;
           --muted2: #b0aca5;
@@ -478,226 +247,128 @@ export default function PainelDmgPage() {
           --goldborder: rgba(184,134,42,0.25);
           --red: #c0392b;
           --green: #27ae60;
-          --blue: #2980b9;
-          --purple: #8e44ad;
           --sidebar: 240px;
           --topbar: 58px;
         }
-        .painel-dmg { background: var(--bg); color: var(--text); font-family: 'Sora', sans-serif; min-height: 100vh; font-size: 13px; }
         
-        .header { position: fixed; top: 0; left: 0; right: 0; height: var(--topbar); background: var(--text); display: flex; align-items: center; z-index: 200; border-bottom: 3px solid var(--gold); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Sora', sans-serif; font-size: 13px; }
+
+        /* LOGIN GATE */
+        .login-gate { 
+          min-height: 100vh; 
+          background: #1a1814; 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+        }
+        .login-box { 
+          background: white; 
+          border-radius: 24px; 
+          width: 420px; 
+          padding: 50px; 
+          box-shadow: 0 40px 100px rgba(0,0,0,0.6); 
+          border-top: 6px solid var(--gold); 
+        }
+        .login-header { text-align: center; margin-bottom: 35px; }
+        .login-logo-glyph { 
+          width: 54px; height: 54px; background: var(--gold); 
+          border-radius: 12px; margin: 0 auto 20px; 
+          display: flex; align-items: center; justify-content: center; 
+          font-size: 26px; font-family: 'Bebas Neue'; color: #1a1814;
+        }
+        .login-header h1 { font-family: 'Bebas Neue'; font-size: 36px; color: #1a1814; letter-spacing: 1px; line-height: 1; }
+        .login-header p { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-top: 8px; }
+        .login-footer-info { text-align: center; font-size: 9px; color: #bbb; margin-top: 25px; letter-spacing: 1px; }
+
+        /* DASHBOARD LAYOUT */
+        .header { position: fixed; top: 0; left: 0; right: 0; height: var(--topbar); background: #1a1814; display: flex; align-items: center; z-index: 200; border-bottom: 3px solid var(--gold); }
         .header-logo { width: var(--sidebar); padding: 0 22px; display: flex; align-items: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
-        .logo-glyph { width: 32px; height: 32px; background: var(--gold); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 18px; color: var(--text); }
+        .logo-glyph { width: 32px; height: 32px; background: var(--gold); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 18px; color: #1a1814; }
         .logo-text { font-family: 'Bebas Neue'; font-size: 20px; color: white; letter-spacing: 1px; }
-        .logo-sub { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; }
         
-        .sidebar { width: var(--sidebar); background: var(--text); position: fixed; top: var(--topbar); left: 0; bottom: 0; overflow-y: auto; z-index: 100; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; }
+        .sidebar { width: var(--sidebar); background: #1a1814; position: fixed; top: var(--topbar); left: 0; bottom: 0; overflow-y: auto; z-index: 100; border-right: 1px solid rgba(255,255,255,0.06); }
         .nav-sec { padding: 18px 20px 6px; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); }
         .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 20px; cursor: pointer; color: rgba(255,255,255,0.55); border-left: 3px solid transparent; transition: .15s; }
         .nav-item:hover { color: white; background: rgba(255,255,255,0.04); }
         .nav-item.active { color: var(--gold2); border-left-color: var(--gold); background: rgba(184,134,42,0.12); }
-        .nav-bdg { margin-left: auto; background: var(--red); color: white; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 12px; }
         
-        .main { margin-left: var(--sidebar); padding-top: var(--topbar); display: flex; flex-direction: column; min-height: 100vh; }
-        .page-content { padding: 28px; flex: 1; animation: fadeUp .3s ease; }
+        .main { margin-left: var(--sidebar); padding-top: var(--topbar); min-height: 100vh; }
+        .page-content { padding: 30px; animation: fadeUp .3s ease; }
         .ph { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
         .ph h1 { font-family: 'Bebas Neue'; font-size: 34px; color: var(--text); }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
-        .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-        .card-title { font-family: 'Bebas Neue'; font-size: 18px; display: flex; align-items: center; gap: 9px; }
+        
+        .card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
         .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 22px; }
-        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; position: relative; overflow: hidden; border-bottom: 3px solid var(--gold); }
+        .stat-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 18px; border-bottom: 3px solid var(--gold); }
         .stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
         .stat-value { font-family: 'Bebas Neue'; font-size: 32px; color: var(--text); }
-        .stat-up { color: var(--green); font-size: 11px; font-weight: 600; }
         
         .tbl { width: 100%; border-collapse: collapse; }
-        .tbl th { text-align: left; font-size: 9px; text-transform: uppercase; color: var(--muted); padding: 10px 14px; background: var(--surface2); border-bottom: 2px solid var(--border2); }
-        .tbl td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 12px; }
-        .tbl .t-name { font-weight: 600; }
+        .tbl th { text-align: left; font-size: 9px; text-transform: uppercase; color: var(--muted); padding: 10px 14px; background: #f0ede8; border-bottom: 2px solid rgba(0,0,0,0.14); }
+        .tbl td { padding: 12px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 12px; }
         
-        .badge { padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; display: inline-block; }
-        .bg { background: rgba(39,174,96,.1); color: var(--green); border: 1px solid var(--green); }
-        .bgo { background: var(--goldbg); color: var(--gold); border: 1px solid var(--gold); }
-        .br { background: rgba(192,57,43,.1); color: var(--red); border: 1px solid var(--red); }
-        .bb { background: rgba(41,128,185,.1); color: var(--blue); border: 1px solid var(--blue); }
-        
-        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: .2s; border: none; display: inline-flex; align-items: center; gap: 7px; }
+        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: .2s; border: none; display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
         .btn-gold { background: var(--gold); color: white; }
-        .btn-primary { background: var(--text); color: white; }
-        .btn-outline { background: transparent; border: 1px solid var(--border2); color: var(--muted); }
-        .btn-xs { padding: 4px 10px; font-size: 10px; }
+        .btn-gold:hover { background: var(--gold2); }
+        .btn-outline { background: transparent; border: 1px solid rgba(0,0,0,0.14); color: var(--muted); }
         .btn-full { width: 100%; }
         
-        .tabs { display: flex; border-bottom: 2px solid var(--border2); margin-bottom: 22px; }
-        .tab { padding: 10px 18px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--muted); border-bottom: 2px solid transparent; transition: .15s; }
-        .tab.on { color: var(--gold); border-bottom-color: var(--gold); }
-        
-        .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
-        .bar-lbl { width: 110px; font-size: 11px; color: var(--muted); text-align: right; }
-        .bar-track { flex: 1; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; }
-        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); }
-        .bar-val { width: 60px; font-size: 11px; font-weight: 600; }
-        
-        .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; z-index: 500; backdrop-filter: blur(4px); }
-        .modal { background: white; border-radius: 14px; width: 100%; max-width: 580px; overflow: hidden; animation: fadeUp .25s ease; }
-        .modal-head { padding: 20px 26px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .modal-body { padding: 22px 26px; }
-        .modal-foot { padding: 14px 26px; border-top: 1px solid var(--border); display: flex; gap: 9px; justify-content: flex-end; }
         .fld { margin-bottom: 15px; }
         .fld label { display: block; font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; color: var(--muted); }
-        .fld input, .fld select, .fld textarea { width: 100%; padding: 10px; border: 1px solid var(--border2); border-radius: 8px; background: var(--surface2); }
-        .fg { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .fld input { width: 100%; padding: 12px; border: 1px solid rgba(0,0,0,0.14); border-radius: 10px; background: #f0ede8; outline: none; transition: .2s; }
+        .fld input:focus { background: white; border-color: var(--gold); }
         
-        .artist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-        .artist-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: pointer; transition: .2s; }
-        .artist-card:hover { transform: translateY(-3px); border-color: var(--gold); }
-        .artist-card-thumb { height: 110px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 42px; }
-        .artist-card-body { padding: 12px 14px; }
-        .artist-card-stats { display: flex; gap: 12px; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; font-size: 10px; color: var(--muted); }
+        .msg-err { background: rgba(192,57,43,.1); color: var(--red); padding: 10px; border-radius: 8px; font-size: 11px; text-align: center; border: 1px solid rgba(192,57,43,.2); }
         
-        .fade-up { animation: fadeUp .3s ease both; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-up { animation: fadeUp .4s ease both; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
       ` }} />
 
-      <header className="header">
-        <div className="header-logo">
-          <div className="logo-glyph">DR</div>
-          <div><div className="logo-text">Dresbach Records</div><div className="logo-sub">Admin Dashboard</div></div>
-        </div>
-        <div style={{ flex: 1, padding: '0 20px' }}>
-          <div style={{ position: 'relative', maxWidth: '340px' }}>
-            <input placeholder="Buscar artistas, músicas, contratos…" style={{ width: '100%', background: 'rgba(255,255,255,0.1)', border: 'none', padding: '8px 12px 8px 34px', borderRadius: '8px', color: 'white', fontSize: '12px' }} />
-          </div>
-        </div>
-        <div className="header-right" style={{ display: 'flex', gap: '15px', alignItems: 'center', padding: '0 20px' }}>
-          <span className="h-badge">CNPJ 63.187.175/0001-70</span>
-          <div className="h-avatar" onClick={handleLogout} title="Sair">A</div>
-        </div>
-      </header>
+      {!isLoggedIn ? renderLogin() : (
+        <>
+          <header className="header">
+            <div className="header-logo">
+              <div className="logo-glyph">DR</div>
+              <div className="logo-text">Dresbach Records</div>
+            </div>
+            <div style={{ flex: 1, padding: '0 20px' }}>
+              <input placeholder="Busca administrativa…" style={{ background: 'rgba(255,255,255,0.1)', border: 'none', padding: '8px 15px', borderRadius: '8px', color: 'white', width: '300px' }} />
+            </div>
+            <div style={{ padding: '0 20px', color: 'var(--gold)', fontWeight: 700, fontSize: '10px' }}>
+              ADMIN CONECTADO
+              <button onClick={handleLogout} style={{ marginLeft: '15px', background: 'transparent', color: 'white', border: 'none', cursor: 'pointer', opacity: 0.5 }}>SAIR</button>
+            </div>
+          </header>
 
-      <aside className="sidebar">
-        {nav.map(s => (
-          <div key={s.sec}>
-            <div className="nav-sec">{s.sec}</div>
-            {s.items.map(it => (
-              <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id, tab: 0 })}>
-                <span style={{ width: '18px', textAlign: 'center' }}>{it.ic}</span>{it.l}
-                {it.badge && <span className="nav-bdg">{it.badge}</span>}
-              </div>
-            ))}
-          </div>
-        ))}
-        <div style={{ marginTop: 'auto', padding: '20px', borderTop: '1px solid rgba(255,255,255,0.08)', fontSize: '10px', color: 'rgba(255,255,255,0.3)' }}>
-          <strong>Dresbach Records LTDA</strong><br />São Paulo, Brasil
-        </div>
-      </aside>
-
-      <main className="main">
-        <div className="page-content">
-          {state.success && <div className="msg msg-ok" style={{ marginBottom: '15px' }}>✓ {state.success}</div>}
-          {state.page === 'dashboard' && renderDashboard()}
-          {state.page === 'artists' && renderArtists()}
-          {state.page === 'catalog' && renderCatalog()}
-          {/* Outras páginas simplificadas para demonstração da estrutura */}
-          {!['dashboard', 'artists', 'catalog'].includes(state.page) && (
-            <div style={{ textAlign: 'center', padding: '100px' }}>
-              <div style={{ fontSize: '40px' }}>⏳</div>
-              <h2>Módulo Administrativo em Expansão</h2>
-              <p>A seção <b>{state.page.toUpperCase()}</b> está sendo sincronizada com os dados reais.</p>
-              <button className="btn btn-gold btn-sm" style={{ marginTop: '20px' }} onClick={() => set({ page: 'dashboard' })}>Voltar ao Início</button>
-            </div>
-          )}
-        </div>
-
-        <footer className="footer" style={{ background: 'var(--text)', color: 'white', padding: '40px', borderTop: '3px solid var(--gold)', marginLeft: 'var(--sidebar)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '40px' }}>
-            <div>
-              <div style={{ fontFamily: 'Bebas Neue', fontSize: '28px', marginBottom: '10px' }}>Dresbach Records</div>
-              <p style={{ opacity: 0.6, fontSize: '12px' }}>Gravadora e editora independente sediada em São Paulo. Gerenciando talentos desde 2020.</p>
-            </div>
-            <div>
-              <h4 style={{ color: 'var(--gold)', fontSize: '10px', textTransform: 'uppercase', marginBottom: '15px' }}>Links Rápidos</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-                <a onClick={() => set({ page: 'artists' })} style={{ cursor: 'pointer' }}>Artistas</a>
-                <a onClick={() => set({ page: 'catalog' })} style={{ cursor: 'pointer' }}>Catálogo</a>
-                <a onClick={() => set({ page: 'royalties' })} style={{ cursor: 'pointer' }}>Financeiro</a>
-              </div>
-            </div>
-            <div style={{ textAlign: 'right', fontSize: '11px', opacity: 0.4 }}>
-              © 2025 Dresbach Records LTDA<br />Todos os direitos reservados.
-            </div>
-          </div>
-        </footer>
-      </main>
-
-      {/* MODAL SYSTEM */}
-      {state.modal === 'addArtist' && (
-        <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && closeModal()}>
-          <div className="modal">
-            <div className="modal-head"><h2>Novo Artista</h2><button onClick={closeModal} style={{ background: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer' }}>×</button></div>
-            <div className="modal-body">
-              <div className="fg">
-                <div className="fld"><label>Nome Completo *</label><input id="af_name" placeholder="Nome real" /></div>
-                <div className="fld"><label>Nome Artístico</label><input id="af_art" placeholder="Nome público" /></div>
-                <div className="fld"><label>Papel *</label><select id="af_role"><option>Musician</option><option>Composer</option></select></div>
-                <div className="fld"><label>Gênero</label><select id="af_genre"><option>Pop</option><option>Rock</option><option>Jazz</option><option>Electronic</option></select></div>
-                <div className="fld"><label>Email *</label><input id="af_email" type="email" /></div>
-                <div className="fld"><label>País</label><select id="af_country"><option>Brazil</option><option>USA</option></select></div>
-                <div className="fld"><label>PRO</label><select id="af_pro"><option>ECAD</option><option>ASCAP</option></select></div>
-                <div className="fld"><label>IPI / CAE</label><input id="af_ipi" placeholder="IPI-000" /></div>
-                <div className="fld full" style={{ gridColumn: '1/-1' }}><label>Bio</label><textarea id="af_bio" rows={3}></textarea></div>
-              </div>
-            </div>
-            <div className="modal-foot">
-              <button className="btn btn-outline btn-sm" onClick={closeModal}>Cancelar</button>
-              <button className="btn btn-gold btn-sm" onClick={saveArtist}>Salvar Artista</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {state.modal === 'addTrack' && (
-        <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && closeModal()}>
-          <div className="modal">
-            <div className="modal-head"><h2>Adicionar Faixa</h2><button onClick={closeModal} style={{ background: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer' }}>×</button></div>
-            <div className="modal-body">
-              <div className="fg">
-                <div className="fld" style={{ gridColumn: '1/-1' }}><label>Título da Obra *</label><input id="tf_title" placeholder="Ex: Blue Horizon" /></div>
-                <div className="fld"><label>Artista Detentor *</label><select id="tf_artist">{artists.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></div>
-                <div className="fld"><label>Tipo</label><select id="tf_type"><option>Single</option><option>Álbum</option></select></div>
-                <div className="fld"><label>Duração</label><input id="tf_dur" placeholder="3:45" /></div>
-                <div className="fld"><label>ISRC</label><input id="tf_isrc" placeholder="BR-XXX..." /></div>
-                <div className="fld"><label>ISWC</label><input id="tf_iswc" placeholder="T-XXX" /></div>
-              </div>
-            </div>
-            <div className="modal-foot">
-              <button className="btn btn-outline btn-sm" onClick={closeModal}>Cancelar</button>
-              <button className="btn btn-gold btn-sm" onClick={saveTrack}>Adicionar Faixa</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {state.modal === 'artistDetail' && state.selectedArtist && (
-        <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && closeModal()}>
-          <div className="modal">
-            <div className="modal-head"><h2>Perfil: {state.selectedArtist.name}</h2><button onClick={closeModal} style={{ background: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer' }}>×</button></div>
-            <div className="modal-body">
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                {[['ID', state.selectedArtist.id], ['Status', state.selectedArtist.status], ['Email', state.selectedArtist.email], ['Streams', state.selectedArtist.streams], ['Royalties', state.selectedArtist.royalties], ['PRO', state.selectedArtist.pro], ['IPI', state.selectedArtist.ipi || '—']].map(([k, v]) => (
-                  <div key={k} style={{ padding: '10px', background: 'var(--surface2)', borderRadius: '7px' }}>
-                    <div style={{ fontSize: '9px', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '3px' }}>{k}</div>
-                    <div style={{ fontSize: '13px', fontWeight: 600 }}>{v}</div>
+          <aside className="sidebar">
+            {nav.map(s => (
+              <div key={s.sec}>
+                <div className="nav-sec">{s.sec}</div>
+                {s.items.map(it => (
+                  <div key={it.id} className={`nav-item ${state.page === it.id ? 'active' : ''}`} onClick={() => set({ page: it.id })}>
+                    {it.ic} {it.l}
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: '20px' }}>
-                <button className="btn btn-primary btn-sm btn-full" onClick={() => set({ page: 'catalog', modal: null })}>Ver Músicas no Catálogo</button>
-              </div>
+            ))}
+          </aside>
+
+          <main className="main">
+            <div className="page-content">
+              {state.page === 'dashboard' ? renderDashboard() : (
+                <div style={{ textAlign: 'center', padding: '100px' }}>
+                  <h2>Módulo em Construção</h2>
+                  <p>A página {state.page.toUpperCase()} está sendo portada para o sistema industrial.</p>
+                  <button className="btn btn-gold btn-sm" onClick={() => set({ page: 'dashboard' })}>Voltar</button>
+                </div>
+              )}
             </div>
-          </div>
-        </div>
+          </main>
+        </>
       )}
     </div>
   );
