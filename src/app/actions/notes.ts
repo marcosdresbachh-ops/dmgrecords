@@ -4,13 +4,14 @@
 import { revalidatePath } from 'next/cache';
 
 /**
- * @fileOverview Server Action que consome o Backend Express da DMG Records com resolução de porta dinâmica.
+ * @fileOverview Server Action para gerenciamento de notas via Backend Express com autodetecção de host.
  */
 
 function getBackendUrl() {
-  const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
-  if (baseUrl) return baseUrl;
-  const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
+  const envUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (envUrl) return envUrl;
+  
+  const port = process.env.BACKEND_PORT || '3001';
   return `http://localhost:${port}`;
 }
 
@@ -26,7 +27,7 @@ export async function getNotes() {
     if (!response.ok) throw new Error(`Erro na API: ${response.statusText}`);
     return await response.json();
   } catch (error) {
-    console.error('Falha ao buscar notas:', error);
+    console.error('[DMG-NOTES] Falha ao buscar notas:', error);
     return [];
   }
 }
@@ -39,12 +40,12 @@ export async function addNote(title: string) {
       body: JSON.stringify({ title }),
     });
 
-    if (!response.ok) throw new Error('Falha ao salvar nota no banco real.');
+    if (!response.ok) throw new Error('Falha ao salvar nota no backend.');
     
     revalidatePath('/hub');
     return await response.json();
   } catch (error) {
-    console.error('Erro na ação addNote:', error);
+    console.error('[DMG-NOTES] Erro na ação addNote:', error);
     return null;
   }
 }

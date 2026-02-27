@@ -5,15 +5,16 @@ import { revalidatePath } from 'next/cache';
 
 /**
  * @fileOverview Ponte de Dados Industrial entre Next.js e Backend Express.
- * Resolve a URL do backend dinamicamente para evitar dependência de porta fixa.
+ * Implementa autodetecção dinâmica de URL para flexibilidade de portas e ambientes.
  */
 
 function getBackendUrl() {
-  // Em produção, a URL deve estar no env. Em dev, usa localhost com fallback de porta.
-  const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
-  if (baseUrl) return baseUrl;
+  // 1. Prioridade para variáveis de ambiente (Produção/Nuvem)
+  const envUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (envUrl) return envUrl;
   
-  const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
+  // 2. Fallback para detecção de porta local (Desenvolvimento)
+  const port = process.env.BACKEND_PORT || '3001';
   return `http://localhost:${port}`;
 }
 
@@ -32,7 +33,7 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
     if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
     return await res.json();
   } catch (e) {
-    console.error(`Erro na chamada ${endpoint} em ${API_BASE}:`, e);
+    console.error(`[DMG-BRIDGE] Erro em ${endpoint}:`, e);
     return null;
   }
 }

@@ -2,13 +2,14 @@
 'use server';
 
 /**
- * @fileOverview Server Action para tarefas via Backend Express com resolução de porta dinâmica.
+ * @fileOverview Server Action para tarefas via Backend Express com resolução dinâmica de URL.
  */
 
 function getBackendUrl() {
-  const baseUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
-  if (baseUrl) return baseUrl;
-  const port = process.env.PORT || process.env.BACKEND_PORT || 3001;
+  const envUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL;
+  if (envUrl) return envUrl;
+  
+  const port = process.env.BACKEND_PORT || '3001';
   return `http://localhost:${port}`;
 }
 
@@ -26,7 +27,7 @@ export async function getTodos() {
 
     return await response.json();
   } catch (error) {
-    console.error('Erro de conexão API:', error);
+    console.error('[DMG-TODOS] Erro de conexão API:', error);
     return [];
   }
 }
