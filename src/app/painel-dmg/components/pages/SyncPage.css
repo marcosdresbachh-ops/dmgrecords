@@ -2,7 +2,7 @@
 .sync-container {
   display: flex;
   flex-direction: column;
-  items-center: center;
+  align-items: center;
   justify-content: center;
   padding: 128px 0;
   text-align: center;
@@ -11,7 +11,7 @@
 .sync-icon-box {
   width: 96px;
   height: 96px;
-  background: rgba(184, 134, 42, 0.1);
+  background: rgba(184,134,42,0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;

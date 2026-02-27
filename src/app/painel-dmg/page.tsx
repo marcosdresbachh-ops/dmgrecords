@@ -127,7 +127,7 @@ export default function PainelDmgPage() {
       <Head><title>Dresbach Records — Painel Administrativo</title></Head>
       <AdminHeader onLogout={handleLogout} />
       <AdminSidebar activePage={activePage} onPageChange={setActivePage} />
-      <main className="admin-main">
+      <main className="admin-main" style={{ marginLeft: 'var(--admin-sidebar-w)', paddingTop: 'var(--admin-topbar-h)' }}>
         <div className="p-10 pb-32">
           {renderActivePage()}
         </div>
