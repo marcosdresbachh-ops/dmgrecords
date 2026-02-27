@@ -6,7 +6,7 @@ import Head from "next/head";
 
 /**
  * @fileOverview Painel Administrativo DMG Records — Versão Absoluta.
- * Central de comando executiva com 20 módulos integrados.
+ * Central de comando executiva com 20 módulos integrados e fidelidade total ao modelo.
  */
 
 export default function PainelDmgPage() {
@@ -174,7 +174,7 @@ export default function PainelDmgPage() {
       default: return (
         <div style={{ textAlign: 'center', padding: '100px 20px' }}>
           <h2 style={{ fontFamily: 'Bebas Neue', fontSize: '42px', color: 'var(--text)' }}>Módulo em Sincronização</h2>
-          <p style={{ color: var('--muted'), marginTop: '10px' }}>A funcionalidade "{state.page.toUpperCase()}" está sendo integrada ao motor industrial.</p>
+          <p style={{ color: 'var(--muted)', marginTop: '10px' }}>A funcionalidade "{state.page.toUpperCase()}" está sendo integrada ao motor industrial.</p>
           <button className="btn btn-gold" style={{ marginTop: '20px' }} onClick={() => set({ page: 'dashboard' })}>Voltar ao Dashboard</button>
         </div>
       );
