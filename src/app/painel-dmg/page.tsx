@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -17,7 +18,9 @@ import {
   getAdminTracks, 
   createAdminArtist, 
   createAdminTrack,
-  updateTrackStatus 
+  getAdminActivity,
+  getAdminRoyalties,
+  getAdminSettings
 } from "@/app/actions/admin";
 
 // Modais UI
@@ -56,21 +59,43 @@ export default function PainelDmgPage() {
   const [activePage, setActivePage] = useState('dashboard');
   const [modal, setModal] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   
   // Estados de Dados do Backend
   const [data, setData] = useState({
     artists: [] as any[],
     tracks: [] as any[],
-    stats: {} as any
+    stats: {} as any,
+    activity: [] as any[],
+    royalties: {} as any,
+    settings: {} as any
   });
 
   const loadData = async () => {
-    const [artists, tracks, stats] = await Promise.all([
-      getAdminArtists(),
-      getAdminTracks(),
-      getAdminStats()
-    ]);
-    setData({ artists, tracks, stats });
+    setLoading(true);
+    try {
+      const [artists, tracks, stats, activity, royalties, settings] = await Promise.all([
+        getAdminArtists(),
+        getAdminTracks(),
+        getAdminStats(),
+        getAdminActivity(),
+        getAdminRoyalties(),
+        getAdminSettings()
+      ]);
+      
+      setData({ 
+        artists: artists || [], 
+        tracks: tracks || [], 
+        stats: stats || {},
+        activity: activity || [],
+        royalties: royalties || {},
+        settings: settings || {}
+      });
+    } catch (e) {
+      toast({ title: "Erro de Conexão", description: "O motor backend DMG não responde.", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -116,17 +141,12 @@ export default function PainelDmgPage() {
       email: formData.get("email"),
       country: formData.get("country"),
       role: formData.get("role") || 'Artista',
-      status: 'active',
-      tracks: 0,
-      streams: '0',
-      royalties: '$0',
-      joined: new Date().toLocaleDateString(),
-      pro: 'ECAD'
+      status: 'active'
     };
 
     const result = await createAdminArtist(payload);
     if (result) {
-      toast({ title: "Sucesso", description: "Artista salvo no banco de dados." });
+      toast({ title: "Sucesso", description: "Artista salvo no backend." });
       setModal(null);
       loadData();
     }
@@ -140,10 +160,7 @@ export default function PainelDmgPage() {
       artist: formData.get("artist"),
       genre: formData.get("genre"),
       isrc: formData.get("isrc"),
-      status: 'pending',
-      streams: '0',
-      royalties: '$0',
-      type: 'Single'
+      status: 'pending'
     };
 
     const result = await createAdminTrack(payload);
@@ -155,28 +172,28 @@ export default function PainelDmgPage() {
   };
 
   const renderActivePage = () => {
-    const props = { openModal, data, loadData };
+    const props = { openModal, data, loadData, loading };
     switch (activePage) {
       case 'dashboard': return <DashboardPage {...props} />;
-      case 'activity': return <ActivityPage />;
+      case 'activity': return <ActivityPage {...props} />;
       case 'artists': return <ArtistsPage {...props} />;
       case 'catalog': return <CatalogPage {...props} />;
       case 'albums': return <AlbumsPage {...props} />;
-      case 'contracts': return <ContractsPage />;
-      case 'distribution': return <DistributionPage />;
-      case 'platforms': return <PlatformsPage />;
-      case 'releases': return <ReleasesPage />;
-      case 'royalties': return <RoyaltiesPage />;
-      case 'payments': return <PaymentsPage />;
-      case 'invoices': return <InvoicesPage />;
-      case 'analytics': return <AnalyticsPage />;
-      case 'marketing': return <MarketingPage />;
-      case 'licenses': return <LicensesPage />;
-      case 'site': return <SitePage />;
-      case 'hub': return <HubPage />;
-      case 'reports': return <ReportsPage />;
-      case 'users': return <UsersPage />;
-      case 'settings': return <SettingsPage />;
+      case 'contracts': return <ContractsPage {...props} />;
+      case 'distribution': return <DistributionPage {...props} />;
+      case 'platforms': return <PlatformsPage {...props} />;
+      case 'releases': return <ReleasesPage {...props} />;
+      case 'royalties': return <RoyaltiesPage {...props} />;
+      case 'payments': return <PaymentsPage {...props} />;
+      case 'invoices': return <InvoicesPage {...props} />;
+      case 'analytics': return <AnalyticsPage {...props} />;
+      case 'marketing': return <MarketingPage {...props} />;
+      case 'licenses': return <LicensesPage {...props} />;
+      case 'site': return <SitePage {...props} />;
+      case 'hub': return <HubPage {...props} />;
+      case 'reports': return <ReportsPage {...props} />;
+      case 'users': return <UsersPage {...props} />;
+      case 'settings': return <SettingsPage {...props} />;
       default: return <DashboardPage {...props} />;
     }
   };
@@ -212,6 +229,11 @@ export default function PainelDmgPage() {
       <AdminSidebar activePage={activePage} onPageChange={setActivePage} />
       <main className="admin-main" style={{ marginLeft: 'var(--admin-sidebar-w)', paddingTop: 'var(--admin-topbar-h)' }}>
         <div className="p-10 pb-32 max-w-[1600px] mx-auto">
+          {loading && (
+            <div className="fixed top-20 right-10 z-50">
+              <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
           {renderActivePage()}
         </div>
       </main>

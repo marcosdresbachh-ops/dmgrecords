@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 /**
  * @fileOverview Ponte de Dados Industrial entre Next.js e Backend Express.
+ * Todas as chamadas para o backend na porta 3001 passam por aqui.
  */
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
@@ -19,7 +20,7 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
         ...options.headers,
       },
     });
-    if (!res.ok) throw new Error('API Error');
+    if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
     return await res.json();
   } catch (e) {
     console.error(`Erro na chamada ${endpoint}:`, e);
@@ -27,16 +28,18 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
   }
 }
 
+// 1 & 2. Dashboard
 export async function getAdminStats() {
-  return await apiFetch('/stats') || { activeArtists: 0, totalTracks: 0, platforms: 0, royaltiesQ1: "R$ 0", monthlyStreams: "0" };
+  return await apiFetch('/stats');
 }
 
 export async function getAdminActivity() {
-  return await apiFetch('/activity') || [];
+  return await apiFetch('/activity');
 }
 
+// 3. Artistas
 export async function getAdminArtists() {
-  return await apiFetch('/artists') || [];
+  return await apiFetch('/artists');
 }
 
 export async function createAdminArtist(payload: any) {
@@ -48,8 +51,9 @@ export async function createAdminArtist(payload: any) {
   return result;
 }
 
+// 4. Catálogo
 export async function getAdminTracks() {
-  return await apiFetch('/tracks') || [];
+  return await apiFetch('/tracks');
 }
 
 export async function createAdminTrack(payload: any) {
@@ -61,29 +65,70 @@ export async function createAdminTrack(payload: any) {
   return result;
 }
 
-export async function updateTrackStatus(id: string, status: string) {
-  const result = await apiFetch(`/tracks/${id}/status`, {
-    method: 'PATCH',
-    body: JSON.stringify({ status }),
-  });
-  revalidatePath('/painel-dmg');
-  return result;
-}
-
-export async function getAdminRoyalties() {
-  return await apiFetch('/royalties');
+// 5 & 6. Álbuns e Contratos
+export async function getAdminAlbums() {
+  return await apiFetch('/albums');
 }
 
 export async function getAdminContracts() {
-  return await apiFetch('/contracts') || [];
+  return await apiFetch('/contracts');
 }
 
+// 7, 8 & 9. Distribuição
 export async function getAdminDistribution() {
   return await apiFetch('/distribution');
 }
 
+export async function getAdminPlatforms() {
+  return await apiFetch('/platforms');
+}
+
+export async function getAdminReleases() {
+  return await apiFetch('/releases');
+}
+
+// 10, 11 & 12. Financeiro
+export async function getAdminRoyalties() {
+  return await apiFetch('/royalties');
+}
+
+export async function getAdminPayments() {
+  return await apiFetch('/payments');
+}
+
+export async function getAdminInvoices() {
+  return await apiFetch('/invoices');
+}
+
+// 13, 14 & 15. Analytics, Marketing, Licenciamento
+export async function getAdminAnalytics() {
+  return await apiFetch('/analytics');
+}
+
+export async function getAdminMarketing() {
+  return await apiFetch('/marketing');
+}
+
+export async function getAdminLicenses() {
+  return await apiFetch('/licenses');
+}
+
+// 16, 17 & 18. Plataforma
 export async function getAdminSiteConfig() {
   return await apiFetch('/site');
+}
+
+export async function getAdminHubMembers() {
+  return await apiFetch('/hub/members');
+}
+
+export async function generateAdminReport() {
+  return await apiFetch('/reports/generate', { method: 'POST' });
+}
+
+// 19 & 20. Admin
+export async function getAdminUsers() {
+  return await apiFetch('/users');
 }
 
 export async function getAdminSettings() {
