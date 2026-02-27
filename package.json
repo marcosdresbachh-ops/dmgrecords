@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 9002",
+    "dev": "concurrently \"next dev --turbopack -p 9002\" \"npm run dev --prefix backend\"",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
     "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "backend": "tsx backend/server.ts",
+    "backend": "npm run dev --prefix backend",
     "env:pull": "vercel env pull .env.development.local"
   },
   "dependencies": {
@@ -40,6 +40,7 @@
     "@supabase/supabase-js": "^2.48.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "dotenv": "^16.5.0",
