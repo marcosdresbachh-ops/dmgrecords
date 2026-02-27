@@ -14,7 +14,10 @@ function getBackendUrl() {
   if (envUrl) return envUrl;
   
   // 2. Fallback para detecção de porta local (Desenvolvimento)
+  // Em ambientes locais, o backend roda geralmente na 3001
   const port = process.env.BACKEND_PORT || '3001';
+  
+  // Se estivermos no servidor Next.js, usamos localhost.
   return `http://localhost:${port}`;
 }
 
@@ -22,7 +25,10 @@ const API_BASE = `${getBackendUrl()}/api/admin`;
 
 async function apiFetch(endpoint: string, options: RequestInit = {}) {
   try {
-    const res = await fetch(`${API_BASE}${endpoint}`, {
+    const url = `${API_BASE}${endpoint}`;
+    console.log(`[DMG-BRIDGE] Chamando API: ${url}`);
+    
+    const res = await fetch(url, {
       ...options,
       cache: 'no-store',
       headers: {
@@ -30,10 +36,15 @@ async function apiFetch(endpoint: string, options: RequestInit = {}) {
         ...options.headers,
       },
     });
-    if (!res.ok) throw new Error(`API Error: ${res.statusText}`);
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`API Error ${res.status}: ${errorText || res.statusText}`);
+    }
+    
     return await res.json();
   } catch (e) {
-    console.error(`[DMG-BRIDGE] Erro em ${endpoint}:`, e);
+    console.error(`[DMG-BRIDGE] Falha crítica em ${endpoint}:`, e);
     return null;
   }
 }
@@ -49,7 +60,8 @@ export async function getAdminActivity() {
 
 // 3. Artistas
 export async function getAdminArtists() {
-  return await apiFetch('/artists');
+  const data = await apiFetch('/artists');
+  return Array.isArray(data) ? data : [];
 }
 
 export async function createAdminArtist(payload: any) {
@@ -63,7 +75,8 @@ export async function createAdminArtist(payload: any) {
 
 // 4. Catálogo
 export async function getAdminTracks() {
-  return await apiFetch('/tracks');
+  const data = await apiFetch('/tracks');
+  return Array.isArray(data) ? data : [];
 }
 
 export async function createAdminTrack(payload: any) {
@@ -77,11 +90,11 @@ export async function createAdminTrack(payload: any) {
 
 // 5 & 6. Álbuns e Contratos
 export async function getAdminAlbums() {
-  return await apiFetch('/albums');
+  return await apiFetch('/albums') || [];
 }
 
 export async function getAdminContracts() {
-  return await apiFetch('/contracts');
+  return await apiFetch('/contracts') || [];
 }
 
 // 7, 8 & 9. Distribuição, Plataformas e Lançamentos
@@ -90,24 +103,24 @@ export async function getAdminDistribution() {
 }
 
 export async function getAdminPlatforms() {
-  return await apiFetch('/platforms');
+  return await apiFetch('/platforms') || [];
 }
 
 export async function getAdminReleases() {
-  return await apiFetch('/releases');
+  return await apiFetch('/releases') || [];
 }
 
 // 10, 11 & 12. Financeiro (Royalties, Pagamentos, NFs)
 export async function getAdminRoyalties() {
-  return await apiFetch('/royalties');
+  return await apiFetch('/royalties') || [];
 }
 
 export async function getAdminPayments() {
-  return await apiFetch('/payments');
+  return await apiFetch('/payments') || [];
 }
 
 export async function getAdminInvoices() {
-  return await apiFetch('/invoices');
+  return await apiFetch('/invoices') || [];
 }
 
 // 13, 14 & 15. Analytics, Marketing, Licenciamento
@@ -116,11 +129,11 @@ export async function getAdminAnalytics() {
 }
 
 export async function getAdminMarketing() {
-  return await apiFetch('/marketing');
+  return await apiFetch('/marketing') || [];
 }
 
 export async function getAdminLicenses() {
-  return await apiFetch('/licenses');
+  return await apiFetch('/licenses') || [];
 }
 
 // 16, 17 & 18. Plataforma
@@ -129,7 +142,7 @@ export async function getAdminSiteConfig() {
 }
 
 export async function getAdminHubMembers() {
-  return await apiFetch('/hub/members');
+  return await apiFetch('/hub/members') || [];
 }
 
 export async function generateAdminReport() {
@@ -138,7 +151,7 @@ export async function generateAdminReport() {
 
 // 19 & 20. Admin
 export async function getAdminUsers() {
-  return await apiFetch('/users');
+  return await apiFetch('/users') || [];
 }
 
 export async function getAdminSettings() {

@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import { createClient } from '@supabase/supabase-js';
 
+// Inicialização com as chaves reais fornecidas no .env
 const supabase = createClient(
   process.env.NEXT_PUBLIC_DMGSUPABASE_URL || '',
   process.env.NEXT_PUBLIC_DMGSUPABASE_ANON_KEY || ''
@@ -17,9 +18,9 @@ export const getStats = async (req: Request, res: Response) => {
   try {
     const { count: artists } = await supabase.from('artists').select('*', { count: 'exact', head: true });
     const { count: tracks } = await supabase.from('tracks').select('*', { count: 'exact', head: true });
-    const { data: rev } = await supabase.from('royalties').select('amount');
+    const { data: rev } = await supabase.from('royalties').select('net_amount');
     
-    const totalRev = rev?.reduce((acc, curr) => acc + Number(curr.amount), 0) || 0;
+    const totalRev = rev?.reduce((acc, curr) => acc + Number(curr.net_amount), 0) || 0;
 
     res.json({
       activeArtists: artists || 0,
@@ -37,7 +38,6 @@ export const getStats = async (req: Request, res: Response) => {
 // 2. Atividade
 export const getActivity = async (req: Request, res: Response) => {
   try {
-    // Busca as tracks mais recentes como atividade
     const { data } = await supabase.from('tracks').select('title, status, created_at').order('created_at', { ascending: false }).limit(5);
     const activity = data?.map(t => ({
       type: 'track',
@@ -56,7 +56,7 @@ export const getArtists = async (req: Request, res: Response) => {
   try {
     const { data, error } = await supabase.from('artists').select('*').order('name');
     if (error) throw error;
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -66,7 +66,7 @@ export const createArtist = async (req: Request, res: Response) => {
   try {
     const { data, error } = await supabase.from('artists').insert([req.body]).select();
     if (error) throw error;
-    res.status(201).json(data[0]);
+    res.status(201).json(data ? data[0] : {});
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -75,9 +75,21 @@ export const createArtist = async (req: Request, res: Response) => {
 // 4. Catálogo (Tracks)
 export const getTracks = async (req: Request, res: Response) => {
   try {
-    const { data, error } = await supabase.from('tracks').select('*, artists(name)').order('created_at', { ascending: false });
+    // Join real com artistas para exibir o nome
+    const { data, error } = await supabase
+      .from('tracks')
+      .select('*, artists(name)')
+      .order('created_at', { ascending: false });
+    
     if (error) throw error;
-    res.json(data);
+    
+    // Formata a resposta para manter o padrão que o front espera
+    const formatted = data?.map(t => ({
+      ...t,
+      artist: (t.artists as any)?.name || 'Desconhecido'
+    }));
+
+    res.json(formatted || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -87,7 +99,7 @@ export const createTrack = async (req: Request, res: Response) => {
   try {
     const { data, error } = await supabase.from('tracks').insert([req.body]).select();
     if (error) throw error;
-    res.status(201).json(data[0]);
+    res.status(201).json(data ? data[0] : {});
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -98,7 +110,7 @@ export const getAlbums = async (req: Request, res: Response) => {
   try {
     const { data, error } = await supabase.from('albums').select('*, artists(name)');
     if (error) throw error;
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -109,7 +121,7 @@ export const getContracts = async (req: Request, res: Response) => {
   try {
     const { data, error } = await supabase.from('contracts').select('*, artists(name)');
     if (error) throw error;
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -143,7 +155,7 @@ export const getPlatforms = async (req: Request, res: Response) => {
 export const getReleases = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('albums').select('*, artists(name)').order('release_date');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -153,7 +165,7 @@ export const getReleases = async (req: Request, res: Response) => {
 export const getRoyalties = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('royalties').select('*, artists(name)');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -163,7 +175,7 @@ export const getRoyalties = async (req: Request, res: Response) => {
 export const getPayments = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('payments').select('*, artists(name)');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -173,7 +185,7 @@ export const getPayments = async (req: Request, res: Response) => {
 export const getInvoices = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('invoices').select('*');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -195,7 +207,7 @@ export const getAnalytics = async (req: Request, res: Response) => {
 export const getMarketingCampaigns = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('marketing_campaigns').select('*');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -204,8 +216,8 @@ export const getMarketingCampaigns = async (req: Request, res: Response) => {
 // 15. Licenciamento
 export const getLicenses = async (req: Request, res: Response) => {
   try {
-    const { data } = await supabase.from('licenses').select('*, artists(name), tracks(title)');
-    res.json(data);
+    const { data } = await supabase.from('licenses').select('*, tracks(title)');
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -214,9 +226,9 @@ export const getLicenses = async (req: Request, res: Response) => {
 // 16. Gerenciar Site
 export const getSiteConfig = async (req: Request, res: Response) => {
   try {
-    const { data } = await supabase.from('site_config').select('*').single();
+    const { data } = await supabase.from('site_config').select('*').eq('id', 1).single();
     res.json(data || {
-      title: 'Dresbach Records — Gravadora Independente Brasileira',
+      title: 'DMG Records — Gravadora Independente Brasileira',
       description: 'Especializada em produção, mixagem e masterização.',
       seo: { keywords: 'trap, r&b, music, vini amaral' },
       contact: { email: 'contato@dmgrecords.com.br', phone: '+55 11 3000-0000' }
@@ -230,7 +242,7 @@ export const getSiteConfig = async (req: Request, res: Response) => {
 export const getHubMembers = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('artists').select('name, email, status, tracks').order('name');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -250,7 +262,7 @@ export const generateReport = async (req: Request, res: Response) => {
 export const getAdminUsers = async (req: Request, res: Response) => {
   try {
     const { data } = await supabase.from('admin_users').select('*');
-    res.json(data);
+    res.json(data || []);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -259,7 +271,7 @@ export const getAdminUsers = async (req: Request, res: Response) => {
 // 20. Configurações
 export const getSettings = async (req: Request, res: Response) => {
   try {
-    const { data } = await supabase.from('site_config').select('*').single();
+    const { data } = await supabase.from('site_config').select('*').eq('id', 1).single();
     res.json({
       company: {
         name: 'Dresbach Records LTDA',

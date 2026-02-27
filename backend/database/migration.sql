@@ -1,161 +1,158 @@
 
--- DMG RECORDS INDUSTRIAL DATABASE SCHEMA
--- Migration for Supabase / PostgreSQL
+-- SCRIPT DE MIGRAÇÃO INDUSTRIAL DMG RECORDS
+-- Copie e cole no SQL Editor do Supabase
 
 -- 1. Artistas
 CREATE TABLE IF NOT EXISTS artists (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
-  artist_slug TEXT UNIQUE NOT NULL,
+  artist_name TEXT,
   role TEXT DEFAULT 'Artista',
   genre TEXT,
   email TEXT UNIQUE,
   phone TEXT,
   country TEXT DEFAULT 'Brasil',
   status TEXT DEFAULT 'active',
-  pro TEXT DEFAULT 'None',
+  tracks INTEGER DEFAULT 0,
+  streams TEXT DEFAULT '0',
+  royalties TEXT DEFAULT 'R$ 0',
+  joined TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   ipi TEXT,
+  pro TEXT DEFAULT 'None',
   bio TEXT,
   avatar_url TEXT,
   banner_url TEXT,
-  instagram TEXT,
-  spotify TEXT,
-  whatsapp TEXT,
-  streams_total BIGINT DEFAULT 0,
-  royalties_total DECIMAL(12,2) DEFAULT 0.00,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 2. Obras (Tracks)
+-- 2. Tracks (Obras)
 CREATE TABLE IF NOT EXISTS tracks (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
   artist_id UUID REFERENCES artists(id) ON DELETE CASCADE,
   genre TEXT,
-  type TEXT DEFAULT 'Single', -- Single, EP, Album
   duration TEXT,
   isrc TEXT UNIQUE,
-  iswc TEXT,
-  status TEXT DEFAULT 'pending', -- pending, review, distributed
-  platforms JSONB DEFAULT '[]',
-  streams BIGINT DEFAULT 0,
-  royalties DECIMAL(12,2) DEFAULT 0.00,
-  released_at TIMESTAMP WITH TIME ZONE,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+  iswc TEXT UNIQUE,
+  status TEXT DEFAULT 'pending',
+  platforms TEXT[] DEFAULT '{}',
+  streams TEXT DEFAULT '0',
+  royalties TEXT DEFAULT 'R$ 0',
+  release_date TEXT,
+  type TEXT DEFAULT 'Single',
+  audio_url TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 3. Álbuns / EPs
+-- 3. Albuns / EPs
 CREATE TABLE IF NOT EXISTS albums (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
   artist_id UUID REFERENCES artists(id) ON DELETE CASCADE,
-  type TEXT DEFAULT 'Álbum',
-  release_date DATE,
-  upc TEXT,
-  status TEXT DEFAULT 'Em Produção',
+  type TEXT DEFAULT 'Album',
+  tracks_count INTEGER DEFAULT 0,
+  release_date TEXT,
+  upc TEXT UNIQUE,
+  status TEXT DEFAULT 'planning',
   cover_url TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- 4. Contratos
 CREATE TABLE IF NOT EXISTS contracts (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   artist_id UUID REFERENCES artists(id) ON DELETE CASCADE,
   type TEXT NOT NULL,
-  split_artist INTEGER DEFAULT 70,
-  split_label INTEGER DEFAULT 30,
-  status TEXT DEFAULT 'Ativo',
-  start_date DATE DEFAULT CURRENT_DATE,
-  expiry_date DATE,
-  exclusivity BOOLEAN DEFAULT TRUE,
+  is_exclusive BOOLEAN DEFAULT FALSE,
+  split_ratio TEXT DEFAULT '70/30',
+  start_date DATE,
+  end_date DATE,
+  status TEXT DEFAULT 'active',
   document_url TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 5. Financeiro: Royalties
+-- 5. Royalties
 CREATE TABLE IF NOT EXISTS royalties (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   artist_id UUID REFERENCES artists(id) ON DELETE CASCADE,
-  amount DECIMAL(12,2) NOT NULL,
-  source TEXT, -- Streaming, Sync, Performance
-  period TEXT, -- Q1 2025
+  period TEXT NOT NULL,
+  gross_amount DECIMAL(12,2) DEFAULT 0,
+  net_amount DECIMAL(12,2) DEFAULT 0,
   status TEXT DEFAULT 'pending',
-  processed_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 6. Financeiro: Pagamentos
+-- 6. Pagamentos
 CREATE TABLE IF NOT EXISTS payments (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   artist_id UUID REFERENCES artists(id) ON DELETE CASCADE,
-  amount DECIMAL(12,2) NOT NULL,
+  period TEXT,
   method TEXT DEFAULT 'PIX',
-  status TEXT DEFAULT 'Paid',
-  payment_date DATE DEFAULT CURRENT_DATE,
-  receipt_url TEXT
+  amount DECIMAL(12,2) NOT NULL,
+  payment_date DATE,
+  status TEXT DEFAULT 'pending',
+  receipt_url TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 7. Financeiro: Notas Fiscais
+-- 7. Invoices (Notas Fiscais)
 CREATE TABLE IF NOT EXISTS invoices (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  invoice_number TEXT UNIQUE NOT NULL,
-  client_name TEXT,
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  recipient TEXT NOT NULL,
   description TEXT,
   amount DECIMAL(12,2) NOT NULL,
-  status TEXT DEFAULT 'Emitida',
-  issue_date DATE DEFAULT CURRENT_DATE
+  issue_date DATE DEFAULT CURRENT_DATE,
+  status TEXT DEFAULT 'emitted',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 8. Marketing e Campanhas
+-- 8. Campanhas de Marketing
 CREATE TABLE IF NOT EXISTS marketing_campaigns (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   type TEXT,
-  artist_id UUID REFERENCES artists(id),
-  reach BIGINT DEFAULT 0,
-  clicks BIGINT DEFAULT 0,
-  budget DECIMAL(12,2) DEFAULT 0.00,
-  status TEXT DEFAULT 'Active'
+  artist_id UUID REFERENCES artists(id) ON DELETE SET NULL,
+  reach TEXT DEFAULT '0',
+  clicks TEXT DEFAULT '0',
+  budget TEXT,
+  status TEXT DEFAULT 'active',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- 9. Licenciamento
 CREATE TABLE IF NOT EXISTS licenses (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  work_id UUID REFERENCES tracks(id),
-  artist_id UUID REFERENCES artists(id),
-  licensee TEXT,
-  value DECIMAL(12,2) DEFAULT 0.00,
-  type TEXT DEFAULT 'Sync',
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  track_id UUID REFERENCES tracks(id) ON DELETE CASCADE,
+  licensee TEXT NOT NULL,
+  type TEXT,
   territory TEXT DEFAULT 'Worldwide',
-  status TEXT DEFAULT 'Active',
-  expiry_date DATE
+  amount DECIMAL(12,2) DEFAULT 0,
+  validity TEXT,
+  status TEXT DEFAULT 'active',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 10. Notas de Produção (Dashboard)
-CREATE TABLE IF NOT EXISTS production_notes (
-  id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
-  content TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
-);
-
--- 11. Configuração do Site
+-- 10. Configuração do Site
 CREATE TABLE IF NOT EXISTS site_config (
   id INTEGER PRIMARY KEY DEFAULT 1,
   title TEXT,
   description TEXT,
-  seo_keywords TEXT,
+  keywords TEXT,
   contact_email TEXT,
   contact_phone TEXT,
   address TEXT,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
+  google_analytics_id TEXT,
+  facebook_pixel_id TEXT,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  CONSTRAINT single_row CHECK (id = 1)
 );
 
--- 12. Usuários Admin
-CREATE TABLE IF NOT EXISTS admin_users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name TEXT NOT NULL,
-  email TEXT UNIQUE NOT NULL,
-  role TEXT DEFAULT 'Admin',
-  access_level TEXT DEFAULT 'Total',
-  last_login TIMESTAMP WITH TIME ZONE
-);
+-- Inserir dados iniciais para teste (Seeds)
+INSERT INTO artists (name, artist_name, genre, email, country, status, tracks, streams, royalties) 
+VALUES ('Vini Amaral', 'Vini Amaral', 'R&B / Trap', 'vini@dmgrecords.com.br', 'Brasil', 'active', 12, '1.2M', 'R$ 5.420')
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO site_config (id, title, description, contact_email, address)
+VALUES (1, 'Dresbach Records', 'Gravadora Independente Oficial', 'contato@dmgrecords.com.br', 'Taquara, RS Brasil')
+ON CONFLICT (id) DO NOTHING;
