@@ -12,13 +12,13 @@ export function Djs() {
     return (
         <div className="fi grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
             {djs.map((dj, index) => (
-                <div key={index} className="rounded-lg border border-[--line] bg-[--bg2] px-5 py-7 text-center transition-all hover:-translate-y-1 hover:border-[--red] hover:shadow-[0_12px_36px_rgba(0,0,0,.09)]">
-                    <div className="mx-auto mb-3.5 flex h-16 w-16 items-center justify-center rounded-full bg-[--red] font-['Playfair_Display',serif] text-2xl font-black text-white">
+                <div key={index} className="rounded-lg border border-border bg-card px-5 py-7 text-center transition-all hover:-translate-y-1 hover:border-primary hover:shadow-[0_12px_36px_rgba(0,0,0,.09)]">
+                    <div className="mx-auto mb-3.5 flex h-16 w-16 items-center justify-center rounded-full bg-primary font-['Playfair_Display',serif] text-2xl font-black text-primary-foreground">
                         {dj.avatar}
                     </div>
                     <div className="mb-1 font-['Playfair_Display',serif] text-base font-bold">{dj.name}</div>
-                    <div className="mb-2 text-[.78rem] text-[--ink3]">{dj.show}</div>
-                    <div className="font-['DM_Mono',monospace] text-[.6rem] tracking-[.12em] text-[--red]">{dj.horario}</div>
+                    <div className="mb-2 text-[.78rem] text-muted-foreground">{dj.show}</div>
+                    <div className="font-['DM_Mono',monospace] text-[.6rem] tracking-[.12em] text-primary">{dj.horario}</div>
                 </div>
             ))}
         </div>

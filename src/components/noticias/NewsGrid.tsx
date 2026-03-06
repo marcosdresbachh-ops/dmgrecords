@@ -7,7 +7,7 @@ const featured = {
     excerpt: "Em papo exclusivo com nossa equipe, a dupla revelou os bastidores do novo projeto e agradeceu ao carinho dos ouvintes ao longo de todos esses anos. Uma conversa emocionante e cheia de revelações surpreendentes sobre o futuro da dupla.",
     date: "15 Jan 2025",
     tag: "Destaque",
-    gradient: "linear-gradient(135deg,#1a1a2e,#D4243A)",
+    gradient: "linear-gradient(135deg,#1a1a2e,var(--red))",
     emoji: "🎤"
 };
 
@@ -26,7 +26,7 @@ const secondary = [
 ];
 
 const NewsCard = ({ article, isFeatured, isSmall }: any) => (
-    <div className={`overflow-hidden rounded-lg border border-[--line] bg-[--bg2] transition-all hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(0,0,0,.1)]`}>
+    <div className={`overflow-hidden rounded-lg border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(0,0,0,.1)]`}>
         <div 
             className={`flex w-full items-center justify-center overflow-hidden text-5xl md:text-6xl ${isFeatured ? 'aspect-[16/7]' : 'aspect-[16/9]'} ${isSmall ? 'h-[120px]': ''}`} 
             style={{ background: article.gradient }}
@@ -34,18 +34,18 @@ const NewsCard = ({ article, isFeatured, isSmall }: any) => (
             {article.emoji}
         </div>
         <div className="p-5 md:p-6">
-            <div className="mb-2 flex items-center gap-1.5 font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-[--red]">
+            <div className="mb-2 flex items-center gap-1.5 font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-primary">
                 <article.icon className="h-3 w-3" /> {article.category}
             </div>
             <h3 className={`font-['Playfair_Display',serif] font-bold ${isFeatured ? 'text-2xl leading-tight' : 'text-lg leading-tight'}`}>
                 {article.title}
             </h3>
-            {article.excerpt && <p className="mt-2 text-[.8rem] leading-[1.72] text-[--ink3]">{article.excerpt}</p>}
+            {article.excerpt && <p className="mt-2 text-[.8rem] leading-[1.72] text-muted-foreground">{article.excerpt}</p>}
             <div className="mt-3 flex items-center gap-2.5">
-                <span className="flex items-center gap-1 font-['DM_Mono',monospace] text-[.58rem] text-[--ink3]">
+                <span className="flex items-center gap-1 font-['DM_Mono',monospace] text-[.58rem] text-muted-foreground">
                     <Calendar className="h-3 w-3" /> {article.date}
                 </span>
-                {article.tag && <span className="rounded-sm bg-[--red-light] px-2 py-0.5 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.12em] text-[--red]">{article.tag}</span>}
+                {article.tag && <span className="rounded-sm bg-primary/10 px-2 py-0.5 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.12em] text-primary">{article.tag}</span>}
             </div>
         </div>
     </div>

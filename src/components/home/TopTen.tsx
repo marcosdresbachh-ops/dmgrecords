@@ -15,25 +15,25 @@ const tracks=[
 
 export function TopTen() {
     return (
-        <section className="sec bg-[--bg3]" id="top">
+        <section className="sec bg-muted/50" id="top">
             <div className="sec-inner">
                 <div className="fi">
                     <SectionHeader eyebrow="Mais tocadas" title={<>Top <em>10</em> da Semana</>} />
                 </div>
                 <div className="fi mx-auto max-w-[760px]">
                     {tracks.map(t => (
-                        <div key={t.n} className="group flex cursor-default items-center gap-5 border-b border-[--line] py-4 transition-all md:gap-8 hover:pl-2.5">
-                            <span className="w-12 shrink-0 text-right font-['Playfair_Display',serif] text-3xl font-black text-[rgba(212,36,58,.15)] transition-colors group-hover:text-[--red]">
+                        <div key={t.n} className="group flex cursor-default items-center gap-5 border-b border-border py-4 transition-all md:gap-8 hover:pl-2.5">
+                            <span className="w-12 shrink-0 text-right font-['Playfair_Display',serif] text-3xl font-black text-primary/10 transition-colors group-hover:text-primary">
                                 {String(t.n).padStart(2,'0')}
                             </span>
                             <div className="flex-1">
-                                <div className="text-[.92rem] font-bold">{t.t}</div>
-                                <div className="mt-0.5 text-[.76rem] text-[--ink3]">{t.a}</div>
+                                <div className="text-[.92rem] font-bold text-foreground">{t.t}</div>
+                                <div className="mt-0.5 text-[.76rem] text-muted-foreground">{t.a}</div>
                             </div>
-                            <div className="hidden h-1 w-20 overflow-hidden rounded-sm bg-[--line] md:block">
-                                <div className="top-fill h-full rounded-sm bg-[--red] transition-[width] duration-700 ease-in-out" data-pct={t.p} style={{width: '0%'}}></div>
+                            <div className="hidden h-1 w-20 overflow-hidden rounded-sm bg-border md:block">
+                                <div className="top-fill h-full rounded-sm bg-primary transition-[width] duration-700 ease-in-out" data-pct={t.p} style={{width: '0%'}}></div>
                             </div>
-                            <span className="font-['DM_Mono',monospace] text-[.68rem] text-[--ink3]">{t.d}</span>
+                            <span className="font-['DM_Mono',monospace] text-[.68rem] text-muted-foreground">{t.d}</span>
                         </div>
                     ))}
                 </div>

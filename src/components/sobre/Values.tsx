@@ -13,12 +13,12 @@ export function Values() {
     return (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {values.map((value, index) => (
-                <div key={index} className="rounded-lg border border-[--line] bg-[--bg2] p-6 transition-all hover:-translate-y-1 hover:border-[--red] hover:shadow-[0_12px_36px_rgba(0,0,0,.09)]">
-                    <div className="mb-3.5 flex h-12 w-12 items-center justify-center rounded-full bg-[--red-light] text-[--red]">
+                <div key={index} className="rounded-lg border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary hover:shadow-[0_12px_36px_rgba(0,0,0,.09)]">
+                    <div className="mb-3.5 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <value.icon className="h-6 w-6" />
                     </div>
                     <div className="mb-2 font-['Playfair_Display',serif] text-base font-bold">{value.title}</div>
-                    <p className="text-[.8rem] leading-[1.7] text-[--ink3]">{value.desc}</p>
+                    <p className="text-[.8rem] leading-[1.7] text-muted-foreground">{value.desc}</p>
                 </div>
             ))}
         </div>

@@ -10,16 +10,16 @@ const timelineEvents = [
 
 export function Timeline() {
     return (
-        <div className="relative mt-12 before:absolute before:left-4 before:top-0 before:bottom-0 before:w-0.5 before:bg-[--line] md:before:left-5">
+        <div className="relative mt-12 before:absolute before:left-4 before:top-0 before:bottom-0 before:w-0.5 before:bg-border md:before:left-5">
             {timelineEvents.map((event, index) => (
                 <div key={index} className="relative mb-9 flex gap-6">
-                    <div className="z-[1] flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[--red] text-white md:h-10 md:w-10">
+                    <div className="z-[1] flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground md:h-10 md:w-10">
                         <event.icon className="h-4 w-4" />
                     </div>
                     <div>
-                        <div className="mb-1 font-['DM_Mono',monospace] text-[.62rem] tracking-[.14em] text-[--red]">{event.year}</div>
+                        <div className="mb-1 font-['DM_Mono',monospace] text-[.62rem] tracking-[.14em] text-primary">{event.year}</div>
                         <div className="mb-1 text-[.95rem] font-bold">{event.title}</div>
-                        <div className="text-[.82rem] leading-[1.65] text-[--ink3]">{event.desc}</div>
+                        <div className="text-[.82rem] leading-[1.65] text-muted-foreground">{event.desc}</div>
                     </div>
                 </div>
             ))}

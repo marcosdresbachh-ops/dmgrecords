@@ -32,17 +32,17 @@ const socials = [ Instagram, Facebook, Youtube, Twitter ];
 export function ContactChannels() {
     return (
         <div className="fi">
-            <h3 className="mb-3.5 font-['Playfair_Display',serif] text-2xl font-bold leading-tight">Nossos <em className="text-[--red] not-italic">canais</em> de atendimento</h3>
-            <p className="mb-7 text-[.9rem] leading-[1.75] text-[--ink3]">Atendemos de segunda a sexta das 9h às 18h. Para sugestões de música e pedidos, envie a qualquer hora!</p>
+            <h3 className="mb-3.5 font-['Playfair_Display',serif] text-2xl font-bold leading-tight">Nossos <em className="text-primary not-italic">canais</em> de atendimento</h3>
+            <p className="mb-7 text-[.9rem] leading-[1.75] text-muted-foreground">Atendemos de segunda a sexta das 9h às 18h. Para sugestões de música e pedidos, envie a qualquer hora!</p>
             <div className="mb-5 flex flex-col gap-3.5">
                 {channels.map((channel, index) => (
-                    <a key={index} href={channel.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3.5 rounded-md border border-[--line] bg-[--bg3] p-4 text-inherit transition-colors hover:border-[--red]">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[--red-light] text-[--red]">
+                    <a key={index} href={channel.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3.5 rounded-md border border-border bg-muted/50 p-4 text-inherit transition-colors hover:border-primary">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                             <channel.icon className="h-[17px] w-[17px]" />
                         </div>
                         <div>
-                            <div className="mb-0.5 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.18em] text-[--ink3]">{channel.label}</div>
-                            <div className="text-[.88rem] font-semibold">{channel.value}</div>
+                            <div className="mb-0.5 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.18em] text-muted-foreground">{channel.label}</div>
+                            <div className="text-[.88rem] font-semibold text-foreground">{channel.value}</div>
                         </div>
                     </a>
                 ))}
@@ -56,10 +56,10 @@ export function ContactChannels() {
                 <ArrowRight className="ml-auto h-4 w-4" />
             </a>
             <div>
-                <div className="mb-3 font-['DM_Mono',monospace] text-[.6rem] uppercase tracking-[.18em] text-[--ink3]">Redes Sociais</div>
+                <div className="mb-3 font-['DM_Mono',monospace] text-[.6rem] uppercase tracking-[.18em] text-muted-foreground">Redes Sociais</div>
                 <div className="flex gap-2.5">
                     {socials.map((Icon, index) => (
-                        <a key={index} href="#" className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-[--line] text-[--ink3] transition-all hover:border-[--red] hover:bg-[--red-light] hover:text-[--red]">
+                        <a key={index} href="#" className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border text-muted-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary">
                             <Icon className="h-[17px] w-[17px]" />
                         </a>
                     ))}

@@ -11,8 +11,8 @@ export function NewsFilters() {
             {filters.map(filter => (
                 <button 
                     key={filter}
-                    className={`cursor-pointer rounded-sm border-[1.5px] border-[--line] bg-transparent px-4 py-2 font-['DM_Mono',monospace] text-[.62rem] uppercase tracking-[.14em] text-[--ink3] transition-all
-                        ${activeFilter === filter ? 'border-[--red] bg-[--red-light] text-[--red]' : 'hover:border-[--red] hover:bg-[--red-light] hover:text-[--red]'}`}
+                    className={`cursor-pointer rounded-sm border border-border bg-transparent px-4 py-2 font-['DM_Mono',monospace] text-[.62rem] uppercase tracking-[.14em] text-muted-foreground transition-all
+                        ${activeFilter === filter ? 'border-primary bg-primary/10 text-primary' : 'hover:border-primary hover:bg-primary/10 hover:text-primary'}`}
                     onClick={() => setActiveFilter(filter)}
                 >
                     {filter}

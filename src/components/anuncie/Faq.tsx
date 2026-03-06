@@ -40,11 +40,11 @@ export function Faq() {
             <div style={{ maxWidth: '760px' }}>
                  <Accordion type="single" collapsible className="w-full">
                     {faqData.map((item, index) => (
-                         <AccordionItem value={`item-${index}`} key={index} className="border-b border-[--line]">
-                             <AccordionTrigger className="py-4.5 gap-3 text-left text-[.95rem] font-semibold hover:text-[--red] hover:no-underline">
+                         <AccordionItem value={`item-${index}`} key={index} className="border-b border-border">
+                             <AccordionTrigger className="py-4.5 gap-3 text-left text-[.95rem] font-semibold hover:text-primary hover:no-underline">
                                 {item.q}
                             </AccordionTrigger>
-                             <AccordionContent className="pb-4.5 pt-0 text-[.88rem] leading-[1.75] text-[--ink3]">
+                             <AccordionContent className="pb-4.5 pt-0 text-[.88rem] leading-[1.75] text-muted-foreground">
                                 {item.a}
                              </AccordionContent>
                          </AccordionItem>

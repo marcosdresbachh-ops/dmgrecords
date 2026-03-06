@@ -30,17 +30,17 @@ export function Testimonials() {
             />
              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
                 {testimonials.map((testimonial, index) => (
-                    <div key={index} className="rounded-lg border border-[--line] bg-[--bg2] p-6">
-                        <div className="mb-4 font-['Inter',sans-serif] text-[.88rem] italic leading-[1.75] text-[--ink2]">
+                    <div key={index} className="rounded-lg border border-border bg-card p-6">
+                        <div className="mb-4 font-['Inter',sans-serif] text-[.88rem] italic leading-[1.75] text-foreground/90">
                             {testimonial.quote}
                         </div>
                         <div className="flex items-center gap-2.5">
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[--red] font-['Playfair_Display',serif] text-[.85rem] font-black text-white">
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-['Playfair_Display',serif] text-[.85rem] font-black text-primary-foreground">
                                 {testimonial.avatar}
                             </div>
                             <div>
                                 <div className="text-[.85rem] font-bold">{testimonial.author}</div>
-                                <div className="text-[.74rem] text-[--ink3]">{testimonial.biz}</div>
+                                <div className="text-[.74rem] text-muted-foreground">{testimonial.biz}</div>
                             </div>
                         </div>
                     </div>

@@ -20,12 +20,12 @@ export function Features() {
                 </div>
                 <div className="fi grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {features.map((feat, index) => (
-                        <div key={index} className="rounded-lg border border-[--line] bg-[--bg2] p-7 transition-all hover:-translate-y-1 hover:border-[--red] hover:shadow-[0_12px_36px_rgba(0,0,0,.09)]">
-                            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[--red-light] text-[--red]">
+                        <div key={index} className="rounded-lg border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:border-primary hover:shadow-[0_12px_36px_rgba(0,0,0,.09)]">
+                            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                                 <feat.icon className="h-6 w-6" />
                             </div>
                             <div className="mb-2 font-['Playfair_Display',serif] text-lg font-bold">{feat.title}</div>
-                            <p className="text-[.8rem] leading-[1.7] text-[--ink3]">{feat.desc}</p>
+                            <p className="text-[.8rem] leading-[1.7] text-muted-foreground">{feat.desc}</p>
                         </div>
                     ))}
                 </div>

@@ -8,7 +8,7 @@ const locutores = [
       bio: "Com mais de 10 anos de rádio, DJ Marcos é a voz que acorda o Brasil. Seu jeito animado e descontraído conquista ouvintes de todas as idades.",
       shows: ["Bom Dia DMG", "Noite Pop"],
       horario: "Seg–Sex · 06h–09h",
-      gradient: "linear-gradient(135deg,#1a1a2e,#D4243A)"
+      gradient: "linear-gradient(135deg,#1a1a2e,var(--red))"
     },
     {
       avatar: "L",
@@ -98,23 +98,23 @@ const gestao = [
 
 
 const TeamCard = ({ member }: any) => (
-    <div className="overflow-hidden rounded-[10px] border border-[--line] bg-[--bg2] text-center transition-all hover:-translate-y-1.5 hover:border-[--red] hover:shadow-[0_16px_48px_rgba(0,0,0,.1)]">
+    <div className="overflow-hidden rounded-[10px] border border-border bg-card text-center transition-all hover:-translate-y-1.5 hover:border-primary hover:shadow-[0_16px_48px_rgba(0,0,0,.1)]">
         <div className="h-20" style={{ background: member.gradient }}></div>
         <div className="relative mx-auto -mt-10 mb-3 flex h-20 w-20 items-center justify-center rounded-full border-4 border-white font-['Playfair_Display',serif] text-3xl font-black text-white" style={{ background: member.gradient }}>
             {member.avatar}
         </div>
         <div className="px-5 pb-6">
             <div className="mb-1 font-['Playfair_Display',serif] text-lg font-black">{member.name}</div>
-            <div className="mb-2.5 font-['DM_Mono',monospace] text-[.6rem] uppercase tracking-[.16em] text-[--red]">{member.role}</div>
-            <p className="mb-3.5 text-[.8rem] leading-[1.7] text-[--ink3]">{member.bio}</p>
+            <div className="mb-2.5 font-['DM_Mono',monospace] text-[.6rem] uppercase tracking-[.16em] text-primary">{member.role}</div>
+            <p className="mb-3.5 text-[.8rem] leading-[1.7] text-muted-foreground">{member.bio}</p>
             {member.shows && (
                 <div className="mb-3.5 flex flex-wrap justify-center gap-1.5">
                     {member.shows.map((show: string) => (
-                        <span key={show} className="rounded-sm bg-[--bg3] px-2 py-0.5 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.1em] text-[--ink3]">{show}</span>
+                        <span key={show} className="rounded-sm bg-muted px-2 py-0.5 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.1em] text-muted-foreground">{show}</span>
                     ))}
                 </div>
             )}
-            <div className="flex items-center justify-center gap-1.5 font-['DM_Mono',monospace] text-[.6rem] tracking-[.12em] text-[--ink3]">
+            <div className="flex items-center justify-center gap-1.5 font-['DM_Mono',monospace] text-[.6rem] tracking-[.12em] text-muted-foreground">
                 {member.icon ? <member.icon className="h-3 w-3" /> : <Clock className="h-3 w-3" />}
                 {member.horario}
             </div>
@@ -129,8 +129,8 @@ export function TeamGrid() {
                 {locutores.map((member) => <TeamCard key={member.name} member={member} />)}
             </div>
 
-            <div className="fi my-6 block text-center font-['DM_Mono',monospace] text-[.6rem] tracking-[.2em] text-[--red] md:my-7">
-                <hr className="mb-7 mt-14 border-t-2 border-[--line]" />
+            <div className="fi my-6 block text-center font-['DM_Mono',monospace] text-[.6rem] tracking-[.2em] text-primary md:my-7">
+                <hr className="mb-7 mt-14 border-t-2 border-border" />
                 — EQUIPE TÉCNICA & GESTÃO —
             </div>
 
