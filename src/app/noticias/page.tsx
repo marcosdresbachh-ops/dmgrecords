@@ -1,5 +1,6 @@
 import { ChevronRight, Star, Music, TrendingUp, Zap, MapPin, Radio, Heart, Disc, Mic, Calendar, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
+import { NewsFilters } from './NewsFilters';
 
 const NoticiasPage = () => {
     return (
@@ -13,15 +14,15 @@ const NoticiasPage = () => {
                 .news-featured .news-img{aspect-ratio:16/7}
                 .news-card .news-img{aspect-ratio:16/9}
                 .news-body{padding:20px 22px 22px}
-                .news-cat{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:5px}
-                .news-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;line-height:1.28;margin-bottom:8px}
+                .news-cat{font-family:var(--font-dm-mono),monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+                .news-title{font-family:var(--font-playfair-display),serif;font-weight:700;font-size:1.05rem;line-height:1.28;margin-bottom:8px}
                 .news-featured .news-title{font-size:1.55rem}
                 .news-excerpt{font-size:.8rem;color:var(--ink3);line-height:1.72;margin-bottom:12px}
                 .news-meta{display:flex;align-items:center;gap:10px}
-                .news-date{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--ink3);display:flex;align-items:center;gap:4px}
-                .news-tag{background:var(--red-light);color:var(--red);font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+                .news-date{font-family:var(--font-dm-mono),monospace;font-size:.58rem;color:var(--ink3);display:flex;align-items:center;gap:4px}
+                .news-tag{background:var(--red-light);color:var(--red);font-family:var(--font-dm-mono),monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
                 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
-                .filter-btn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border:1.5px solid var(--line);background:transparent;color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s}
+                .filter-btn{font-family:var(--font-dm-mono),monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border:1.5px solid var(--line);background:transparent;color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s}
                 .filter-btn.active,.filter-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
                 @media(max-width:900px){.news-hero-grid{grid-template-columns:1fr}.news-secondary{grid-template-columns:1fr 1fr}}
                 @media(max-width:600px){.news-secondary{grid-template-columns:1fr}}
@@ -42,15 +43,7 @@ const NoticiasPage = () => {
                         <span>Notícias</span>
                     </div>
 
-                    <div className="filters fi">
-                        <button className="filter-btn active">Todos</button>
-                        <button className="filter-btn">Sertanejo</button>
-                        <button className="filter-btn">Gospel</button>
-                        <button className="filter-btn">Pop / R&B</button>
-                        <button className="filter-btn">Rock</button>
-                        <button className="filter-btn">Rádio</button>
-                        <button className="filter-btn">Entrevistas</button>
-                    </div>
+                    <NewsFilters />
 
                     <div className="news-hero-grid fi">
                         <div className="news-card news-featured">
