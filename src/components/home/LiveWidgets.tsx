@@ -1,5 +1,6 @@
-import { MessageCircle, Music2, Mic2 } from 'lucide-react';
+import { MessageCircle, Music2, Mic2, ExternalLink } from 'lucide-react';
 import { SectionHeader } from '@/components/shared/SectionHeader';
+import Link from 'next/link';
 
 const widgets = [
     {
@@ -23,7 +24,7 @@ const widgets = [
 ];
 
 const WidgetCard = ({ widget }: { widget: typeof widgets[0] }) => (
-     <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+     <div className="flex flex-col overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
         <div className="flex items-center gap-2.5 border-b border-border px-5 py-3.5">
             <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary'>
                 <widget.icon className="h-4 w-4" />
@@ -33,7 +34,15 @@ const WidgetCard = ({ widget }: { widget: typeof widgets[0] }) => (
                 <div className="mt-px font-['DM_Mono',monospace] text-[.58rem] tracking-[.12em] text-muted-foreground">{widget.subtitle}</div>
             </div>
         </div>
-        <iframe src={widget.src} frameBorder="0" width="100%" height="480" title={widget.title}></iframe>
+        <div className="flex flex-grow flex-col p-6 text-center">
+             <p className="flex-grow text-[.85rem] text-muted-foreground leading-relaxed">
+                Clique no botão abaixo para abrir a janela de {widget.title.toLowerCase()} em uma nova aba e interagir com a nossa programação.
+            </p>
+            <Link href={widget.src} target="_blank" rel="noopener noreferrer" className="btn btn-outline mt-6 justify-center">
+                <ExternalLink className="h-4 w-4" />
+                Abrir {widget.title}
+            </Link>
+        </div>
     </div>
 )
 
