@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, FileText, Home, Info, Instagram, Mail, Megaphone, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter } from 'lucide-react';
 
 export function RadioFooter() {
@@ -19,6 +20,27 @@ export function RadioFooter() {
               <div className="footer-soc icon"><Facebook style={{ width: '15px', height: '15px' }} /></div>
               <div className="footer-soc icon"><Youtube style={{ width: '15px', height: '15px' }} /></div>
               <div className="footer-soc icon"><Twitter style={{ width: '15px', height: '15px' }} /></div>
+            </div>
+            <div className="mt-6">
+                <div className="footer-col-title" style={{ marginBottom: '12px' }}>Baixe o App RadiosNet</div>
+                <div className="flex flex-col items-start gap-2">
+                    <a href="https://play.google.com/store/apps/details?id=br.com.radios.radiosmobile.radiosnet&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank" rel="noopener noreferrer">
+                        <Image 
+                            width="142" 
+                            height="45" 
+                            alt="Disponível no Google Play" 
+                            src="https://play.google.com/intl/en_us/badges/images/generic/pt-br-play-badge-border.png"
+                            className="transition-opacity hover:opacity-80"
+                        />
+                    </a>
+                    <a href="https://itunes.apple.com/br/app/radiosnet/id1089290449?mt=8" className="transition-opacity hover:opacity-80" style={{
+                        display: 'inline-block',
+                        overflow: 'hidden',
+                        background: 'url(https://linkmaker.itunes.apple.com/images/badges/pt-br/badge_appstore-lrg.svg) no-repeat',
+                        width: '152px',
+                        height: '45px'
+                    }} target="_blank" rel="noopener noreferrer"></a>
+                </div>
             </div>
           </div>
           <div className="footer-col">
