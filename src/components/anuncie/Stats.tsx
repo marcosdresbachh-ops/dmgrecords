@@ -1,0 +1,19 @@
+export function Stats() {
+    const stats = [
+        { count: 15000, label: "Ouvintes/Dia" },
+        { count: 8, label: "Anos no Ar" },
+        { count: 24, label: "Horas/Dia" },
+        { count: 95, label: "% Satisfação" }
+    ];
+
+    return (
+        <div className="fi mb-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat, index) => (
+                <div key={index} className="rounded-lg border border-[--line] bg-[--bg2] px-5 py-7 text-center transition-all hover:-translate-y-0.5 hover:border-[--red] hover:shadow-[0_8px_28px_rgba(0,0,0,.08)]">
+                    <span className="block font-['Playfair_Display',serif] text-4xl font-black leading-none text-[--red]" data-count={stat.count}>0</span>
+                    <span className="mt-1.5 block font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.15em] text-[--ink3]">{stat.label}</span>
+                </div>
+            ))}
+        </div>
+    );
+}

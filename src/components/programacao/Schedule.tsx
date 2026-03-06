@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from 'react';
 import { Clock, User, Cpu } from 'lucide-react';
 
-const scheduleData = {
+const scheduleData: Record<string, Array<{ time: string, show: string, host: string, genre: string, live?: boolean, auto?: boolean }>> = {
     seg: [
         { time: '06:00 – 09:00', show: 'Bom Dia DMG', host: 'DJ Marcos', genre: 'Sertanejo', live: false },
         { time: '09:00 – 12:00', show: 'Morning Hits', host: 'DJ Letícia', genre: 'Pop / R&B', live: false },
@@ -75,7 +75,7 @@ const GenreBadge = ({ genre }: { genre: string }) => {
     return <span className={className}>{genre}</span>
 }
 
-export const ScheduleClient = () => {
+export const Schedule = () => {
     const [activeTab, setActiveTab] = useState('seg');
 
     useEffect(() => {
@@ -83,15 +83,16 @@ export const ScheduleClient = () => {
         setActiveTab(today);
     }, []);
 
-    const currentSchedule = scheduleData[activeTab as keyof typeof scheduleData] || [];
+    const currentSchedule = scheduleData[activeTab] || [];
 
     return (
-        <div className="fi v">
-            <div className="grade-tabs">
+        <div className="fi">
+            <div className="mb-8 flex flex-wrap border-b-2 border-[--line]">
                 {daysOfWeek.map(day => (
                     <button
                         key={day.id}
-                        className={`gtab ${activeTab === day.id ? 'active' : ''}`}
+                        className={`-mb-0.5 cursor-pointer border-b-2 border-transparent bg-transparent px-5 py-2.5 text-[.8rem] font-semibold text-[--ink3] transition-colors
+                        ${activeTab === day.id ? '!border-[--red] !text-[--red]' : 'hover:text-[--ink2]'}`}
                         onClick={() => setActiveTab(day.id)}
                     >
                         {day.label}
@@ -99,31 +100,32 @@ export const ScheduleClient = () => {
                 ))}
             </div>
 
-            <div className="grade-panel active">
-                <table className="grade-table">
+            <div className="w-full overflow-x-auto">
+                <table className="w-full border-collapse">
                     <thead>
                         <tr>
-                            <th><Clock style={{ width: '11px', height: '11px', verticalAlign: 'middle', display: 'inline' }} /> Horário</th>
-                            <th>Programa</th>
-                            <th>Apresentador</th>
-                            <th>Gênero</th>
-                            <th>Status</th>
+                            <th className="border-b-2 border-[--line] bg-[--bg3] p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-[--ink3]"><Clock className="mb-px mr-1 inline h-3 w-3" />Horário</th>
+                            <th className="border-b-2 border-[--line] bg-[--bg3] p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-[--ink3]">Programa</th>
+                            <th className="border-b-2 border-[--line] bg-[--bg3] p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-[--ink3]">Apresentador</th>
+                            <th className="border-b-2 border-[--line] bg-[--bg3] p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-[--ink3]">Gênero</th>
+                            <th className="border-b-2 border-[--line] bg-[--bg3] p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-[--ink3]">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentSchedule.map((item, index) => (
-                            <tr key={index} className={item.live ? 'on-now' : ''}>
-                                <td className="gt-time">{item.time}</td>
-                                <td>
-                                    <div className="gt-show">{item.show}</div>
-                                    <div className="gt-host">
-                                        {item.auto ? <Cpu style={{ width: '11px', height: '11px' }} /> : <User style={{ width: '11px', height: '11px' }} />}
-                                        {item.host}
+                            <tr key={index} className={`border-b border-[--line] transition-colors hover:bg-[--red-light] ${item.live ? 'border-l-4 border-l-[--red] bg-[#FFF5F7]' : ''}`}>
+                                <td className="whitespace-nowrap p-3.5 font-['DM_Mono',monospace] text-[.7rem] text-[--ink3]">{item.time}</td>
+                                <td className="p-3.5">
+                                    <div className="text-[.92rem] font-bold">{item.show}</div>
+                                </td>
+                                <td className="p-3.5">
+                                    <div className="flex items-center gap-1.5 text-[.76rem] text-[--ink3]">
+                                        {item.auto ? <Cpu className="h-3 w-3" /> : <User className="h-3 w-3" />}
+                                        {item.auto ? "Automático" : item.host}
                                     </div>
                                 </td>
-                                <td>{item.auto ? "Automático" : item.host}</td>
-                                <td><GenreBadge genre={item.genre || ''} /></td>
-                                <td>{item.live ? <span className="on-now-tag"><span className="live-dot"></span>Ao Vivo</span> : ''}</td>
+                                <td className="p-3.5"><GenreBadge genre={item.genre || ''} /></td>
+                                <td className="p-3.5">{item.live ? <span className="inline-flex items-center gap-1.5 rounded-sm bg-[--green-bg] px-2 py-1 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.15em] text-[--green]"><span className="live-dot"></span>Ao Vivo</span> : ''}</td>
                             </tr>
                         ))}
                     </tbody>

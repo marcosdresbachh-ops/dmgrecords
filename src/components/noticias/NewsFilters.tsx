@@ -6,15 +6,13 @@ const filters = ["Todos", "Sertanejo", "Gospel", "Pop / R&B", "Rock", "Rádio", 
 export function NewsFilters() {
     const [activeFilter, setActiveFilter] = useState('Todos');
     
-    // In a real app, you would use this state to filter the news articles
-    // For this static conversion, it just handles the active state of the button
-    
     return (
-        <div className="filters fi v">
+        <div className="fi mb-10 flex flex-wrap gap-2">
             {filters.map(filter => (
                 <button 
                     key={filter}
-                    className={`filter-btn ${activeFilter === filter ? 'active' : ''}`}
+                    className={`cursor-pointer rounded-sm border-[1.5px] border-[--line] bg-transparent px-4 py-2 font-['DM_Mono',monospace] text-[.62rem] uppercase tracking-[.14em] text-[--ink3] transition-all
+                        ${activeFilter === filter ? 'border-[--red] bg-[--red-light] text-[--red]' : 'hover:border-[--red] hover:bg-[--red-light] hover:text-[--red]'}`}
                     onClick={() => setActiveFilter(filter)}
                 >
                     {filter}

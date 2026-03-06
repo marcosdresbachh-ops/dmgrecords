@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { SectionHeader } from "../shared/SectionHeader"
 
 const faqData = [
     {
@@ -31,23 +32,25 @@ const faqData = [
 
 export function Faq() {
     return (
-        <>
-            <div className="sec-header fi" style={{ marginTop: '64px' }}>
-                <div className="section-eyebrow">Dúvidas</div>
-                <h2 className="section-title">Perguntas <em>Frequentes</em></h2>
-            </div>
-            <div style={{ maxWidth: '760px' }} className="fi">
+        <div className="fi mt-16">
+            <SectionHeader
+                eyebrow="Dúvidas"
+                title={<>Perguntas <em>Frequentes</em></>}
+            />
+            <div style={{ maxWidth: '760px' }}>
                  <Accordion type="single" collapsible className="w-full">
                     {faqData.map((item, index) => (
-                         <AccordionItem value={`item-${index}`} key={index} className="faq-item">
-                             <AccordionTrigger className="faq-q hover:no-underline text-left">{item.q}</AccordionTrigger>
-                             <AccordionContent className="faq-a">
+                         <AccordionItem value={`item-${index}`} key={index} className="border-b border-[--line]">
+                             <AccordionTrigger className="py-4.5 gap-3 text-left text-[.95rem] font-semibold hover:text-[--red] hover:no-underline">
+                                {item.q}
+                            </AccordionTrigger>
+                             <AccordionContent className="pb-4.5 pt-0 text-[.88rem] leading-[1.75] text-[--ink3]">
                                 {item.a}
                              </AccordionContent>
                          </AccordionItem>
                     ))}
                 </Accordion>
             </div>
-        </>
+        </div>
     )
 }

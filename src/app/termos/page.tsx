@@ -1,144 +1,143 @@
-import { ChevronRight, Calendar } from 'lucide-react';
-import Link from 'next/link';
+import { PageHero } from '@/components/shared/PageHero';
+import { LegalLayout } from '@/components/legal/LegalLayout';
+
+const content = [
+    {
+        id: "t1",
+        title: "1. Aceitação dos Termos",
+        body: (
+            <>
+                <p>Ao acessar e utilizar o site e os serviços da <strong>DMG Records Rádio</strong>, você concorda em cumprir e estar vinculado a estes Termos de Uso. Se você não concordar com algum destes termos, pedimos que não utilize nossos serviços.</p>
+                <p>Estes Termos de Uso se aplicam a todos os visitantes, ouvintes, usuários e qualquer outra pessoa que acesse ou utilize os serviços da DMG Records Rádio.</p>
+            </>
+        )
+    },
+    {
+        id: "t2",
+        title: "2. Descrição dos Serviços",
+        body: (
+            <>
+                <p>A DMG Records Rádio oferece os seguintes serviços de forma gratuita aos ouvintes:</p>
+                <ul>
+                    <li>Transmissão de áudio ao vivo via internet (streaming), disponível 24 horas por dia, 7 dias por semana.</li>
+                    <li>Chat ao vivo para interação entre ouvintes e locutores durante as transmissões.</li>
+                    <li>Sistema de pedidos de músicas, tanto automático (AutoDJ) quanto manual (ao locutor).</li>
+                    <li>Grade de programação e informações sobre os programas e locutores.</li>
+                    <li>Notícias e conteúdos relacionados à música e à programação da rádio.</li>
+                </ul>
+                <p>A DMG Records Rádio reserva-se o direito de modificar, suspender ou encerrar qualquer serviço a qualquer momento, com ou sem aviso prévio.</p>
+            </>
+        )
+    },
+    {
+        id: "t3",
+        title: "3. Uso do Chat e Pedidos",
+        body: (
+             <>
+                <p>Ao utilizar o chat ao vivo e o sistema de pedidos de músicas, você concorda em:</p>
+                <ul>
+                    <li>Identificar-se com um nome ou apelido adequado e respeitar os demais usuários.</li>
+                    <li>Não enviar mensagens repetitivas, spam ou conteúdo irrelevante.</li>
+                    <li>Realizar pedidos de forma educada e respeitosa, aceitando que nem todos os pedidos poderão ser atendidos.</li>
+                    <li>Não solicitar músicas ou conteúdos que violem direitos autorais de maneira ilegal.</li>
+                    <li>Respeitar as decisões do locutor e da equipe técnica quanto à programação.</li>
+                </ul>
+                <p>Os pedidos não atendidos não geram qualquer direito de reclamação por parte do ouvinte.</p>
+            </>
+        )
+    },
+    {
+        id: "t4",
+        title: "4. Conteúdo Proibido",
+        body: (
+            <>
+                <p>É expressamente proibido o envio de qualquer conteúdo que:</p>
+                <ul>
+                    <li>Seja ofensivo, abusivo, difamatório, discriminatório ou que incite o ódio.</li>
+                    <li>Contenha linguagem inapropriada, obscena ou pornográfica.</li>
+                    <li>Promova violência, atividades ilegais ou infração de direitos de terceiros.</li>
+                    <li>Constitua propaganda política ou religiosa não relacionada à programação.</li>
+                    <li>Represente spam, phishing ou qualquer forma de engenharia social.</li>
+                    <li>Viole a privacidade de outras pessoas ou divulgue dados pessoais sem consentimento.</li>
+                </ul>
+                <p>O descumprimento dessas regras pode resultar em banimento do chat e dos serviços de pedidos sem aviso prévio.</p>
+            </>
+        )
+    },
+    {
+        id: "t5",
+        title: "5. Propriedade Intelectual",
+        body: (
+            <>
+                <p>Todo o conteúdo do site da DMG Records Rádio, incluindo textos, logotipos, design e layout, é protegido por direitos autorais e outros direitos de propriedade intelectual.</p>
+                <p>As músicas transmitidas são licenciadas junto aos órgãos competentes (ECAD, etc.). Qualquer reprodução, gravação ou redistribuição não autorizada da transmissão é proibida.</p>
+                <p>O uso de nosso conteúdo para fins comerciais sem autorização expressa é vedado.</p>
+            </>
+        )
+    },
+    {
+        id: "t6",
+        title: "6. Responsabilidades",
+        body: (
+            <>
+                <p>A DMG Records Rádio não se responsabiliza por:</p>
+                <ul>
+                    <li>Interrupções na transmissão causadas por fatores externos, manutenção ou problemas técnicos fora de nosso controle.</li>
+                    <li>Conteúdo enviado por usuários no chat ou nos formulários de pedido.</li>
+                    <li>Danos causados pelo acesso a links externos eventualmente mencionados na programação.</li>
+                    <li>Incompatibilidades técnicas entre nosso serviço de streaming e dispositivos específicos do ouvinte.</li>
+                </ul>
+                <p>Nos esforçamos para manter a transmissão disponível 24 horas, mas não garantimos disponibilidade ininterrupta do serviço.</p>
+            </>
+        )
+    },
+    {
+        id: "t7",
+        title: "7. Publicidade e Anúncios",
+        body: (
+            <>
+                <p>A DMG Records Rádio pode exibir publicidade de anunciantes terceiros. Não somos responsáveis pelo conteúdo desses anúncios nem pelas práticas de privacidade das empresas anunciantes.</p>
+                <p>Os contratos de publicidade são regidos por termos específicos acordados entre a DMG Records Rádio e cada anunciante, em conformidade com a legislação brasileira de publicidade.</p>
+            </>
+        )
+    },
+    {
+        id: "t8",
+        title: "8. Modificações dos Termos",
+        body: (
+            <>
+                <p>A DMG Records Rádio reserva-se o direito de modificar estes Termos de Uso a qualquer momento. As alterações entram em vigor imediatamente após a publicação no site.</p>
+                <p>O uso continuado dos nossos serviços após a publicação de alterações constitui aceitação dos novos termos. Recomendamos a leitura periódica deste documento.</p>
+            </>
+        )
+    },
+    {
+        id: "t9",
+        title: "9. Legislação Aplicável",
+        body: (
+            <>
+                <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Quaisquer disputas relacionadas a estes termos serão submetidas à jurisdição exclusiva dos tribunais brasileiros competentes.</p>
+                <p>Em caso de dúvidas sobre estes Termos de Uso, entre em contato pelo e-mail: <a href="mailto:juridico@dmgrecords.com.br" className="text-[--red]">juridico@dmgrecords.com.br</a></p>
+            </>
+        )
+    },
+];
+
 
 const TermosPage = () => {
     return (
         <>
-            <style>{`
-                .legal-wrap{max-width:820px}
-                .legal-toc{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:24px 28px;margin-bottom:48px}
-                .legal-toc-title{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
-                .legal-toc ol{counter-reset:toc;padding:0;list-style:none}
-                .legal-toc li{counter-increment:toc;font-size:.85rem;padding:5px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
-                .legal-toc li:last-child{border:none}
-                .legal-toc li::before{content:counter(toc)'.';font-family:'DM Mono',monospace;font-size:.62rem;color:var(--red);font-weight:500;width:20px;flex-shrink:0}
-                .legal-toc a{color:var(--ink2);transition:color .2s}.legal-toc a:hover{color:var(--red)}
-                .legal-section{margin-bottom:44px;scroll-margin-top:160px}
-                .legal-section h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-                .legal-section h2::before{content:'';display:block;width:4px;height:22px;background:var(--red);border-radius:2px;flex-shrink:0}
-                .legal-section p{font-size:.88rem;color:var(--ink3);line-height:1.82;margin-bottom:12px}
-                .legal-section ul,.legal-section ol{padding-left:20px;margin-bottom:12px}
-                .legal-section li{font-size:.88rem;color:var(--ink3);line-height:1.75;margin-bottom:5px}
-                .legal-date{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;color:var(--ink3);background:var(--bg3);padding:8px 16px;border-radius:3px;display:inline-flex;align-items:center;gap:6px;margin-bottom:32px}
-            `}</style>
-            <div className="page-hero">
-                <div className="page-hero-red"></div>
-                <div className="page-hero-inner">
-                    <div className="page-hero-eyebrow">Legal</div>
-                    <h1>Termos de <em>Uso</em></h1>
-                    <p>Leia atentamente os termos que regem o uso do site e dos serviços da DMG Records Rádio.</p>
-                </div>
-            </div>
-
-            <section className="sec">
-                <div className="sec-inner">
-                    <div className="breadcrumb fi">
-                        <Link href="/">Início</Link><ChevronRight style={{ width: '12px', height: '12px' }} />
-                        <span>Termos de Uso</span>
-                    </div>
-                    <div className="legal-wrap fi">
-                        <div className="legal-date"><Calendar style={{ width: '13px', height: '13px' }} /> Última atualização: 01 de Janeiro de 2025</div>
-
-                        <div className="legal-toc">
-                            <div className="legal-toc-title">Índice</div>
-                            <ol>
-                                <li><a href="#t1">Aceitação dos Termos</a></li>
-                                <li><a href="#t2">Descrição dos Serviços</a></li>
-                                <li><a href="#t3">Uso do Chat e Pedidos</a></li>
-                                <li><a href="#t4">Conteúdo Proibido</a></li>
-                                <li><a href="#t5">Propriedade Intelectual</a></li>
-                                <li><a href="#t6">Responsabilidades</a></li>
-                                <li><a href="#t7">Publicidade e Anúncios</a></li>
-                                <li><a href="#t8">Modificações dos Termos</a></li>
-                                <li><a href="#t9">Legislação Aplicável</a></li>
-                            </ol>
-                        </div>
-
-                        <div className="legal-section" id="t1">
-                            <h2>1. Aceitação dos Termos</h2>
-                            <p>Ao acessar e utilizar o site e os serviços da <strong>DMG Records Rádio</strong>, você concorda em cumprir e estar vinculado a estes Termos de Uso. Se você não concordar com algum destes termos, pedimos que não utilize nossos serviços.</p>
-                            <p>Estes Termos de Uso se aplicam a todos os visitantes, ouvintes, usuários e qualquer outra pessoa que acesse ou utilize os serviços da DMG Records Rádio.</p>
-                        </div>
-
-                        <div className="legal-section" id="t2">
-                            <h2>2. Descrição dos Serviços</h2>
-                            <p>A DMG Records Rádio oferece os seguintes serviços de forma gratuita aos ouvintes:</p>
-                            <ul>
-                                <li>Transmissão de áudio ao vivo via internet (streaming), disponível 24 horas por dia, 7 dias por semana.</li>
-                                <li>Chat ao vivo para interação entre ouvintes e locutores durante as transmissões.</li>
-                                <li>Sistema de pedidos de músicas, tanto automático (AutoDJ) quanto manual (ao locutor).</li>
-                                <li>Grade de programação e informações sobre os programas e locutores.</li>
-                                <li>Notícias e conteúdos relacionados à música e à programação da rádio.</li>
-                            </ul>
-                            <p>A DMG Records Rádio reserva-se o direito de modificar, suspender ou encerrar qualquer serviço a qualquer momento, com ou sem aviso prévio.</p>
-                        </div>
-
-                        <div className="legal-section" id="t3">
-                            <h2>3. Uso do Chat e Pedidos</h2>
-                            <p>Ao utilizar o chat ao vivo e o sistema de pedidos de músicas, você concorda em:</p>
-                            <ul>
-                                <li>Identificar-se com um nome ou apelido adequado e respeitar os demais usuários.</li>
-                                <li>Não enviar mensagens repetitivas, spam ou conteúdo irrelevante.</li>
-                                <li>Realizar pedidos de forma educada e respeitosa, aceitando que nem todos os pedidos poderão ser atendidos.</li>
-                                <li>Não solicitar músicas ou conteúdos que violem direitos autorais de maneira ilegal.</li>
-                                <li>Respeitar as decisões do locutor e da equipe técnica quanto à programação.</li>
-                            </ul>
-                            <p>Os pedidos não atendidos não geram qualquer direito de reclamação por parte do ouvinte.</p>
-                        </div>
-
-                        <div className="legal-section" id="t4">
-                            <h2>4. Conteúdo Proibido</h2>
-                            <p>É expressamente proibido o envio de qualquer conteúdo que:</p>
-                            <ul>
-                                <li>Seja ofensivo, abusivo, difamatório, discriminatório ou que incite o ódio.</li>
-                                <li>Contenha linguagem inapropriada, obscena ou pornográfica.</li>
-                                <li>Promova violência, atividades ilegais ou infração de direitos de terceiros.</li>
-                                <li>Constitua propaganda política ou religiosa não relacionada à programação.</li>
-                                <li>Represente spam, phishing ou qualquer forma de engenharia social.</li>
-                                <li>Viole a privacidade de outras pessoas ou divulgue dados pessoais sem consentimento.</li>
-                            </ul>
-                            <p>O descumprimento dessas regras pode resultar em banimento do chat e dos serviços de pedidos sem aviso prévio.</p>
-                        </div>
-
-                        <div className="legal-section" id="t5">
-                            <h2>5. Propriedade Intelectual</h2>
-                            <p>Todo o conteúdo do site da DMG Records Rádio, incluindo textos, logotipos, design e layout, é protegido por direitos autorais e outros direitos de propriedade intelectual.</p>
-                            <p>As músicas transmitidas são licenciadas junto aos órgãos competentes (ECAD, etc.). Qualquer reprodução, gravação ou redistribuição não autorizada da transmissão é proibida.</p>
-                            <p>O uso de nosso conteúdo para fins comerciais sem autorização expressa é vedado.</p>
-                        </div>
-
-                        <div className="legal-section" id="t6">
-                            <h2>6. Responsabilidades</h2>
-                            <p>A DMG Records Rádio não se responsabiliza por:</p>
-                            <ul>
-                                <li>Interrupções na transmissão causadas por fatores externos, manutenção ou problemas técnicos fora de nosso controle.</li>
-                                <li>Conteúdo enviado por usuários no chat ou nos formulários de pedido.</li>
-                                <li>Danos causados pelo acesso a links externos eventualmente mencionados na programação.</li>
-                                <li>Incompatibilidades técnicas entre nosso serviço de streaming e dispositivos específicos do ouvinte.</li>
-                            </ul>
-                            <p>Nos esforçamos para manter a transmissão disponível 24 horas, mas não garantimos disponibilidade ininterrupta do serviço.</p>
-                        </div>
-
-                        <div className="legal-section" id="t7">
-                            <h2>7. Publicidade e Anúncios</h2>
-                            <p>A DMG Records Rádio pode exibir publicidade de anunciantes terceiros. Não somos responsáveis pelo conteúdo desses anúncios nem pelas práticas de privacidade das empresas anunciantes.</p>
-                            <p>Os contratos de publicidade são regidos por termos específicos acordados entre a DMG Records Rádio e cada anunciante, em conformidade com a legislação brasileira de publicidade.</p>
-                        </div>
-
-                        <div className="legal-section" id="t8">
-                            <h2>8. Modificações dos Termos</h2>
-                            <p>A DMG Records Rádio reserva-se o direito de modificar estes Termos de Uso a qualquer momento. As alterações entram em vigor imediatamente após a publicação no site.</p>
-                            <p>O uso continuado dos nossos serviços após a publicação de alterações constitui aceitação dos novos termos. Recomendamos a leitura periódica deste documento.</p>
-                        </div>
-
-                        <div className="legal-section" id="t9">
-                            <h2>9. Legislação Aplicável</h2>
-                            <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Quaisquer disputas relacionadas a estes termos serão submetidas à jurisdição exclusiva dos tribunais brasileiros competentes.</p>
-                            <p>Em caso de dúvidas sobre estes Termos de Uso, entre em contato pelo e-mail: <a href="mailto:juridico@dmgrecords.com.br" style={{ color: 'var(--red)' }}>juridico@dmgrecords.com.br</a></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <PageHero
+                eyebrow="Legal"
+                title={<>Termos de <em>Uso</em></>}
+                description="Leia atentamente os termos que regem o uso do site e dos serviços da DMG Records Rádio."
+            />
+            <LegalLayout 
+                pageTitle="Termos de Uso"
+                lastUpdated="01 de Janeiro de 2025"
+                tableOfContents={content.map(c => ({ id: c.id, title: c.title.substring(c.title.indexOf(' ') + 1) }))}
+                content={content}
+            />
         </>
     );
 };
