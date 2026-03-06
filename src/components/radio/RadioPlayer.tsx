@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Volume2 } from 'lucide-react';
 
-const STREAM_URL = 'https://player.svrdedicado.org/listen/6862/radio.mp3';
+const STREAM_URL = 'https://s02.svrdedicado.org:6862/stream';
 
 export function RadioPlayer() {
   const [playing, setPlaying] = useState(false);
