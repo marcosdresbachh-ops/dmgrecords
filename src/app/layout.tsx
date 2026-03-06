@@ -30,6 +30,19 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   title: 'DMG Records Rádio',
   description: 'Sertanejo, Gospel, Pop e Rock direto pra você. Música e entretenimento 24 horas, 7 dias por semana.',
+  manifest: '/manifest.json',
+  themeColor: '#D4243A',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'DMG Rádio',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    apple: '/icons/icon-192x192.png',
+  },
 };
 
 export default function RootLayout({

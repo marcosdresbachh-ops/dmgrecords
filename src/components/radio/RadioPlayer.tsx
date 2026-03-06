@@ -129,10 +129,10 @@ export function RadioPlayer() {
         <button className="player-play-btn" id="playBtn" onClick={togglePlay}>
           {playing ? <Pause style={{ width: '19px', height: '19px' }} /> : <Play style={{ width: '19px', height: '19px', marginLeft: '2px' }} />}
         </button>
-        <Avatar>
+        <Avatar className="h-14 w-14 flex-shrink-0">
             <AvatarImage src={nowPlaying?.capa_musica} alt={trackName} />
             <AvatarFallback>
-                <Music4 className="h-5 w-5" />
+                <Music4 className="h-6 w-6" />
             </AvatarFallback>
         </Avatar>
         <div className="p-track">

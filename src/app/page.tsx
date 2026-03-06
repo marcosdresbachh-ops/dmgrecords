@@ -180,14 +180,6 @@ export default function HomePage() {
             <h2 className="section-title">Ao Vivo & <em>Interação</em></h2>
             <p className="section-sub">Ouça ao vivo, converse no chat e peça músicas — tudo em tempo real.</p>
           </div>
-          <div className="onepage-wrap fi">
-            <div className="widget-header">
-              <div className="wh-icon whi-red icon"><Radio style={{ width: '17px', height: '17px' }} /></div>
-              <div><div className="widget-title">Player Oficial DMG Records</div><div className="widget-sub">PLAYER COMPLETO · AO VIVO</div></div>
-              <div className="nav-live" style={{ marginLeft: 'auto' }}><div className="live-dot"></div>TRANSMITINDO</div>
-            </div>
-            <iframe src="https://player.svrdedicado.org/one-page/6862" frameBorder="0" width="100%" height="420" allow="autoplay" title="Player DMG Records"></iframe>
-          </div>
           <div className="widgets-grid fi">
             <div className="widget-card">
               <div className="widget-header">
