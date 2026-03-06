@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const API_URL = 'https://vox.svrdedicado.org/api-json/g1.gu-bOzWLWFRERPvb1knHAXnkRixGCHaN179_q-g9h9I';
+  const API_URL = process.env.DMG_API_URL!;
 
   try {
     const response = await fetch(API_URL, {

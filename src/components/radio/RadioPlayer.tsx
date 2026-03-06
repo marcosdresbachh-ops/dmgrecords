@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Volume2, Music4 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-const STREAM_URL = 'https://s02.svrdedicado.org:6862/stream';
+const STREAM_URL = process.env.NEXT_PUBLIC_DMG_STREAM_URL!;
 
 interface NowPlayingInfo {
   musica_atual: string;
