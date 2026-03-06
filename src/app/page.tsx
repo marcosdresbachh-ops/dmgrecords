@@ -1,49 +1,247 @@
-import { DollarSign, Wallet, Users, Megaphone } from "lucide-react"
-import { StatCard } from "@/components/dashboard/StatCard"
-import { RevenueChart } from "@/components/dashboard/RevenueChart"
-import { RecentCampaigns } from "@/components/dashboard/RecentCampaigns"
+import { PlayCircle, MessageCircle, Radio, Music2, Globe, Mic2 } from 'lucide-react';
+import Link from 'next/link';
 
-export default function DashboardPage() {
+export default function HomePage() {
   return (
-    <div className="flex-1 space-y-4">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          title="Total Revenue"
-          value="$45,231.89"
-          icon={DollarSign}
-          change="+20.1%"
-          changeType="increase"
-        />
-        <StatCard
-          title="Total Expenses"
-          value="$12,874.32"
-          icon={Wallet}
-          change="+12.5%"
-          changeType="increase"
-        />
-        <StatCard
-          title="Net Profit"
-          value="$32,357.57"
-          icon={Users}
-          change="+22.3%"
-          changeType="increase"
-        />
-        <StatCard
-          title="Active Campaigns"
-          value="23"
-          icon={Megaphone}
-          change="+2"
-          changeType="increase"
-        />
-      </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <div className="lg:col-span-4">
-          <RevenueChart />
+    <>
+      <style>{`
+        .hero {
+          background:var(--ink); position:relative; overflow:hidden;
+          padding:92px 48px 0; margin-top:0;
+        }
+        .hero-stripe {
+          position:absolute;inset:0;
+          background:repeating-linear-gradient(-55deg,transparent 0,transparent 38px,rgba(255,255,255,.016) 38px,rgba(255,255,255,.016) 39px);
+        }
+        .hero-red {
+          position:absolute;top:0;right:0;width:44%;height:100%;
+          background:linear-gradient(135deg,var(--red),var(--red-dark));
+          clip-path:polygon(20% 0,100% 0,100% 100%,0% 100%);
+        }
+        .hero-inner {
+          max-width:1280px;margin:0 auto;
+          display:grid;grid-template-columns:1fr 1fr;gap:60px;
+          align-items:end;position:relative;z-index:2;
+        }
+        .hero-left { padding-bottom:88px }
+        .hero-eyebrow {
+          font-family:var(--font-dm-mono),monospace;font-size:.6rem;letter-spacing:.28em;
+          text-transform:uppercase;color:rgba(255,255,255,.45);
+          margin-bottom:18px;display:flex;align-items:center;gap:10px;
+        }
+        .hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--red)}
+        .hero-h1 {
+          font-family:var(--font-playfair-display),serif;font-weight:900;
+          font-size:clamp(3rem,5.5vw,5rem);line-height:.97;color:#fff;margin-bottom:22px;
+        }
+        .hero-h1 .acc{color:var(--red)}
+        .hero-h1 .str{-webkit-text-stroke:1.5px rgba(255,255,255,.28);color:transparent}
+        .hero-desc{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.78;margin-bottom:32px;max-width:420px}
+        .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+        .hero-chips{margin-top:36px;display:flex;gap:8px;flex-wrap:wrap}
+        .chip{
+          font-family:var(--font-dm-mono),monospace;font-size:.58rem;letter-spacing:.14em;
+          text-transform:uppercase;padding:4px 11px;
+          border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);
+          border-radius:3px;transition:all .2s;
+        }
+        .chip:hover{border-color:var(--red);color:#fff;background:rgba(212,36,58,.18)}
+        .hero-right{display:flex;align-items:flex-end;justify-content:center}
+        .vinyl-wrap{position:relative;width:340px;height:340px}
+        .vinyl{
+          width:300px;height:300px;border-radius:50%;
+          background:radial-gradient(circle at 50% 50%,#1a1a1a 0%,#1a1a1a 14%,transparent 14%),
+                     repeating-radial-gradient(circle at 50% 50%,#0f0f0f 0,#0f0f0f 2px,#1e1e1e 2px,#1e1e1e 4px);
+          box-shadow:0 30px 80px rgba(0,0,0,.55);
+          animation:spin 14s linear infinite;margin:20px auto 0;position:relative;
+        }
+        .vinyl::after{
+          content:'DMG';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+          width:68px;height:68px;background:var(--red);border-radius:50%;
+          display:flex;align-items:center;justify-content:center;
+          font-family:var(--font-playfair-display),serif;font-weight:900;font-size:.82rem;color:#fff;
+        }
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .vinyl-stats{
+          position:absolute;bottom:0;left:0;right:0;
+          background:rgba(255,255,255,.07);backdrop-filter:blur(12px);
+          border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:14px 18px;
+          display:flex;justify-content:space-around;
+        }
+        .vs-num{font-family:var(--font-playfair-display),serif;font-size:1.55rem;font-weight:900;color:#fff;display:block;line-height:1}
+        .vs-lbl{font-family:var(--font-dm-mono),monospace;font-size:.52rem;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-top:3px;display:block}
+        #ao-vivo{background:var(--bg3)}
+        .onepage-wrap{background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.05);margin-bottom:20px}
+        .widget-header{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line)}
+        .wh-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .whi-red{background:var(--red-light);color:var(--red)}
+        .whi-green{background:var(--green-bg);color:var(--green)}
+        .whi-accent{background:#FFF8E1;color:var(--accent)}
+        .widget-title{font-weight:700;font-size:.9rem}
+        .widget-sub{font-family:var(--font-dm-mono),monospace;font-size:.58rem;letter-spacing:.12em;color:var(--ink3);margin-top:1px}
+        .widgets-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+        .widget-card{background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+        .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+        .feat-card{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:28px 24px;transition:all .25s}
+        .feat-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.09);border-color:var(--red)}
+        .feat-icon{width:48px;height:48px;background:var(--red-light);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);margin-bottom:16px}
+        .feat-title{font-family:var(--font-playfair-display),serif;font-weight:700;font-size:1.05rem;margin-bottom:7px}
+        .feat-desc{font-size:.8rem;color:var(--ink3);line-height:1.7}
+        #top{background:var(--bg3)}
+        .top-item{display:flex;align-items:center;gap:22px;padding:16px 0;border-bottom:1px solid var(--line);transition:padding-left .22s;cursor:default}
+        .top-item:hover{padding-left:10px}
+        .top-num{font-family:var(--font-playfair-display),serif;font-size:1.8rem;font-weight:900;color:rgba(212,36,58,.15);width:48px;text-align:right;flex-shrink:0;transition:color .22s}
+        .top-item:hover .top-num{color:var(--red)}
+        .top-info{flex:1}
+        .top-track{font-weight:700;font-size:.92rem}
+        .top-artist{font-size:.76rem;color:var(--ink3);margin-top:2px}
+        .top-bar{width:80px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+        .top-fill{height:100%;background:var(--red);border-radius:2px;width:0;transition:width .7s ease}
+        .top-dur{font-family:var(--font-dm-mono),monospace;font-size:.68rem;color:var(--ink3)}
+        @media(max-width:900px){
+          .features-grid{grid-template-columns:1fr 1fr}
+          .widgets-grid{grid-template-columns:1fr}
+          .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
+          .hero{padding:64px 20px 0}
+        }
+        @media(max-width:600px){.features-grid{grid-template-columns:1fr}}
+      `}</style>
+      <section className="hero">
+        <div className="hero-stripe"></div>
+        <div className="hero-red"></div>
+        <div className="hero-inner">
+          <div className="hero-left">
+            <div className="hero-eyebrow">Transmissão 24h — Web Rádio</div>
+            <h1 className="hero-h1">A Rádio<br /><span className="acc">DMG</span><br /><span className="str">Records</span></h1>
+            <p className="hero-desc">Sertanejo, Gospel, Pop e Rock direto pra você. Música e entretenimento 24 horas, 7 dias por semana.</p>
+            <div className="hero-btns">
+              <button className="btn btn-white">
+                <PlayCircle style={{ width: '18px', height: '18px' }} /> Ouvir Ao Vivo
+              </button>
+              <a href="#ao-vivo" className="btn btn-ghost">
+                <MessageCircle style={{ width: '16px', height: '16px' }} /> Chat ao Vivo
+              </a>
+            </div>
+            <div className="hero-chips">
+              <span className="chip">Sertanejo</span><span className="chip">Gospel</span>
+              <span className="chip">Pop / R&B</span><span className="chip">Rock</span>
+            </div>
+          </div>
+          <div className="hero-right">
+            <div className="vinyl-wrap">
+              <div className="vinyl"></div>
+              <div className="vinyl-stats">
+                <div style={{ textAlign: 'center' }}><span className="vs-num" data-count="15">0</span><span className="vs-lbl">Mil Ouvintes</span></div>
+                <div style={{ textAlign: 'center' }}><span className="vs-num" data-count="8">0</span><span className="vs-lbl">Anos no Ar</span></div>
+                <div style={{ textAlign: 'center' }}><span className="vs-num" data-count="5">0</span><span className="vs-lbl">Mil Músicas</span></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="lg:col-span-3">
-          <RecentCampaigns />
+      </section>
+
+      <section className="sec" id="features">
+        <div className="sec-inner">
+          <div className="sec-header fi">
+            <div className="section-eyebrow">Por que nos ouvir</div>
+            <h2 className="section-title">Tudo que uma boa <em>rádio precisa</em></h2>
+          </div>
+          <div className="features-grid fi">
+            <div className="feat-card">
+              <div className="feat-icon icon"><Radio style={{ width: '22px', height: '22px' }} /></div>
+              <div className="feat-title">24h Ininterruptas</div>
+              <p className="feat-desc">Transmissão contínua todos os dias, com programação variada manhã, tarde, noite e madrugada.</p>
+            </div>
+            <div className="feat-card">
+              <div className="feat-icon icon"><Music2 style={{ width: '22px', height: '22px' }} /></div>
+              <div className="feat-title">Pedido de Músicas</div>
+              <p className="feat-desc">Peça sua música favorita e o AutoDJ ou seu locutor toca na hora. Simples e rápido.</p>
+            </div>
+            <div className="feat-card">
+              <div className="feat-icon icon"><MessageCircle style={{ width: '22px', height: '22px' }} /></div>
+              <div className="feat-title">Chat ao Vivo</div>
+              <p className="feat-desc">Converse com outros ouvintes e interaja com os locutores em tempo real pelo chat integrado.</p>
+            </div>
+            <div className="feat-card">
+              <div className="feat-icon icon"><Globe style={{ width: '22px', height: '22px' }} /></div>
+              <div className="feat-title">Acesso Global</div>
+              <p className="feat-desc">Ouça de qualquer lugar do mundo, no celular, computador ou smart TV, sem custo algum.</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <div className="divider"></div>
+
+      <section className="sec" id="ao-vivo">
+        <div className="sec-inner">
+          <div className="sec-header fi">
+            <div className="section-eyebrow">Interaja</div>
+            <h2 className="section-title">Ao Vivo & <em>Interação</em></h2>
+            <p className="section-sub">Ouça ao vivo, converse no chat e peça músicas — tudo em tempo real.</p>
+          </div>
+          <div className="onepage-wrap fi">
+            <div className="widget-header">
+              <div className="wh-icon whi-red icon"><Radio style={{ width: '17px', height: '17px' }} /></div>
+              <div><div className="widget-title">Player Oficial DMG Records</div><div className="widget-sub">PLAYER COMPLETO · AO VIVO</div></div>
+              <div className="nav-live" style={{ marginLeft: 'auto' }}><div className="live-dot"></div>TRANSMITINDO</div>
+            </div>
+            <iframe src="https://player.svrdedicado.org/one-page/6862" frameBorder="0" width="100%" height="420" allow="autoplay" title="Player DMG Records"></iframe>
+          </div>
+          <div className="widgets-grid fi">
+            <div className="widget-card">
+              <div className="widget-header">
+                <div className="wh-icon whi-green icon"><MessageCircle style={{ width: '17px', height: '17px' }} /></div>
+                <div><div className="widget-title">Chat ao Vivo</div><div className="widget-sub">CONVERSE COM OS OUVINTES</div></div>
+              </div>
+              <iframe src="https://player.svrdedicado.org/chat/6862" frameBorder="0" width="100%" height="480" title="Chat DMG Records"></iframe>
+            </div>
+            <div className="widget-card">
+              <div className="widget-header">
+                <div className="wh-icon whi-red icon"><Music2 style={{ width: '17px', height: '17px' }} /></div>
+                <div><div className="widget-title">Pedidos Automático</div><div className="widget-sub">EXECUTADO PELO AUTODJ</div></div>
+              </div>
+              <iframe src="https://player.svrdedicado.org/request/auto/6862" frameBorder="0" width="100%" height="480" title="Pedidos Auto"></iframe>
+            </div>
+            <div className="widget-card">
+              <div className="widget-header">
+                <div className="wh-icon whi-accent icon"><Mic2 style={{ width: '17px', height: '17px' }} /></div>
+                <div><div className="widget-title">Pedidos ao Locutor</div><div className="widget-sub">EXECUTADO AO VIVO</div></div>
+              </div>
+              <iframe src="https://player.svrdedicado.org/request/manual/6862" frameBorder="0" width="100%" height="480" title="Pedidos Manual"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider"></div>
+
+      <section className="sec" id="top">
+        <div className="sec-inner">
+          <div className="sec-header fi"><div className="section-eyebrow">Mais tocadas</div><h2 className="section-title">Top <em>10</em> da Semana</h2></div>
+          <div id="topList" style={{ maxWidth: '760px' }} className="fi">
+            {[
+              { n: 1, t: "Não Abro Mão", a: "Henrique & Juliano", d: "3:42", p: 98 },
+              { n: 2, t: "Fiel", a: "Henrique & Juliano", d: "3:18", p: 90 },
+              { n: 3, t: "Apelido Carinhoso", a: "Zé Neto & Cristiano", d: "3:55", p: 86 },
+              { n: 4, t: "Deus Cuida de Mim", a: "Fernandinho", d: "4:12", p: 82 },
+              { n: 5, t: "Tempo de Virar", a: "Luísa Sonza", d: "3:08", p: 77 },
+              { n: 6, t: "Bate Meu Coração", a: "Lauana Prado", d: "3:30", p: 72 },
+              { n: 7, t: "Trem Bala", a: "Ana Vilela", d: "4:02", p: 66 },
+              { n: 8, t: "Evidências", a: "Chitãozinho & Xororó", d: "4:44", p: 61 },
+              { n: 9, t: "Mil Milagres", a: "Aline Barros", d: "3:57", p: 55 },
+              { n: 10, t: "Saudade Que Dói", a: "Jorge & Mateus", d: "3:25", p: 48 },
+            ].map(t => (
+              <div className="top-item" key={t.n}>
+                <span className="top-num">{String(t.n).padStart(2, '0')}</span>
+                <div className="top-info"><div className="top-track">{t.t}</div><div className="top-artist">{t.a}</div></div>
+                <div className="top-bar"><div className="top-fill" data-pct={t.p}></div></div>
+                <span className="top-dur">{t.d}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

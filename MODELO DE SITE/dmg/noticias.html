@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Notícias — DMG Records Rádio</title>
+<link rel="stylesheet" href="shared.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+<style>
+.news-hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px}
+.news-secondary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.news-card{background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden;transition:all .25s}
+.news-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.1)}
+.news-img{width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:3.5rem}
+.news-featured .news-img{aspect-ratio:16/7}
+.news-card .news-img{aspect-ratio:16/9}
+.news-body{padding:20px 22px 22px}
+.news-cat{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.news-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;line-height:1.28;margin-bottom:8px}
+.news-featured .news-title{font-size:1.55rem}
+.news-excerpt{font-size:.8rem;color:var(--ink3);line-height:1.72;margin-bottom:12px}
+.news-meta{display:flex;align-items:center;gap:10px}
+.news-date{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--ink3);display:flex;align-items:center;gap:4px}
+.news-tag{background:var(--red-light);color:var(--red);font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+.filter-btn{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border:1.5px solid var(--line);background:transparent;color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s}
+.filter-btn.active,.filter-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
+@media(max-width:900px){.news-hero-grid{grid-template-columns:1fr}.news-secondary{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.news-secondary{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-nav" id="site-nav"></header>
+<div class="player-bar" id="player-bar"></div>
+
+<div class="page-hero">
+  <div class="page-hero-red"></div>
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow">Blog & Informação</div>
+    <h1>Notícias & <em>Blog</em></h1>
+    <p>Novidades do mundo musical, entrevistas exclusivas e os bastidores da DMG Records Rádio.</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="sec-inner">
+    <div class="breadcrumb fi">
+      <a href="index.html">Início</a><i data-lucide="chevron-right" style="width:12px;height:12px"></i>
+      <span>Notícias</span>
+    </div>
+
+    <div class="filters fi">
+      <button class="filter-btn active">Todos</button>
+      <button class="filter-btn">Sertanejo</button>
+      <button class="filter-btn">Gospel</button>
+      <button class="filter-btn">Pop / R&B</button>
+      <button class="filter-btn">Rock</button>
+      <button class="filter-btn">Rádio</button>
+      <button class="filter-btn">Entrevistas</button>
+    </div>
+
+    <div class="news-hero-grid fi">
+      <div class="news-card news-featured">
+        <div class="news-img" style="background:linear-gradient(135deg,#1a1a2e,#D4243A)">🎤</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="star" style="width:11px;height:11px"></i> Entrevista Exclusiva</div>
+          <h2 class="news-title">Henrique & Juliano falam sobre novo álbum e parceria com a DMG Records Rádio</h2>
+          <p class="news-excerpt">Em papo exclusivo com nossa equipe, a dupla revelou os bastidores do novo projeto e agradeceu ao carinho dos ouvintes ao longo de todos esses anos. Uma conversa emocionante e cheia de revelações surpreendentes sobre o futuro da dupla.</p>
+          <div class="news-meta">
+            <span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 15 Jan 2025</span>
+            <span class="news-tag">Destaque</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="news-card">
+          <div class="news-img" style="background:linear-gradient(135deg,#1B6B35,#25D366);height:120px">🙏</div>
+          <div class="news-body">
+            <div class="news-cat"><i data-lucide="music" style="width:11px;height:11px"></i> Gospel</div>
+            <h3 class="news-title" style="font-size:.95rem">Fernandinho lança novo CD gravado ao vivo</h3>
+            <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 10 Jan 2025</span></div>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-img" style="background:linear-gradient(135deg,#7B1FA2,#E040FB);height:120px">🎵</div>
+          <div class="news-body">
+            <div class="news-cat"><i data-lucide="trending-up" style="width:11px;height:11px"></i> Pop / R&B</div>
+            <h3 class="news-title" style="font-size:.95rem">Os maiores hits do Pop brasileiro em 2025</h3>
+            <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 08 Jan 2025</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="news-secondary fi">
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#AD1457,#E91E63)">🎸</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="zap" style="width:11px;height:11px"></i> Rock</div>
+          <h3 class="news-title">Rock nacional: as bandas que prometem dominar 2025</h3>
+          <p class="news-excerpt">Da cena underground às grandes arenas, o rock brasileiro está mais vivo do que nunca.</p>
+          <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 05 Jan 2025</span></div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#B36000,#FFA000)">🤠</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="map-pin" style="width:11px;height:11px"></i> Sertanejo</div>
+          <h3 class="news-title">Agenda de shows sertanejos para o primeiro semestre</h3>
+          <p class="news-excerpt">Confira as principais datas e locais dos shows no Brasil em 2025.</p>
+          <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 03 Jan 2025</span></div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#0D47A1,#42A5F5)">📻</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="radio" style="width:11px;height:11px"></i> Rádio</div>
+          <h3 class="news-title">DMG Records atinge marca de 15 mil ouvintes simultâneos</h3>
+          <p class="news-excerpt">Um novo recorde histórico para a nossa web rádio. Obrigado a todos os ouvintes!</p>
+          <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 01 Jan 2025</span></div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#1A237E,#7986CB)">🎶</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="heart" style="width:11px;height:11px"></i> Gospel</div>
+          <h3 class="news-title">5 músicas gospel que marcaram 2024 e continuam tocando em 2025</h3>
+          <p class="news-excerpt">Uma seleção especial das canções que mais emocionaram os ouvintes durante o ano passado.</p>
+          <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 28 Dez 2024</span></div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#880E4F,#F48FB1)">💿</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="disc" style="width:11px;height:11px"></i> Lançamentos</div>
+          <h3 class="news-title">Novos lançamentos sertanejos para acompanhar esta semana</h3>
+          <p class="news-excerpt">As duplas e artistas que lançaram trabalhos novos e estão bombando nas plataformas.</p>
+          <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 25 Dez 2024</span></div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#004D40,#26A69A)">🎙️</div>
+        <div class="news-body">
+          <div class="news-cat"><i data-lucide="mic" style="width:11px;height:11px"></i> Bastidores</div>
+          <h3 class="news-title">Conheça os bastidores de uma transmissão ao vivo na DMG Records</h3>
+          <p class="news-excerpt">Como funciona nossa equipe, equipamentos e a magia que acontece nos bastidores da rádio.</p>
+          <div class="news-meta"><span class="news-date"><i data-lucide="calendar" style="width:11px;height:11px"></i> 20 Dez 2024</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:44px" class="fi">
+      <button class="btn btn-outline">
+        <i data-lucide="refresh-cw" style="width:15px;height:15px"></i> Carregar Mais Notícias
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer"></footer>
+<script src="shared.js"></script>
+<script>
+dmgInit('noticias.html');
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

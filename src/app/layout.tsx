@@ -1,11 +1,35 @@
 import type { Metadata } from 'next';
+import { Playfair_Display, Outfit, DM_Mono } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster";
-import { AppLayout } from '@/components/AppLayout';
+import { RadioHeader } from '@/components/radio/RadioHeader';
+import { RadioPlayer } from '@/components/radio/RadioPlayer';
+import { RadioFooter } from '@/components/radio/RadioFooter';
+import { RadioScripts } from '@/components/radio/RadioScripts';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair-display',
+  display: 'swap',
+  weight: ['700', '900'],
+  style: ['normal', 'italic'],
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  variable: '--font-dm-mono',
+  display: 'swap',
+  weight: ['300', '400', '500'],
+});
 
 export const metadata: Metadata = {
-  title: 'WaveSync ERP',
-  description: 'A comprehensive ERP web application for small web radio businesses.',
+  title: 'DMG Records Rádio',
+  description: 'Sertanejo, Gospel, Pop e Rock direto pra você. Música e entretenimento 24 horas, 7 dias por semana.',
 };
 
 export default function RootLayout({
@@ -14,17 +38,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
-        <AppLayout>
-          {children}
-        </AppLayout>
-        <Toaster />
+    <html lang="pt-BR" className={`${playfair.variable} ${outfit.variable} ${dmMono.variable}`}>
+      <body>
+        <RadioHeader />
+        <RadioPlayer />
+        <main>{children}</main>
+        <RadioFooter />
+        <RadioScripts />
       </body>
     </html>
   );
