@@ -6,6 +6,9 @@ import { AdvertiseCta } from '@/components/home/AdvertiseCta';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sponsors } from '@/components/home/Sponsors';
+import { SectionHeader } from '@/components/shared/SectionHeader';
+import { BannerExamples } from '@/components/anuncie/BannerExamples';
+
 
 export default function HomePage() {
   return (
@@ -29,6 +32,20 @@ export default function HomePage() {
 
       <div className="h-px bg-[--line]"></div>
       <TopTen />
+
+      <section className="sec">
+        <div className="sec-inner">
+            <div className="fi">
+                <SectionHeader
+                    eyebrow="Exemplos"
+                    title={<>Formatos de <em>Banners Digitais</em></>}
+                    subtitle="Além dos spots na rádio, oferecemos banners animados para veiculação em nosso site e parceiros."
+                />
+                <BannerExamples />
+            </div>
+        </div>
+      </section>
+      
       <AdvertiseCta />
     </>
   )
