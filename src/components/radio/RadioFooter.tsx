@@ -23,7 +23,7 @@ export function RadioFooter() {
             </div>
             <div className="mt-6">
                 <div className="footer-col-title" style={{ marginBottom: '12px' }}>Baixe o App RadiosNet</div>
-                <div className="flex flex-col items-start gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                     <a href="https://play.google.com/store/apps/details?id=br.com.radios.radiosmobile.radiosnet&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank" rel="noopener noreferrer">
                         <Image 
                             width="142" 
@@ -66,7 +66,7 @@ export function RadioFooter() {
           <div className="footer-col">
             <div className="footer-col-title">Contato</div>
             <ul>
-              <li><a href="https://wa.me/5500000000000"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
+              <li><a href="https://wa.me/5551981446019"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
               <li><a href="mailto:contato@dmgrecords.com.br"><Mail style={{ width: '12px', height: '12px' }} /> E-mail</a></li>
               <li><a href="#"><Instagram style={{ width: '12px', height: '12px' }} /> Instagram</a></li>
               <li><a href="#"><Youtube style={{ width: '12px', height: '12px' }} /> YouTube</a></li>
