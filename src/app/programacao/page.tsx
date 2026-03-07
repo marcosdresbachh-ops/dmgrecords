@@ -5,6 +5,7 @@ import { Breadcrumb } from '@/components/shared/Breadcrumb';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { Schedule } from '@/components/programacao/Schedule';
 import { Djs } from '@/components/programacao/Djs';
+import { RectangleBanner } from '@/components/banners/RectangleBanner';
 
 const ProgramacaoPage = () => {
     return (
@@ -21,9 +22,12 @@ const ProgramacaoPage = () => {
                         <Breadcrumb items={[{ href: '/', label: 'Início' }, { label: 'Programação' }]} />
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:gap-8">
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto]">
                         <div className="overflow-hidden">
                             <Schedule />
+                        </div>
+                        <div className="hidden lg:block">
+                            <RectangleBanner />
                         </div>
                     </div>
 

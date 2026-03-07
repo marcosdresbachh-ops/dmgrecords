@@ -6,8 +6,8 @@ const channels = [
     {
         icon: Phone,
         label: "WhatsApp (Pedidos)",
-        value: "(51) 93380-6999",
-        href: "https://wa.me/5551933806999"
+        value: "(51) 98144-6019",
+        href: "https://wa.me/5551981446019"
     },
     {
         icon: Megaphone,

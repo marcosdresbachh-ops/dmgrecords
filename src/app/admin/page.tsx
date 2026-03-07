@@ -852,7 +852,7 @@ const adminHTML = `
         <div class="fg"><label class="fl">Instagram</label><input class="fi" id="cfg-ig" value="https://www.instagram.com/radio_dmg_records" placeholder="@usuario"></div>
         <div class="fg"><label class="fl">Facebook</label><input class="fi" id="cfg-fb" value="https://www.facebook.com/radio.dmg.records" placeholder="URL da página"></div>
         <div class="fg"><label class="fl">YouTube</label><input class="fi" id="cfg-yt" value="" placeholder="URL do canal"></div>
-        <div class="fg"><label class="fl">WhatsApp (pedidos)</label><input class="fi" id="cfg-wa" value="+55 (51) 93380-6999"></div>
+        <div class="fg"><label class="fl">WhatsApp (pedidos)</label><input class="fi" id="cfg-wa" value="+55 (51) 98144-6019"></div>
         <button class="btn btn-red" onclick="saveCfg('social')"><i data-lucide="save" style="width:13px;height:13px"></i>Salvar</button>
       </div></div>
     </div>

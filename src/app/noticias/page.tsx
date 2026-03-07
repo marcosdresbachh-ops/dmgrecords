@@ -4,6 +4,7 @@ import { Breadcrumb } from '@/components/shared/Breadcrumb';
 import { NewsFilters } from '@/components/noticias/NewsFilters';
 import { NewsGrid } from '@/components/noticias/NewsGrid';
 import { RefreshCw } from 'lucide-react';
+import { LeaderboardBanner } from '@/components/banners/LeaderboardBanner';
 
 const NoticiasPage = () => {
     return (
@@ -13,6 +14,8 @@ const NoticiasPage = () => {
                 title={<>Notícias & <em>Blog</em></>}
                 description="Novidades do mundo musical, entrevistas exclusivas e os bastidores da DMG Records Rádio."
             />
+
+            <LeaderboardBanner />
 
             <section className="sec">
                 <div className="sec-inner">

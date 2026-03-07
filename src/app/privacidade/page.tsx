@@ -107,7 +107,7 @@ const content = [
                 <p>Se você tiver dúvidas sobre esta Política de Privacidade ou sobre o tratamento de seus dados pessoais, entre em contato conosco:</p>
                 <ul>
                     <li>E-mail: privacidade@dmgrecords.com.br</li>
-                    <li>WhatsApp: (55) 00000-0000</li>
+                    <li>WhatsApp: (51) 98144-6019</li>
                     <li>Formulário: <a href="/contato" className="text-[--red]">Página de Contato</a></li>
                 </ul>
             </>

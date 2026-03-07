@@ -45,7 +45,7 @@ const indoorHTML = `
           🎵 Henrique &amp; Juliano — Show em São Paulo no próximo mês! &nbsp;&nbsp;•&nbsp;&nbsp;
           🏆 DMG Records completa 8 anos no ar! Obrigado a todos os ouvintes! &nbsp;&nbsp;•&nbsp;&nbsp;
           🎙️ Convidado especial amanhã às 18h no Prime Time DMG &nbsp;&nbsp;•&nbsp;&nbsp;
-          📻 Pedidos: WhatsApp (51) 93380-6999 ou pelo site dmgrecords.com.br &nbsp;&nbsp;•&nbsp;&nbsp;
+          📻 Pedidos: WhatsApp (51) 98144-6019 ou pelo site dmgrecords.com.br &nbsp;&nbsp;•&nbsp;&nbsp;
           🎵 Novo CD de Fernandinho disponível nas plataformas digitais &nbsp;&nbsp;•&nbsp;&nbsp;
           ⭐ Vote na sua música favorita pelo nosso site! &nbsp;&nbsp;•&nbsp;&nbsp;
           🎸 Jorge &amp; Mateus — nova música já toca aqui na DMG Records &nbsp;&nbsp;&nbsp;&nbsp;
@@ -121,7 +121,7 @@ const indoorHTML = `
               Peça por delivery ou venha jantar conosco!
             </div>
             <div class="ad-cta" style="background:#FF8040;color:#fff">
-              🍕 (55) 9 8888-0001 · Delivery até 23h
+              🍕 (51) 98144-6019 · Delivery até 23h
             </div>
           </div>
         </div>
@@ -173,7 +173,7 @@ const indoorHTML = `
               Serviços de instalação no local.
             </div>
             <div class="ad-cta" style="background:#A070FF;color:#fff">
-              🔧 Rod. BR-116, km 42 · (55) 9 7777-0001
+              🔧 Rod. BR-116, km 42 · (51) 98144-6019
             </div>
           </div>
         </div>
