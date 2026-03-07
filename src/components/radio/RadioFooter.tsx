@@ -12,13 +12,13 @@ export function RadioFooter() {
           <div>
             <div className="mb-4">
               <Link href="/">
-                <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={160} height={22} />
+                <Image src="/logo_radio_dmg_white.png" alt="DMG Records Rádio" width={160} height={40} style={{ height: 'auto' }} />
               </Link>
             </div>
-            <p className="footer-desc">DRESBACH RECORDS LTDA - Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
+            <p className="footer-desc">DMG RECORDS LTDA - Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
             <div className="footer-socials">
-              <a href="#" className="footer-soc icon"><Instagram style={{ width: '15px', height: '15px' }} /></a>
-              <a href="#" className="footer-soc icon"><Facebook style={{ width: '15px', height: '15px' }} /></a>
+              <a href="https://www.instagram.com/radio_dmg_records" target="_blank" rel="noopener noreferrer" className="footer-soc icon"><Instagram style={{ width: '15px', height: '15px' }} /></a>
+              <a href="https://www.facebook.com/radio.dmg.records" target="_blank" rel="noopener noreferrer" className="footer-soc icon"><Facebook style={{ width: '15px', height: '15px' }} /></a>
               <a href="#" className="footer-soc icon"><Youtube style={{ width: '15px', height: '15px' }} /></a>
               <a href="#" className="footer-soc icon"><Twitter style={{ width: '15px', height: '15px' }} /></a>
             </div>
@@ -66,16 +66,16 @@ export function RadioFooter() {
           <div className="footer-col">
             <div className="footer-col-title">Contato</div>
             <ul>
-              <li><a href="https://wa.me/5551981446019"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
+              <li><a href="https://wa.me/5551933806999"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
               <li><a href="mailto:contato@dmgrecords.com.br"><Mail style={{ width: '12px', height: '12px' }} /> E-mail</a></li>
-              <li><a href="#"><Instagram style={{ width: '12px', height: '12px' }} /> Instagram</a></li>
+              <li><a href="https://www.instagram.com/radio_dmg_records"><Instagram style={{ width: '12px', height: '12px' }} /> Instagram</a></li>
               <li><a href="#"><Youtube style={{ width: '12px', height: '12px' }} /> YouTube</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
             <div className="text-center md:text-left">
-                <p className="footer-copy">© 2026 DRESBACH RECORDS LTDA | CNPJ: 63.187.175/0001-70.</p>
+                <p className="footer-copy">© 2026 DMG RECORDS LTDA | CNPJ: 63.187.175/0001-70.</p>
                 <p className="footer-copy">Todos os direitos reservados.</p>
             </div>
             <a href="https://www.rscriativo.rs.gov.br/dgm-records" target="_blank" rel="noopener noreferrer" className="inline-block shrink-0 rounded-sm border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/60 transition-colors hover:bg-white/20 hover:text-white">

@@ -9,7 +9,7 @@ export function Mission() {
                     title={<>Música que <em>transforma</em></>}
                 />
                 <div className="space-y-4 text-[.95rem] leading-[1.82] text-muted-foreground">
-                    <p><strong className="text-foreground">Dresbach Records</strong> nasceu da paixão pela música e pelo poder transformador do rádio. Somos uma web rádio comprometida com a qualidade musical e a valorização dos artistas brasileiros.</p>
+                    <p><strong className="text-foreground">DMG Records</strong> nasceu da paixão pela música e pelo poder transformador do rádio. Somos uma web rádio comprometida com a qualidade musical e a valorização dos artistas brasileiros.</p>
                     <p>Nossa programação é cuidadosamente curada para atender todos os gostos: do sertanejo raiz ao gospel contemporâneo, do pop nacional ao rock alternativo. Cada hora do dia tem seu som especial.</p>
                     <p>Com <strong className="text-foreground">transmissão 24 horas ininterruptas</strong>, levamos música, entretenimento e fé para ouvintes em todo o Brasil e no mundo.</p>
                 </div>

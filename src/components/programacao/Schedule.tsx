@@ -4,52 +4,13 @@ import { useState, useEffect } from 'react';
 import { Clock, User, Cpu } from 'lucide-react';
 
 const scheduleData: Record<string, Array<{ time: string, show: string, host: string, genre: string, live?: boolean, auto?: boolean }>> = {
-    seg: [
-        { time: '06:00 – 09:00', show: 'Bom Dia DMG', host: 'DJ Marcos', genre: 'Sertanejo', live: false },
-        { time: '09:00 – 12:00', show: 'Morning Hits', host: 'DJ Letícia', genre: 'Pop / R&B', live: false },
-        { time: '12:00 – 15:00', show: 'Almoço Sertanejo', host: 'DJ Carlos', genre: 'Sertanejo', live: true },
-        { time: '15:00 – 18:00', show: 'Tarde Gospel', host: 'DJ Ana Lima', genre: 'Gospel', live: false },
-        { time: '18:00 – 21:00', show: 'Prime Time DMG', host: 'DJ Rafael', genre: 'Pop / Rock', live: false },
-        { time: '21:00 – 00:00', show: 'Noite Romântica', host: 'DJ Sandra', genre: 'Sertanejo', live: false },
-        { time: '00:00 – 06:00', show: 'Madrugada DMG', host: 'AutoDJ', genre: 'Variado', live: false, auto: true },
-    ],
-    ter: [
-        { time: "06:00–09:00", show: "Rock na Manhã", host: "DJ André", genre: "Rock" },
-        { time: "09:00–12:00", show: "Gospel Matinal", host: "DJ Ana Lima", genre: "Gospel" },
-        { time: "12:00–15:00", show: "Almoço Sertanejo", host: "DJ Carlos", genre: "Sertanejo" },
-        { time: "15:00–21:00", show: "Pop & R&B", host: "DJ Letícia", genre: "Pop / R&B" },
-        { time: "21:00–06:00", show: "Madrugada DMG", host: "AutoDJ", genre: "Variado", auto: true },
-    ],
-    qua: [
-        { time: "06:00–12:00", show: "Manhã Gospel", host: "DJ Ana Lima", genre: "Gospel" },
-        { time: "12:00–18:00", show: "Tarde Sertaneja", host: "DJ Carlos", genre: "Sertanejo" },
-        { time: "18:00–00:00", show: "Noite Pop", host: "DJ Marcos", genre: "Pop / R&B" },
-        { time: "00:00–06:00", show: "Madrugada DMG", host: "AutoDJ", genre: "Variado", auto: true },
-    ],
-    qui: [
-        { time: "06:00–09:00", show: "Bom Dia DMG", host: "DJ Marcos", genre: "Sertanejo" },
-        { time: "09:00–15:00", show: "Morning Gospel", host: "DJ Ana Lima", genre: "Gospel" },
-        { time: "15:00–21:00", show: "Rock & Pop", host: "DJ André", genre: "Rock/Pop" },
-        { time: "21:00–06:00", show: "Madrugada DMG", host: "AutoDJ", genre: "Variado", auto: true },
-    ],
-    sex: [
-        { time: "06:00–12:00", show: "Sexta Animada", host: "DJ Rafael", genre: "Pop / R&B" },
-        { time: "12:00–18:00", show: "Sertanejo de Raiz", host: "DJ Carlos", genre: "Sertanejo" },
-        { time: "18:00–22:00", show: "Gospel da Sexta", host: "DJ Ana Lima", genre: "Gospel" },
-        { time: "22:00–06:00", show: "Rock Night", host: "DJ André", genre: "Rock" },
-    ],
-    sab: [
-        { time: "08:00–12:00", show: "Sábado Gospel", host: "DJ Ana Lima", genre: "Gospel" },
-        { time: "12:00–16:00", show: "Churrasco Sertanejo", host: "DJ Carlos", genre: "Sertanejo" },
-        { time: "16:00–20:00", show: "Pop Hits Weekend", host: "DJ Letícia", genre: "Pop" },
-        { time: "20:00–06:00", show: "Rock Weekend", host: "DJ André", genre: "Rock" },
-    ],
-    dom: [
-        { time: "08:00–14:00", show: "Domingo Gospel", host: "DJ Ana Lima", genre: "Gospel" },
-        { time: "14:00–18:00", show: "Tarde Sertaneja", host: "DJ Carlos", genre: "Sertanejo" },
-        { time: "18:00–22:00", show: "Noite Romântica", host: "DJ Sandra", genre: "Pop / R&B" },
-        { time: "22:00–08:00", show: "Madrugada DMG", host: "AutoDJ", genre: "Variado", auto: true },
-    ],
+    seg:[ {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ Marcos',genre:'Sertanejo',live:false}, {time:'09:00–12:00',show:'Morning Hits',host:'DJ Letícia',genre:'Pop / R&B',live:false}, {time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo',live:true}, {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ Ana Lima',genre:'Gospel',live:false}, {time:'18:00–22:00',show:'Prime Time DMG',host:'DJ Rafael',genre:'Pop / Rock',live:false}, {time:'22:00–00:00',show:'Noite Romântica',host:'DJ Sandra',genre:'Sertanejo',live:false}, {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true}, ],
+    ter:[ {time:'06:00–09:00',show:'Rock na Manhã',host:'DJ André',genre:'Rock'}, {time:'09:00–12:00',show:'Gospel Matinal',host:'DJ Ana Lima',genre:'Gospel'}, {time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo'}, {time:'18:00–22:00',show:'Pop & R&B',host:'DJ Letícia',genre:'Pop / R&B'}, {time:'22:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true}, ],
+    qua:[{time:'06:00–12:00',show:'Manhã Gospel',host:'DJ Ana Lima',genre:'Gospel'},{time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo'},{time:'18:00–22:00',show:'Noite Pop',host:'DJ Marcos',genre:'Pop / R&B'},{time:'22:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true}],
+    qui:[{time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ Marcos',genre:'Sertanejo'},{time:'09:00–12:50',show:'Morning Gospel',host:'DJ Ana Lima',genre:'Gospel'},{time:'12:50-13:30', show:'Almoço Sertanejo', host:'DJ Carlos', genre:'Sertanejo'}, {time:'18:00–22:00',show:'Rock & Pop',host:'DJ André',genre:'Rock/Pop'},{time:'22:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true}],
+    sex:[{time:'06:00–12:00',show:'Sexta Animada',host:'DJ Rafael',genre:'Pop / R&B'},{time:'12:50–13:30',show:'Sertanejo de Raiz',host:'DJ Carlos',genre:'Sertanejo'},{time:'18:00–22:00',show:'Gospel da Sexta',host:'DJ Ana Lima',genre:'Gospel'},{time:'22:00–06:00',show:'Rock Night',host:'DJ André',genre:'Rock'}],
+    sab:[{time:'08:00–18:00',show:'Sabadaço DMG',host:'DJ Rafael',genre:'Variado'}, {time:'18:00–00:00', show:'Noite de Sábado', host:'AutoDJ', genre:'Variado', auto: true}],
+    dom:[{time:'08:00–14:00',show:'Domingo Gospel',host:'DJ Ana Lima',genre:'Gospel'},{time:'14:00–18:00',show:'Tarde Sertaneja',host:'DJ Carlos',genre:'Sertanejo'},{time:'18:00–22:00',show:'Noite Romântica',host:'DJ Sandra',genre:'Pop / R&B'},{time:'22:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true}],
 };
 
 const dayMap = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];

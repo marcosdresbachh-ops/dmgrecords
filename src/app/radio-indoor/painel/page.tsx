@@ -45,7 +45,7 @@ const indoorHTML = `
           🎵 Henrique &amp; Juliano — Show em São Paulo no próximo mês! &nbsp;&nbsp;•&nbsp;&nbsp;
           🏆 DMG Records completa 8 anos no ar! Obrigado a todos os ouvintes! &nbsp;&nbsp;•&nbsp;&nbsp;
           🎙️ Convidado especial amanhã às 18h no Prime Time DMG &nbsp;&nbsp;•&nbsp;&nbsp;
-          📻 Pedidos: WhatsApp (55) 9 9999-0000 ou pelo site dmgrecords.com.br &nbsp;&nbsp;•&nbsp;&nbsp;
+          📻 Pedidos: WhatsApp (51) 93380-6999 ou pelo site dmgrecords.com.br &nbsp;&nbsp;•&nbsp;&nbsp;
           🎵 Novo CD de Fernandinho disponível nas plataformas digitais &nbsp;&nbsp;•&nbsp;&nbsp;
           ⭐ Vote na sua música favorita pelo nosso site! &nbsp;&nbsp;•&nbsp;&nbsp;
           🎸 Jorge &amp; Mateus — nova música já toca aqui na DMG Records &nbsp;&nbsp;&nbsp;&nbsp;
