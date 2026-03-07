@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { Clock, User, Cpu } from 'lucide-react';
 import { Skeleton } from "@/components/ui/skeleton";
 
-const scheduleData: Record<string, Array<{ time: string, show: string, host: string, genre: string, live?: boolean, auto?: boolean }>> = {
+const scheduleData: Record<string, Array<{ time: string, show: string, host: string, genre: string, auto?: boolean }>> = {
     seg: [
         {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
         {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
         {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo', live: true},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
         {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
         {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
         {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
@@ -51,22 +51,18 @@ const scheduleData: Record<string, Array<{ time: string, show: string, host: str
         {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
     ],
     sab: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
+        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
+        {time:'08:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
+        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão'},
+        {time:'18:00–22:00',show:'Esquenta Sertanejo',host:'DJ RAFAEL',genre:'Sertanejo'},
+        {time:'22:00–00:00',show:'Rock Night',host:'DJ ANDRÉ',genre:'Rock'}
     ],
     dom: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
+        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
+        {time:'08:00–12:00',show:'Bom Dia Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
+        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão'},
+        {time:'18:00–22:00',show:'Domingo Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
+        {time:'22:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
     ],
 };
 
@@ -80,6 +76,34 @@ const daysOfWeek = [
     { id: 'sab', label: 'Sábado' },
     { id: 'dom', label: 'Domingo' },
 ];
+
+const isLiveNow = (dayId: string, timeRange: string, now: Date): boolean => {
+    const currentDayIndex = now.getDay();
+    const currentDayId = dayMap[currentDayIndex];
+
+    if (dayId !== currentDayId) {
+        return false;
+    }
+
+    try {
+        const [startStr, endStr] = timeRange.split('–');
+        const [startHour, startMinute] = startStr.split(':').map(Number);
+        let [endHour, endMinute] = endStr.split(':').map(Number);
+
+        if (endHour === 0 && endMinute === 0) {
+            endHour = 24;
+        }
+
+        const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+        const startTimeInMinutes = startHour * 60 + startMinute;
+        const endTimeInMinutes = endHour * 60 + endMinute;
+
+        return currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes < endTimeInMinutes;
+    } catch (e) {
+        console.error("Error parsing time range", timeRange, e);
+        return false;
+    }
+};
 
 const GenreBadge = ({ genre }: { genre: string }) => {
     let className = 'badge ';
@@ -97,15 +121,21 @@ const GenreBadge = ({ genre }: { genre: string }) => {
 
 export const Schedule = () => {
     const [activeTab, setActiveTab] = useState('seg');
-    const [isMounted, setIsMounted] = useState(false);
+    const [now, setNow] = useState<Date | null>(null);
 
     useEffect(() => {
-        setIsMounted(true);
+        setNow(new Date());
         const today = dayMap[new Date().getDay()];
         setActiveTab(today);
+
+        const timer = setInterval(() => {
+            setNow(new Date());
+        }, 60000); // Update every minute
+
+        return () => clearInterval(timer);
     }, []);
 
-    if (!isMounted) {
+    if (!now) {
         return (
              <div className="fi v">
                 <div className="mb-8 flex flex-wrap border-b-2 border-border">
@@ -149,22 +179,25 @@ export const Schedule = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentSchedule.map((item, index) => (
-                            <tr key={index} className={`border-b border-border transition-colors hover:bg-primary/5 ${item.live ? 'border-l-4 border-l-primary bg-primary/10' : ''}`}>
-                                <td className="whitespace-nowrap p-3.5 font-['DM_Mono',monospace] text-[.7rem] text-muted-foreground">{item.time}</td>
-                                <td className="p-3.5">
-                                    <div className="text-[.92rem] font-bold">{item.show}</div>
-                                </td>
-                                <td className="p-3.5">
-                                    <div className="flex items-center gap-1.5 text-[.76rem] text-muted-foreground">
-                                        {item.auto ? <Cpu className="h-3 w-3" /> : <User className="h-3 w-3" />}
-                                        {item.auto ? "Automático" : item.host}
-                                    </div>
-                                </td>
-                                <td className="p-3.5"><GenreBadge genre={item.genre || ''} /></td>
-                                <td className="p-3.5">{item.live ? <span className="inline-flex items-center gap-1.5 rounded-sm bg-green-100 px-2 py-1 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.15em] text-green-700"><span className="live-dot"></span>Ao Vivo</span> : ''}</td>
-                            </tr>
-                        ))}
+                        {currentSchedule.map((item, index) => {
+                            const live = isLiveNow(activeTab, item.time, now);
+                            return (
+                                <tr key={index} className={`border-b border-border transition-colors hover:bg-primary/5 ${live ? 'border-l-4 border-l-primary bg-primary/10' : ''}`}>
+                                    <td className="whitespace-nowrap p-3.5 font-['DM_Mono',monospace] text-[.7rem] text-muted-foreground">{item.time}</td>
+                                    <td className="p-3.5">
+                                        <div className="text-[.92rem] font-bold">{item.show}</div>
+                                    </td>
+                                    <td className="p-3.5">
+                                        <div className="flex items-center gap-1.5 text-[.76rem] text-muted-foreground">
+                                            {item.auto ? <Cpu className="h-3 w-3" /> : <User className="h-3 w-3" />}
+                                            {item.auto ? "Automático" : item.host}
+                                        </div>
+                                    </td>
+                                    <td className="p-3.5"><GenreBadge genre={item.genre || ''} /></td>
+                                    <td className="p-3.5">{live ? <span className="inline-flex items-center gap-1.5 rounded-sm bg-green-100 px-2 py-1 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.15em] text-green-700"><span className="live-dot"></span>Ao Vivo</span> : ''}</td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>
