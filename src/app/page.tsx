@@ -1,11 +1,11 @@
 'use client';
 import { Hero } from '@/components/home/Hero';
 import { Features } from '@/components/home/Features';
-import { LiveWidgets } from '@/components/home/LiveWidgets';
 import { TopTen } from '@/components/home/TopTen';
 import { AdvertiseCta } from '@/components/home/AdvertiseCta';
 import Image from 'next/image';
 import Link from 'next/link';
+import { PartnerBannersMarquee } from '@/components/home/PartnerBannersMarquee';
 
 export default function HomePage() {
   return (
@@ -26,6 +26,9 @@ export default function HomePage() {
       </div>
 
       <div className="h-px bg-[--line]"></div>
+      
+      <PartnerBannersMarquee />
+
       <TopTen />
       
       <AdvertiseCta />

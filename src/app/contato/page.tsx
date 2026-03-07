@@ -3,8 +3,6 @@ import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
 import { ContactForm } from '@/components/contato/ContactForm';
 import { ContactChannels } from '@/components/contato/ContactChannels';
-import { RectangleBanner } from '@/components/banners/RectangleBanner';
-import '@/components/banners/Banners.css';
 
 const ContatoPage = () => {
     return (
@@ -24,7 +22,6 @@ const ContatoPage = () => {
                         <ContactForm />
                         <div className="flex flex-col items-center gap-8 lg:items-start">
                             <ContactChannels />
-                            <RectangleBanner />
                         </div>
                     </div>
                 </div>
