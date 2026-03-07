@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PartnerBannersMarquee } from '@/components/home/PartnerBannersMarquee';
 import { LeaderboardBanner } from '@/components/banners/LeaderboardBanner';
+import { ValeIndicaCta } from '@/components/home/ValeIndicaCta';
 
 export default function HomePage() {
   return (
@@ -31,6 +32,8 @@ export default function HomePage() {
       <div className="h-px bg-[--line]"></div>
       
       <PartnerBannersMarquee />
+
+      <ValeIndicaCta />
 
       <TopTen />
       
