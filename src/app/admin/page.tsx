@@ -1,6 +1,390 @@
 'use client';
 import React from 'react';
 
+// This function is now defined outside the component to be cleaner
+const getAdminScript = (apiUrl: string) => `
+/* ══════════════════════════════════════════════
+   DMG RECORDS — PAINEL ADMIN v2
+   SISTEMA COMPLETO OPERACIONAL
+══════════════════════════════════════════════ */
+
+const CFG = {
+  API_URL: '${apiUrl}', // Injected API URL
+  STREAM_URL: 'https://s02.svrdedicado.org:6862/stream',
+  SC_ADMIN: 'http://s02.svrdedicado.org:6862',
+  REFRESH_INTERVAL: 30000,
+};
+
+const STATE = {
+  apiData: null, playing: false, volume: 80, currentPage: 'dashboard',
+  logFilter: 'all', musicFilter: 'all', musicSearch: '',
+  selectedTracks: new Set(), bannedUsers: [], chatMessages: [],
+  musicQueue: [], chatEnabled: true, slowMode: false,
+  genreSliders: {sertanejo:50,gospel:25,pop:15,rock:10},
+  logs: [], requests: [],
+};
+
+const SCHEDULE = {
+    seg: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+    ],
+    ter: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+    ],
+    qua: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+    ],
+    qui: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+    ],
+    sex: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+    ],
+    sab: [
+        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'08:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
+        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo'},
+        {time:'18:00–22:00',show:'Esquenta Sertanejo',host:'DJ RAFAEL',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Rock Night',host:'DJ ANDRÉ',genre:'Rock',type:'Ao Vivo'}
+    ],
+    dom: [
+        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'08:00–12:00',show:'Bom Dia Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
+        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo'},
+        {time:'18:00–22:00',show:'Domingo Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+    ],
+};
+
+const MUSIC_DB = [
+  {id:1,title:'Não é Mole Não',artist:'João Bosco e Vinícius',album:'Cabaré 2',genre:'sertanejo',dur:'3:48',bpm:88},
+  {id:2,title:'Batom de Cereja',artist:'Jorge & Mateus',album:'Live',genre:'sertanejo',dur:'3:22',bpm:92},
+  {id:3,title:'Diferença Particular',artist:'Henrique & Juliano',album:'Ao Vivo',genre:'sertanejo',dur:'4:05',bpm:90},
+  {id:4,title:'Oceans',artist:'Hillsong United',album:'Zion',genre:'gospel',dur:'8:56',bpm:72},
+  {id:5,title:'Ninguém Explica Deus',artist:'Preto no Branco',album:'Na Estrada',genre:'gospel',dur:'4:20',bpm:76},
+  {id:6,title:'Blinding Lights',artist:'The Weeknd',album:'After Hours',genre:'pop',dur:'3:20',bpm:171},
+  {id:7,title:'Flowers',artist:'Miley Cyrus',album:'Endless Summer Vacation',genre:'pop',dur:'3:20',bpm:119},
+  {id:8,title:'Bohemian Rhapsody',artist:'Queen',album:"A Night at the Opera",genre:'rock',dur:'5:55',bpm:144},
+  {id:9,title:'Liberdade Provisória',artist:'Maiara & Maraísa',album:'Ao Vivo',genre:'sertanejo',dur:'3:50',bpm:95},
+  {id:10,title:'Tudo de Bom',artist:'Gusttavo Lima',album:'G',genre:'sertanejo',dur:'3:15',bpm:88},
+];
+
+const TEAM_DB = [
+  {name:'DJ Marcos',role:'Locutor Principal',shows:['Bom Dia DMG','Noite Pop'],color:'#1a1a2e,#D4243A',presence:88,avatar:'M'},
+  {name:'DJ Letícia',role:'Pop & R&B',shows:['Morning Hits'],color:'#7B1FA2,#E040FB',presence:95,avatar:'L'},
+  {name:'DJ Carlos',role:'Sertanejo',shows:['Almoço Sertanejo'],color:'#B36000,#FFA000',presence:100,avatar:'C'},
+  {name:'DJ Ana Lima',role:'Gospel',shows:['Tarde Gospel','Gospel Matinal'],color:'#1B5E20,#43A047',presence:92,avatar:'A'},
+  {name:'DJ Rafael',role:'Pop & Rock',shows:['Prime Time DMG'],color:'#0D47A1,#1E88E5',presence:78,avatar:'R'},
+  {name:'DJ Sandra',role:'Sertanejo Romântico',shows:['Noite Romântica'],color:'#880E4F,#E91E63',presence:85,avatar:'S'},
+  {name:'DJ André',role:'Rock & Pop',shows:['Rock Night','Rock na Manhã'],color:'#1A1A1A,#616161',presence:80,avatar:'An'},
+];
+
+const ADV_DB = [
+  {name:'Loja JM Calçados',short:'LJ',plan:'Premium',expiry:'31/05/2026',spots:48,revenue:'R$1.2k',status:'ativo'},
+  {name:'Pizzaria Fornalha',short:'PF',plan:'Básico',expiry:'15/04/2026',spots:24,revenue:'R$600',status:'ativo'},
+  {name:'Imobiliária Central',short:'IM',plan:'Premium Plus',expiry:'31/12/2026',spots:96,revenue:'R$2.8k',status:'ativo'},
+  {name:'Farmácia Total',short:'FT',plan:'Básico',expiry:'09/03/2026',spots:24,revenue:'R$600',status:'expirando'},
+  {name:'Auto Center Veloz',short:'AC',plan:'Standard',expiry:'30/06/2026',spots:36,revenue:'R$900',status:'ativo'},
+];
+
+const NEWS_DB = [
+  {id:1,title:'Show especial de fim de ano: DMG Records confirma linha completa de artistas',cat:'Evento',date:'06/03/2026',status:'publicado',views:1247},
+  {id:2,title:'Nova parceria com gravadora BMG traz exclusividades para ouvintes',cat:'Música',date:'05/03/2026',status:'rascunho',views:0},
+  {id:3,title:'DMG Records é eleita melhor web-rádio gospel do Brasil em 2025',cat:'Rádio',date:'04/03/2026',status:'publicado',views:3890},
+];
+
+const CHART_DATA = [320,280,190,150,180,420,780,1100,1420,1680,1820,1840,1680,1520,1380,1248,1480,1720,1680,1520,1200,980,720,480];
+
+STATE.logs = [
+  {time:'14:02:11',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Carlos iniciou sessão — Almoço Sertanejo'},
+  {time:'13:58:04',type:'music',color:'var(--blue)',msg:'[ACERVO] admin adicionou 14 faixas · Sertanejo'},
+  {time:'13:45:30',type:'stream',color:'var(--accent)',msg:'[ANÚNCIOS] Spot "Loja JM Calçados" aprovado e agendado'},
+  {time:'13:32:00',type:'chat',color:'var(--red)',msg:'[CHAT] 3 mensagens de "user_anon" reportadas e removidas'},
+  {time:'13:18:45',type:'stream',color:'var(--ink3)',msg:'[SISTEMA] Backup automático concluído — 2.417 faixas'},
+  {time:'12:59:55',type:'stream',color:'var(--green)',msg:'[AUDIÊNCIA] Pico de 1.842 ouvintes registrado'},
+  {time:'12:00:01',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] Almoço Sertanejo iniciado'},
+  {time:'09:00:02',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Letícia iniciou Morning Hits'},
+  {time:'08:12:44',type:'access',color:'var(--accent)',msg:'[ACESSO] Login admin@dmgrecords.com.br · IP: 177.XXX.XXX.12'},
+  {time:'06:00:01',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Marcos iniciou Bom Dia DMG'},
+];
+
+STATE.chatMessages = [
+  {name:'Marcos_fã',text:'Que programa incrível! DMG é demais! 🎵',time:'14:02',color:'#7C3AED',reported:false},
+  {name:'Ana_BH',text:'Boa tarde a todos! Amando essa música 🎶',time:'14:03',color:'var(--blue)',reported:false},
+  {name:'Rafa_SP',text:'Pedido: toca João Bosco de novo por favor!',time:'14:04',color:'var(--green)',reported:false},
+  {name:'user_anon',text:'[mensagem inapropriada removida]',time:'14:05',color:'var(--red)',reported:true},
+  {name:'Cris_Goiânia',text:'Essa seleção de hoje está PERFEITA 👏👏',time:'14:07',color:'var(--accent)',reported:false},
+];
+
+STATE.requests = [
+  {user:'Rafa_SP',track:'João Bosco e Vinícius — Não é Mole Não'},
+  {user:'Cris_Goiânia',track:'Gusttavo Lima — Inventor dos Amores'},
+];
+
+STATE.musicQueue = MUSIC_DB.slice(0,6);
+
+const PAGE_TITLES = {
+  dashboard:'Dashboard <em>Geral</em>', transmissao:'Controle de <em>Transmissão</em>', musicas:'Biblioteca de <em>Músicas</em>', programacao:'Grade de <em>Programação</em>', noticias:'Gestão de <em>Notícias</em>', chat:'Chat <em>ao Vivo</em>', anunciantes:'Painel de <em>Anunciantes</em>', equipe:'Nossa <em>Equipe</em>', estatisticas:'Relatório de <em>Audiência</em>', configuracoes:'<em>Configurações</em> do Sistema', logs:'Logs do <em>Sistema</em>',
+};
+
+function isProgramLive(timeRange) {
+    try {
+        const now = new Date();
+        const [startStr, endStr] = timeRange.split('–');
+        const [startHour, startMinute] = startStr.split(':').map(Number);
+        let [endHour, endMinute] = endStr.split(':').map(Number);
+        
+        if (endHour === 0 && endMinute === 0) {
+            endHour = 24;
+        }
+
+        const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+        const startTimeInMinutes = startHour * 60 + startMinute;
+        const endTimeInMinutes = endHour * 60 + endMinute;
+
+        return currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes < endTimeInMinutes;
+    } catch(e) {
+        return false;
+    }
+}
+
+
+function nav(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  const page = document.getElementById('page-'+id);
+  if(page){page.classList.add('active');void page.offsetWidth;page.classList.add('fade-in')}
+  if(el) el.classList.add('active');
+  else { document.querySelectorAll('.sb-item').forEach(i=>{ if(i.getAttribute('onclick')&&i.getAttribute('onclick').includes("'"+id+"'")) i.classList.add('active'); }); }
+  document.getElementById('topbarTitle').innerHTML = PAGE_TITLES[id]||id;
+  STATE.currentPage = id;
+  if(window.innerWidth<960) document.querySelector('.sidebar').classList.remove('open');
+  window.scrollTo(0,0);
+  renderPage(id);
+  if(window.lucide) lucide.createIcons();
+}
+
+function renderPage(id){
+  if(id==='programacao') renderSchedule('seg');
+  if(id==='musicas') renderMusicTable();
+  if(id==='noticias') renderNews();
+  if(id==='equipe') renderTeam();
+  if(id==='anunciantes') renderAdvertisers();
+  if(id==='chat') renderChat();
+  if(id==='logs') renderLogs();
+  if(id==='configuracoes') buildGenreSliders();
+  if(id==='dashboard') { buildChart(); buildTodaySchedule(); buildQueue(); }
+  if(id==='transmissao') buildTxLevels();
+}
+
+function toggleSidebar(){document.querySelector('.sidebar').classList.toggle('open')}
+
+async function fetchAPI(){
+  const icon = document.getElementById('refreshIcon');
+  if(icon) icon.style.animation='spin 1s linear infinite';
+  try {
+    const res = await fetch(CFG.API_URL);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    STATE.apiData = data;
+    updateUIFromAPI(data);
+    setApiStatus(true);
+    addLog('stream','var(--green)',"[API] Dados atualizados · " + new Date().toLocaleTimeString('pt-BR'));
+  } catch(e) {
+    setApiStatus(false);
+    addLog('error','var(--red)',"[API] Erro ao conectar: " + e.message);
+    updateUIFromAPI({ status:'online', porta:'6862', porta_dj:'35750', ip:'s02.svrdedicado.org', ouvintes_conectados:'—', titulo:'DMG Records Rádio', plano_ouvintes:'200', plano_ftp:'2GB', plano_bitrate:'128', musica_atual:'Não é Mole Não — João Bosco e Vinícius', genero:'Sertanejo', shoutcast:'https://s02.svrdedicado.org:6862/stream', capa_musica:'' });
+  } finally {
+    if(icon) icon.style.animation='';
+    if(window.lucide) lucide.createIcons();
+  }
+}
+
+function updateUIFromAPI(d){
+  const online = d.status==='online';
+  setText('kpi-listeners', d.ouvintes_conectados||'—');
+  const trackFull = d.musica_atual||'—';
+  const parts = trackFull.split('—');
+  const trackName = parts[0]?.trim()||trackFull;
+  const artistName = parts[1]?.trim()||'';
+  setText('kpi-track', trackName.length>16 ? trackName.substring(0,14)+'…' : trackName);
+  setText('kpi-genre', d.genero||'—');
+  setText('kpi-bitrate', (d.plano_bitrate||'128')+' Kbps');
+  setText('kpi-plan', (d.plano_ouvintes||'—')+' ouvintes máx.');
+  setText('kpi-ftp', d.plano_ftp||'—');
+  setText('onairTrack', trackName);
+  setText('onairArtist', artistName||d.genero||'DMG Records');
+  setText('onairBitrate', (d.plano_bitrate||'128')+'kbps');
+  setText('onairProgram', d.titulo||'DMG RECORDS');
+  if(d.capa_musica) { const cover = document.getElementById('onairCover'); if(cover) cover.innerHTML = \`<img src="\${d.capa_musica}" onerror="this.parentElement.innerHTML='<div class=onair-cover-ph>🎵</div>'">\`; }
+  setText('tx-listeners', d.ouvintes_conectados||'—');
+  setText('tx-max', d.plano_ouvintes||'—');
+  setText('tx-track', d.musica_atual||'—');
+  setText('tx-server', d.ip||'s02.svrdedicado.org');
+  setText('tx-porta', d.porta||'6862');
+  setText('tx-bitrate', (d.plano_bitrate||'128')+' Kbps');
+  const statusEl = document.getElementById('tx-status');
+  if(statusEl) statusEl.innerHTML = online ? '<span class="badge b-green">● Online</span>' : '<span class="badge b-red">● Offline</span>';
+  const box = document.getElementById('sbStatusBox');
+  const dot = document.getElementById('sbStatusDot');
+  if(box && dot) { box.className = 'sb-status-box' + (online?'':' offline'); dot.className = 'sb-status-dot' + (online?'':' red'); }
+  setText('sbStatusLabel', online ? 'RÁDIO ON-AIR' : 'OFFLINE');
+  setText('sbListeners', (d.ouvintes_conectados||'0')+' ouvintes');
+  setText('sb-onair', online?'ON':'OFF');
+  const total = parseInt(d.ouvintes_conectados)||0;
+  setText('map-total', total+' total');
+  setText('map-other', Math.max(0,total-1040)+' ouvintes');
+  setText('stat-top-track', trackName);
+  const peakEl = document.getElementById('dash-peak');
+  if(peakEl) peakEl.textContent = 'Ao vivo: '+(d.ouvintes_conectados||'—')+' ouvintes';
+}
+
+function setApiStatus(ok){
+  const badge = document.getElementById('apiBadge');
+  const dot = document.getElementById('apiDot');
+  const txt = document.getElementById('apiStatus');
+  if(!badge) return;
+  badge.className = 'api-badge' + (ok?'':' err');
+  if(dot) dot.style.background = ok ? 'var(--green)' : 'var(--red)';
+  if(dot) dot.style.animation = ok ? 'blink 1.4s ease-in-out infinite' : 'none';
+  if(txt) txt.textContent = ok ? 'API Conectada' : 'API Offline';
+}
+
+function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val}
+
+function buildChart(){
+  const wrap = document.getElementById('listenerChart');
+  const lbls = document.getElementById('chartLabels');
+  if(!wrap) return;
+  const max = Math.max(...CHART_DATA);
+  wrap.innerHTML = ''; lbls.innerHTML = '';
+  CHART_DATA.forEach((v,i)=>{
+    const b = document.createElement('div');
+    b.className = 'ch-bar'+(v===max?' peak':'');
+    b.style.height=(v/max*100)+'%';
+    b.title=\`\${String(i).padStart(2,'0')}h: \${v.toLocaleString('pt-BR')} ouvintes\`;
+    b.onclick = ()=>toast(\`\${String(i).padStart(2,'0')}h → \${v.toLocaleString('pt-BR')} ouvintes\`,'info');
+    wrap.appendChild(b);
+    const l=document.createElement('span');
+    l.textContent = i%4===0?String(i).padStart(2,'0'):'';
+    lbls.appendChild(l);
+  });
+}
+
+function buildTodaySchedule(){
+  const el = document.getElementById('todaySchedule');
+  if(!el) return;
+  const days = ['dom','seg','ter','qua','qui','sex','sab'];
+  const today = days[new Date().getDay()];
+  const sched = SCHEDULE[today]||SCHEDULE['seg'];
+  el.innerHTML = sched.map(s => {
+    const isLive = isProgramLive(s.time);
+    return \`
+    <div class="tl-item \${isLive ? 'tl-now' : ''}">
+      <div class="tl-time \${isLive ? 'style="color:var(--red)"' : ''}">\${s.time}</div>
+      <div class="tl-dot \${isLive ? 'live' : ''}"></div>
+      <div class="tl-info">
+        <div class="tl-show \${isLive ? 'style="color:var(--red)"' : ''}">\${s.show}\${isLive ? ' <strong>← AGORA</strong>' : ''}</div>
+        <div class="tl-host">\${s.host} · \${s.genre}</div>
+      </div>
+    </div>\`;
+  }).join('');
+}
+
+function buildQueue(){
+  const el = document.getElementById('queueList');
+  if(!el) return;
+  const q = STATE.musicQueue.slice(0,7);
+  el.innerHTML = q.map((t,i)=> \`
+    <div class="q-item \${i===0?'now':''}">
+      <div class="q-num">\${i===0?'▶':(i+1)}</div>
+      <div class="q-thumb">\${t.title.substring(0,2).toUpperCase()}</div>
+      <div class="q-info"><div class="q-track">\${t.title}</div><div class="q-artist">\${t.artist}</div></div>
+      <div class="q-dur">\${t.dur}</div>
+    </div>\`).join('');
+}
+
+let currentDay = 'seg';
+function switchDay(el, day){
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentDay = day;
+  renderSchedule(day);
+}
+
+function renderSchedule(day){
+  const tbody = document.getElementById('schedTableBody');
+  if(!tbody) return;
+  const data = SCHEDULE[day]||[];
+  const days = ['dom','seg','ter','qua','qui','sex','sab'];
+  const today = days[new Date().getDay()];
+  const isToday = day === today;
+
+  tbody.innerHTML = data.map((s,i)=>{
+    const isLive = isToday && isProgramLive(s.time);
+    const genreBadge = {Sertanejo:'b-acc','Pop / R&B':'b-blue','Pop/R&B':'b-blue','Pop / Rock':'b-blue',Gospel:'b-purple',Rock:'b-gray',Variado:'b-gray', Bailão: 'b-sert', Românticas: 'b-red'}[s.genre]||'b-gray';
+    return \`<tr\${isLive?' style="background:var(--red-light)"':''}>
+      <td style="font-family:'DM Mono',monospace;font-size:.72rem\${isLive?';color:var(--red)':''}">\${s.time}</td>
+      <td style="font-weight:\${isLive?700:600}\${isLive?';color:var(--red)':''}">\${s.show}\${isLive?' <span style="font-size:.66rem">← AGORA</span>':''}</td>
+      <td>\${s.host}</td>
+      <td><span class="badge \${genreBadge}">\${s.genre}</span></td>
+      <td><span class="badge \${s.type==='Auto'?'b-gray':'b-blue'}">\${s.type}</span></td>
+      <td><span class="badge \${isLive?'b-red':'b-green'}">\${isLive?'No Ar':'Ativo'}</span></td>
+      <td><div style="display:flex;gap:4px">
+        <button class="btn btn-ghost btn-xs" onclick="editProgram(\${i},'\${day}')"><i data-lucide="edit-2" style="width:10px;height:10px"></i></button>
+        <button class="btn btn-ghost btn-xs" style="color:var(--red)" onclick="deleteProgram(\${i},'\${day}')"><i data-lucide="trash-2" style="width:10px;height:10px"></i></button>
+      </div></td>
+    </tr>\`;
+  }).join('');
+  if(window.lucide) setTimeout(()=>lucide.createIcons(),50);
+}
+
+// ... the rest of the JS
+if (typeof window !== 'undefined') {
+  window.addEventListener('load', init);
+  
+  function init() {
+    // Other init functions
+    buildTodaySchedule();
+
+    setInterval(()=>{
+      if(STATE.currentPage==='dashboard') buildTodaySchedule();
+      if(STATE.currentPage==='programacao') renderSchedule(currentDay);
+    }, 60000);
+  }
+}
+`;
+
 const adminHTML = `
 <!-- TOASTS -->
 <div class="toast-wrap" id="toastWrap"></div>
@@ -412,7 +796,7 @@ const adminHTML = `
   <div class="g4 mb">
     <div class="kpi red"><div class="kpi-icon" style="background:var(--red-light);color:var(--red)"><i data-lucide="users" style="width:17px;height:17px"></i></div><div class="kpi-val">38.4k</div><div class="kpi-label">Ouvintes Únicos (mês)</div><div class="kpi-delta up"><i data-lucide="trending-up" style="width:11px;height:11px"></i>+18%</div></div>
     <div class="kpi green"><div class="kpi-icon" style="background:var(--green-bg);color:var(--green)"><i data-lucide="clock" style="width:17px;height:17px"></i></div><div class="kpi-val">3h 42m</div><div class="kpi-label">Tempo Médio</div><div class="kpi-delta up"><i data-lucide="trending-up" style="width:11px;height:11px"></i>+8%</div></div>
-    <div class="kpi blue"><div class="kpi-icon" style="background:var(--blue-bg);color:var(--blue)"><i data-lucide="share-2" style="width:17px;height:17px"></i></div><div class="kpi-val">2.840</div><div class="kpi-label">Compartilhamentos</div><div class="kpi-delta up"><i data-lucide="trending-up" style="width:11px;height:11px"></i>+31%</div></div>
+    <div class="kpi blue"><div class="kpi-icon" style="background:var(--blue-bg);color:var(--blue)"><i data-lucide="share-2" style="width:12px;height:12px"></i></div><div class="kpi-val">2.840</div><div class="kpi-label">Compartilhamentos</div><div class="kpi-delta up"><i data-lucide="trending-up" style="width:11px;height:11px"></i>+31%</div></div>
     <div class="kpi acc"><div class="kpi-icon" style="background:#FFF8E1;color:var(--accent)"><i data-lucide="star" style="width:17px;height:17px"></i></div><div class="kpi-val">4.8★</div><div class="kpi-label">Avaliação Média</div><div class="kpi-delta up"><i data-lucide="trending-up" style="width:11px;height:11px"></i>+0.2</div></div>
   </div>
   <div class="g2 mb">
@@ -569,390 +953,11 @@ const adminHTML = `
 </div>
 `;
 
-const adminScript = `
-/* ══════════════════════════════════════════════
-   DMG RECORDS — PAINEL ADMIN v2
-   SISTEMA COMPLETO OPERACIONAL
-══════════════════════════════════════════════ */
-
-const CFG = {
-  API_URL: 'https://vox.svrdedicado.org/api-json/g1.gu-bOzWLWFRERPvb1knHAXnkRixGCHaN179_q-g9h9I',
-  STREAM_URL: 'https://s02.svrdedicado.org:6862/stream',
-  SC_ADMIN: 'http://s02.svrdedicado.org:6862',
-  REFRESH_INTERVAL: 30000,
-};
-
-const STATE = {
-  apiData: null, playing: false, volume: 80, currentPage: 'dashboard',
-  logFilter: 'all', musicFilter: 'all', musicSearch: '',
-  selectedTracks: new Set(), bannedUsers: [], chatMessages: [],
-  musicQueue: [], chatEnabled: true, slowMode: false,
-  genreSliders: {sertanejo:50,gospel:25,pop:15,rock:10},
-  logs: [], requests: [],
-};
-
-const SCHEDULE = {
-    seg: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
-    ],
-    ter: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
-    ],
-    qua: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
-    ],
-    qui: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
-    ],
-    sex: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
-    ],
-    sab: [
-        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'08:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo'},
-        {time:'18:00–22:00',show:'Esquenta Sertanejo',host:'DJ RAFAEL',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'22:00–00:00',show:'Rock Night',host:'DJ ANDRÉ',genre:'Rock',type:'Ao Vivo'}
-    ],
-    dom: [
-        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'08:00–12:00',show:'Bom Dia Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo'},
-        {time:'18:00–22:00',show:'Domingo Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'22:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
-    ],
-};
-
-const MUSIC_DB = [
-  {id:1,title:'Não é Mole Não',artist:'João Bosco e Vinícius',album:'Cabaré 2',genre:'sertanejo',dur:'3:48',bpm:88},
-  {id:2,title:'Batom de Cereja',artist:'Jorge & Mateus',album:'Live',genre:'sertanejo',dur:'3:22',bpm:92},
-  {id:3,title:'Diferença Particular',artist:'Henrique & Juliano',album:'Ao Vivo',genre:'sertanejo',dur:'4:05',bpm:90},
-  {id:4,title:'Oceans',artist:'Hillsong United',album:'Zion',genre:'gospel',dur:'8:56',bpm:72},
-  {id:5,title:'Ninguém Explica Deus',artist:'Preto no Branco',album:'Na Estrada',genre:'gospel',dur:'4:20',bpm:76},
-  {id:6,title:'Blinding Lights',artist:'The Weeknd',album:'After Hours',genre:'pop',dur:'3:20',bpm:171},
-  {id:7,title:'Flowers',artist:'Miley Cyrus',album:'Endless Summer Vacation',genre:'pop',dur:'3:20',bpm:119},
-  {id:8,title:'Bohemian Rhapsody',artist:'Queen',album:"A Night at the Opera",genre:'rock',dur:'5:55',bpm:144},
-  {id:9,title:'Liberdade Provisória',artist:'Maiara & Maraísa',album:'Ao Vivo',genre:'sertanejo',dur:'3:50',bpm:95},
-  {id:10,title:'Tudo de Bom',artist:'Gusttavo Lima',album:'G',genre:'sertanejo',dur:'3:15',bpm:88},
-];
-
-const TEAM_DB = [
-  {name:'DJ Marcos',role:'Locutor Principal',shows:['Bom Dia DMG','Noite Pop'],color:'#1a1a2e,#D4243A',presence:88,avatar:'M'},
-  {name:'DJ Letícia',role:'Pop & R&B',shows:['Morning Hits'],color:'#7B1FA2,#E040FB',presence:95,avatar:'L'},
-  {name:'DJ Carlos',role:'Sertanejo',shows:['Almoço Sertanejo'],color:'#B36000,#FFA000',presence:100,avatar:'C'},
-  {name:'DJ Ana Lima',role:'Gospel',shows:['Tarde Gospel','Gospel Matinal'],color:'#1B5E20,#43A047',presence:92,avatar:'A'},
-  {name:'DJ Rafael',role:'Pop & Rock',shows:['Prime Time DMG'],color:'#0D47A1,#1E88E5',presence:78,avatar:'R'},
-  {name:'DJ Sandra',role:'Sertanejo Romântico',shows:['Noite Romântica'],color:'#880E4F,#E91E63',presence:85,avatar:'S'},
-  {name:'DJ André',role:'Rock & Pop',shows:['Rock Night','Rock na Manhã'],color:'#1A1A1A,#616161',presence:80,avatar:'An'},
-];
-
-const ADV_DB = [
-  {name:'Loja JM Calçados',short:'LJ',plan:'Premium',expiry:'31/05/2026',spots:48,revenue:'R$1.2k',status:'ativo'},
-  {name:'Pizzaria Fornalha',short:'PF',plan:'Básico',expiry:'15/04/2026',spots:24,revenue:'R$600',status:'ativo'},
-  {name:'Imobiliária Central',short:'IM',plan:'Premium Plus',expiry:'31/12/2026',spots:96,revenue:'R$2.8k',status:'ativo'},
-  {name:'Farmácia Total',short:'FT',plan:'Básico',expiry:'09/03/2026',spots:24,revenue:'R$600',status:'expirando'},
-  {name:'Auto Center Veloz',short:'AC',plan:'Standard',expiry:'30/06/2026',spots:36,revenue:'R$900',status:'ativo'},
-];
-
-const NEWS_DB = [
-  {id:1,title:'Show especial de fim de ano: DMG Records confirma linha completa de artistas',cat:'Evento',date:'06/03/2026',status:'publicado',views:1247},
-  {id:2,title:'Nova parceria com gravadora BMG traz exclusividades para ouvintes',cat:'Música',date:'05/03/2026',status:'rascunho',views:0},
-  {id:3,title:'DMG Records é eleita melhor web-rádio gospel do Brasil em 2025',cat:'Rádio',date:'04/03/2026',status:'publicado',views:3890},
-];
-
-const CHART_DATA = [320,280,190,150,180,420,780,1100,1420,1680,1820,1840,1680,1520,1380,1248,1480,1720,1680,1520,1200,980,720,480];
-
-STATE.logs = [
-  {time:'14:02:11',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Carlos iniciou sessão — Almoço Sertanejo'},
-  {time:'13:58:04',type:'music',color:'var(--blue)',msg:'[ACERVO] admin adicionou 14 faixas · Sertanejo'},
-  {time:'13:45:30',type:'stream',color:'var(--accent)',msg:'[ANÚNCIOS] Spot "Loja JM Calçados" aprovado e agendado'},
-  {time:'13:32:00',type:'chat',color:'var(--red)',msg:'[CHAT] 3 mensagens de "user_anon" reportadas e removidas'},
-  {time:'13:18:45',type:'stream',color:'var(--ink3)',msg:'[SISTEMA] Backup automático concluído — 2.417 faixas'},
-  {time:'12:59:55',type:'stream',color:'var(--green)',msg:'[AUDIÊNCIA] Pico de 1.842 ouvintes registrado'},
-  {time:'12:00:01',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] Almoço Sertanejo iniciado'},
-  {time:'09:00:02',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Letícia iniciou Morning Hits'},
-  {time:'08:12:44',type:'access',color:'var(--accent)',msg:'[ACESSO] Login admin@dmgrecords.com.br · IP: 177.XXX.XXX.12'},
-  {time:'06:00:01',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Marcos iniciou Bom Dia DMG'},
-];
-
-STATE.chatMessages = [
-  {name:'Marcos_fã',text:'Que programa incrível! DMG é demais! 🎵',time:'14:02',color:'#7C3AED',reported:false},
-  {name:'Ana_BH',text:'Boa tarde a todos! Amando essa música 🎶',time:'14:03',color:'var(--blue)',reported:false},
-  {name:'Rafa_SP',text:'Pedido: toca João Bosco de novo por favor!',time:'14:04',color:'var(--green)',reported:false},
-  {name:'user_anon',text:'[mensagem inapropriada removida]',time:'14:05',color:'var(--red)',reported:true},
-  {name:'Cris_Goiânia',text:'Essa seleção de hoje está PERFEITA 👏👏',time:'14:07',color:'var(--accent)',reported:false},
-];
-
-STATE.requests = [
-  {user:'Rafa_SP',track:'João Bosco e Vinícius — Não é Mole Não'},
-  {user:'Cris_Goiânia',track:'Gusttavo Lima — Inventor dos Amores'},
-];
-
-STATE.musicQueue = MUSIC_DB.slice(0,6);
-
-const PAGE_TITLES = {
-  dashboard:'Dashboard <em>Geral</em>', transmissao:'Controle de <em>Transmissão</em>', musicas:'Biblioteca de <em>Músicas</em>', programacao:'Grade de <em>Programação</em>', noticias:'Gestão de <em>Notícias</em>', chat:'Chat <em>ao Vivo</em>', anunciantes:'Painel de <em>Anunciantes</em>', equipe:'Nossa <em>Equipe</em>', estatisticas:'Relatório de <em>Audiência</em>', configuracoes:'<em>Configurações</em> do Sistema', logs:'Logs do <em>Sistema</em>',
-};
-
-function isProgramLive(timeRange) {
-    try {
-        const now = new Date();
-        const [startStr, endStr] = timeRange.split('–');
-        const [startHour, startMinute] = startStr.split(':').map(Number);
-        let [endHour, endMinute] = endStr.split(':').map(Number);
-        
-        if (endHour === 0 && endMinute === 0) {
-            endHour = 24;
-        }
-
-        const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
-        const startTimeInMinutes = startHour * 60 + startMinute;
-        const endTimeInMinutes = endHour * 60 + endMinute;
-
-        return currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes < endTimeInMinutes;
-    } catch(e) {
-        return false;
-    }
-}
-
-
-function nav(id, el) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
-  const page = document.getElementById('page-'+id);
-  if(page){page.classList.add('active');void page.offsetWidth;page.classList.add('fade-in')}
-  if(el) el.classList.add('active');
-  else { document.querySelectorAll('.sb-item').forEach(i=>{ if(i.getAttribute('onclick')&&i.getAttribute('onclick').includes("'"+id+"'")) i.classList.add('active'); }); }
-  document.getElementById('topbarTitle').innerHTML = PAGE_TITLES[id]||id;
-  STATE.currentPage = id;
-  if(window.innerWidth<960) document.querySelector('.sidebar').classList.remove('open');
-  window.scrollTo(0,0);
-  renderPage(id);
-  if(window.lucide) lucide.createIcons();
-}
-
-function renderPage(id){
-  if(id==='programacao') renderSchedule('seg');
-  if(id==='musicas') renderMusicTable();
-  if(id==='noticias') renderNews();
-  if(id==='equipe') renderTeam();
-  if(id==='anunciantes') renderAdvertisers();
-  if(id==='chat') renderChat();
-  if(id==='logs') renderLogs();
-  if(id==='configuracoes') buildGenreSliders();
-  if(id==='dashboard') { buildChart(); buildTodaySchedule(); buildQueue(); }
-  if(id==='transmissao') buildTxLevels();
-}
-
-function toggleSidebar(){document.querySelector('.sidebar').classList.toggle('open')}
-
-async function fetchAPI(){
-  const icon = document.getElementById('refreshIcon');
-  if(icon) icon.style.animation='spin 1s linear infinite';
-  try {
-    const res = await fetch(CFG.API_URL);
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const data = await res.json();
-    STATE.apiData = data;
-    updateUIFromAPI(data);
-    setApiStatus(true);
-    addLog('stream','var(--green)',"[API] Dados atualizados · " + new Date().toLocaleTimeString('pt-BR'));
-  } catch(e) {
-    setApiStatus(false);
-    addLog('error','var(--red)',"[API] Erro ao conectar: " + e.message);
-    updateUIFromAPI({ status:'online', porta:'6862', porta_dj:'35750', ip:'s02.svrdedicado.org', ouvintes_conectados:'—', titulo:'DMG Records Rádio', plano_ouvintes:'200', plano_ftp:'2GB', plano_bitrate:'128', musica_atual:'Não é Mole Não — João Bosco e Vinícius', genero:'Sertanejo', shoutcast:'https://s02.svrdedicado.org:6862/stream', capa_musica:'' });
-  } finally {
-    if(icon) icon.style.animation='';
-    if(window.lucide) lucide.createIcons();
-  }
-}
-
-function updateUIFromAPI(d){
-  const online = d.status==='online';
-  setText('kpi-listeners', d.ouvintes_conectados||'—');
-  const trackFull = d.musica_atual||'—';
-  const parts = trackFull.split('—');
-  const trackName = parts[0]?.trim()||trackFull;
-  const artistName = parts[1]?.trim()||'';
-  setText('kpi-track', trackName.length>16 ? trackName.substring(0,14)+'…' : trackName);
-  setText('kpi-genre', d.genero||'—');
-  setText('kpi-bitrate', (d.plano_bitrate||'128')+' Kbps');
-  setText('kpi-plan', (d.plano_ouvintes||'—')+' ouvintes máx.');
-  setText('kpi-ftp', d.plano_ftp||'—');
-  setText('onairTrack', trackName);
-  setText('onairArtist', artistName||d.genero||'DMG Records');
-  setText('onairBitrate', (d.plano_bitrate||'128')+'kbps');
-  setText('onairProgram', d.titulo||'DMG RECORDS');
-  if(d.capa_musica) { const cover = document.getElementById('onairCover'); if(cover) cover.innerHTML = \`<img src="\${d.capa_musica}" onerror="this.parentElement.innerHTML='<div class=onair-cover-ph>🎵</div>'">\`; }
-  setText('tx-listeners', d.ouvintes_conectados||'—');
-  setText('tx-max', d.plano_ouvintes||'—');
-  setText('tx-track', d.musica_atual||'—');
-  setText('tx-server', d.ip||'s02.svrdedicado.org');
-  setText('tx-porta', d.porta||'6862');
-  setText('tx-bitrate', (d.plano_bitrate||'128')+' Kbps');
-  const statusEl = document.getElementById('tx-status');
-  if(statusEl) statusEl.innerHTML = online ? '<span class="badge b-green">● Online</span>' : '<span class="badge b-red">● Offline</span>';
-  const box = document.getElementById('sbStatusBox');
-  const dot = document.getElementById('sbStatusDot');
-  if(box && dot) { box.className = 'sb-status-box' + (online?'':' offline'); dot.className = 'sb-status-dot' + (online?'':' red'); }
-  setText('sbStatusLabel', online ? 'RÁDIO ON-AIR' : 'OFFLINE');
-  setText('sbListeners', (d.ouvintes_conectados||'0')+' ouvintes');
-  setText('sb-onair', online?'ON':'OFF');
-  const total = parseInt(d.ouvintes_conectados)||0;
-  setText('map-total', total+' total');
-  setText('map-other', Math.max(0,total-1040)+' ouvintes');
-  setText('stat-top-track', trackName);
-  const peakEl = document.getElementById('dash-peak');
-  if(peakEl) peakEl.textContent = 'Ao vivo: '+(d.ouvintes_conectados||'—')+' ouvintes';
-}
-
-function setApiStatus(ok){
-  const badge = document.getElementById('apiBadge');
-  const dot = document.getElementById('apiDot');
-  const txt = document.getElementById('apiStatus');
-  if(!badge) return;
-  badge.className = 'api-badge' + (ok?'':' err');
-  if(dot) dot.style.background = ok ? 'var(--green)' : 'var(--red)';
-  if(dot) dot.style.animation = ok ? 'blink 1.4s ease-in-out infinite' : 'none';
-  if(txt) txt.textContent = ok ? 'API Conectada' : 'API Offline';
-}
-
-function setText(id,val){const el=document.getElementById(id);if(el)el.textContent=val}
-
-function buildChart(){
-  const wrap = document.getElementById('listenerChart');
-  const lbls = document.getElementById('chartLabels');
-  if(!wrap) return;
-  const max = Math.max(...CHART_DATA);
-  wrap.innerHTML = ''; lbls.innerHTML = '';
-  CHART_DATA.forEach((v,i)=>{
-    const b = document.createElement('div');
-    b.className = 'ch-bar'+(v===max?' peak':'');
-    b.style.height=(v/max*100)+'%';
-    b.title=\`\${String(i).padStart(2,'0')}h: \${v.toLocaleString('pt-BR')} ouvintes\`;
-    b.onclick = ()=>toast(\`\${String(i).padStart(2,'0')}h → \${v.toLocaleString('pt-BR')} ouvintes\`,'info');
-    wrap.appendChild(b);
-    const l=document.createElement('span');
-    l.textContent = i%4===0?String(i).padStart(2,'0'):'';
-    lbls.appendChild(l);
-  });
-}
-
-function buildTodaySchedule(){
-  const el = document.getElementById('todaySchedule');
-  if(!el) return;
-  const days = ['dom','seg','ter','qua','qui','sex','sab'];
-  const today = days[new Date().getDay()];
-  const sched = SCHEDULE[today]||SCHEDULE['seg'];
-  el.innerHTML = sched.map(s => {
-    const isLive = isProgramLive(s.time);
-    return \`
-    <div class="tl-item \${isLive ? 'tl-now' : ''}">
-      <div class="tl-time \${isLive ? 'style="color:var(--red)"' : ''}">\${s.time}</div>
-      <div class="tl-dot \${isLive ? 'live' : ''}"></div>
-      <div class="tl-info">
-        <div class="tl-show \${isLive ? 'style="color:var(--red)"' : ''}">\${s.show}\${isLive ? ' <strong>← AGORA</strong>' : ''}</div>
-        <div class="tl-host">\${s.host} · \${s.genre}</div>
-      </div>
-    </div>\`;
-  }).join('');
-}
-
-function buildQueue(){
-  const el = document.getElementById('queueList');
-  if(!el) return;
-  const q = STATE.musicQueue.slice(0,7);
-  el.innerHTML = q.map((t,i)=> \`
-    <div class="q-item \${i===0?'now':''}">
-      <div class="q-num">\${i===0?'▶':(i+1)}</div>
-      <div class="q-thumb">\${t.title.substring(0,2).toUpperCase()}</div>
-      <div class="q-info"><div class="q-track">\${t.title}</div><div class="q-artist">\${t.artist}</div></div>
-      <div class="q-dur">\${t.dur}</div>
-    </div>\`).join('');
-}
-
-let currentDay = 'seg';
-function switchDay(el, day){
-  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  currentDay = day;
-  renderSchedule(day);
-}
-
-function renderSchedule(day){
-  const tbody = document.getElementById('schedTableBody');
-  if(!tbody) return;
-  const data = SCHEDULE[day]||[];
-  const days = ['dom','seg','ter','qua','qui','sex','sab'];
-  const today = days[new Date().getDay()];
-  const isToday = day === today;
-
-  tbody.innerHTML = data.map((s,i)=>{
-    const isLive = isToday && isProgramLive(s.time);
-    const genreBadge = {Sertanejo:'b-acc','Pop / R&B':'b-blue','Pop/R&B':'b-blue','Pop / Rock':'b-blue',Gospel:'b-purple',Rock:'b-gray',Variado:'b-gray', Bailão: 'b-sert', Românticas: 'b-red'}[s.genre]||'b-gray';
-    return \`<tr\${isLive?' style="background:var(--red-light)"':''}>
-      <td style="font-family:'DM Mono',monospace;font-size:.72rem\${isLive?';color:var(--red)':''}">\${s.time}</td>
-      <td style="font-weight:\${isLive?700:600}\${isLive?';color:var(--red)':''}">\${s.show}\${isLive?' <span style="font-size:.66rem">← AGORA</span>':''}</td>
-      <td>\${s.host}</td>
-      <td><span class="badge \${genreBadge}">\${s.genre}</span></td>
-      <td><span class="badge \${s.type==='Auto'?'b-gray':'b-blue'}">\${s.type}</span></td>
-      <td><span class="badge \${isLive?'b-red':'b-green'}">\${isLive?'No Ar':'Ativo'}</span></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn btn-ghost btn-xs" onclick="editProgram(\${i},'\${day}')"><i data-lucide="edit-2" style="width:10px;height:10px"></i></button>
-        <button class="btn btn-ghost btn-xs" style="color:var(--red)" onclick="deleteProgram(\${i},'\${day}')"><i data-lucide="trash-2" style="width:10px;height:10px"></i></button>
-      </div></td>
-    </tr>\`;
-  }).join('');
-  if(window.lucide) setTimeout(()=>lucide.createIcons(),50);
-}
-
-// ... the rest of the JS
-if (typeof window !== 'undefined') {
-  window.addEventListener('load', init);
-  
-  function init() {
-    // Other init functions
-    buildTodaySchedule();
-
-    setInterval(()=>{
-      if(STATE.currentPage==='dashboard') buildTodaySchedule();
-      if(STATE.currentPage==='programacao') renderSchedule(currentDay);
-    }, 60000);
-  }
-}
-`;
 
 export default function AdminPage() {
+    // Pass the environment variable to the script
+    const adminScript = getAdminScript(process.env.NEXT_PUBLIC_RADIO_API_URL!);
+
     return (
         <div suppressHydrationWarning={true}>
             <div dangerouslySetInnerHTML={{ __html: adminHTML }} />

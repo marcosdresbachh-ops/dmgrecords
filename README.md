@@ -14,16 +14,16 @@ A aplicação é dividida em três partes principais:
 
 ### Site Público
 
--   **Player de Rádio Ao Vivo:** Um player fixo no topo da página que transmite a rádio 24/7, com informações em tempo real sobre a música e o programa no ar.
--   **Páginas Institucionais:** Seções como "Sobre Nós", "Nossa Equipe", "Programação" e "Notícias".
--   **Interação:** Widgets para Chat ao Vivo e Pedidos de Música (automático ou para o locutor).
+-   **Player de Rádio Ao Vivo:** Um player funcional no topo da página que transmite a rádio 24/7, com informações em tempo real sobre a música e o programa no ar.
+-   **Páginas Institucionais:** Seções completas como "Sobre Nós", "Nossa Equipe", "Programação" e "Notícias".
+-   **Interação com Ouvintes:** Widgets para Chat ao Vivo e Pedidos de Música (automático ou para o locutor).
 -   **Design Responsivo:** Totalmente adaptado para uma experiência perfeita em desktops, tablets e celulares.
 -   **Modo Escuro:** Suporte automático para o modo escuro, respeitando a preferência do sistema operacional do usuário.
 -   **Rádio Indoor & Anúncios:** Páginas dedicadas para empresas que desejam anunciar ou contratar o serviço de rádio personalizada.
 
 ### Painel Administrativo (`/admin`)
 
--   **Dashboard Central:** Visão geral com KPIs (Key Performance Indicators) como número de ouvintes, música atual, e estatísticas de audiência.
+-   **Dashboard Central:** Visão geral com KPIs (Key Performance Indicators) como número de ouvintes, música atual, e estatísticas de audiência, tudo conectado à API de streaming.
 -   **Controle de Transmissão:** Monitoramento do status do servidor, dados de conexão, e listeners por região.
 -   **Gestão de Conteúdo:**
     -   **Músicas:** Biblioteca de áudio completa com upload, busca, filtros por gênero e edição de faixas.
@@ -57,7 +57,7 @@ A aplicação é dividida em três partes principais:
     ```
 
 2.  **Configure as variáveis de ambiente:**
-    Renomeie o arquivo `.env.example` para `.env` (se existir) e preencha as URLs da API de streaming, se necessário.
+    Renomeie o arquivo `.env.example` para `.env` e preencha as URLs da API de streaming e da URL do player.
 
 3.  **Inicie o servidor de desenvolvimento:**
     ```bash
@@ -77,9 +77,15 @@ A aplicação é dividida em três partes principais:
 │   │   ├── ai-assistant/    # Página do assistente de IA
 │   │   ├── radio-indoor/    # Página da Rádio Indoor e seu painel
 │   │   └── layout.tsx       # Layout principal da aplicação
-│   ├── components/          # Componentes React (UI, shared, etc.)
+│   ├── components/          # Componentes React
+│   │   ├── anuncie/         # Componentes da pág. "Anuncie"
+│   │   ├── home/            # Componentes da pág. "Home"
+│   │   ├── radio-indoor/    # Componentes da pág. "Rádio Indoor"
+│   │   └── ...              # Outros componentes (shared, ui, etc.)
 │   ├── ai/                  # Lógica de IA com Genkit
 │   └── lib/                 # Funções utilitárias, dados, etc.
+├── .env                     # Variáveis de ambiente (locais)
+├── .env.example             # Exemplo de variáveis de ambiente
 ├── package.json
 └── tailwind.config.ts
 ```

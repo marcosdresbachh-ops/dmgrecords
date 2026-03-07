@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const API_URL = process.env.DMG_API_URL!;
+  const API_URL = process.env.NEXT_PUBLIC_RADIO_API_URL!;
 
   try {
     const response = await fetch(API_URL, {
