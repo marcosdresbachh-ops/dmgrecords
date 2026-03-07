@@ -30,7 +30,7 @@ export function ContactForm() {
                 </div>
                 <div className="mb-4">
                     <label className="mb-1.5 block text-left text-[.78rem] font-semibold tracking-wide text-foreground/80">WhatsApp</label>
-                    <input type="tel" placeholder="(55) 99999-9999" className="w-full rounded border border-input bg-card px-3.5 py-3 text-[.88rem] text-foreground outline-none transition-all focus:border-primary focus:shadow-[0_0_0_3px_rgba(212,36,58,.08)]" />
+                    <input type="tel" placeholder="(51) 98144-6019" className="w-full rounded border border-input bg-card px-3.5 py-3 text-[.88rem] text-foreground outline-none transition-all focus:border-primary focus:shadow-[0_0_0_3px_rgba(212,36,58,.08)]" />
                 </div>
                 <div className="mb-4">
                     <label className="mb-1.5 block text-left text-[.78rem] font-semibold tracking-wide text-foreground/80">Assunto *</label>

@@ -1,7 +1,15 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const API_URL = process.env.NEXT_PUBLIC_RADIO_API_URL!;
+  const API_URL = process.env.NEXT_PUBLIC_RADIO_API_URL;
+
+  if (!API_URL) {
+    console.error('Error: NEXT_PUBLIC_RADIO_API_URL environment variable is not set.');
+    return NextResponse.json(
+      { error: 'Radio API URL not configured on the server.' },
+      { status: 500 }
+    );
+  }
 
   try {
     const response = await fetch(API_URL, {

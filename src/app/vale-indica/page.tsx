@@ -346,7 +346,8 @@ const valeIndicaHTML = `
 </div>
 `;
 
-const valeIndicaScript = `
+function getValeIndicaScript() { 
+    return `
 /* ════════════════════════════════════════════
    VALE INDICA — PORTAL VALE DO SINOS
    DMG Records Rádio
@@ -427,13 +428,13 @@ async function fetchRadioAPI(){
 function renderCatFilters(){
   const el = document.getElementById('catFilters');
   if(!el) return;
-  el.innerHTML = CATEGORIAS.map(function(c){
-    return '<div class="filter-item" id="filt-cat-' + c.id + '" onclick="toggleCatFilter(\'' + c.id + '\')">' +
-    '<div class="filter-check"></div>' +
-    '<span class="cat-icon" style="background:' + c.color + ';color:' + c.tc + '">' + c.icon + '</span>' +
-    '<span>' + c.label + '</span>' +
-    '<span class="filter-count">' + BUSINESSES_DB.filter(function(b){ return b.cat === c.id; }).length + '</span>' +
-    '</div>';
+  el.innerHTML = CATEGORIAS.map(function(c) {
+    return ('<div class="filter-item" id="filt-cat-' + c.id + '" onclick="toggleCatFilter(\\\'' + c.id + '\\\')">' +
+      '<div class="filter-check"></div>' +
+      '<span class="cat-icon" style="background:' + c.color + ';color:' + c.tc + '">' + c.icon + '</span>' +
+      '<span>' + c.label + '</span>' +
+      '<span class="filter-count">' + BUSINESSES_DB.filter(function(b){ return b.cat===c.id; }).length + '</span>' +
+    '</div>');
   }).join('');
 }
 
@@ -441,11 +442,11 @@ function renderCatFilters(){
 function renderCatGrid(){
   const el = document.getElementById('catGrid');
   if(!el) return;
-  el.innerHTML = CATEGORIAS.map(function(c){
-    return '<div class="cat-option" id="cat-opt-' + c.id + '" onclick="selectCat(\'' + c.id + '\')">' +
-    '<div class="cat-option-icon">' + c.icon + '</div>' +
-    '<div class="cat-option-label">' + c.label + '</div>' +
-    '</div>';
+  el.innerHTML = CATEGORIAS.map(function(c) {
+    return ('<div class="cat-option" id="cat-opt-' + c.id + '" onclick="selectCat(\\\'' + c.id + '\\\')">' +
+      '<div class="cat-option-icon">' + c.icon + '</div>' +
+      '<div class="cat-option-label">' + c.label + '</div>' +
+    '</div>');
   }).join('');
 }
 
@@ -499,11 +500,10 @@ function renderBusinesses(){
     return;
   }
 
-  grid.innerHTML = data.map(function(b){
+  grid.innerHTML = data.map(function(b) {
     const catInfo = CATEGORIAS.find(c=>c.id===b.cat)||{icon:'🏪',color:'#f5f5f5',tc:'#333',label:'Serviço'};
     const cityLabel = {taquara:'Taquara',rolante:'Rolante','tres-coroas':'Três Coroas',igrejinha:'Igrejinha','parobé':'Parobé',ararica:'Araricá','nova-hartz':'Nova Hartz'}[b.city]||b.city;
-    return (
-    '<div class="biz-card' + (b.destaque?' destaque':'') + '" onclick="openBizModal(' + b.id + ')">' +
+    return ('<div class="biz-card' + (b.destaque?' destaque':'') + '" onclick="openBizModal(' + b.id + ')">' +
       '<div class="biz-card-banner"></div>' +
       (b.destaque?'<div class="biz-destaque-badge">⭐ Destaque</div>':'') +
       '<div class="biz-card-body">' +
@@ -524,14 +524,14 @@ function renderBusinesses(){
           '<div class="biz-contact-row">' +
             '<div class="biz-contact-icon">📞</div>' +
             '<div class="biz-contact-val">' + b.phone + '</div>' +
-            '<div class="biz-contact-call" onclick="event.stopPropagation();callPhone(\'' + b.phone + '\')">Ligar</div>' +
+            '<div class="biz-contact-call" onclick="event.stopPropagation();callPhone(\\\'' + b.phone + '\\\')">Ligar</div>' +
           '</div>' +
           (b.hours?'<div class="biz-contact-row"><div class="biz-contact-icon">🕐</div><div class="biz-contact-val" style="font-size:.66rem">' + b.hours + '</div></div>':'') +
         '</div>' +
         '<div class="biz-actions" onclick="event.stopPropagation()">' +
-          (b.wpp?'<button class="biz-btn biz-btn-wpp" onclick="openWpp(\'' + b.wpp + '\',\'' + b.name + '\')">💬 WhatsApp</button>':'') +
-          '<button class="biz-btn biz-btn-tel" onclick="callPhone(\'' + b.phone + '\')">📞 Ligar</button>' +
-          '<button class="biz-btn biz-btn-map" onclick="openMap(\'' + b.address + '\',\'' + cityLabel + '\')">🗺️</button>' +
+          (b.wpp?'<button class="biz-btn biz-btn-wpp" onclick="openWpp(\\\'' + b.wpp + '\\\',\\\'' + b.name + '\\\')">💬 WhatsApp</button>':'') +
+          '<button class="biz-btn biz-btn-tel" onclick="callPhone(\\\'' + b.phone + '\\\')">📞 Ligar</button>' +
+          '<button class="biz-btn biz-btn-map" onclick="openMap(\\\'' + b.address + '\\\',\\\'' + cityLabel + '\\\')">🗺️</button>' +
         '</div>' +
       '</div>' +
     '</div>');
@@ -547,9 +547,9 @@ function openBizModal(id){
   document.getElementById('bizModalContent').innerHTML = (
     '<div style="background:linear-gradient(135deg,' + catInfo.color + ',' + catInfo.color + 'aa);padding:24px 24px 18px">' +
       '<div style="font-size:2.8rem;margin-bottom:10px">' + (b.icon||catInfo.icon) + '</div>' +
-      '<div style="font-family:\'Fraunces\',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:4px">' + b.name + '</div>' +
+      '<div style="font-family:\\'Fraunces\\',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:4px">' + b.name + '</div>' +
       '<div style="display:inline-flex;align-items:center;gap:4px;background:' + catInfo.color + ';color:' + catInfo.tc + ';font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:4px">' + catInfo.icon + ' ' + catInfo.label + '</div>' +
-      (b.destaque?'<span style="margin-left:6px;background:var(--accent);color:var(--ink);font-size:.58rem;font-weight:700;padding:3px 8px;border-radius:3px;font-family:\'DM Mono\',monospace">⭐ DESTAQUE</span>':'') +
+      (b.destaque?'<span style="margin-left:6px;background:var(--accent);color:var(--ink);font-size:.58rem;font-weight:700;padding:3px 8px;border-radius:3px;font-family:\\'DM Mono\\',monospace">⭐ DESTAQUE</span>':'') +
     '</div>' +
     '<div style="padding:20px">' +
       '<div class="map-placeholder">' +
@@ -566,9 +566,9 @@ function openBizModal(id){
         (b.hours?'<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">🕐</span><div><div style="font-weight:600">' + b.hours + '</div><div style="font-size:.66rem;color:var(--ink3)">Horário de funcionamento</div></div></div>':'') +
       '</div>' +
       '<div style="display:flex;gap:8px">' +
-        (b.wpp?'<button onclick="openWpp(\'' + b.wpp + '\',\'' + b.name + '\')" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:8px;padding:11px;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">💬 WhatsApp</button>':'') +
-        '<button onclick="callPhone(\'' + b.phone + '\')" style="flex:1;background:var(--bg3);color:var(--ink2);border:none;border-radius:8px;padding:11px;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">📞 Ligar</button>' +
-        '<button onclick="openMap(\'' + b.address + '\',\'' + cityLabel + '\')" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.82rem">🗺️</button>' +
+        (b.wpp?'<button onclick="openWpp(\\\'' + b.wpp + '\\\',\\\'' + b.name + '\\\')" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:8px;padding:11px;font-family:\\'Plus Jakarta Sans\\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">💬 WhatsApp</button>':'') +
+        '<button onclick="callPhone(\\\'' + b.phone + '\\\')" style="flex:1;background:var(--bg3);color:var(--ink2);border:none;border-radius:8px;padding:11px;font-family:\\'Plus Jakarta Sans\\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">📞 Ligar</button>' +
+        '<button onclick="openMap(\\\'' + b.address + '\\\',\\\'' + cityLabel + '\\\')" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.82rem">🗺️</button>' +
       '</div>' +
     '</div>');
   document.getElementById('bizModalBg').style.display='flex';
@@ -676,8 +676,7 @@ function buildResumo(){
   const phone = document.getElementById('biz-phone')?.value||'—';
   const catInfo = CATEGORIAS.find(c=>c.id===ST.selectedCat)||{label:'—',icon:'🏪'};
   const destaque = document.querySelector('input[name="destaque"]:checked')?.value==='sim';
-  box.innerHTML = (
-    '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Negócio</span><strong>' + name + '</strong></div>' +
+  box.innerHTML = ('<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Negócio</span><strong>' + name + '</strong></div>' +
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Categoria</span><strong>' + catInfo.icon + ' ' + catInfo.label + '</strong></div>' +
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Cidade</span><strong>' + city + '</strong></div>' +
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Endereço</span><strong>' + addr + '</strong></div>' +
@@ -728,7 +727,7 @@ function toast(msg, type='ok'){
   t.className = 'toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
   t.innerHTML = '<span>' + (type==='ok'?'✓':type==='err'?'✕':'ℹ') + '</span><span>' + msg + '</span>';
   wrap.appendChild(t);
-  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),3000); }, 3500);
 }
 
 function addLog(msg){ console.log('[ValIndica]', msg); }
@@ -748,11 +747,12 @@ function init(){
 
 window.addEventListener('load', init);
 `;
+}
 
 export default function ValeIndicaPage() {
     React.useEffect(() => {
         const scriptTag = document.createElement('script');
-        scriptTag.innerHTML = valeIndicaScript;
+        scriptTag.innerHTML = getValeIndicaScript();
         document.body.appendChild(scriptTag);
     
         return () => {

@@ -27,7 +27,7 @@ export function RadioHeader() {
     <header className="site-nav" id="site-nav">
       <div className="nav-inner">
         <Link href="/" className="nav-logo">
-          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={100} height={22} style={{ height: 'auto' }} />
+          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={100} height={22} className="h-auto" />
         </Link>
         <nav className="nav-links">
           {pages.map(p => (
