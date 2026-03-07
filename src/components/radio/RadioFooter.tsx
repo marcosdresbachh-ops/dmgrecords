@@ -12,7 +12,13 @@ export function RadioFooter() {
           <div>
             <div className="mb-4">
               <Link href="/">
-                <Image src="/logo_radio_dmg_white.png" alt="DMG Records Rádio" width={160} height={40} style={{ height: 'auto' }} />
+                <Image 
+                    src="/logo_radio_dmg.png" 
+                    alt="DMG Records Rádio" 
+                    width={160} 
+                    height={40} 
+                    style={{ filter: 'brightness(0) invert(1)', height: 'auto' }}
+                />
               </Link>
             </div>
             <p className="footer-desc">DMG RECORDS LTDA - Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
