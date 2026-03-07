@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Clock, User, Cpu } from 'lucide-react';
+import { Skeleton } from "@/components/ui/skeleton";
 
 const scheduleData: Record<string, Array<{ time: string, show: string, host: string, genre: string, live?: boolean, auto?: boolean }>> = {
     seg:[ {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ Marcos',genre:'Sertanejo',live:false}, {time:'09:00–12:00',show:'Morning Hits',host:'DJ Letícia',genre:'Pop / R&B',live:false}, {time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo',live:true}, {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ Ana Lima',genre:'Gospel',live:false}, {time:'18:00–22:00',show:'Prime Time DMG',host:'DJ Rafael',genre:'Pop / Rock',live:false}, {time:'22:00–00:00',show:'Noite Romântica',host:'DJ Sandra',genre:'Sertanejo',live:false}, {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true}, ],
@@ -38,16 +39,33 @@ const GenreBadge = ({ genre }: { genre: string }) => {
 
 export const Schedule = () => {
     const [activeTab, setActiveTab] = useState('seg');
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         const today = dayMap[new Date().getDay()];
         setActiveTab(today);
     }, []);
 
+    if (!isMounted) {
+        return (
+             <div className="fi v">
+                <div className="mb-8 flex flex-wrap border-b-2 border-border">
+                    {daysOfWeek.map(day => (
+                         <Skeleton key={day.id} className="h-10 w-24" />
+                    ))}
+                </div>
+                 <div className="w-full overflow-x-auto">
+                    <Skeleton className="h-96 w-full" />
+                </div>
+            </div>
+        );
+    }
+
     const currentSchedule = scheduleData[activeTab] || [];
 
     return (
-        <div className="fi">
+        <div className="fi v">
             <div className="mb-8 flex flex-wrap border-b-2 border-border">
                 {daysOfWeek.map(day => (
                     <button
