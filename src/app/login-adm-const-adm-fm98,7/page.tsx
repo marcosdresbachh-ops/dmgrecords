@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,12 +21,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Radio className="h-8 w-8" />
-            </div>
-          <CardTitle className="font-['Playfair_Display',serif] text-3xl font-black">
-            DMG <span className="text-primary">Records</span>
-          </CardTitle>
+          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={180} height={45} className="mx-auto mb-6" />
           <CardDescription className="font-['DM_Mono',monospace] text-xs uppercase tracking-widest pt-1">
             Painel Administrativo
           </CardDescription>

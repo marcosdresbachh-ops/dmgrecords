@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Megaphone } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export function RadioHeader() {
   const pathname = usePathname();
@@ -24,8 +25,7 @@ export function RadioHeader() {
     <header className="site-nav" id="site-nav">
       <div className="nav-inner">
         <Link href="/" className="nav-logo">
-          <div className="nav-logo-mark"></div>
-          <span className="nav-brand">DMG <span>Records</span> Rádio</span>
+          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={140} height={35} />
         </Link>
         <nav className="nav-links">
           {pages.map(p => (

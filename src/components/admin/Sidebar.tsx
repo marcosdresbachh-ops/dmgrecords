@@ -13,6 +13,7 @@ import {
   Settings,
   FileText
 } from 'lucide-react';
+import Image from 'next/image';
 
 const NavItem = ({ id, icon, label, badge, currentPage, handleNav }) => (
   <div className={`sb-item ${currentPage === id ? 'active' : ''}`} onClick={() => handleNav(id)}>
@@ -38,11 +39,7 @@ export function Sidebar({ currentPage, handleNav, apiData, isOpen }) {
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar">
       <div className="sb-logo">
-        <div className="sb-logo-mark"></div>
-        <div>
-          <div className="sb-brand">DMG <span>Records</span></div>
-          <div className="sb-subtitle">Painel Admin v2</div>
-        </div>
+        <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={140} height={35} style={{ filter: 'brightness(0) invert(1)', margin: '0 auto' }}/>
       </div>
 
       <div className="sb-section">Principal</div>

@@ -10,16 +10,17 @@ export function RadioFooter() {
       <div className="footer-wrap">
         <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.5fr,1fr,1fr,1fr]">
           <div>
-            <div className="footer-logo">
-              <div className="footer-lmark"></div>
-              <span className="footer-ltext">DMG Records Rádio</span>
+            <div className="mb-4">
+              <Link href="/">
+                <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={160} height={40} />
+              </Link>
             </div>
             <p className="footer-desc">Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
             <div className="footer-socials">
-              <div className="footer-soc icon"><Instagram style={{ width: '15px', height: '15px' }} /></div>
-              <div className="footer-soc icon"><Facebook style={{ width: '15px', height: '15px' }} /></div>
-              <div className="footer-soc icon"><Youtube style={{ width: '15px', height: '15px' }} /></div>
-              <div className="footer-soc icon"><Twitter style={{ width: '15px', height: '15px' }} /></div>
+              <a href="#" className="footer-soc icon"><Instagram style={{ width: '15px', height: '15px' }} /></a>
+              <a href="#" className="footer-soc icon"><Facebook style={{ width: '15px', height: '15px' }} /></a>
+              <a href="#" className="footer-soc icon"><Youtube style={{ width: '15px', height: '15px' }} /></a>
+              <a href="#" className="footer-soc icon"><Twitter style={{ width: '15px', height: '15px' }} /></a>
             </div>
             <div className="mt-6">
                 <div className="footer-col-title" style={{ marginBottom: '12px' }}>Baixe o App RadiosNet</div>
@@ -49,7 +50,6 @@ export function RadioFooter() {
               <li><Link href="/"><Home style={{ width: '12px', height: '12px' }} /> Início</Link></li>
               <li><Link href="/programacao"><Calendar style={{ width: '12px', height: '12px' }} /> Programação</Link></li>
               <li><Link href="/noticias"><Newspaper style={{ width: '12px', height: '12px' }} /> Notícias</Link></li>
-              <li><Link href="/anuncie"><Megaphone style={{ width: '12px', height: '12px' }} /> Anuncie Conosco</Link></li>
               <li><Link href="/radio-indoor"><Radio style={{ width: '12px', height: '12px' }} /> Rádio Indoor</Link></li>
               <li><Link href="/contato"><Mail style={{ width: '12px', height: '12px' }} /> Contato</Link></li>
             </ul>
