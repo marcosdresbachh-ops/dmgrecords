@@ -2,22 +2,18 @@
   --red:#D4243A; --red2:#A81C2E;
   --gold:#E8A020; --gold2:#C8880A;
   --bg:#F8F7F4; --ink:#111318; --ink3:#5A6080;
-  --line:#E2E0DC; --white:#FFFFFF;
+  --line:#E2E4EC; --white:#FFFFFF;
   --green:#16A34A; --blue:#2563EB;
 }
-.page-wrap {
-  width:100%;
-  display:flex;flex-direction:column;gap:32px;align-items:center;
-}
-h2{
-  font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--ink3);text-align:center;
-  margin-bottom: 12px;
+
+.banner-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
-/* ══════════════════════════════════════════
-   BANNER LEADERBOARD  728 × 90 (escalado)
-══════════════════════════════════════════ */
 .banner-lb{
   width:100%;max-width:728px;height:90px;
   position:relative;overflow:hidden;border-radius:6px;
@@ -25,9 +21,6 @@ h2{
   flex-shrink:0;
 }
 
-/* ══════════════════════════════════════════
-   BANNER RETÂNGULO MÉDIO  300 × 250 (escalado)
-══════════════════════════════════════════ */
 .banner-rect{
   width:300px;height:250px;
   position:relative;overflow:hidden;border-radius:8px;
@@ -35,9 +28,6 @@ h2{
   flex-shrink:0;
 }
 
-/* ══════════════════════════════════════════
-   BANNER SKYSCRAPER  160 × 600
-══════════════════════════════════════════ */
 .banner-sky{
   width:160px;height:600px;
   position:relative;overflow:hidden;border-radius:8px;
@@ -45,9 +35,6 @@ h2{
   flex-shrink:0;
 }
 
-/* ══════════════════════════════════════════
-   SLIDES COMPARTILHADOS
-══════════════════════════════════════════ */
 .slide{
   position:absolute;inset:0;
   opacity:0;
@@ -58,10 +45,6 @@ h2{
 
 .s-bg{position:absolute;inset:0}
 .s-content{position:relative;z-index:2;width:100%;height:100%;display:flex}
-
-/* ══════════════════════════════════════════
-   LEADERBOARD SLIDES
-══════════════════════════════════════════ */
 
 .lb .s1-bg{
   background:var(--white);
@@ -428,10 +411,6 @@ h2{
   background:var(--red);color:#fff;
   padding:8px;border-radius:5px;
   font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-}
-
-.row-banners{
-  display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;justify-content:center;
 }
 
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}

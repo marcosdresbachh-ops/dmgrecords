@@ -1,8 +1,12 @@
+'use client';
+
 import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { Schedule } from '@/components/programacao/Schedule';
 import { Djs } from '@/components/programacao/Djs';
+import { SkyscraperBanner } from '@/components/banners/SkyscraperBanner';
+import '@/components/banners/Banners.css';
 
 const ProgramacaoPage = () => {
     return (
@@ -19,7 +23,14 @@ const ProgramacaoPage = () => {
                         <Breadcrumb items={[{ href: '/', label: 'Início' }, { label: 'Programação' }]} />
                     </div>
                     
-                    <Schedule />
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] lg:gap-8">
+                        <div className="overflow-hidden">
+                            <Schedule />
+                        </div>
+                        <div className="hidden lg:flex justify-center pt-8">
+                            <SkyscraperBanner />
+                        </div>
+                    </div>
 
                     <div className="fi mt-16">
                         <SectionHeader

@@ -1,3 +1,4 @@
+'use client';
 import { Hero } from '@/components/home/Hero';
 import { Features } from '@/components/home/Features';
 import { LiveWidgets } from '@/components/home/LiveWidgets';
@@ -5,18 +6,12 @@ import { TopTen } from '@/components/home/TopTen';
 import { AdvertiseCta } from '@/components/home/AdvertiseCta';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Sponsors } from '@/components/home/Sponsors';
-import { SectionHeader } from '@/components/shared/SectionHeader';
-import { BannerExamples } from '@/components/anuncie/BannerExamples';
-
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       <Features />
-      <Sponsors />
-      <LiveWidgets />
       
       {/* RadiosNet Banner Section */}
       <div className="sec flex justify-center py-12 bg-muted/50">
@@ -32,19 +27,6 @@ export default function HomePage() {
 
       <div className="h-px bg-[--line]"></div>
       <TopTen />
-
-      <section className="sec">
-        <div className="sec-inner">
-            <div className="fi">
-                <SectionHeader
-                    eyebrow="Exemplos"
-                    title={<>Formatos de <em>Banners Digitais</em></>}
-                    subtitle="Além dos spots na rádio, oferecemos banners animados para veiculação em nosso site e parceiros."
-                />
-                <BannerExamples />
-            </div>
-        </div>
-      </section>
       
       <AdvertiseCta />
     </>

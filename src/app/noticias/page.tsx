@@ -1,8 +1,11 @@
+'use client';
 import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
 import { NewsFilters } from '@/components/noticias/NewsFilters';
 import { NewsGrid } from '@/components/noticias/NewsGrid';
 import { RefreshCw } from 'lucide-react';
+import { LeaderboardBanner } from '@/components/banners/LeaderboardBanner';
+import '@/components/banners/Banners.css';
 
 const NoticiasPage = () => {
     return (
@@ -18,6 +21,8 @@ const NoticiasPage = () => {
                     <div className="fi">
                         <Breadcrumb items={[{ href: '/', label: 'Início' }, { label: 'Notícias' }]} />
                     </div>
+
+                    <LeaderboardBanner />
 
                     <NewsFilters />
                     <NewsGrid />
