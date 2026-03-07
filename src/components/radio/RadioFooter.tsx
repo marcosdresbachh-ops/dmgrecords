@@ -8,7 +8,7 @@ export function RadioFooter() {
   return (
     <footer id="site-footer">
       <div className="footer-wrap">
-        <div className="footer-top">
+        <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.5fr,1fr,1fr,1fr]">
           <div>
             <div className="footer-logo">
               <div className="footer-lmark"></div>
@@ -49,7 +49,7 @@ export function RadioFooter() {
               <li><Link href="/"><Home style={{ width: '12px', height: '12px' }} /> Início</Link></li>
               <li><Link href="/programacao"><Calendar style={{ width: '12px', height: '12px' }} /> Programação</Link></li>
               <li><Link href="/noticias"><Newspaper style={{ width: '12px', height: '12px' }} /> Notícias</Link></li>
-              <li><Link href="/anuncie"><Megaphone style={{ width: '12px', height: '12px' }} /> Anuncie</Link></li>
+              <li><Link href="/anuncie"><Megaphone style={{ width: '12px', height: '12px' }} /> Anuncie Conosco</Link></li>
               <li><Link href="/radio-indoor"><Radio style={{ width: '12px', height: '12px' }} /> Rádio Indoor</Link></li>
               <li><Link href="/contato"><Mail style={{ width: '12px', height: '12px' }} /> Contato</Link></li>
             </ul>
