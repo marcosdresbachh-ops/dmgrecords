@@ -58,11 +58,20 @@ const radioTaquaraFlow = ai.defineFlow(
   },
   async (input) => {
     const {output} = await radioTaquaraPrompt(input);
-    return output!;
+    if (!output) {
+        console.error('Radio Taquara Flow: AI did not return a valid output.');
+        return { articles: [] };
+    }
+    return output;
   }
 );
 
 // Wrapper function
 export async function getRadioTaquaraNews(input: RadioTaquaraNewsInput): Promise<RadioTaquaraNewsOutput> {
-  return radioTaquaraFlow(input);
+    try {
+        return await radioTaquaraFlow(input);
+    } catch (error) {
+        console.error("Error executing getRadioTaquaraNews:", error);
+        return { articles: [] };
+    }
 }

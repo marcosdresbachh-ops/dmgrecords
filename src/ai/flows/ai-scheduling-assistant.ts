@@ -80,11 +80,20 @@ const aiSchedulingAssistantFlow = ai.defineFlow(
   },
   async (input) => {
     const {output} = await aiSchedulingPrompt(input);
-    return output!;
+    if (!output) {
+      return { suggestedSchedule: [], overallNotes: 'A IA não conseguiu gerar uma sugestão. Tente refinar seu pedido.' };
+    }
+    return output;
   }
 );
 
 // Wrapper function to be called from Next.js
 export async function scheduleBroadcast(input: AISchedulingAssistantInput): Promise<AISchedulingAssistantOutput> {
-  return aiSchedulingAssistantFlow(input);
+  try {
+      return await aiSchedulingAssistantFlow(input);
+  } catch (error) {
+      console.error("Error executing scheduleBroadcast flow:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return { suggestedSchedule: [], overallNotes: `Ocorreu um erro ao processar a solicitação: ${errorMessage}` };
+  }
 }

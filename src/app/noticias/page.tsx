@@ -24,8 +24,8 @@ const groupArticlesByCategory = (articles: any[]) => {
 
 export default async function NoticiasPage() {
   const [agenciaNewsData, taquaraNewsData] = await Promise.all([
-    getAgenciaRadioNews({ sourceUrl: 'https://brasil61.com/agencia-do-radio' }).catch(e => { console.error("Failed to fetch Agencia Radio news:", e); return { articles: [] }; }),
-    getRadioTaquaraNews({ sourceUrl: 'https://www.radiotaquara.com.br/' }).catch(e => { console.error("Failed to fetch Radio Taquara news:", e); return { articles: [] }; })
+    getAgenciaRadioNews({ sourceUrl: 'https://brasil61.com/agencia-do-radio' }),
+    getRadioTaquaraNews({ sourceUrl: 'https://www.radiotaquara.com.br/' })
   ]);
 
   const groupedAgenciaArticles = groupArticlesByCategory(agenciaNewsData.articles);

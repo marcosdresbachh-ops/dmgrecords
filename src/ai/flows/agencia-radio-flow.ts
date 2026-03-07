@@ -58,12 +58,21 @@ const agenciaRadioFlow = ai.defineFlow(
   },
   async (input) => {
     const {output} = await agenciaRadioPrompt(input);
-    return output!;
+    if (!output) {
+      console.error('Agencia Radio Flow: AI did not return a valid output.');
+      return { articles: [] };
+    }
+    return output;
   }
 );
 
 // Wrapper function to be called from Next.js
 export async function getAgenciaRadioNews(input: AgenciaRadioNewsInput): Promise<AgenciaRadioNewsOutput> {
-  // In a real scenario, we might add caching here.
-  return agenciaRadioFlow(input);
+  try {
+    return await agenciaRadioFlow(input);
+  } catch (error) {
+    console.error("Error executing getAgenciaRadioNews:", error);
+    // Return a default empty state in case of any error from the flow
+    return { articles: [] };
+  }
 }
