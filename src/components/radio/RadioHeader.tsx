@@ -1,3 +1,4 @@
+
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -17,9 +18,7 @@ export function RadioHeader() {
   const pages = [
     { href: '/', label: 'Início' },
     { href: '/programacao', label: 'Programação' },
-    { href: '/noticias', label: 'Blog' },
-    { href: '/agencia-radio', label: 'Agência Rádio' },
-    { href: '/noticias-taquara', label: 'Rádio Taquara' },
+    { href: '/noticias', label: 'Notícias' },
     { href: '/contato', label: 'Contato' },
   ];
 
