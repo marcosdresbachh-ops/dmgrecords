@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export function RadioHeader() {
-  const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsClient(true);
@@ -25,7 +25,7 @@ export function RadioHeader() {
     <header className="site-nav" id="site-nav">
       <div className="nav-inner">
         <Link href="/" className="nav-logo">
-          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={100} height={25} />
+          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={100} height={25} style={{ height: 'auto' }} />
         </Link>
         <nav className="nav-links">
           {pages.map(p => (

@@ -12,7 +12,7 @@ export function RadioFooter() {
           <div>
             <div className="mb-4">
               <Link href="/">
-                <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={160} height={40} style={{ filter: 'brightness(0) invert(1)' }} />
+                <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={160} height={40} style={{ filter: 'brightness(0) invert(1)', height: 'auto' }} />
               </Link>
             </div>
             <p className="footer-desc">Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
@@ -32,15 +32,16 @@ export function RadioFooter() {
                             alt="Disponível no Google Play" 
                             src="https://play.google.com/intl/en_us/badges/images/generic/pt-br-play-badge-border.png"
                             className="transition-opacity hover:opacity-80"
+                            style={{ height: 'auto' }}
                         />
                     </a>
-                    <a href="https://itunes.apple.com/br/app/radiosnet/id1089290449?mt=8" className="transition-opacity hover:opacity-80" style={{
+                    <a href="https://itunes.apple.com/br/app/radiosnet/id1089290449?mt=8" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" style={{
                         display: 'inline-block',
                         overflow: 'hidden',
                         background: 'url(https://linkmaker.itunes.apple.com/images/badges/pt-br/badge_appstore-lrg.svg) no-repeat',
                         width: '152px',
                         height: '45px'
-                    }} target="_blank" rel="noopener noreferrer"></a>
+                    }}></a>
                 </div>
             </div>
           </div>

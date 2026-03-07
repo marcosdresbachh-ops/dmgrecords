@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Outfit, DM_Mono } from 'next/font/google';
 import './globals.css';
 import './responsive.css';
@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   title: 'DMG Records Rádio',
   description: 'Sertanejo, Gospel, Pop e Rock direto pra você. Música e entretenimento 24 horas, 7 dias por semana.',
   manifest: '/manifest.json',
-  themeColor: '#D4243A',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -44,6 +43,10 @@ export const metadata: Metadata = {
   icons: {
     apple: '/icons/icon-192x192.png',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#D4243A',
 };
 
 export default function RootLayout({

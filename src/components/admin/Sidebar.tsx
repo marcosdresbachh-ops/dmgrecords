@@ -39,7 +39,7 @@ export function Sidebar({ currentPage, handleNav, apiData, isOpen }) {
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar">
       <div className="sb-logo">
-        <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={140} height={35} style={{ filter: 'brightness(0) invert(1)', margin: '0 auto' }}/>
+        <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={140} height={35} style={{ filter: 'brightness(0) invert(1)', margin: '0 auto', height: 'auto' }}/>
       </div>
 
       <div className="sb-section">Principal</div>
