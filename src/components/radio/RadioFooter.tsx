@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, FileText, Home, Info, Instagram, Mail, Megaphone, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter, Radio } from 'lucide-react';
+import { Calendar, FileText, Home, Info, Instagram, Mail, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter, Radio } from 'lucide-react';
 
 export function RadioFooter() {
   return (
@@ -55,27 +55,26 @@ export function RadioFooter() {
             <ul>
               <li><Link href="/"><Home style={{ width: '12px', height: '12px' }} /> Início</Link></li>
               <li><Link href="/programacao"><Calendar style={{ width: '12px', height: '12px' }} /> Programação</Link></li>
-              <li><Link href="/noticias"><Newspaper style={{ width: '12px', height: '12px' }} /> Notícias</Link></li>
               <li><Link href="/radio-indoor"><Radio style={{ width: '12px', height: '12px' }} /> Rádio Indoor</Link></li>
               <li><Link href="/contato"><Mail style={{ width: '12px', height: '12px' }} /> Contato</Link></li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <div className="footer-col-title">Institucional</div>
-            <ul>
               <li><Link href="/sobre"><Info style={{ width: '12px', height: '12px' }} /> Sobre Nós</Link></li>
               <li><Link href="/equipe"><Users style={{ width: '12px', height: '12px' }} /> Nossa Equipe</Link></li>
-              <li><Link href="/privacidade"><Shield style={{ width: '12px', height: '12px' }} /> Privacidade</Link></li>
-              <li><Link href="/termos"><FileText style={{ width: '12px', height: '12px' }} /> Termos de Uso</Link></li>
             </ul>
           </div>
           <div className="footer-col">
-            <div className="footer-col-title">Contato</div>
+            <div className="footer-col-title">Notícias</div>
             <ul>
+                <li><Link href="/noticias"><Newspaper style={{ width: '12px', height: '12px' }} /> Blog DMG</Link></li>
+                <li><Link href="/agencia-radio"><Newspaper style={{ width: '12px', height: '12px' }} /> Agência Rádio</Link></li>
+                <li><Link href="/noticias-taquara"><Newspaper style={{ width: '12px', height: '12px' }} /> Rádio Taquara</Link></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <div className="footer-col-title">Legal</div>
+            <ul>
+              <li><Link href="/privacidade"><Shield style={{ width: '12px', height: '12px' }} /> Privacidade</Link></li>
+              <li><Link href="/termos"><FileText style={{ width: '12px', height: '12px' }} /> Termos de Uso</Link></li>
               <li><a href="https://wa.me/5551981446019"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
-              <li><a href="mailto:contato@dmgrecords.com.br"><Mail style={{ width: '12px', height: '12px' }} /> E-mail</a></li>
-              <li><a href="https://www.instagram.com/radio_dmg_records"><Instagram style={{ width: '12px', height: '12px' }} /> Instagram</a></li>
-              <li><a href="#"><Youtube style={{ width: '12px', height: '12px' }} /> YouTube</a></li>
             </ul>
           </div>
         </div>

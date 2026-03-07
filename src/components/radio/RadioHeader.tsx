@@ -17,8 +17,9 @@ export function RadioHeader() {
   const pages = [
     { href: '/', label: 'Início' },
     { href: '/programacao', label: 'Programação' },
-    { href: '/noticias', label: 'Notícias' },
+    { href: '/noticias', label: 'Blog' },
     { href: '/agencia-radio', label: 'Agência Rádio' },
+    { href: '/noticias-taquara', label: 'Rádio Taquara' },
     { href: '/contato', label: 'Contato' },
   ];
 
