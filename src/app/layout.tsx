@@ -2,14 +2,14 @@ import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Outfit, DM_Mono } from 'next/font/google';
 import './globals.css';
 import './responsive.css';
-import { AppLayout } from '@/components/layout/AppLayout';
+import { RootLayoutClient } from '@/components/layout/RootLayoutClient';
 
 export const viewport: Viewport = {
   themeColor: '#D4243A',
 };
 
 export const metadata: Metadata = {
-  title: 'DMG Records Rádio',
+  title: 'Dresbach Records Rádio',
   description: 'Sertanejo, Gospel, Pop e Rock direto pra você. Música e entretenimento 24 horas, 7 dias por semana.',
   manifest: '/manifest.json',
   icons: {
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${playfair.variable} ${outfit.variable} ${dmMono.variable}`}>
       <body>
-        <AppLayout>{children}</AppLayout>
+        <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>
   );
