@@ -32,7 +32,7 @@ const plans = [
         period: "sob consulta",
         features: ["Tudo do Pro", "Relatórios avançados", "Gerente de conta dedicado", "API para integrações", "Treinamento de equipe"],
         isFeatured: false,
-        href: "/contato",
+        href: "https://wa.me/5551981446019",
     }
 ];
 
@@ -69,7 +69,7 @@ export function Plans() {
                             rel="noopener noreferrer"
                             className={plan.isFeatured ? 'btn btn-red mt-auto w-full justify-center' : 'btn btn-outline mt-auto w-full justify-center'}
                         >
-                            {plan.price === "Custom" ? "Consultar" : "Contratar"}
+                            {plan.price === "Custom" ? "Consultar via WhatsApp" : "Contratar"}
                         </Link>
                     </div>
                 ))}
