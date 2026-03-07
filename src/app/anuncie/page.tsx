@@ -8,6 +8,8 @@ import { Testimonials } from '@/components/anuncie/Testimonials';
 import { AdFormats } from '@/components/anuncie/AdFormats';
 import { AudienceStats } from '@/components/anuncie/AudienceStats';
 import { MediaKit } from '@/components/anuncie/MediaKit';
+import { BannerExamples } from '@/components/anuncie/BannerExamples';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 const AnunciePage = () => {
     return (
@@ -26,6 +28,16 @@ const AnunciePage = () => {
 
                     <AudienceStats />
                     <AdFormats />
+
+                    <div className="fi my-16">
+                        <SectionHeader
+                            eyebrow="Exemplos"
+                            title={<>Formatos de <em>Banners Digitais</em></>}
+                            subtitle="Além dos spots na rádio, oferecemos banners animados para veiculação em nosso site e parceiros."
+                        />
+                        <BannerExamples />
+                    </div>
+
                     <MediaKit />
                     
                     <div className="fi mt-16">
