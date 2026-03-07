@@ -38,7 +38,7 @@ const socials = [
 
 export function ContactChannels() {
     return (
-        <div className="fi">
+        <div>
             <h3 className="mb-3.5 font-['Playfair_Display',serif] text-2xl font-bold leading-tight">Nossos <em className="text-primary not-italic">canais</em> de atendimento</h3>
             <p className="mb-7 text-[.9rem] leading-[1.75] text-muted-foreground">Atendemos de segunda a sexta das 9h às 18h. Para sugestões de música e pedidos, envie a qualquer hora!</p>
             <div className="mb-5 flex flex-col gap-3.5">

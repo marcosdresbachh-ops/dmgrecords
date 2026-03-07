@@ -72,7 +72,7 @@ export function RadioFooter() {
           <div className="footer-col">
             <div className="footer-col-title">Contato</div>
             <ul>
-              <li><a href="https://wa.me/5551933806999"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
+              <li><a href="https://wa.me/5551981446019"><MessageCircle style={{ width: '12px', height: '12px' }} /> WhatsApp</a></li>
               <li><a href="mailto:contato@dmgrecords.com.br"><Mail style={{ width: '12px', height: '12px' }} /> E-mail</a></li>
               <li><a href="https://www.instagram.com/radio_dmg_records"><Instagram style={{ width: '12px', height: '12px' }} /> Instagram</a></li>
               <li><a href="#"><Youtube style={{ width: '12px', height: '12px' }} /> YouTube</a></li>
