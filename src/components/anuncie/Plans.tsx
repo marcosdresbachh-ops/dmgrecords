@@ -22,7 +22,7 @@ const plans = [
         period: "por mês",
         features: ["Tudo do Essencial", "Gravação de 5 vinhetas/mês", "Agendamento de anúncios", "Múltiplas playlists", "Suporte via WhatsApp"],
         isFeatured: true,
-        href: "/contato",
+        href: "https://www.asaas.com/c/bvvk781h15h6lsah",
     },
     {
         icon: BarChart,
