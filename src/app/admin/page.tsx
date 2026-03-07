@@ -592,13 +592,69 @@ const STATE = {
 };
 
 const SCHEDULE = {
-    seg:[ {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ Marcos',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'}, {time:'09:00–12:00',show:'Morning Hits',host:'DJ Letícia',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'}, {time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo',type:'Ao Vivo',status:'live'}, {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ Ana Lima',genre:'Gospel',type:'Ao Vivo',status:'ativo'}, {time:'18:00–22:00',show:'Prime Time DMG',host:'DJ Rafael',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'}, {time:'22:00–00:00',show:'Noite Romântica',host:'DJ Sandra',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'}, {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'}, ],
-    ter:[ {time:'06:00–09:00',show:'Rock na Manhã',host:'DJ André',genre:'Rock',type:'Ao Vivo',status:'ativo'}, {time:'09:00–12:00',show:'Gospel Matinal',host:'DJ Ana Lima',genre:'Gospel',type:'Ao Vivo',status:'ativo'}, {time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'}, {time:'18:00–22:00',show:'Pop & R&B',host:'DJ Letícia',genre:'Pop/R&B',type:'Ao Vivo',status:'ativo'}, {time:'22:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'}, ],
-    qua:[{time:'06:00–12:00',show:'Manhã Gospel',host:'DJ Ana Lima',genre:'Gospel',type:'Ao Vivo',status:'ativo'},{time:'12:50–13:30',show:'Almoço Sertanejo',host:'DJ Carlos',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},{time:'18:00–22:00',show:'Noite Pop',host:'DJ Marcos',genre:'Pop/R&B',type:'Ao Vivo',status:'ativo'},{time:'22:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'}],
-    qui:[{time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ Marcos',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},{time:'09:00–12:50',show:'Morning Gospel',host:'DJ Ana Lima',genre:'Gospel',type:'Ao Vivo',status:'ativo'},{time:'12:50-13:30', show:'Almoço Sertanejo', host:'DJ Carlos', genre:'Sertanejo', type:'Ao Vivo', status:'ativo'}, {time:'18:00–22:00',show:'Rock & Pop',host:'DJ André',genre:'Rock/Pop',type:'Ao Vivo',status:'ativo'},{time:'22:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'}],
-    sex:[{time:'06:00–12:00',show:'Sexta Animada',host:'DJ Rafael',genre:'Pop/R&B',type:'Ao Vivo',status:'ativo'},{time:'12:50–13:30',show:'Sertanejo de Raiz',host:'DJ Carlos',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},{time:'18:00–22:00',show:'Gospel da Sexta',host:'DJ Ana Lima',genre:'Gospel',type:'Ao Vivo',status:'ativo'},{time:'22:00–06:00',show:'Rock Night',host:'DJ André',genre:'Rock',type:'Ao Vivo',status:'ativo'}],
-    sab:[{time:'08:00–18:00',show:'Sabadaço DMG',host:'DJ Rafael',genre:'Variado',type:'Ao Vivo',status:'ativo'}, {time:'18:00–00:00', show:'Noite de Sábado', host:'AutoDJ', genre:'Variado', type:'Auto', status:'ativo'}],
-    dom:[{time:'08:00–14:00',show:'Domingo Gospel',host:'DJ Ana Lima',genre:'Gospel',type:'Ao Vivo',status:'ativo'},{time:'14:00–18:00',show:'Tarde Sertaneja',host:'DJ Carlos',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},{time:'18:00–22:00',show:'Noite Romântica',host:'DJ Sandra',genre:'Pop/R&B',type:'Ao Vivo',status:'ativo'},{time:'22:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'}],
+    seg: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo',status:'live'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
+    ter: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
+    qua: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
+    qui: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
+    sex: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
+    sab: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo',status:'ativo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
+    dom: [
+        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto',status:'ativo'},
+        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo',status:'ativo'},
+        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo',status:'ativo'},
+        {time:'12:00–15:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo',status:'ativo'},
+        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo',status:'ativo'},
+        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo',status:'ativo'},
+        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo',status:'ativo'}
+    ],
 };
 
 const MUSIC_DB = [
