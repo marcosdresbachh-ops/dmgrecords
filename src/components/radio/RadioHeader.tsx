@@ -18,6 +18,7 @@ export function RadioHeader() {
     { href: '/', label: 'Início' },
     { href: '/programacao', label: 'Programação' },
     { href: '/noticias', label: 'Notícias' },
+    { href: '/agencia-radio', label: 'Agência Rádio' },
     { href: '/contato', label: 'Contato' },
   ];
 
