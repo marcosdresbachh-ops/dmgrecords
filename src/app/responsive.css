@@ -1,0 +1,364 @@
+/* ═══════════════════════════════════════════════════════════
+   DMG Records Rádio — RESPONSIVE.CSS
+   Multi-plataforma: Mobile / Tablet / Desktop / TV
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── RESET & BASE ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+img, video, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+table { border-collapse: collapse; width: 100%; }
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+a { -webkit-tap-highlight-color: transparent; }
+
+/* ── TIPOGRAFIA FLUIDA (escala automática) ──────────────────── */
+.section-title    { font-size: clamp(1.5rem,  4vw,  3.2rem) !important; }
+.hero-h1          { font-size: clamp(2.4rem,  6vw,  5rem)   !important; }
+.page-hero h1     { font-size: clamp(2rem,    5vw,  4rem)   !important; }
+.anuncie-title    { font-size: clamp(1.8rem,  3.5vw,3rem)   !important; }
+.plan-price       { font-size: clamp(1.4rem,  2.5vw,2rem)   !important; }
+.stat-num         { font-size: clamp(1.3rem,  2.5vw,2.4rem) !important; }
+
+/* ── CONTAINER FLUIDO ───────────────────────────────────────── */
+.sec-inner,
+.nav-inner,
+.footer-top,
+.footer-bottom,
+.anuncie-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── SEÇÕES ─────────────────────────────────────────────────── */
+.sec {
+  padding: clamp(40px, 8vw, 80px) clamp(16px, 5vw, 48px);
+}
+.page-hero  { padding: clamp(36px, 6vw, 56px) clamp(16px, 5vw, 48px); }
+.hero       { padding-top: clamp(60px, 8vw, 92px); padding-left: clamp(16px,5vw,48px); padding-right: clamp(16px,5vw,48px); }
+.anuncie-inner { padding: clamp(48px, 8vw, 88px) clamp(16px,5vw,48px); }
+
+/* ═══════════════════════════════════════════════════════════
+   📱 MOBILE PEQUENO — até 480px (iPhone SE, celulares antigos)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  :root { --nav-h: 60px; --player-h: 60px; }
+  body  { padding-top: calc(var(--nav-h) + var(--player-h)); }
+
+  /* Nav */
+  .nav-inner  { padding: 0 16px; height: var(--nav-h); }
+  .nav-links  { display: none; }
+  .nav-brand  { font-size: 1rem; }
+  .nav-logo-mark { width: 30px; height: 30px; }
+  .nav-right .btn { padding: 8px 14px; font-size: .76rem; }
+
+  /* Player bar */
+  .player-inner { padding: 0 14px; gap: 10px; height: var(--player-h); }
+  .p-wave, .p-vol, .p-clock, .p-onair { display: none; }
+  .player-play-btn { width: 40px; height: 40px; }
+  .p-name { font-size: .82rem; }
+
+  /* Hero */
+  .hero          { padding: 48px 16px 0; }
+  .hero-inner    { grid-template-columns: 1fr; gap: 24px; }
+  .hero-right    { display: none; }
+  .hero-left     { padding-bottom: 48px; }
+  .hero-btns     { flex-direction: column; }
+  .hero-btns .btn { width: 100%; justify-content: center; padding: 14px; }
+  .hero-chips    { gap: 6px; }
+
+  /* Sections */
+  .sec           { padding: 40px 16px; }
+  .sec-header    { margin-bottom: 28px; }
+
+  /* Stats */
+  .stats-row     { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  .stat-card     { padding: 14px; }
+
+  /* Widgets */
+  .widgets-grid  { grid-template-columns: 1fr !important; }
+  .onepage-wrap iframe { height: 320px; }
+  .widget-card-body iframe { height: 360px; }
+
+  /* News */
+  .news-grid, .news-secondary { grid-template-columns: 1fr !important; }
+  .news-card-featured         { grid-column: auto !important; }
+
+  /* Programação */
+  .grade-tabs    { gap: 0; }
+  .gtab          { padding: 8px 10px; font-size: .72rem; }
+  .grade-table thead th:nth-child(3),
+  .grade-table td:nth-child(3)  { display: none; }
+  .grade-table td, .grade-table th { padding: 10px 8px; }
+
+  /* Anuncie */
+  .anuncie-inner { grid-template-columns: 1fr !important; gap: 28px; padding: 40px 16px; }
+  .anuncie-cards { grid-template-columns: 1fr !important; }
+
+  /* Contato */
+  .contato-grid  { grid-template-columns: 1fr !important; }
+  .form-row-2    { grid-template-columns: 1fr !important; }
+
+  /* Footer */
+  .footer-top    { grid-template-columns: 1fr !important; gap: 28px; padding: 36px 16px 28px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding: 16px; }
+  .footer-socials { justify-content: center; }
+
+  /* DJs grid */
+  .djs-grid      { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .dj-avatar     { width: 56px; height: 56px; font-size: 1.2rem; }
+
+  /* Planos */
+  .plans-grid    { grid-template-columns: 1fr !important; }
+  .stats-band-inner { grid-template-columns: 1fr 1fr !important; padding: 0 16px; }
+
+  /* Features */
+  .features-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* About */
+  .about-grid    { grid-template-columns: 1fr !important; }
+  .about-disc    { width: 200px; height: 200px; }
+  .values-grid   { grid-template-columns: 1fr !important; }
+
+  /* Team */
+  .team-grid     { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+
+  /* Botões flutuantes */
+  .wa-btn        { padding: 14px; }
+  .wa-top        { font-size: .84rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📱 MOBILE — 481px a 768px
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 481px) and (max-width: 768px) {
+  :root { --nav-h: 64px; --player-h: 64px; }
+
+  .nav-inner  { padding: 0 20px; }
+  .nav-links  { display: none; }
+  .player-inner { padding: 0 20px; gap: 12px; }
+  .p-wave, .p-vol { display: none; }
+
+  .hero          { padding: 64px 20px 0; }
+  .hero-inner    { grid-template-columns: 1fr; }
+  .hero-right    { display: none; }
+  .hero-left     { padding-bottom: 56px; }
+
+  .stats-row     { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .widgets-grid  { grid-template-columns: 1fr !important; }
+  .news-grid     { grid-template-columns: 1fr !important; }
+  .news-secondary{ grid-template-columns: 1fr 1fr !important; }
+  .features-grid { grid-template-columns: 1fr 1fr !important; }
+  .plans-grid    { grid-template-columns: 1fr 1fr !important; }
+  .anuncie-inner { grid-template-columns: 1fr !important; }
+  .anuncie-cards { grid-template-columns: 1fr 1fr !important; }
+  .contato-grid  { grid-template-columns: 1fr !important; }
+  .form-row-2    { grid-template-columns: 1fr !important; }
+  .about-grid    { grid-template-columns: 1fr !important; }
+  .values-grid   { grid-template-columns: 1fr 1fr !important; }
+  .team-grid     { grid-template-columns: 1fr 1fr !important; }
+  .djs-grid      { grid-template-columns: 1fr 1fr !important; }
+  .footer-top    { grid-template-columns: 1fr 1fr !important; padding: 40px 20px; }
+  .footer-bottom { flex-direction: column; gap: 8px; padding: 16px 20px; text-align:center; }
+  .sec           { padding: 52px 20px; }
+  .page-hero     { padding: 44px 20px; }
+  .grid-7-5, .grid-5-7, .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .stats-band-inner { grid-template-columns: 1fr 1fr !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📟 TABLET — 769px a 1024px
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav-links a   { font-size: .75rem; padding: 6px 10px; }
+  .hero-inner    { gap: 32px; }
+  .vinyl-wrap    { width: 260px; height: 260px; }
+  .vinyl         { width: 230px; height: 230px; }
+
+  .stats-row     { grid-template-columns: 1fr 1fr !important; gap: 14px; }
+  .widgets-grid  { grid-template-columns: 1fr 1fr !important; }
+  .news-grid     { grid-template-columns: 1fr 1fr !important; }
+  .news-card-featured { grid-column: span 2; }
+  .news-secondary{ grid-template-columns: 1fr 1fr !important; }
+  .features-grid { grid-template-columns: 1fr 1fr !important; }
+  .plans-grid    { grid-template-columns: 1fr 1fr !important; }
+  .anuncie-inner { grid-template-columns: 1fr !important; gap: 36px; }
+  .anuncie-cards { grid-template-columns: 1fr 1fr !important; }
+  .about-grid    { grid-template-columns: 1fr 1fr; }
+  .values-grid   { grid-template-columns: 1fr 1fr 1fr !important; }
+  .team-grid     { grid-template-columns: 1fr 1fr 1fr !important; }
+  .footer-top    { grid-template-columns: 1fr 1fr !important; }
+  .grid-7-5, .grid-5-7 { grid-template-columns: 1fr !important; }
+  .stats-band-inner { grid-template-columns: 1fr 1fr !important; }
+  .sec           { padding: 64px 32px; }
+  .page-hero     { padding: 48px 32px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🖥️ DESKTOP PEQUENO — 1025px a 1279px
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .sec-inner, .nav-inner, .footer-top, .footer-bottom, .anuncie-inner {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .stats-row     { grid-template-columns: repeat(4,1fr); }
+  .widgets-grid  { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🖥️ DESKTOP FULL — 1280px+
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 1280px) {
+  .sec-inner, .nav-inner, .footer-top, .footer-bottom, .anuncie-inner {
+    max-width: 1280px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📺 TV / ULTRAWIDE — 1920px+
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 1920px) {
+  html { font-size: 17px; }
+  .sec-inner, .nav-inner, .footer-top, .footer-bottom, .anuncie-inner {
+    max-width: 1600px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🍎 IPHONE NOTCH / SAFE AREA (iPhone X+)
+   ═══════════════════════════════════════════════════════════ */
+@supports (padding: max(0px)) {
+  .site-nav  { padding-left:  max(0px, env(safe-area-inset-left)); padding-right:  max(0px, env(safe-area-inset-right)); }
+  .player-bar{ padding-left:  max(0px, env(safe-area-inset-left)); padding-right:  max(0px, env(safe-area-inset-right)); }
+  .sec       { padding-left:  max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+  footer     { padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🖨️ PRINT
+   ═══════════════════════════════════════════════════════════ */
+@media print {
+  .site-nav, .player-bar, .hero-btns, .footer-socials { display: none !important; }
+  body { background: #fff; color: #000; padding: 0; }
+  .section-title { color: #D4243A; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ♿ ACESSIBILIDADE — prefere redução de movimento
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🌙 DARK MODE automático (respeita preferência do SO)
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  /* O site já é claro por padrão. As variáveis abaixo
+     ajustam suavemente para dark mode quando o usuário
+     tiver o SO configurado no modo escuro. */
+  :root {
+    --bg:   #111318;
+    --bg2:  #181B26;
+    --bg3:  #1E2230;
+    --ink:  #E8EAF0;
+    --ink2: #B0B8D0;
+    --ink3: #7A82A0;
+    --line: #2A2E42;
+    --red-light: rgba(212,36,58,.12);
+  }
+  body            { background: var(--bg); color: var(--ink); }
+  .site-nav       { background: rgba(24,27,38,.97); border-color: var(--line); }
+  .player-bar     { background: var(--bg2); }
+  .card, .news-card, .feat-card, .plan-card, .value-card, .team-card,
+  .widget-card, .onepage-wrap, .ci-item, .anuncie-card { background: var(--bg2); border-color: var(--line); }
+  .form-row input, .form-row select, .form-row textarea { background: var(--bg3); border-color: var(--line); color: var(--ink); }
+  .footer-wrap    { background: #0a0c10; }
+  .news-excerpt   { color: var(--ink3); }
+  .grade-table thead th { background: var(--bg3); }
+  .grade-table tbody tr:hover { background: rgba(212,36,58,.08); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   📲 PWA — quando instalado como app (standalone)
+   ═══════════════════════════════════════════════════════════ */
+@media (display-mode: standalone) {
+  /* Remove alguns elementos desnecessários quando é app */
+  .breadcrumb { display: none; }
+  /* Garante que não há barra de rolagem extra */
+  html, body { overflow-x: hidden; }
+  /* Adiciona padding seguro no topo para iOS */
+  .site-nav {
+    padding-top: env(safe-area-inset-top);
+    height: calc(var(--nav-h) + env(safe-area-inset-top));
+  }
+  body {
+    padding-top: calc(var(--nav-h) + var(--player-h) + env(safe-area-inset-top));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🎯 UTILITÁRIOS RESPONSIVOS
+   ═══════════════════════════════════════════════════════════ */
+.hide-mobile  { display: block; }
+.show-mobile  { display: none;  }
+.hide-tablet  { display: block; }
+
+@media (max-width: 768px) {
+  .hide-mobile { display: none  !important; }
+  .show-mobile { display: block !important; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hide-tablet { display: none !important; }
+}
+
+/* Grid responsivo automático */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 20px;
+}
+.auto-grid-sm {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 16px;
+}
+
+/* Imagem responsiva com aspect ratio */
+.img-16-9 { aspect-ratio: 16/9; overflow: hidden; object-fit: cover; width: 100%; }
+.img-4-3  { aspect-ratio: 4/3;  overflow: hidden; object-fit: cover; width: 100%; }
+.img-1-1  { aspect-ratio: 1/1;  overflow: hidden; object-fit: cover; width: 100%; }
+
+/* Texto que não quebra linha */
+.nowrap { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Container full-width com padding lateral seguro */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding-left: clamp(16px, 5vw, 48px);
+  padding-right: clamp(16px, 5vw, 48px);
+}

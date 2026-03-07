@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Outfit, DM_Mono } from 'next/font/google';
 import './globals.css';
+import './responsive.css';
 import { RadioHeader } from '@/components/radio/RadioHeader';
 import { RadioPlayer } from '@/components/radio/RadioPlayer';
 import { RadioFooter } from '@/components/radio/RadioFooter';
