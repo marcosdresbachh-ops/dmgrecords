@@ -3,13 +3,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, FileText, Home, Info, Instagram, Mail, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter, Radio } from 'lucide-react';
+import { Calendar, FileText, Home, Info, Instagram, Mail, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter, Radio, MapPin } from 'lucide-react';
 
 export function RadioFooter() {
   return (
     <footer id="site-footer">
       <div className="footer-wrap">
-        <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.5fr,1fr,1fr]">
+        <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.5fr,1fr,1fr,1fr]">
           <div>
             <div className="mb-4">
               <Link href="/">
@@ -41,7 +41,7 @@ export function RadioFooter() {
                             className="transition-opacity hover:opacity-80"
                         />
                     </a>
-                    <a href="httpsunes.apple.com/br/app/radiosnet/id1089290449?mt=8" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" style={{
+                    <a href="https://apps.apple.com/br/app/radiosnet/id1089290449?mt=8" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" style={{
                         display: 'inline-block',
                         overflow: 'hidden',
                         background: 'url(https://linkmaker.itunes.apple.com/images/badges/pt-br/badge_appstore-lrg.svg) no-repeat',
@@ -56,11 +56,19 @@ export function RadioFooter() {
             <ul>
               <li><Link href="/"><Home style={{ width: '12px', height: '12px' }} /> Início</Link></li>
               <li><Link href="/programacao"><Calendar style={{ width: '12px', height: '12px' }} /> Programação</Link></li>
-              <li><Link href="/noticias"><Newspaper style={{ width: '12px', height: '12px' }} /> Notícias</Link></li>
+              <li><Link href="/vale-indica"><MapPin style={{ width: '12px', height: '12px' }} /> Vale Indica</Link></li>
               <li><Link href="/radio-indoor"><Radio style={{ width: '12px', height: '12px' }} /> Rádio Indoor</Link></li>
               <li><Link href="/contato"><Mail style={{ width: '12px', height: '12px' }} /> Contato</Link></li>
               <li><Link href="/sobre"><Info style={{ width: '12px', height: '12px' }} /> Sobre Nós</Link></li>
               <li><Link href="/equipe"><Users style={{ width: '12px', height: '12px' }} /> Nossa Equipe</Link></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <div className="footer-col-title">Notícias</div>
+            <ul>
+                <li><Link href="/noticias"><Newspaper className="h-3 w-3" /> Blog da Rádio</Link></li>
+                <li><Link href="/agencia-radio"><Newspaper className="h-3 w-3" /> Agência Rádio</Link></li>
+                <li><Link href="/noticias-taquara"><Newspaper className="h-3 w-3" /> Rádio Taquara</Link></li>
             </ul>
           </div>
           <div className="footer-col">

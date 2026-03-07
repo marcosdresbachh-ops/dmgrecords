@@ -2,7 +2,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Megaphone } from 'lucide-react';
+import { Megaphone, MapPin } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -19,6 +19,7 @@ export function RadioHeader() {
     { href: '/', label: 'Início' },
     { href: '/programacao', label: 'Programação' },
     { href: '/noticias', label: 'Notícias' },
+    { href: '/vale-indica', label: 'Vale Indica' },
     { href: '/contato', label: 'Contato' },
   ];
 
