@@ -8,7 +8,7 @@ import { RadioScripts } from '@/components/radio/RadioScripts';
 
 export function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAppRoute = !pathname.startsWith('/admin') && !pathname.startsWith('/login-adm-const-adm-fm98,7') && !pathname.startsWith('/radio-indoor');
+  const isAppRoute = !pathname.startsWith('/admin') && !pathname.startsWith('/login-adm-const-adm-fm98,7') && !pathname.startsWith('/radio-indoor') && !pathname.startsWith('/vale-indica/painel');
 
   if (isAppRoute) {
     return (
