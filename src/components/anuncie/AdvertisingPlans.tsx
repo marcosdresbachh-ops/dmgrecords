@@ -8,7 +8,7 @@ const plans = [
         icon: Flame,
         name: "Plano Impulso Local",
         desc: "A porta de entrada para pequenos negócios marcarem presença em nossa programação.",
-        price: "Sob Consulta",
+        price: "R$ 499",
         period: "pacote mensal",
         features: ["Até 5 inserções diárias", "Spots de 30 segundos", "Horários comerciais rotativos", "Relatório de veiculação mensal"],
         isFeatured: false,
@@ -17,7 +17,7 @@ const plans = [
         icon: Award,
         name: "Plano Destaque Regional",
         desc: "Ideal para empresas que buscam maior frequência e impacto, com menções ao vivo.",
-        price: "Sob Consulta",
+        price: "R$ 999",
         period: "pacote mensal",
         features: ["Até 10 inserções diárias", "Spots de 30 ou 60 segundos", "2 menções ao vivo por semana", "Banner no site da rádio", "Escolha de horários de pico"],
         isFeatured: true,
@@ -64,7 +64,7 @@ export function AdvertisingPlans() {
                             href="/contato"
                             className={plan.isFeatured ? 'btn btn-red mt-auto w-full justify-center' : 'btn btn-outline mt-auto w-full justify-center'}
                         >
-                             <Megaphone className="h-4 w-4" /> Solicitar Proposta
+                             <Megaphone className="h-4 w-4" /> {plan.price === 'Sob Consulta' ? 'Consultar' : 'Contratar'}
                         </Link>
                     </div>
                 ))}
