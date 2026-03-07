@@ -3,10 +3,10 @@
    API INTEGRADA · TOTALMENTE OPERACIONAL
    ═══════════════════════════════════════════ */
 :root{
-  --red:#D4243A;--red-dark:#A81C2E;--red-light:#FDF0F2;
-  --ink:#111318;--ink2:#2E3240;--ink3:#6B6F7E;
+  --red:#D4243A;--red-dark:#8B0F20;--red-light:#FDF0F2;
+  --ink:#0D0F14;--ink2:#2E3240;--ink3:#6B6F7E;
   --line:#E2E4EC;--bg:#F8F7F4;--bg2:#FFFFFF;--bg3:#F2F0ED;
-  --accent:#E8A020;--green:#16A34A;--green-bg:#F0FDF4;
+  --accent:#F5C842;--green:#16A34A;--green-bg:#F0FDF4;
   --blue:#2563EB;--blue-bg:#EFF6FF;--purple:#7C3AED;--purple-bg:#F5F3FF;
   --sidebar-w:242px;
 }
@@ -284,3 +284,5 @@ a{text-decoration:none;color:inherit}ul{list-style:none}
   .sb-toggle{display:flex}.g4{grid-template-columns:1fr 1fr}.g2,.g3,.g73{grid-template-columns:1fr}
 }
 @media(max-width:540px){.g4{grid-template-columns:1fr}.tb-search{display:none}}
+
+    

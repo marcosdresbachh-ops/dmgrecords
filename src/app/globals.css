@@ -5,40 +5,38 @@
 @layer base {
   :root {
     --background: 40 25% 96%; /* #F8F7F4 */
-    --foreground: 225 14% 8%; /* #111318 */
+    --foreground: 225 14% 7%; /* #0D0F14 */
 
     --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 225 14% 8%; /* #111318 */
+    --card-foreground: 225 14% 7%; /* #0D0F14 */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 225 14% 8%;
+    --popover-foreground: 225 14% 7%;
 
-    --primary: 351 69% 52%; /* #D4243A */
+    --primary: 351 69% 48%; /* #D4243A */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 40 16% 94%; /* #F2F0ED */
-    --secondary-foreground: 225 14% 8%;
+    --secondary-foreground: 225 14% 7%;
 
     --muted: 40 16% 94%; /* #F2F0ED */
     --muted-foreground: 226 9% 45%; /* #6B6F7E */
     
-    --accent: 38 82% 52%; /* #E8A020 */
-    --accent-foreground: 225 14% 8%;
+    --accent: 45 91% 61%; /* #F5C842 */
+    --accent-foreground: 225 14% 7%;
 
-    --destructive: 351 69% 52%;
+    --destructive: 351 69% 48%; /* #D4243A */
     --destructive-foreground: 0 0% 100%;
 
     --border: 227 27% 90%; /* #E2E4EC */
     --input: 227 27% 90%;
-    --ring: 351 69% 52%;
-
-    --radius: 0.5rem;
+    --ring: 351 69% 48%;
 
     /* Custom App-specific variables */
     --red:        #D4243A;
-    --red-dark:   #A81C2E;
+    --red-dark:   #8B0F20;
     --red-light:  #FDF0F2;
-    --ink:        #111318;
+    --ink:        #0D0F14;
     --ink2:       #2E3240;
     --ink3:       #6B6F7E;
     --line:       #E2E4EC;
@@ -461,3 +459,5 @@
     .b-var  { background:var(--bg3); color:var(--ink3) }
     .b-red  { background:var(--red-light); color:var(--red) }
 }
+
+    
