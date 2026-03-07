@@ -1,3 +1,4 @@
+'use client';
 import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
 import { SectionHeader } from '@/components/shared/SectionHeader';

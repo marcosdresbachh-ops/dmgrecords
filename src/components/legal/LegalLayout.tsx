@@ -10,7 +10,7 @@ interface LegalLayoutProps {
 
 export function LegalLayout({ pageTitle, lastUpdated, tableOfContents, content }: LegalLayoutProps) {
     return (
-        <section className="sec">
+        <section className="sec pt-12">
             <div className="sec-inner">
                 <div className="fi">
                     <Breadcrumb items={[{ href: '/', label: 'Início' }, { label: pageTitle }]} />

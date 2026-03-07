@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { Send } from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';

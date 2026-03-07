@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { Megaphone } from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
-import { Stats } from '@/components/anuncie/Stats';
-import { Plans } from '@/components/anuncie/Plans';
-import { Faq } from '@/components/anuncie/Faq';
-import { IndoorFeatures } from '@/components/anuncie/IndoorFeatures';
+import { Stats } from '@/components/radio-indoor/Stats';
+import { Plans } from '@/components/radio-indoor/Plans';
+import { Faq } from '@/components/radio-indoor/Faq';
+import { IndoorFeatures } from '@/components/radio-indoor/IndoorFeatures';
 
 const RadioIndoorPage = () => {
     return (
