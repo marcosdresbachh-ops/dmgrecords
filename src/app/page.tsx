@@ -5,13 +5,14 @@ import { TopTen } from '@/components/home/TopTen';
 import { AdvertiseCta } from '@/components/home/AdvertiseCta';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Sponsors } from '@/components/home/Sponsors';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       <Features />
-      <div className="h-px bg-[--line]"></div>
+      <Sponsors />
       <LiveWidgets />
       
       {/* RadiosNet Banner Section */}

@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Megaphone } from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';
