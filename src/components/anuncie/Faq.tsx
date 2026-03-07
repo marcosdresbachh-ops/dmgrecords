@@ -9,24 +9,24 @@ import { SectionHeader } from "../shared/SectionHeader"
 
 const faqData = [
     {
-        q: "Como funciona o processo de anúncio?",
-        a: "Entre em contato conosco pelo WhatsApp ou formulário, escolha o plano ideal, envie o material do seu anúncio e nós cuidamos de todo o resto. A veiculação começa em até 24h úteis após a aprovação."
+        q: "O que eu preciso para ter uma Rádio Indoor na minha loja?",
+        a: "Você só precisa de um computador, tablet ou smartphone com acesso à internet e um sistema de som ambiente. Nossa plataforma funciona diretamente do navegador, sem necessidade de instalar aplicativos."
     },
     {
-        q: "Preciso levar o arquivo de áudio pronto?",
-        a: "Não necessariamente. Para os planos que incluem produção de vinheta, nossa equipe cria o áudio para você. Basta nos enviar as informações do seu negócio e o texto que deseja comunicar."
+        q: "As músicas são legalizadas para uso comercial? E o ECAD?",
+        a: "Sim. Todas as músicas do nosso acervo são 100% licenciadas e isentas de taxas do ECAD. Nós cuidamos de toda a burocracia para que você possa usar as músicas legalmente em seu estabelecimento."
     },
     {
-        q: "Qual é o prazo mínimo de contrato?",
-        a: "Para o plano Spot o mínimo é de 1 semana. Para os demais planos, o prazo mínimo é de 1 mês, com renovação automática mensal caso não haja cancelamento com 5 dias de antecedência."
+        q: "Eu posso escolher as músicas que tocam na minha rádio?",
+        a: "Com certeza. Nosso painel permite que você escolha os gêneros e estilos musicais. No Plano Pro, você pode até criar playlists personalizadas com músicas específicas para cada momento do dia."
     },
     {
-        q: "Como recebo o relatório de veiculações?",
-        a: "Os relatórios são enviados mensalmente por e-mail com o total de exibições, horários de veiculação e estimativa de alcance. Para o plano Premium, os relatórios são enviados quinzenalmente."
+        q: "Como funciona a gravação das locuções e ofertas?",
+        a: "É muito simples. Você nos envia o texto da sua oferta ou anúncio através do painel, escolhe um de nossos locutores profissionais e, em até 48 horas úteis, o áudio estará pronto e disponível para ser agendado na sua programação."
     },
     {
-        q: "Como é feito o pagamento?",
-        a: "Aceitamos PIX, transferência bancária ou boleto. O pagamento é realizado no início de cada período de veiculação. Para contratos anuais, oferecemos desconto especial."
+        q: "Existe algum tipo de fidelidade ou contrato de longo prazo?",
+        a: "Nossos planos são mensais e sem fidelidade. Você pode cancelar quando quiser, sem multas ou complicações, bastando nos avisar com 15 dias de antecedência do próximo vencimento."
     }
 ]
 
