@@ -745,22 +745,6 @@ function init(){
 }
 
 window.addEventListener('load', init);
-`;
-
-
-export default function ValeIndicaPage() {
-  React.useEffect(() => {
-    const script = document.createElement('script');
-    script.innerHTML = valeIndicaScript;
-    document.body.appendChild(script);
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
-
-  return (
-    <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: valeIndicaHTML }} />
-  );
-}
+</script>
+</body>
+</html>
