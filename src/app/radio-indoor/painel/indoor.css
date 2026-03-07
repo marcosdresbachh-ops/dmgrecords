@@ -1,0 +1,530 @@
+/* ══════════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════════ */
+:root{
+  --red:#D4243A; --red2:#A81C2E; --red3:rgba(212,36,58,.15);
+  --gold:#F0C940; --gold2:#C8A020; --gold3:rgba(240,201,64,.15);
+  --bg:#08090D; --bg2:#0E1018; --bg3:#141720; --bg4:#1C2030;
+  --line:#1E2232; --line2:#262B3E;
+  --text:#F0F2F8; --text2:#9AA0B8; --text3:#5A6180;
+  --green:#12C060; --green2:rgba(18,192,96,.15);
+  --blue:#3B82F6; --blue2:rgba(59,130,246,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg)}
+body{
+  font-family:'Outfit',sans-serif;
+  color:var(--text);
+  display:flex;flex-direction:column;
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT PRINCIPAL — GRID
+══════════════════════════════════════════════ */
+.indoor-wrap{
+  width:100%;height:100%;
+  display:grid;
+  grid-template-rows:72px 1fr 90px;
+  grid-template-columns:1fr 380px;
+  grid-template-areas:
+    "header  header"
+    "main    sidebar"
+    "player  player";
+  gap:0;
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+.header{
+  grid-area:header;
+  background:var(--bg2);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;
+  padding:0 28px;
+  gap:20px;
+  position:relative;
+  overflow:hidden;
+}
+/* linha vermelha animada no topo */
+.header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--gold),var(--red));
+  background-size:200% 100%;
+  animation:hbar 4s linear infinite;
+}
+@keyframes hbar{from{background-position:0% 0}to{background-position:200% 0}}
+
+.logo-block{display:flex;align-items:center;gap:12px}
+.logo-sq{
+  width:44px;height:44px;background:var(--red);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;
+  letter-spacing:-.04em;flex-shrink:0;
+  box-shadow:0 4px 16px rgba(212,36,58,.4);
+  position:relative;overflow:hidden;
+}
+.logo-sq::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.25),transparent)}
+.logo-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.45rem;letter-spacing:.08em;line-height:1;
+}
+.logo-name span{color:var(--red)}
+.logo-tag{font-size:.58rem;color:var(--text3);letter-spacing:.22em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-top:1px}
+
+/* Ticker de notícias */
+.ticker-wrap{
+  flex:1;overflow:hidden;
+  border-left:1px solid var(--line);border-right:1px solid var(--line);
+  padding:0 20px;height:100%;
+  display:flex;align-items:center;gap:12px;
+  position:relative;
+}
+.ticker-label{
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--red);
+  flex-shrink:0;display:flex;align-items:center;gap:6px;
+}
+.ticker-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink2 1.3s infinite}
+@keyframes blink2{0%,100%{opacity:1}50%{opacity:.2}}
+.ticker-track{overflow:hidden;flex:1;height:100%;display:flex;align-items:center}
+.ticker-inner{
+  white-space:nowrap;font-size:.85rem;color:var(--text2);
+  animation:ticker 38s linear infinite;
+  display:inline-block;
+}
+@keyframes ticker{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+
+/* Relógio header */
+.header-clock{flex-shrink:0;text-align:right}
+.hclock-time{
+  font-family:'DM Mono',monospace;font-size:1.65rem;font-weight:500;
+  color:var(--text);letter-spacing:.05em;line-height:1;
+}
+.hclock-date{
+  font-family:'DM Mono',monospace;font-size:.58rem;
+  color:var(--text3);letter-spacing:.14em;text-transform:uppercase;margin-top:2px;
+}
+/* Temperatura */
+.header-temp{
+  flex-shrink:0;padding:0 20px;border-left:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;
+}
+.temp-val{font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1}
+.temp-lbl{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+
+/* ══════════════════════════════════════════════
+   MAIN — ÁREA CENTRAL
+══════════════════════════════════════════════ */
+.main{
+  grid-area:main;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  gap:0;overflow:hidden;
+  position:relative;
+}
+
+/* ── Painel de Anúncio ── */
+.ad-panel{
+  position:relative;
+  flex:1;display:flex;align-items:stretch;overflow:hidden;
+}
+.ad-slide{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .8s ease;
+  padding:0;
+}
+.ad-slide.active{opacity:1}
+
+/* Slide 1 — Supermercado */
+.ad-1{
+  background:linear-gradient(135deg,#0a0a0f 0%,#1a0508 60%,#2a0a10 100%);
+}
+.ad-1-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(212,36,58,.18) 0%,transparent 65%),
+             radial-gradient(ellipse at 80% 20%,rgba(240,201,64,.08) 0%,transparent 50%);
+}
+.ad-content{
+  position:relative;z-index:2;
+  width:100%;height:100%;
+  display:flex;align-items:center;
+  padding:40px 56px;gap:40px;
+}
+.ad-logo-box{
+  width:160px;height:160px;border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:3.5rem;
+  border:2px solid rgba(255,255,255,.1);
+  flex-shrink:0;position:relative;overflow:hidden;
+}
+.ad-text-block{flex:1}
+.ad-eyebrow{
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.3em;
+  text-transform:uppercase;margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.ad-headline{
+  font-family:'Bebas Neue',sans-serif;
+  line-height:.92;margin-bottom:16px;
+}
+.ad-sub{font-size:1rem;color:rgba(255,255,255,.65);line-height:1.55;margin-bottom:20px}
+.ad-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;border-radius:8px;
+  font-weight:700;font-size:.88rem;letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+/* Slide 2 — Pizzaria */
+.ad-2{background:linear-gradient(135deg,#0a0500 0%,#1a0d00 60%,#2a1500 100%)}
+.ad-2-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 50%,rgba(240,100,20,.2) 0%,transparent 60%),
+             radial-gradient(ellipse at 20% 80%,rgba(240,201,64,.1) 0%,transparent 50%);
+}
+
+/* Slide 3 — Farmácia */
+.ad-3{background:linear-gradient(135deg,#010a08 0%,#001a10 60%,#002210 100%)}
+.ad-3-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 30%,rgba(18,192,96,.15) 0%,transparent 60%);
+}
+
+/* Slide 4 — Loja de roupas */
+.ad-4{background:linear-gradient(135deg,#05030a 0%,#0d0520 60%,#150830 100%)}
+.ad-4-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 70%,rgba(139,92,246,.2) 0%,transparent 60%);
+}
+
+/* Progress bar dos slides */
+.ad-progress{
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:rgba(255,255,255,.08);
+  z-index:10;display:flex;gap:4px;padding:0 4px;
+}
+.ap-seg{
+  flex:1;height:100%;background:rgba(255,255,255,.2);border-radius:1px;overflow:hidden;
+}
+.ap-seg.done{background:rgba(255,255,255,.6)}
+.ap-fill{
+  height:100%;background:var(--red);width:0%;
+  transition:none;border-radius:1px;
+}
+.ap-seg.active .ap-fill{
+  animation:apfill linear forwards;
+}
+@keyframes apfill{from{width:0%}to{width:100%}}
+
+/* Indicador de anúncio */
+.ad-badge{
+  position:absolute;top:16px;right:16px;z-index:10;
+  font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(255,255,255,.35);
+  background:rgba(0,0,0,.4);padding:5px 10px;border-radius:5px;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════ */
+.sidebar{
+  grid-area:sidebar;
+  background:var(--bg2);
+  border-left:1px solid var(--line);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+/* ── Hora Certa ── */
+.hora-certa{
+  padding:20px 20px 16px;
+  border-bottom:1px solid var(--line);
+  background:var(--bg3);
+  position:relative;overflow:hidden;
+}
+.hora-certa::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+}
+.hc-label{
+  font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold2);margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.hc-time{
+  font-family:'DM Mono',monospace;font-size:3.2rem;font-weight:500;
+  color:var(--gold);line-height:1;letter-spacing:.04em;
+}
+.hc-date{
+  font-family:'DM Mono',monospace;font-size:.62rem;color:var(--text3);
+  letter-spacing:.16em;text-transform:uppercase;margin-top:4px;
+}
+.hc-saudacao{
+  margin-top:8px;font-size:.88rem;font-weight:600;color:var(--text2);
+}
+
+/* ── ON AIR ── */
+.on-air-box{
+  padding:16px 20px;border-bottom:1px solid var(--line);
+  background:rgba(18,192,96,.05);
+  position:relative;
+}
+.on-air-box::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--green);
+}
+.oab-label{
+  font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--green);
+  display:flex;align-items:center;gap:6px;margin-bottom:8px;
+}
+.oab-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink2 1.3s infinite}
+.oab-disc{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+  animation:spin 8s linear infinite;
+  box-shadow:0 0 0 3px rgba(18,192,96,.2);
+}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.oab-info{flex:1;min-width:0}
+.oab-track{font-size:.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oab-artist{font-size:.72rem;color:var(--text3);margin-top:2px}
+.oab-prog-wrap{margin-top:10px}
+.oab-prog{height:3px;background:var(--line2);border-radius:2px;overflow:hidden}
+.oab-prog-fill{height:100%;background:var(--green);border-radius:2px;width:42%;transition:width .5s}
+.oab-times{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.54rem;color:var(--text3);margin-top:4px}
+
+/* Waveform */
+.waveform{display:flex;align-items:center;gap:2px;height:22px;margin-top:8px}
+.wf-b{width:3px;border-radius:2px;background:var(--green);opacity:.8}
+
+/* ── Playlist ── */
+.playlist-box{
+  flex:1;overflow:hidden;display:flex;flex-direction:column;
+}
+.pb-header{
+  padding:14px 20px 10px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.pb-title{
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text3);
+  display:flex;align-items:center;gap:7px;
+}
+.pb-count{
+  background:var(--bg4);color:var(--text3);
+  font-family:'DM Mono',monospace;font-size:.52rem;
+  padding:2px 8px;border-radius:4px;
+}
+.pb-list{flex:1;overflow:hidden;position:relative}
+.pb-inner{
+  display:flex;flex-direction:column;
+  animation:scrollList 40s linear infinite;
+}
+@keyframes scrollList{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-50%)}
+}
+.pb-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 20px;border-bottom:1px solid rgba(30,34,50,.7);
+  flex-shrink:0;
+}
+.pb-item.now{background:rgba(18,192,96,.07)}
+.pb-num{
+  font-family:'DM Mono',monospace;font-size:.62rem;
+  color:var(--text3);width:18px;text-align:center;flex-shrink:0;
+}
+.pb-now-icon{color:var(--green);width:18px;text-align:center;flex-shrink:0;font-size:.8rem}
+.pb-art{
+  width:32px;height:32px;border-radius:6px;
+  background:var(--bg4);display:flex;align-items:center;
+  justify-content:center;font-size:.9rem;flex-shrink:0;
+}
+.pb-info{flex:1;min-width:0}
+.pb-name{font-size:.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-meta{font-size:.64rem;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-dur{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--text3);flex-shrink:0}
+
+/* ── Próximo Programa ── */
+.proximo-box{
+  padding:12px 20px;
+  border-top:1px solid var(--line);
+  background:var(--bg3);
+  display:flex;align-items:center;gap:12px;
+}
+.px-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(59,130,246,.15);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:var(--blue);font-size:1rem;
+}
+.px-info{flex:1}
+.px-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:2px}
+.px-prog{font-size:.82rem;font-weight:700}
+.px-time{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--blue);margin-top:1px}
+
+/* ══════════════════════════════════════════════
+   PLAYER BAR (bottom)
+══════════════════════════════════════════════ */
+.player-bar{
+  grid-area:player;
+  background:var(--bg2);
+  border-top:1px solid var(--line);
+  display:flex;align-items:center;
+  padding:0 24px;gap:20px;
+  position:relative;
+  overflow:hidden;
+}
+.player-bar::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--red),var(--gold),var(--red),transparent);
+}
+
+/* Branding radio */
+.pb-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.pb-brand-logo{
+  width:52px;height:52px;background:var(--red);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#fff;
+  letter-spacing:-.02em;box-shadow:0 4px 16px rgba(212,36,58,.35);
+}
+.pb-brand-text{line-height:1.2}
+.pb-brand-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em}
+.pb-brand-sub{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--text3);letter-spacing:.16em;text-transform:uppercase}
+
+/* Divider */
+.pb-div{width:1px;height:40px;background:var(--line2);flex-shrink:0}
+
+/* Now playing info */
+.pb-now{display:flex;align-items:center;gap:14px;flex:1}
+.pb-disc{
+  width:54px;height:54px;border-radius:50%;
+  background:linear-gradient(135deg,#1a0810,#3a1020);
+  border:2px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+  box-shadow:0 0 0 4px rgba(212,36,58,.15);
+  animation:spin 10s linear infinite;
+  position:relative;overflow:hidden;
+}
+.pb-disc::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.15),transparent);
+}
+.pb-disc-hole{
+  position:absolute;width:12px;height:12px;background:var(--bg2);border-radius:50%;
+  z-index:2;
+}
+.pb-track-info{flex:1;min-width:0}
+.pb-track-name{font-size:1rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.pb-track-artist{font-size:.75rem;color:var(--text3)}
+
+/* Progress + Waves */
+.pb-center{display:flex;flex-direction:column;gap:6px;width:220px;flex-shrink:0}
+.pb-wave{display:flex;align-items:center;gap:2px;height:28px;justify-content:center}
+.pb-w-b{width:3px;border-radius:2px;background:var(--red);opacity:.7}
+.pb-prog-bar{height:3px;background:var(--line2);border-radius:2px;overflow:hidden;cursor:pointer}
+.pb-prog-fill2{height:100%;background:var(--red);border-radius:2px;width:0%;transition:width .5s}
+.pb-prog-times{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.56rem;color:var(--text3)}
+
+/* Controls */
+.pb-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pbc-btn{
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:var(--bg3);color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;transition:all .18s;
+}
+.pbc-btn:hover{background:var(--bg4);color:var(--text)}
+.pbc-main{
+  width:46px;height:46px;background:var(--red);color:#fff;
+  box-shadow:0 4px 16px rgba(212,36,58,.4);
+}
+.pbc-main:hover{background:var(--red2)}
+
+/* Volume */
+.pb-vol{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pb-vol-icon{font-size:1rem;color:var(--text3)}
+.pb-vol-range{
+  width:80px;-webkit-appearance:none;height:3px;
+  background:var(--line2);border-radius:2px;outline:none;cursor:pointer;
+}
+.pb-vol-range::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;
+  background:var(--text2);border-radius:50%;
+}
+
+/* Status */
+.pb-status{flex-shrink:0;text-align:right}
+.pbs-live{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(18,192,96,.12);border:1px solid rgba(18,192,96,.25);
+  color:var(--green);
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;
+  padding:5px 12px;border-radius:5px;text-transform:uppercase;font-weight:600;
+}
+.pbs-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink2 1.3s infinite}
+.pbs-ouvintes{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--text3);margin-top:4px;text-align:center}
+
+/* ══════════════════════════════════════════════
+   HORA CERTA — overlay especial
+══════════════════════════════════════════════ */
+.hora-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,.92);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s;
+}
+.hora-overlay.show{opacity:1;pointer-events:all}
+.ho-content{text-align:center;position:relative}
+.ho-ring{
+  width:320px;height:320px;border-radius:50%;
+  border:3px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  box-shadow:0 0 60px rgba(240,201,64,.2),inset 0 0 60px rgba(240,201,64,.05);
+  animation:pulse-ring 2s ease-in-out infinite;
+}
+@keyframes pulse-ring{0%,100%{box-shadow:0 0 40px rgba(240,201,64,.2)}50%{box-shadow:0 0 80px rgba(240,201,64,.35)}}
+.ho-time-big{
+  font-family:'DM Mono',monospace;font-size:5rem;font-weight:500;
+  color:var(--gold);line-height:1;
+}
+.ho-label{
+  font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.4em;
+  text-transform:uppercase;color:rgba(240,201,64,.5);margin-top:8px;
+}
+.ho-saudacao{
+  font-family:'Bebas Neue',sans-serif;font-size:2.5rem;
+  color:#fff;letter-spacing:.08em;margin-top:16px;
+}
+.ho-radio{
+  font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.3em;
+  color:rgba(255,255,255,.35);text-transform:uppercase;margin-top:8px;
+}
+.ho-bar{
+  width:200px;height:3px;background:rgba(255,255,255,.1);
+  border-radius:2px;overflow:hidden;margin:16px auto 0;
+}
+.ho-bar-fill{
+  height:100%;background:var(--gold);border-radius:2px;
+  animation:hobar 5s linear forwards;
+}
+@keyframes hobar{from{width:0%}to{width:100%}}
+
+/* ══════════════════════════════════════════════
+   ANIMS & MISC
+══════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .6s ease forwards}
+
+/* Scrollbar oculta */
+::-webkit-scrollbar{display:none}

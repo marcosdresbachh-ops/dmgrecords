@@ -27,12 +27,12 @@ export function RadioFooter() {
                 <div className="flex flex-wrap items-center gap-2">
                     <a href="https://play.google.com/store/apps/details?id=br.com.radios.radiosmobile.radiosnet&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" target="_blank" rel="noopener noreferrer">
                         <Image 
-                            width="142" 
-                            height="45" 
+                            width={142} 
+                            height={45}
+                            style={{ height: 'auto' }}
                             alt="Disponível no Google Play" 
                             src="https://play.google.com/intl/en_us/badges/images/generic/pt-br-play-badge-border.png"
                             className="transition-opacity hover:opacity-80"
-                            style={{ height: 'auto' }}
                         />
                     </a>
                     <a href="https://itunes.apple.com/br/app/radiosnet/id1089290449?mt=8" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" style={{
