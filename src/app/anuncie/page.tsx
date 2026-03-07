@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { Megaphone, Users, BarChart, Mic } from 'lucide-react';
+import { Megaphone } from 'lucide-react';
 import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
-import { SectionHeader } from '@/components/shared/SectionHeader';
 import { Testimonials } from '@/components/anuncie/Testimonials';
 import { AdFormats } from '@/components/anuncie/AdFormats';
 import { AudienceStats } from '@/components/anuncie/AudienceStats';
-import { AdvertisingPlans } from '@/components/anuncie/AdvertisingPlans';
+import { MediaKit } from '@/components/anuncie/MediaKit';
 
 const AnunciePage = () => {
     return (
@@ -25,7 +24,7 @@ const AnunciePage = () => {
 
                     <AudienceStats />
                     <AdFormats />
-                    <AdvertisingPlans />
+                    <MediaKit />
                     
                     <div className="fi mt-16">
                         <Testimonials />

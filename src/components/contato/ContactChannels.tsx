@@ -5,20 +5,20 @@ const channels = [
     {
         icon: Phone,
         label: "WhatsApp",
-        value: "(55) 00000-0000",
-        href: "https://wa.me/5500000000000"
+        value: "(51) 98144-6019",
+        href: "https://wa.me/5551981446019"
     },
     {
         icon: Mail,
-        label: "E-mail",
+        label: "E-mail Geral",
         value: "contato@dmgrecords.com.br",
         href: "mailto:contato@dmgrecords.com.br"
     },
     {
         icon: Megaphone,
         label: "Publicidade",
-        value: "publicidade@dmgrecords.com.br",
-        href: "mailto:publicidade@dmgrecords.com.br"
+        value: "queroanunciar@dmgrecords.com.br",
+        href: "mailto:queroanunciar@dmgrecords.com.br"
     },
     {
         icon: Clock,
@@ -47,7 +47,7 @@ export function ContactChannels() {
                     </a>
                 ))}
             </div>
-            <a href="https://wa.me/5500000000000" className="mb-4 flex items-center gap-3 rounded-md bg-[#25D366] px-5 py-4 text-white transition-all hover:-translate-y-0.5 hover:opacity-95" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5551981446019" className="mb-4 flex items-center gap-3 rounded-md bg-[#25D366] px-5 py-4 text-white transition-all hover:-translate-y-0.5 hover:opacity-95" target="_blank" rel="noopener noreferrer">
                 <div className="text-2xl">💬</div>
                 <div>
                     <div className="text-[.92rem] font-bold">Falar agora no WhatsApp</div>
