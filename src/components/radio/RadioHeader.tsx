@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Radio } from 'lucide-react';
+import { Megaphone } from 'lucide-react';
 
 export function RadioHeader() {
   const pathname = usePathname();
@@ -31,7 +31,7 @@ export function RadioHeader() {
         <div className="nav-right">
           <div className="nav-live"><div className="live-dot"></div>AO VIVO</div>
           <Link href="/anuncie" className="btn btn-red">
-            <Radio style={{ width: '14px', height: '14px' }} /> Rádio Indoor
+            <Megaphone style={{ width: '14px', height: '14px' }} /> Anuncie Conosco
           </Link>
         </div>
       </div>
