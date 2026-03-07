@@ -10,7 +10,6 @@ export function RadioHeader() {
     { href: '/', label: 'Início' },
     { href: '/programacao', label: 'Programação' },
     { href: '/noticias', label: 'Notícias' },
-    { href: '/anuncie', label: 'Anuncie' },
     { href: '/contato', label: 'Contato' },
   ];
 
