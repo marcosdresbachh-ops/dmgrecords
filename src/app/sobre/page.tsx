@@ -12,8 +12,8 @@ const SobrePage = () => {
         <>
             <PageHero
                 eyebrow="Nossa História"
-                title={<>Sobre a <em>DMG Records</em></>}
-                description="Conheça a história, os valores e a missão da rádio que conecta artistas e ouvintes há mais de 8 anos."
+                title={<>Sobre a <em>Dresbach Records</em></>}
+                description="Conheça a história, os valores e a missão da Dresbach Records, a rádio que conecta artistas e ouvintes há mais de 8 anos."
             />
 
             <section className="sec">
@@ -41,7 +41,7 @@ const SobrePage = () => {
                     <div className="fi mt-16">
                         <SectionHeader
                             eyebrow="Nossa Jornada"
-                            title={<>A história da <em>DMG Records</em></>}
+                            title={<>A história da <em>Dresbach Records</em></>}
                         />
                         <Timeline />
                     </div>

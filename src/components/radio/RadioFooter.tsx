@@ -12,10 +12,10 @@ export function RadioFooter() {
           <div>
             <div className="mb-4">
               <Link href="/">
-                <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={160} height={40} style={{ filter: 'brightness(0) invert(1)', height: 'auto' }} />
+                <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={160} height={22} />
               </Link>
             </div>
-            <p className="footer-desc">Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
+            <p className="footer-desc">DRESBACH RECORDS LTDA - Música, fé e entretenimento 24 horas por dia. A rádio que conecta artistas e ouvintes em todo o Brasil.</p>
             <div className="footer-socials">
               <a href="#" className="footer-soc icon"><Instagram style={{ width: '15px', height: '15px' }} /></a>
               <a href="#" className="footer-soc icon"><Facebook style={{ width: '15px', height: '15px' }} /></a>
@@ -29,7 +29,6 @@ export function RadioFooter() {
                         <Image 
                             width={142} 
                             height={45}
-                            style={{ height: 'auto' }}
                             alt="Disponível no Google Play" 
                             src="https://play.google.com/intl/en_us/badges/images/generic/pt-br-play-badge-border.png"
                             className="transition-opacity hover:opacity-80"
@@ -75,8 +74,13 @@ export function RadioFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="footer-copy">© 2025 DMG Records Rádio. Todos os direitos reservados.</span>
-          <span className="footer-copy" style={{ color: 'rgba(255,255,255,.28)' }}>Transmissão ao vivo 24h</span>
+            <div className="text-center md:text-left">
+                <p className="footer-copy">© 2026 DRESBACH RECORDS LTDA | CNPJ: 63.187.175/0001-70.</p>
+                <p className="footer-copy">Todos os direitos reservados.</p>
+            </div>
+            <a href="https://www.rscriativo.rs.gov.br/dgm-records" target="_blank" rel="noopener noreferrer" className="inline-block shrink-0 rounded-sm border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/60 transition-colors hover:bg-white/20 hover:text-white">
+                Selo <span className="font-bold">.RS-CRIATIVO</span>
+            </a>
         </div>
       </div>
     </footer>
