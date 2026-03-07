@@ -370,24 +370,24 @@ const CATEGORIAS = [
 
 const BUSINESSES_DB = [
   // TAQUARA
-  {id:1, name:'Farmácia Popular Taquara', cat:'saude', city:'taquara', neighborhood:'Centro', address:'Rua Júlio de Castilhos, 285', phone:'(51) 3541-2233', wpp:'51981446019', hours:'Seg–Sáb: 07h–20h · Dom: 08h–13h', desc:'Medicamentos, dermocosméticos e perfumaria com os melhores preços do Vale.', destaque:true, icon:'💊'},
-  {id:2, name:'Restaurante Casa da Nona', cat:'alimentacao', city:'taquara', neighborhood:'Centro', address:'Av. Leopoldo Petry, 590', phone:'(51) 3541-1198', wpp:'51981446019', hours:'Ter–Dom: 11h–15h e 19h–22h', desc:'Culinária italiana e gaúcha, ambientes familiares, prato feito e a la carte.', destaque:true, icon:'🍝'},
+  {id:1, name:'Farmácia Popular Taquara', cat:'saude', city:'taquara', neighborhood:'Centro', address:'Rua Júlio de Castilhos, 285', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sáb: 07h–20h · Dom: 08h–13h', desc:'Medicamentos, dermocosméticos e perfumaria com os melhores preços do Vale.', destaque:true, icon:'💊'},
+  {id:2, name:'Restaurante Casa da Nona', cat:'alimentacao', city:'taquara', neighborhood:'Centro', address:'Av. Leopoldo Petry, 590', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Ter–Dom: 11h–15h e 19h–22h', desc:'Culinária italiana e gaúcha, ambientes familiares, prato feito e a la carte.', destaque:true, icon:'🍝'},
   {id:3, name:'Salão Beauty Space', cat:'beleza', city:'taquara', neighborhood:'Bom Princípio', address:'Rua das Flores, 44', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 09h–19h · Sáb: 08h–17h', desc:'Corte, coloração, manicure, pedicure e tratamentos capilares.', destaque:false, icon:'✂️'},
-  {id:4, name:'Mecânica do Zé', cat:'auto', city:'taquara', neighborhood:'Industrial', address:'Rod. RS-020, Km 43', phone:'(51) 3541-4477', wpp:'51981446019', hours:'Seg–Sex: 07h30–18h · Sáb: 07h30–12h', desc:'Manutenção preventiva e corretiva, alinhamento, balanceamento e suspensão.', destaque:false, icon:'🔧'},
-  {id:5, name:'Mercado Família Schneider', cat:'mercado', city:'taquara', neighborhood:'São Luís', address:'Av. Dom Pedro II, 1.140', phone:'(51) 3541-0022', wpp:'51981446019', hours:'Seg–Sáb: 07h–21h · Dom: 08h–14h', desc:'Mercearia completa, açougue, padaria, hortifruti e entrega a domicílio.', destaque:false, icon:'🛒'},
+  {id:4, name:'Mecânica do Zé', cat:'auto', city:'taquara', neighborhood:'Industrial', address:'Rod. RS-020, Km 43', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 07h30–18h · Sáb: 07h30–12h', desc:'Manutenção preventiva e corretiva, alinhamento, balanceamento e suspensão.', destaque:false, icon:'🔧'},
+  {id:5, name:'Mercado Família Schneider', cat:'mercado', city:'taquara', neighborhood:'São Luís', address:'Av. Dom Pedro II, 1.140', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sáb: 07h–21h · Dom: 08h–14h', desc:'Mercearia completa, açougue, padaria, hortifruti e entrega a domicílio.', destaque:false, icon:'🛒'},
   {id:6, name:'Pet Center Amigo Fiel', cat:'pet', city:'taquara', neighborhood:'Centro', address:'Rua 20 de Setembro, 311', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 08h–18h · Sáb: 08h–13h', desc:'Pet shop, veterinária, banho & tosa, venda de rações e acessórios.', destaque:false, icon:'🐾'},
   // ROLANTE
-  {id:7, name:'Pizzaria Boa Vista', cat:'alimentacao', city:'rolante', neighborhood:'Centro', address:'Av. Brasil, 890', phone:'(51) 3542-1190', wpp:'51981446019', hours:'Seg–Dom: 18h–23h', desc:'Pizzas artesanais, esfihas, calzones e sobremesas. Delivery grátis no centro.', destaque:true, icon:'🍕'},
-  {id:8, name:'Drogaria Rolante', cat:'saude', city:'rolante', neighborhood:'Centro', address:'Rua Ernesto Alves, 55', phone:'(51) 3542-3344', wpp:'', hours:'Seg–Sáb: 07h–20h', desc:'Medicamentos, cosméticos e artigos de higiene com plantão de vendas.', destaque:false, icon:'💊'},
+  {id:7, name:'Pizzaria Boa Vista', cat:'alimentacao', city:'rolante', neighborhood:'Centro', address:'Av. Brasil, 890', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Dom: 18h–23h', desc:'Pizzas artesanais, esfihas, calzones e sobremesas. Delivery grátis no centro.', destaque:true, icon:'🍕'},
+  {id:8, name:'Drogaria Rolante', cat:'saude', city:'rolante', neighborhood:'Centro', address:'Rua Ernesto Alves, 55', phone:'(51) 98144-6019', wpp:'', hours:'Seg–Sáb: 07h–20h', desc:'Medicamentos, cosméticos e artigos de higiene com plantão de vendas.', destaque:false, icon:'💊'},
   {id:9, name:'Loja Vestir Bem Moda', cat:'moda', city:'rolante', neighborhood:'Centro', address:'Rua Independência, 202', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 09h–18h · Sáb: 09h–13h', desc:'Moda feminina, masculina e infantil com os melhores preços da região.', destaque:false, icon:'👗'},
   // TRÊS COROAS
-  {id:10, name:'Padaria & Confeitaria Colonial', cat:'alimentacao', city:'tres-coroas', neighborhood:'Centro', address:'Rua Olavo Bilac, 78', phone:'(51) 3546-0011', wpp:'51981446019', hours:'Todos os dias: 06h–20h', desc:'Pães artesanais, bolos, doces coloniais, café e lanche rápido.', destaque:true, icon:'🍞'},
-  {id:11, name:'Auto Elétrica Três Coroas', cat:'auto', city:'tres-coroas', neighborhood:'Bairro Novo', address:'Av. Rui Barbosa, 340', phone:'(51) 3546-2288', wpp:'51981446019', hours:'Seg–Sex: 07h–18h · Sáb: 07h–12h', desc:'Elétrica automotiva, injeção eletrônica, ar-condicionado e som automotivo.', destaque:false, icon:'🚗'},
+  {id:10, name:'Padaria & Confeitaria Colonial', cat:'alimentacao', city:'tres-coroas', neighborhood:'Centro', address:'Rua Olavo Bilac, 78', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Todos os dias: 06h–20h', desc:'Pães artesanais, bolos, doces coloniais, café e lanche rápido.', destaque:true, icon:'🍞'},
+  {id:11, name:'Auto Elétrica Três Coroas', cat:'auto', city:'tres-coroas', neighborhood:'Bairro Novo', address:'Av. Rui Barbosa, 340', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 07h–18h · Sáb: 07h–12h', desc:'Elétrica automotiva, injeção eletrônica, ar-condicionado e som automotivo.', destaque:false, icon:'🚗'},
   // IGREJINHA
-  {id:12, name:'Clínica Bem Estar', cat:'saude', city:'igrejinha', neighborhood:'Centro', address:'Rua 7 de Setembro, 500', phone:'(51) 3544-4455', wpp:'51981446019', hours:'Seg–Sex: 08h–18h', desc:'Clínica médica geral, nutrição, fisioterapia e psicologia. Convênios aceitos.', destaque:false, icon:'🏥'},
-  {id:13, name:'Supermercado União', cat:'mercado', city:'igrejinha', neighborhood:'Operário', address:'Av. Presidente Vargas, 1.200', phone:'(51) 3544-6677', wpp:'51981446019', hours:'Seg–Sáb: 07h30–21h · Dom: 08h–15h', desc:'Supermercado completo com açougue premium, peixaria, padaria e hortifruti.', destaque:false, icon:'🛒'},
+  {id:12, name:'Clínica Bem Estar', cat:'saude', city:'igrejinha', neighborhood:'Centro', address:'Rua 7 de Setembro, 500', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 08h–18h', desc:'Clínica médica geral, nutrição, fisioterapia e psicologia. Convênios aceitos.', destaque:false, icon:'🏥'},
+  {id:13, name:'Supermercado União', cat:'mercado', city:'igrejinha', neighborhood:'Operário', address:'Av. Presidente Vargas, 1.200', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sáb: 07h30–21h · Dom: 08h–15h', desc:'Supermercado completo com açougue premium, peixaria, padaria e hortifruti.', destaque:false, icon:'🛒'},
   // PAROBÉ
-  {id:14, name:'Escola de Informática DigiCurso', cat:'educacao', city:'parobé', neighborhood:'Centro', address:'Rua Senador Pinheiro, 88', phone:'(51) 3547-0099', wpp:'51981446019', hours:'Seg–Sex: 08h–20h', desc:'Cursos de informática básica, Excel, Word, design, montagem e manutenção de computadores.', destaque:false, icon:'💻'},
+  {id:14, name:'Escola de Informática DigiCurso', cat:'educacao', city:'parobé', neighborhood:'Centro', address:'Rua Senador Pinheiro, 88', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 08h–20h', desc:'Cursos de informática básica, Excel, Word, design, montagem e manutenção de computadores.', destaque:false, icon:'💻'},
   {id:15, name:'Açougue Gaúcho', cat:'alimentacao', city:'parobé', neighborhood:'Bom Pastor', address:'Av. Frederico Ostermann, 330', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sáb: 07h–19h', desc:'Carnes nobres, frango, suínos, embutidos coloniais e linguiças artesanais.', destaque:false, icon:'🥩'},
 ];
 
@@ -427,24 +427,26 @@ async function fetchRadioAPI(){
 function renderCatFilters(){
   const el = document.getElementById('catFilters');
   if(!el) return;
-  el.innerHTML = CATEGORIAS.map(c=>\`
-    <div class="filter-item" id="filt-cat-\${c.id}" onclick="toggleCatFilter('\${c.id}')">
-      <div class="filter-check"></div>
-      <span class="cat-icon" style="background:\${c.color};color:\${c.tc}">\${c.icon}</span>
-      <span>\${c.label}</span>
-      <span class="filter-count">\${BUSINESSES_DB.filter(b=>b.cat===c.id).length}</span>
-    </div>\`).join('');
+  el.innerHTML = CATEGORIAS.map(function(c){
+    return '<div class="filter-item" id="filt-cat-' + c.id + '" onclick="toggleCatFilter(\'' + c.id + '\')">' +
+    '<div class="filter-check"></div>' +
+    '<span class="cat-icon" style="background:' + c.color + ';color:' + c.tc + '">' + c.icon + '</span>' +
+    '<span>' + c.label + '</span>' +
+    '<span class="filter-count">' + BUSINESSES_DB.filter(function(b){ return b.cat === c.id; }).length + '</span>' +
+    '</div>';
+  }).join('');
 }
 
 /* ── RENDER CATEGORIAS NO MODAL ── */
 function renderCatGrid(){
   const el = document.getElementById('catGrid');
   if(!el) return;
-  el.innerHTML = CATEGORIAS.map(c=>\`
-    <div class="cat-option" id="cat-opt-\${c.id}" onclick="selectCat('\${c.id}')">
-      <div class="cat-option-icon">\${c.icon}</div>
-      <div class="cat-option-label">\${c.label}</div>
-    </div>\`).join('');
+  el.innerHTML = CATEGORIAS.map(function(c){
+    return '<div class="cat-option" id="cat-opt-' + c.id + '" onclick="selectCat(\'' + c.id + '\')">' +
+    '<div class="cat-option-icon">' + c.icon + '</div>' +
+    '<div class="cat-option-label">' + c.label + '</div>' +
+    '</div>';
+  }).join('');
 }
 
 function selectCat(id){
@@ -486,53 +488,53 @@ function renderBusinesses(){
 
   // Update count
   const cnt = document.getElementById('listingCount');
-  if(cnt) cnt.innerHTML = \`Exibindo <strong>\${data.length}</strong> negócio\${data.length!==1?'s':''}\`;
+  if(cnt) cnt.innerHTML = 'Exibindo <strong>' + data.length + '</strong> negócio' + (data.length!==1?'s':'');
 
   if(!data.length){
-    grid.innerHTML = \`<div class="empty-state">
-      <div class="empty-icon">🔍</div>
-      <div class="empty-title">Nenhum resultado encontrado</div>
-      <div class="empty-desc">Tente outro termo de busca ou categoria. Seu negócio ainda não está aqui? <a onclick="openModal()" style="color:var(--red);cursor:pointer;font-weight:700">Cadastre agora por R$ 10!</a></div>
-    </div>\`;
+    grid.innerHTML = '<div class="empty-state">' +
+      '<div class="empty-icon">🔍</div>' +
+      '<div class="empty-title">Nenhum resultado encontrado</div>' +
+      '<div class="empty-desc">Tente outro termo de busca ou categoria. Seu negócio ainda não está aqui? <a onclick="openModal()" style="color:var(--red);cursor:pointer;font-weight:700">Cadastre agora por R$ 10!</a></div>' +
+    '</div>';
     return;
   }
 
-  grid.innerHTML = data.map(b=>{
+  grid.innerHTML = data.map(function(b){
     const catInfo = CATEGORIAS.find(c=>c.id===b.cat)||{icon:'🏪',color:'#f5f5f5',tc:'#333',label:'Serviço'};
     const cityLabel = {taquara:'Taquara',rolante:'Rolante','tres-coroas':'Três Coroas',igrejinha:'Igrejinha','parobé':'Parobé',ararica:'Araricá','nova-hartz':'Nova Hartz'}[b.city]||b.city;
-    return \`
-    <div class="biz-card\${b.destaque?' destaque':''}" onclick="openBizModal(\${b.id})">
-      <div class="biz-card-banner"></div>
-      \${b.destaque?'<div class="biz-destaque-badge">⭐ Destaque</div>':''}
-      <div class="biz-card-body">
-        <div class="biz-card-top">
-          <div class="biz-logo" style="background:\${catInfo.color}">\${b.icon||catInfo.icon}</div>
-          <div class="biz-info">
-            <div class="biz-name">\${b.name}</div>
-            <div><span class="biz-cat" style="background:\${catInfo.color};color:\${catInfo.tc}">\${catInfo.icon} \${catInfo.label}</span></div>
-            <div class="biz-city">📍 \${b.neighborhood?b.neighborhood+', ':''}\${cityLabel}</div>
-          </div>
-        </div>
-        <div style="font-size:.73rem;color:var(--ink3);line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">\${b.desc}</div>
-        <div class="biz-contacts">
-          <div class="biz-contact-row">
-            <div class="biz-contact-icon">📍</div>
-            <div class="biz-contact-val">\${b.address}</div>
-          </div>
-          <div class="biz-contact-row">
-            <div class="biz-contact-icon">📞</div>
-            <div class="biz-contact-val">\${b.phone}</div>
-            <div class="biz-contact-call" onclick="event.stopPropagation();callPhone('\${b.phone}')">Ligar</div>
-          </div>
-          \${b.hours?\`<div class="biz-contact-row"><div class="biz-contact-icon">🕐</div><div class="biz-contact-val" style="font-size:.66rem">\${b.hours}</div></div>\`:''}
-        </div>
-        <div class="biz-actions" onclick="event.stopPropagation()">
-          \${b.wpp?\`<button class="biz-btn biz-btn-wpp" onclick="openWpp('\${b.wpp}','\${b.name}')">💬 WhatsApp</button>\`:''}
-          <button class="biz-btn biz-btn-tel" onclick="callPhone('\${b.phone}')">📞 Ligar</button>
-          <button class="biz-btn biz-btn-map" onclick="openMap('\${b.address}','\${cityLabel}')">🗺️</button>
-        </div>
-      </div>
-    </div>\`;
+    return (
+    '<div class="biz-card' + (b.destaque?' destaque':'') + '" onclick="openBizModal(' + b.id + ')">' +
+      '<div class="biz-card-banner"></div>' +
+      (b.destaque?'<div class="biz-destaque-badge">⭐ Destaque</div>':'') +
+      '<div class="biz-card-body">' +
+        '<div class="biz-card-top">' +
+          '<div class="biz-logo" style="background:' + catInfo.color + '">' + (b.icon||catInfo.icon) + '</div>' +
+          '<div class="biz-info">' +
+            '<div class="biz-name">' + b.name + '</div>' +
+            '<div><span class="biz-cat" style="background:' + catInfo.color + ';color:' + catInfo.tc + '">' + catInfo.icon + ' ' + catInfo.label + '</span></div>' +
+            '<div class="biz-city">📍 ' + (b.neighborhood?b.neighborhood+', ':'') + cityLabel + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="font-size:.73rem;color:var(--ink3);line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + b.desc + '</div>' +
+        '<div class="biz-contacts">' +
+          '<div class="biz-contact-row">' +
+            '<div class="biz-contact-icon">📍</div>' +
+            '<div class="biz-contact-val">' + b.address + '</div>' +
+          '</div>' +
+          '<div class="biz-contact-row">' +
+            '<div class="biz-contact-icon">📞</div>' +
+            '<div class="biz-contact-val">' + b.phone + '</div>' +
+            '<div class="biz-contact-call" onclick="event.stopPropagation();callPhone(\'' + b.phone + '\')">Ligar</div>' +
+          '</div>' +
+          (b.hours?'<div class="biz-contact-row"><div class="biz-contact-icon">🕐</div><div class="biz-contact-val" style="font-size:.66rem">' + b.hours + '</div></div>':'') +
+        '</div>' +
+        '<div class="biz-actions" onclick="event.stopPropagation()">' +
+          (b.wpp?'<button class="biz-btn biz-btn-wpp" onclick="openWpp(\'' + b.wpp + '\',\'' + b.name + '\')">💬 WhatsApp</button>':'') +
+          '<button class="biz-btn biz-btn-tel" onclick="callPhone(\'' + b.phone + '\')">📞 Ligar</button>' +
+          '<button class="biz-btn biz-btn-map" onclick="openMap(\'' + b.address + '\',\'' + cityLabel + '\')">🗺️</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>');
   }).join('');
 }
 
@@ -542,33 +544,33 @@ function openBizModal(id){
   if(!b) return;
   const catInfo = CATEGORIAS.find(c=>c.id===b.cat)||{icon:'🏪',color:'#f5f5f5',tc:'#333',label:'Serviço'};
   const cityLabel = {taquara:'Taquara',rolante:'Rolante','tres-coroas':'Três Coroas',igrejinha:'Igrejinha','parobé':'Parobé',ararica:'Araricá','nova-hartz':'Nova Hartz'}[b.city]||b.city;
-  document.getElementById('bizModalContent').innerHTML = \`
-    <div style="background:linear-gradient(135deg,\${catInfo.color},\${catInfo.color}aa);padding:24px 24px 18px">
-      <div style="font-size:2.8rem;margin-bottom:10px">\${b.icon||catInfo.icon}</div>
-      <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:4px">\${b.name}</div>
-      <div style="display:inline-flex;align-items:center;gap:4px;background:\${catInfo.color};color:\${catInfo.tc};font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:4px">\${catInfo.icon} \${catInfo.label}</div>
-      \${b.destaque?'<span style="margin-left:6px;background:var(--accent);color:var(--ink);font-size:.58rem;font-weight:700;padding:3px 8px;border-radius:3px;font-family:\\'DM Mono\\',monospace">⭐ DESTAQUE</span>':''}
-    </div>
-    <div style="padding:20px">
-      <div class="map-placeholder">
-        <div style="position:relative;z-index:1;text-align:center">
-          <div class="map-pin">📍</div>
-          <div style="font-size:.76rem;font-weight:700;color:var(--ink2);margin-top:4px">\${b.address}</div>
-          <div style="font-size:.68rem;color:var(--ink3)">\${b.neighborhood?b.neighborhood+' · ':''}\${cityLabel} · RS</div>
-        </div>
-      </div>
-      <div style="font-size:.82rem;color:var(--ink2);line-height:1.7;margin-bottom:16px">\${b.desc}</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
-        <div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">📞</span><div><div style="font-weight:700">\${b.phone}</div><div style="font-size:.66rem;color:var(--ink3)">Telefone principal</div></div></div>
-        \${b.wpp?\`<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">💬</span><div><div style="font-weight:700">(\${b.wpp.substring(0,2)}) \${b.wpp.substring(2,7)}-\${b.wpp.substring(7)}</div><div style="font-size:.66rem;color:var(--ink3)">WhatsApp</div></div></div>\`:''}
-        \${b.hours?\`<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">🕐</span><div><div style="font-weight:600">\${b.hours}</div><div style="font-size:.66rem;color:var(--ink3)">Horário de funcionamento</div></div></div>\`:''}
-      </div>
-      <div style="display:flex;gap:8px">
-        \${b.wpp?\`<button onclick="openWpp('\${b.wpp}','\${b.name}')" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">💬 WhatsApp</button>\`:''}
-        <button onclick="callPhone('\${b.phone}')" style="flex:1;background:var(--bg3);color:var(--ink2);border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">📞 Ligar</button>
-        <button onclick="openMap('\${b.address}','\${cityLabel}')" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.82rem">🗺️</button>
-      </div>
-    </div>\`;
+  document.getElementById('bizModalContent').innerHTML = (
+    '<div style="background:linear-gradient(135deg,' + catInfo.color + ',' + catInfo.color + 'aa);padding:24px 24px 18px">' +
+      '<div style="font-size:2.8rem;margin-bottom:10px">' + (b.icon||catInfo.icon) + '</div>' +
+      '<div style="font-family:\'Fraunces\',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:4px">' + b.name + '</div>' +
+      '<div style="display:inline-flex;align-items:center;gap:4px;background:' + catInfo.color + ';color:' + catInfo.tc + ';font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:4px">' + catInfo.icon + ' ' + catInfo.label + '</div>' +
+      (b.destaque?'<span style="margin-left:6px;background:var(--accent);color:var(--ink);font-size:.58rem;font-weight:700;padding:3px 8px;border-radius:3px;font-family:\'DM Mono\',monospace">⭐ DESTAQUE</span>':'') +
+    '</div>' +
+    '<div style="padding:20px">' +
+      '<div class="map-placeholder">' +
+        '<div style="position:relative;z-index:1;text-align:center">' +
+          '<div class="map-pin">📍</div>' +
+          '<div style="font-size:.76rem;font-weight:700;color:var(--ink2);margin-top:4px">' + b.address + '</div>' +
+          '<div style="font-size:.68rem;color:var(--ink3)">' + (b.neighborhood?b.neighborhood+' · ':'') + cityLabel + ' · RS</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:.82rem;color:var(--ink2);line-height:1.7;margin-bottom:16px">' + b.desc + '</div>' +
+      '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">' +
+        '<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">📞</span><div><div style="font-weight:700">' + b.phone + '</div><div style="font-size:.66rem;color:var(--ink3)">Telefone principal</div></div></div>' +
+        (b.wpp?'<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">💬</span><div><div style="font-weight:700">(' + b.wpp.substring(0,2) + ') ' + b.wpp.substring(2,7) + '-' + b.wpp.substring(7) + '</div><div style="font-size:.66rem;color:var(--ink3)">WhatsApp</div></div></div>':'') +
+        (b.hours?'<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">🕐</span><div><div style="font-weight:600">' + b.hours + '</div><div style="font-size:.66rem;color:var(--ink3)">Horário de funcionamento</div></div></div>':'') +
+      '</div>' +
+      '<div style="display:flex;gap:8px">' +
+        (b.wpp?'<button onclick="openWpp(\'' + b.wpp + '\',\'' + b.name + '\')" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:8px;padding:11px;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">💬 WhatsApp</button>':'') +
+        '<button onclick="callPhone(\'' + b.phone + '\')" style="flex:1;background:var(--bg3);color:var(--ink2);border:none;border-radius:8px;padding:11px;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">📞 Ligar</button>' +
+        '<button onclick="openMap(\'' + b.address + '\',\'' + cityLabel + '\')" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.82rem">🗺️</button>' +
+      '</div>' +
+    '</div>');
   document.getElementById('bizModalBg').style.display='flex';
 }
 
@@ -576,11 +578,11 @@ function closeBizModal(){ document.getElementById('bizModalBg').style.display='n
 
 /* ── ACTIONS ── */
 function openWpp(num, name){
-  const msg = encodeURIComponent(\`Olá! Vi o *\${name}* no Vale Indica (DMG Records) e gostaria de mais informações.\`);
-  window.open(\`https://wa.me/55\${num}?text=\${msg}\`, '_blank');
+  const msg = encodeURIComponent('Olá! Vi o *' + name + '* no Vale Indica (DMG Records) e gostaria de mais informações.');
+  window.open('https://wa.me/55' + num + '?text=' + msg, '_blank');
 }
 function callPhone(tel){ window.open('tel:'+tel.replace(/\\D/g,''), '_blank'); }
-function openMap(addr, city){ window.open(\`https://www.google.com/maps/search/\${encodeURIComponent(addr+', '+city+', RS')}\`, '_blank'); }
+function openMap(addr, city){ window.open('https://www.google.com/maps/search/' + encodeURIComponent(addr+', '+city+', RS'), '_blank'); }
 
 /* ── FILTERS ── */
 function filterCity(city, el){
@@ -674,18 +676,18 @@ function buildResumo(){
   const phone = document.getElementById('biz-phone')?.value||'—';
   const catInfo = CATEGORIAS.find(c=>c.id===ST.selectedCat)||{label:'—',icon:'🏪'};
   const destaque = document.querySelector('input[name="destaque"]:checked')?.value==='sim';
-  box.innerHTML = \`
-    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Negócio</span><strong>\${name}</strong></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Categoria</span><strong>\${catInfo.icon} \${catInfo.label}</strong></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Cidade</span><strong>\${city}</strong></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Endereço</span><strong>\${addr}</strong></div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="color:var(--ink3)">Telefone</span><strong>\${phone}</strong></div>
-    <div style="border-top:1px solid var(--line);padding-top:10px">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Cadastro único</span><strong style="color:var(--red)">R$ 10,00</strong></div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Mensalidade</span><strong style="color:var(--red)">R$ 2,50/mês</strong></div>
-      \${destaque?\`<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Destaque ⭐</span><strong style="color:var(--accent)">R$ 15,00/mês</strong></div>\`:''}
-      <div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px;margin-top:4px"><span style="font-weight:700">Total inicial</span><strong style="color:var(--red);font-size:1.05rem">R$ \${destaque?'25,00':'10,00'}</strong></div>
-    </div>\`;
+  box.innerHTML = (
+    '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Negócio</span><strong>' + name + '</strong></div>' +
+    '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Categoria</span><strong>' + catInfo.icon + ' ' + catInfo.label + '</strong></div>' +
+    '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Cidade</span><strong>' + city + '</strong></div>' +
+    '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Endereço</span><strong>' + addr + '</strong></div>' +
+    '<div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="color:var(--ink3)">Telefone</span><strong>' + phone + '</strong></div>' +
+    '<div style="border-top:1px solid var(--line);padding-top:10px">' +
+      '<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Cadastro único</span><strong style="color:var(--red)">R$ 10,00</strong></div>' +
+      '<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Mensalidade</span><strong style="color:var(--red)">R$ 2,50/mês</strong></div>' +
+      (destaque?'<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>Destaque ⭐</span><strong style="color:var(--accent)">R$ 15,00/mês</strong></div>':'') +
+      '<div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px;margin-top:4px"><span style="font-weight:700">Total inicial</span><strong style="color:var(--red);font-size:1.05rem">R$ ' + (destaque?'25,00':'10,00') + '</strong></div>' +
+    '</div>');
 }
 
 function submitCadastro(){
@@ -724,7 +726,7 @@ function toast(msg, type='ok'){
   const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
   t.className = 'toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
-  t.innerHTML = \`<span>\${type==='ok'?'✓':type==='err'?'✕':'ℹ'}</span><span>\${msg}</span>\`;
+  t.innerHTML = '<span>' + (type==='ok'?'✓':type==='err'?'✕':'ℹ') + '</span><span>' + msg + '</span>';
   wrap.appendChild(t);
   setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }
@@ -745,6 +747,22 @@ function init(){
 }
 
 window.addEventListener('load', init);
-</script>
-</body>
-</html>
+`;
+
+export default function ValeIndicaPage() {
+    React.useEffect(() => {
+        const scriptTag = document.createElement('script');
+        scriptTag.innerHTML = valeIndicaScript;
+        document.body.appendChild(scriptTag);
+    
+        return () => {
+          if (document.body.contains(scriptTag)) {
+            document.body.removeChild(scriptTag);
+          }
+        };
+      }, []);
+
+  return (
+    <div className="vale-indica-page" suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: valeIndicaHTML }} />
+  );
+}
