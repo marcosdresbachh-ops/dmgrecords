@@ -1,3 +1,5 @@
+'use client';
+
 import { Star, Music, TrendingUp, Zap, MapPin, Radio as RadioIcon, Heart, Disc, Mic, Calendar } from 'lucide-react';
 
 const featured = {
