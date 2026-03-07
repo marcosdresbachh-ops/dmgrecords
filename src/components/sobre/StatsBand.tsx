@@ -1,5 +1,3 @@
-'use client';
-
 export function StatsBand() {
     const stats = [
         { count: 8, label: "Anos no Ar" },

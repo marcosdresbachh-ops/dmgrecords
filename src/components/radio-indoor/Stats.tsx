@@ -1,5 +1,3 @@
-'use client';
-
 export function Stats() {
     const stats = [
         { count: 20, label: "Aumento em Vendas", suffix: "%" },

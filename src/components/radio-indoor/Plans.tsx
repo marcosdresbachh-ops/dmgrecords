@@ -1,4 +1,3 @@
-'use client';
 import { SectionHeader } from "../shared/SectionHeader";
 import { Check, Music, Mic, BarChart } from "lucide-react";
 import Link from 'next/link';
