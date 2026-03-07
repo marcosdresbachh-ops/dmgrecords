@@ -1,4 +1,4 @@
-import { MessageCircle, Music2, Mic2, ExternalLink } from 'lucide-react';
+import { MessageCircle, Music2, MicVocal, ExternalLink } from 'lucide-react';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import Link from 'next/link';
 
@@ -16,7 +16,7 @@ const widgets = [
         src: "https://player.svrdedicado.org/request/auto/6862"
     },
     {
-        icon: Mic2,
+        icon: MicVocal,
         title: "Pedidos ao Locutor",
         subtitle: "EXECUTADO AO VIVO",
         src: "https://player.svrdedicado.org/request/manual/6862"
