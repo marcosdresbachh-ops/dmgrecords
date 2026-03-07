@@ -6,6 +6,7 @@ import { SectionHeader } from '@/components/shared/SectionHeader';
 import { Testimonials } from '@/components/anuncie/Testimonials';
 import { AdFormats } from '@/components/anuncie/AdFormats';
 import { AudienceStats } from '@/components/anuncie/AudienceStats';
+import { AdvertisingPlans } from '@/components/anuncie/AdvertisingPlans';
 
 const AnunciePage = () => {
     return (
@@ -24,6 +25,7 @@ const AnunciePage = () => {
 
                     <AudienceStats />
                     <AdFormats />
+                    <AdvertisingPlans />
                     
                     <div className="fi mt-16">
                         <Testimonials />
