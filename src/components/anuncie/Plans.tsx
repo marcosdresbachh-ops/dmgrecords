@@ -1,3 +1,4 @@
+'use client';
 import { SectionHeader } from "../shared/SectionHeader";
 import { Check, Music, Mic, BarChart } from "lucide-react";
 import Link from 'next/link';
@@ -11,6 +12,7 @@ const plans = [
         period: "por mês",
         features: ["100% livre de ECAD", "Painel de controle de playlists", "1 gênero musical principal", "Suporte por e-mail"],
         isFeatured: false,
+        href: "https://www.asaas.com/c/dij5ezn029wqmwkv",
     },
     {
         icon: Mic,
@@ -20,6 +22,7 @@ const plans = [
         period: "por mês",
         features: ["Tudo do Essencial", "Gravação de 5 vinhetas/mês", "Agendamento de anúncios", "Múltiplas playlists", "Suporte via WhatsApp"],
         isFeatured: true,
+        href: "/contato",
     },
     {
         icon: BarChart,
@@ -29,6 +32,7 @@ const plans = [
         period: "sob consulta",
         features: ["Tudo do Pro", "Relatórios avançados", "Gerente de conta dedicado", "API para integrações", "Treinamento de equipe"],
         isFeatured: false,
+        href: "/contato",
     }
 ];
 
@@ -40,7 +44,7 @@ export function Plans() {
                 title={<>Escolha o plano <em>ideal</em> para seu negócio</>}
                 subtitle="Temos opções para todos os tamanhos de empresa, desde pequenos comércios até grandes redes de varejo."
             />
-            <div className="mb-15 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mb-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {plans.map((plan, index) => (
                     <div key={index} className={`relative flex flex-col overflow-hidden rounded-[10px] border bg-card px-6 py-8 text-center transition-all hover:-translate-y-1.5 hover:border-primary hover:shadow-[0_16px_48px_rgba(0,0,0,.11)] ${plan.isFeatured ? 'border-2 border-primary bg-primary/10' : 'border-border'}`}>
                         {plan.isFeatured && <div className="absolute right-[-28px] top-4 origin-center-right rotate-45 transform bg-primary px-10 py-1 font-['DM_Mono',monospace] text-[.56rem] tracking-[.14em] text-primary-foreground">POPULAR</div>}
@@ -59,12 +63,20 @@ export function Plans() {
                                 </div>
                             ))}
                         </div>
-                        <Link href="/contato" className={plan.isFeatured ? 'btn btn-red mt-auto w-full justify-center' : 'btn btn-outline mt-auto w-full justify-center'}>
+                        <Link 
+                            href={plan.href}
+                            target={plan.href.startsWith('http') ? '_blank' : '_self'}
+                            rel="noopener noreferrer"
+                            className={plan.isFeatured ? 'btn btn-red mt-auto w-full justify-center' : 'btn btn-outline mt-auto w-full justify-center'}
+                        >
                             {plan.price === "Custom" ? "Consultar" : "Contratar"}
                         </Link>
                     </div>
                 ))}
             </div>
+            <p className="text-center text-xs lowercase text-muted-foreground">
+                consulte taxas. valores podem oscilar devido aos juros.
+            </p>
         </div>
     )
 }
