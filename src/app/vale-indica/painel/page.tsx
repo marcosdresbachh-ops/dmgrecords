@@ -458,11 +458,11 @@ const painelHTML = `
           <div class="card-body">
             <div class="form-group">
               <label class="form-label">Telefone Principal *</label>
-              <input class="form-input" id="biz-phone" placeholder="(51) 9 9999-9999" value="(51) 3541-2233">
+              <input class="form-input" id="biz-phone" placeholder="(51) 98144-6019" value="(51) 98144-6019">
             </div>
             <div class="form-group">
               <label class="form-label">WhatsApp</label>
-              <input class="form-input" id="biz-wpp" placeholder="(51) 9 9999-9999" value="(51) 99123-4567">
+              <input class="form-input" id="biz-wpp" placeholder="(51) 98144-6019" value="(51) 98144-6019">
             </div>
             <div class="form-group">
               <label class="form-label">E-mail do negócio</label>
@@ -701,7 +701,7 @@ const painelHTML = `
           </div>
           <div style="background:var(--bg3);border-radius:9px;padding:16px;min-width:200px;text-align:center">
             <div style="font-size:.72rem;color:var(--ink3);margin-bottom:6px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase">Contato DMG Records</div>
-            <div style="font-weight:800;font-size:.9rem;margin-bottom:10px">📞 (51) 9 9999-0000</div>
+            <div style="font-weight:800;font-size:.9rem;margin-bottom:10px">📞 (51) 98144-6019</div>
             <button class="btn btn-green" style="width:100%" onclick="openWppDMG()">
               💬 Falar com a DMG
             </button>
@@ -746,7 +746,7 @@ const painelHTML = `
             <div class="form-group"><label class="form-label">CPF / CNPJ</label><input class="form-input" id="conta-cpf" placeholder="000.000.000-00"></div>
           </div>
           <div class="form-group"><label class="form-label">E-mail de acesso</label><input class="form-input" id="conta-email" type="email" value="lojista@teste.com"></div>
-          <div class="form-group"><label class="form-label">WhatsApp para contato</label><input class="form-input" id="conta-wpp" value="(51) 99123-4567"></div>
+          <div class="form-group"><label class="form-label">WhatsApp para contato</label><input class="form-input" id="conta-wpp" value="(51) 98144-6019"></div>
           <button class="btn btn-red btn-sm" onclick="saveSection('conta')">Salvar Dados</button>
         </div>
       </div>
@@ -799,7 +799,7 @@ const painelHTML = `
           </div>
           <div class="form-group">
             <label class="form-label">O que você quer comunicar? *</label>
-            <textarea class="form-textarea" id="radio-script" style="min-height:100px" placeholder="Ex: Medicamentos, dermocosméticos. Rua XV 285, Taquara. WhatsApp (51) 99123-4567. Seg–Sáb 7h–20h." oninput="countRadioScript(this)"></textarea>
+            <textarea class="form-textarea" id="radio-script" style="min-height:100px" placeholder="Ex: Medicamentos, dermocosméticos. Rua XV 285, Taquara. WhatsApp (51) 98144-6019. Seg–Sáb 7h–20h." oninput="countRadioScript(this)"></textarea>
             <div style="display:flex;justify-content:space-between;margin-top:3px"><div class="form-hint">Inclua: produtos, endereço, telefone, horários</div><div class="form-hint" id="radioScriptCount">0/300</div></div>
           </div>
           <div class="form-group">
@@ -835,7 +835,7 @@ const painelHTML = `
         <div class="card">
           <div class="card-hdr"><div class="card-title"><div class="ct-icon" style="background:var(--blue-bg)">📅</div>Período</div></div>
           <div class="card-body">
-            <div class="form-group" style="margin-bottom:0">
+            <div class="form-group" style="margin-bottom:10px">
               <label class="form-label">Duração do contrato</label>
               <select class="form-select" id="radio-periodo" onchange="updateRadioResumo()">
                 <option value="1">1 mês</option>
@@ -1240,7 +1240,7 @@ function navTo(id, el){
   if(id==='midia') buildMediaPreview();
   if(id==='horarios') buildHoursPreview();
   if(id==='estatisticas') buildMiniChart();
-  if(window.innerWidth<960) document.getElementById('painelSidebar').classList.remove('open');
+  if(window.innerWidth<960) document.getElementById('painelSidebar').classList.toggle('open');
 }
 
 /* ══ DASHBOARD ════════════════════════════════════ */
@@ -1355,7 +1355,7 @@ function selectIcon(ic){
 function buildColorRow(){
   const row=document.getElementById('colorRow');
   if(!row) return;
-  row.innerHTML=COLORS.map(c=>'<div class="color-opt'+(c===STATE.selectedColor?' selected':'')+'" style="background:'+c+';border:2px solid '+(c==='#FFFFFF'?'var(--line)':'transparent')+'" onclick="selectColor(\''+c+'\')"></div>').join('');
+  row.innerHTML=COLORS.map(c=>'<div class="color-opt'+(c===STATE.selectedColor?' selected':'')+'" style="background:'+c+';border:2.5px solid '+(c==='#FFFFFF'?'var(--line)':'transparent')+'" onclick="selectColor(\''+c+'\')"></div>').join('');
 }
 function selectColor(c){
   STATE.selectedColor=c;
@@ -1384,24 +1384,24 @@ function buildPreviewHTML(){
     :'<span style="font-size:1.3rem;background:'+STATE.selectedColor+';width:100%;height:100%;display:flex;align-items:center;justify-content:center">'+STATE.selectedIcon+'</span>';
   const destaque=document.getElementById('tog-active')?.checked;
   return \`
-  <div class="preview-card\${destaque?' destaque':''}">
+  <div class="preview-card${destaque?' destaque':''}">
     <div class="preview-banner"></div>
     <div class="preview-body">
       <div class="preview-top">
-        <div class="preview-logo" style="background:\${STATE.selectedColor}">\${logoHtml}</div>
+        <div class="preview-logo" style="background:${STATE.selectedColor}">${logoHtml}</div>
         <div>
-          <div class="preview-name">\${name}</div>
-          <div class="preview-cat" style="background:var(--red-light);color:var(--red)">\${STATE.selectedIcon} \${getCatLabel()}</div>
-          <div class="preview-city">📍 \${neighborhood}, \${cityLabel}</div>
+          <div class="preview-name">${name}</div>
+          <div class="preview-cat" style="background:var(--red-light);color:var(--red)">${STATE.selectedIcon} ${getCatLabel()}</div>
+          <div class="preview-city">📍 ${neighborhood}, ${cityLabel}</div>
         </div>
       </div>
-      \${desc?'<div class="preview-desc">'+desc.substring(0,90)+(desc.length>90?'…':'')+'</div>':''}
+      ${desc?`<div class="preview-desc">${desc.substring(0,90)}${desc.length>90?'…':''}</div>`:''}
       <div class="preview-contacts">
-        <div class="preview-contact"><div class="preview-contact-icon">📍</div><span>\${address}</span></div>
-        <div class="preview-contact"><div class="preview-contact-icon">📞</div><span>\${phone}</span></div>
+        <div class="preview-contact"><div class="preview-contact-icon">📍</div><span>${address}</span></div>
+        <div class="preview-contact"><div class="preview-contact-icon">📞</div><span>${phone}</span></div>
       </div>
       <div class="preview-btns">
-        \${wpp?'<button class="preview-btn" style="background:#25D366;color:#fff">💬 WhatsApp</button>':''}
+        ${wpp?`<button class="preview-btn" style="background:#25D366;color:#fff">💬 WhatsApp</button>`:''}
         <button class="preview-btn" style="background:var(--bg3);color:var(--ink2)">📞 Ligar</button>
         <button class="preview-btn" style="background:var(--blue);color:#fff;flex:none;padding:7px 11px">🗺️</button>
       </div>
@@ -1427,22 +1427,22 @@ function buildHoursGrid(){
   if(!grid) return;
   grid.innerHTML=\`
   <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px">
-    \${Object.entries(STATE.hours).map(([day,data])=>\`
+    ${Object.entries(STATE.hours).map(([day,data])=>`
     <div>
-      <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-align:center;color:var(--ink3);text-transform:uppercase;padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:7px">\${DAYS_LABEL[day]}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-align:center;color:var(--ink3);text-transform:uppercase;padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:7px">${DAYS_LABEL[day]}</div>
       <div style="display:flex;justify-content:center;margin-bottom:8px">
         <label class="toggle" style="justify-content:center">
-          <input type="checkbox" class="tog-in" \${data.active?'checked':''} onchange="toggleDay('\${day}',this)">
+          <input type="checkbox" class="tog-in" ${data.active?'checked':''} onchange="toggleDay('${day}',this)">
           <div class="tog-tr"></div>
         </label>
       </div>
-      <div id="day-inputs-\${day}" style="display:\${data.active?'flex':'none'};flex-direction:column;gap:5px">
-        <input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="\${data.open}" onchange="updateHour('\${day}','open',this.value)">
+      <div id="day-inputs-${day}" style="display:${data.active?'flex':'none'};flex-direction:column;gap:5px">
+        <input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="${data.open}" onchange="updateHour('${day}','open',this.value)">
         <div style="text-align:center;font-size:.6rem;color:var(--ink3)">às</div>
-        <input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="\${data.close}" onchange="updateHour('\${day}','close',this.value)">
+        <input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="${data.close}" onchange="updateHour('${day}','close',this.value)">
       </div>
-      \${!data.active?'<div style="text-align:center;font-size:.62rem;color:var(--ink3);padding:6px 0">Fechado</div>':''}
-    </div>\`).join('')}
+      ${!data.active?`<div style="text-align:center;font-size:.62rem;color:var(--ink3);padding:6px 0">Fechado</div>`:''}
+    </div>`).join('')}
   </div>\`;
   buildHoursPreview();
 }
@@ -1468,8 +1468,8 @@ function buildHoursPreview(){
   const el=document.getElementById('hoursPreview');
   if(!el) return;
   const lines=Object.entries(STATE.hours).map(([d,data])=>{
-    if(!data.active) return '<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">'+DAYS_LABEL[d]+'</span><span style="color:var(--ink3)">Fechado</span></div>';
-    return '<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">'+DAYS_LABEL[d]+'</span><span>'+data.open+'–'+data.close+'</span></div>';
+    if(!data.active) return `<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">${DAYS_LABEL[d]}</span><span style="color:var(--ink3)">Fechado</span></div>`;
+    return `<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">${DAYS_LABEL[d]}</span><span>${data.open}–${data.close}</span></div>`;
   });
   el.innerHTML=lines.join('');
 }
@@ -1483,27 +1483,27 @@ function buildPlans(){
     {icon:'⭐',name:'Destaque Premium',price:'15,00',period:'/mês',cadastro:'+ R$ 10 cadastro único',desc:'Apareça no topo, com borda dourada e mais visibilidade.',features:['Tudo do Básico','Borda dourada destacada','Posição no topo','Botão WhatsApp','Foto de perfil / logo','Galeria de fotos (8 fotos)','Relatório de desempenho'],current:true,popular:true,badge:'Mais popular'},
     {icon:'🏆',name:'Premium Plus',price:'30,00',period:'/mês',cadastro:'+ R$ 10 cadastro único',desc:'Máxima visibilidade: spot na rádio DMG Records + destaque.',features:['Tudo do Premium','Spot na rádio DMG Records','Banner no portal','Prioridade máxima','Suporte preferencial'],current:false,popular:false,badge:'Máximo'},
   ];
-  grid.innerHTML=plans.map((p,i)=>\`
-  <div class="plan-card\${p.current?' current':p.popular?' popular':''}">
-    \${p.badge?'<div class="plan-badge"><span class="badge '+(p.current?'b-green':p.popular?'b-acc':'b-gray')+'">'+p.badge+'</span></div>':''}
-    <div class="plan-icon">\${p.icon}</div>
-    <div class="plan-name">\${p.name}</div>
-    <div class="plan-price"><span class="cur">R$ </span>\${p.price}<span class="period">\${p.period}</span></div>
-    <div style="font-size:.66rem;color:var(--ink3);margin-bottom:8px">\${p.cadastro}</div>
-    <div class="plan-desc">\${p.desc}</div>
-    <div class="plan-features">\${p.features.map(f=>'<div class="plan-feat"><div class="plan-feat-icon">✓</div>'+f+'</div>').join('')}</div>
-    <button onclick="selectPlan('\${p.name}')" style="width:100%;margin-top:16px;background:\${p.current?'var(--green)':p.popular?'var(--red)':'var(--bg3)'};color:\${p.current||p.popular?'#fff':'var(--ink2)'};border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s" \${p.current?'disabled':''}>
-      \${p.current?'✓ Plano atual':'Escolher este plano'}
+  grid.innerHTML=plans.map((p,i)=>`
+  <div class="plan-card${p.current?' current':p.popular?' popular':''}">
+    ${p.badge?`<div class="plan-badge"><span class="badge ${p.current?'b-green':p.popular?'b-acc':'b-gray'}">${p.badge}</span></div>`:''}
+    <div class="plan-icon">${p.icon}</div>
+    <div class="plan-name">${p.name}</div>
+    <div class="plan-price"><span class="cur">R$ </span>${p.price}<span class="period">${p.period}</span></div>
+    <div style="font-size:.66rem;color:var(--ink3);margin-bottom:8px">${p.cadastro}</div>
+    <div class="plan-desc">${p.desc}</div>
+    <div class="plan-features">${p.features.map(f=>`<div class="plan-feat"><div class="plan-feat-icon">✓</div>${f}</div>`).join('')}</div>
+    <button onclick="selectPlan('${p.name}')" style="width:100%;margin-top:16px;background:${p.current?'var(--green)':p.popular?'var(--red)':'var(--bg3)'};color:${p.current||p.popular?'#fff':'var(--ink2)'};border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s" ${p.current?'disabled':''}>
+      ${p.current?'✓ Plano atual':'Escolher este plano'}
     </button>
-  </div>\`).join('');
+  </div>`).join('');
 }
 function selectPlan(name){
   toast('Solicitação enviada! A DMG Records entrará em contato.','ok');
-  openWppDMG('Olá! Quero fazer upgrade para o plano "'+name+'" no Vale Indica. Meu negócio: '+(STATE.user?.biz||'—'));
+  openWppDMG('Olá! Quero fazer upgrade para o plano "' + name + '" no Vale Indica. Meu negócio: ' + (STATE.user?.biz||'—'));
 }
 function openWppDMG(msg){
-  const txt=msg||'Olá! Sou lojista do Vale Indica ('+(STATE.user?.biz||'')+') e preciso de ajuda.';
-  window.open('https://wa.me/5551981446019?text='+encodeURIComponent(txt),'_blank');
+  const txt=msg||'Olá! Sou lojista do Vale Indica (' + (STATE.user?.biz||'') + ') e preciso de ajuda.';
+  window.open('https://wa.me/5551981446019?text=' + encodeURIComponent(txt),'_blank');
 }
 
 /* ══ HISTÓRICO ════════════════════════════════════ */
@@ -1512,17 +1512,17 @@ function buildHistorico(){
   if(!el) return;
   el.innerHTML=HISTORICO.map(h=>\`
   <div class="tl-item">
-    <div class="tl-dot \${h.type}"></div>
-    <div class="tl-time">\${h.date}</div>
+    <div class="tl-dot ${h.type}"></div>
+    <div class="tl-time">${h.date}</div>
     <div class="tl-msg">
-      <strong>\${h.title}</strong><br>
-      <span style="color:var(--ink3)">\${h.desc}</span>
+      <strong>${h.title}</strong><br>
+      <span style="color:var(--ink3)">${h.desc}</span>
     </div>
-    <div style="font-family:'DM Mono',monospace;font-size:.7rem;font-weight:600;color:\${h.type==='green'?'var(--green)':'var(--ink3)'};white-space:nowrap">\${h.amount}</div>
+    <div style="font-family:'DM Mono',monospace;font-size:.7rem;font-weight:600;color:${h.type==='green'?'var(--green)':'var(--ink3)'};white-space:nowrap">${h.amount}</div>
   </div>\`).join('');
 }
 function exportHistorico(){
-  const csv='Data,Tipo,Descrição,Valor\\n'+HISTORICO.map(h=>\`\${h.date},"\${h.title}","\${h.desc}","\${h.amount}"\`).join('\\n');
+  const csv='Data,Tipo,Descrição,Valor\\n'+HISTORICO.map(h=>\`${h.date},"${h.title}","${h.desc}","${h.amount}"\`).join('\\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='historico-vale-indica.csv';a.click();
   toast('CSV exportado!','ok');
 }
@@ -1543,9 +1543,9 @@ function buildPeakHours(){
   el.innerHTML=hours.map(h=>\`
   <div style="margin-bottom:8px">
     <div style="display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:3px">
-      <span style="font-weight:600">\${h.h}</span><span style="color:var(--ink3)">\${h.v} views</span>
+      <span style="font-weight:600">${h.h}</span><span style="color:var(--ink3)">${h.v} views</span>
     </div>
-    <div class="pbar" style="height:6px"><div class="pbar-fill" style="width:\${(h.v/max*100)}%;background:\${h.v===max?'var(--red)':'var(--blue)'}"></div></div>
+    <div class="pbar" style="height:6px"><div class="pbar-fill" style="width:${(h.v/max*100)}%;background:${h.v===max?'var(--red)':'var(--blue)'}"></div></div>
   </div>\`).join('');
 }
 function buildOriginsChart(){
@@ -1555,9 +1555,9 @@ function buildOriginsChart(){
   el.innerHTML=origins.map(o=>\`
   <div style="margin-bottom:9px">
     <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px">
-      <span style="font-weight:600">📍 \${o.name}</span><span>\${o.v}%</span>
+      <span style="font-weight:600">📍 ${o.name}</span><span>${o.v}%</span>
     </div>
-    <div class="pbar" style="height:6px"><div class="pbar-fill" style="width:\${o.v}%;background:var(--red)"></div></div>
+    <div class="pbar" style="height:6px"><div class="pbar-fill" style="width:${o.v}%;background:var(--red)"></div></div>
   </div>\`).join('');
 }
 
@@ -1889,7 +1889,7 @@ function renderCheckoutInline(container, type, method, price){
     </div>\`;
   } else if(method==='cartao'){
     payArea=\`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div class="form-group"><label class="form-label" style="font-size:.7rem">Número do cartão</label><input class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value=this.value.replace(/\\\\D/g,'').replace(/(.{4})/g,'$1 ').trim().substring(0,19)"></div>
+      <div class="form-group"><label class="form-label" style="font-size:.7rem">Número do cartão</label><input class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value=this.value.replace(/\\D/g,'').replace(/(.{4})/g,'$1 ').trim().substring(0,19)"></div>
       <div class="form-group"><label class="form-label" style="font-size:.7rem">Nome no cartão</label><input class="form-input" placeholder="NOME SOBRENOME" style="text-transform:uppercase"></div>
       <div class="form-group"><label class="form-label" style="font-size:.7rem">Validade</label><input class="form-input" placeholder="MM/AA" maxlength="5"></div>
       <div class="form-group"><label class="form-label" style="font-size:.7rem">CVV</label><input class="form-input" placeholder="000" maxlength="4"></div>
@@ -1982,6 +1982,7 @@ function initPainel(){
   buildSiteSlots();
 }
 `;
+}
 
 export default function ValeIndicaPainelPage() {
     React.useEffect(() => {

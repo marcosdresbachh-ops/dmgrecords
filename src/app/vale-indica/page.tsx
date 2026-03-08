@@ -417,11 +417,16 @@ function toggleRadio(){
 /* API radio */
 async function fetchRadioAPI(){
   try{
-    const r = await fetch('https://vox.svrdedicado.org/api-json/g1.gu-bOzWLWFRERPvb1knHAXnkRixGCHaN179_q-g9h9I');
-    const d = await r.json();
+    const response = await fetch('/api/now-playing');
+    if (!response.ok) throw new Error('Network response was not ok');
+    const d = await response.json();
     const el = document.getElementById('rbTrack');
     if(el) el.textContent = d.musica_atual || 'DMG Records Rádio';
-  }catch(e){ const el=document.getElementById('rbTrack'); if(el) el.textContent='DMG Records — Ao Vivo'; }
+  }catch(e){ 
+    console.error("Failed to fetch now playing data", e);
+    const el=document.getElementById('rbTrack'); 
+    if(el) el.textContent='DMG Records — Ao Vivo'; 
+  }
 }
 
 /* ── RENDER CATEGORIAS NO SIDEBAR ── */
@@ -429,7 +434,7 @@ function renderCatFilters(){
   const el = document.getElementById('catFilters');
   if(!el) return;
   el.innerHTML = CATEGORIAS.map(function(c) {
-    return ('<div class="filter-item" id="filt-cat-' + c.id + '" onclick="toggleCatFilter(\\\'' + c.id + '\\\')">' +
+    return ('<div class="filter-item" id="filt-cat-' + c.id + '" onclick="toggleCatFilter(\'' + c.id + '\')">' +
       '<div class="filter-check"></div>' +
       '<span class="cat-icon" style="background:' + c.color + ';color:' + c.tc + '">' + c.icon + '</span>' +
       '<span>' + c.label + '</span>' +
@@ -443,7 +448,7 @@ function renderCatGrid(){
   const el = document.getElementById('catGrid');
   if(!el) return;
   el.innerHTML = CATEGORIAS.map(function(c) {
-    return ('<div class="cat-option" id="cat-opt-' + c.id + '" onclick="selectCat(\\\'' + c.id + '\\\')">' +
+    return ('<div class="cat-option" id="cat-opt-' + c.id + '" onclick="selectCat(\'' + c.id + '\')">' +
       '<div class="cat-option-icon">' + c.icon + '</div>' +
       '<div class="cat-option-label">' + c.label + '</div>' +
     '</div>');
@@ -524,14 +529,14 @@ function renderBusinesses(){
           '<div class="biz-contact-row">' +
             '<div class="biz-contact-icon">📞</div>' +
             '<div class="biz-contact-val">' + b.phone + '</div>' +
-            '<div class="biz-contact-call" onclick="event.stopPropagation();callPhone(\\\'' + b.phone + '\\\')">Ligar</div>' +
+            '<div class="biz-contact-call" onclick="event.stopPropagation();callPhone(\'' + b.phone + '\')">Ligar</div>' +
           '</div>' +
           (b.hours?'<div class="biz-contact-row"><div class="biz-contact-icon">🕐</div><div class="biz-contact-val" style="font-size:.66rem">' + b.hours + '</div></div>':'') +
         '</div>' +
         '<div class="biz-actions" onclick="event.stopPropagation()">' +
-          (b.wpp?'<button class="biz-btn biz-btn-wpp" onclick="openWpp(\\\'' + b.wpp + '\\\',\\\'' + b.name + '\\\')">💬 WhatsApp</button>':'') +
-          '<button class="biz-btn biz-btn-tel" onclick="callPhone(\\\'' + b.phone + '\\\')">📞 Ligar</button>' +
-          '<button class="biz-btn biz-btn-map" onclick="openMap(\\\'' + b.address + '\\\',\\\'' + cityLabel + '\\\')">🗺️</button>' +
+          (b.wpp?'<button class="biz-btn biz-btn-wpp" onclick="openWpp(\'' + b.wpp + '\',\'' + b.name + '\')">💬 WhatsApp</button>':'') +
+          '<button class="biz-btn biz-btn-tel" onclick="callPhone(\'' + b.phone + '\')">📞 Ligar</button>' +
+          '<button class="biz-btn biz-btn-map" onclick="openMap(\'' + b.address + '\',\'' + cityLabel + '\')">🗺️</button>' +
         '</div>' +
       '</div>' +
     '</div>');
@@ -566,9 +571,9 @@ function openBizModal(id){
         (b.hours?'<div style="display:flex;align-items:center;gap:10px;font-size:.8rem"><span style="font-size:1.1rem">🕐</span><div><div style="font-weight:600">' + b.hours + '</div><div style="font-size:.66rem;color:var(--ink3)">Horário de funcionamento</div></div></div>':'') +
       '</div>' +
       '<div style="display:flex;gap:8px">' +
-        (b.wpp?'<button onclick="openWpp(\\\'' + b.wpp + '\\\',\\\'' + b.name + '\\\')" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:8px;padding:11px;font-family:\\'Plus Jakarta Sans\\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">💬 WhatsApp</button>':'') +
-        '<button onclick="callPhone(\\\'' + b.phone + '\\\')" style="flex:1;background:var(--bg3);color:var(--ink2);border:none;border-radius:8px;padding:11px;font-family:\\'Plus Jakarta Sans\\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">📞 Ligar</button>' +
-        '<button onclick="openMap(\\\'' + b.address + '\\\',\\\'' + cityLabel + '\\\')" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.82rem">🗺️</button>' +
+        (b.wpp?'<button onclick="openWpp(\'' + b.wpp + '\',\'' + b.name + '\')" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:8px;padding:11px;font-family:\\'Plus Jakarta Sans\\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">💬 WhatsApp</button>':'') +
+        '<button onclick="callPhone(\'' + b.phone + '\')" style="flex:1;background:var(--bg3);color:var(--ink2);border:none;border-radius:8px;padding:11px;font-family:\\'Plus Jakarta Sans\\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer">📞 Ligar</button>' +
+        '<button onclick="openMap(\'' + b.address + '\',\'' + cityLabel + '\')" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.82rem">🗺️</button>' +
       '</div>' +
     '</div>');
   document.getElementById('bizModalBg').style.display='flex';
@@ -624,15 +629,16 @@ function sortBusinesses(val){ ST.sort = val; renderBusinesses(); }
 function scrollToListing(){ document.getElementById('listing').scrollIntoView({behavior:'smooth'}); }
 
 /* ── MODAL CADASTRO ── */
-let currentStep = 1;
-
 function openModal(){
-  currentStep = 1;
-  renderCatGrid();
-  showStep(1);
-  document.getElementById('modalBg').style.display = 'flex';
+  window.location.href = '/vale-indica/painel';
 }
-function closeModal(){ document.getElementById('modalBg').style.display = 'none'; }
+
+function closeModal(){ 
+    const modal = document.getElementById('modalBg');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
 
 function showStep(n){
   document.querySelectorAll('.modal-step').forEach(s=>s.classList.remove('active'));
@@ -644,7 +650,7 @@ function showStep(n){
     if(!dot) continue;
     dot.className = 'step-dot'+(i<n?' done':i===n?' active':'');
   }
-  currentStep = n;
+  ST.step = n;
   if(n===4) buildResumo();
 }
 
@@ -676,7 +682,8 @@ function buildResumo(){
   const phone = document.getElementById('biz-phone')?.value||'—';
   const catInfo = CATEGORIAS.find(c=>c.id===ST.selectedCat)||{label:'—',icon:'🏪'};
   const destaque = document.querySelector('input[name="destaque"]:checked')?.value==='sim';
-  box.innerHTML = ('<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Negócio</span><strong>' + name + '</strong></div>' +
+  box.innerHTML = (
+    '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Negócio</span><strong>' + name + '</strong></div>' +
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Categoria</span><strong>' + catInfo.icon + ' ' + catInfo.label + '</strong></div>' +
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Cidade</span><strong>' + city + '</strong></div>' +
     '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="color:var(--ink3)">Endereço</span><strong>' + addr + '</strong></div>' +

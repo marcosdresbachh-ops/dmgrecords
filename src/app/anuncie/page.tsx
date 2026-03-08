@@ -35,9 +35,9 @@ const AnunciePage = () => {
                     
                     <div className="fi mt-14 rounded-lg bg-primary/10 p-10 text-center border border-primary/20">
                         <h3 className="mb-2.5 font-['Playfair_Display',serif] text-3xl font-black text-foreground">Pronto para sua marca decolar?</h3>
-                        <p className="mb-6 text-[.92rem] text-muted-foreground">Fale com nossa equipe comercial e solicite nosso mídia kit completo.</p>
-                        <Link href="/contato" className="btn btn-red">
-                            <Megaphone className="h-4 w-4" /> Solicitar Proposta
+                        <p className="mb-6 text-[.92rem] text-muted-foreground">Acesse nosso painel do anunciante, cadastre seu negócio e descubra todas as opções.</p>
+                        <Link href="/vale-indica/painel" className="btn btn-red">
+                            <Megaphone className="h-4 w-4" /> Acessar Painel do Anunciante
                         </Link>
                     </div>
                 </div>

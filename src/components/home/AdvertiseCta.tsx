@@ -12,8 +12,9 @@ export function AdvertiseCta() {
           <p className="mb-6 mx-auto max-w-lg text-[.92rem] text-white/70">
             Divulgue sua marca para milhares de ouvintes apaixonados por música. Temos o formato de anúncio perfeito para o seu negócio decolar.
           </p>
-          <Link href="/anuncie" className="btn btn-white">
-            <Megaphone className="h-4 w-4" /> Conhecer Formatos
+          <Link href="/vale-indica/painel" className="btn btn-white">
+            <Megaphone className="h-4 w-4" />
+            Anuncie Conosco
           </Link>
         </div>
       </div>

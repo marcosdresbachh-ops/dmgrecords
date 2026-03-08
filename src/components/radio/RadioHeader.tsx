@@ -1,4 +1,3 @@
-
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -38,7 +37,7 @@ export function RadioHeader() {
         </nav>
         <div className="nav-right">
           <div className="nav-live"><div className="live-dot"></div>AO VIVO</div>
-          <Link href="/anuncie" className="btn btn-red">
+          <Link href="/vale-indica/painel" className="btn btn-red">
             <Megaphone style={{ width: '14px', height: '14px' }} /> Anuncie Conosco
           </Link>
         </div>
