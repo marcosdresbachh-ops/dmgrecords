@@ -29,7 +29,7 @@ const valeIndicaHTML = `
     <input type="text" placeholder="Buscar comércio, restaurante, serviço…" id="mainSearch" oninput="searchBusinesses(this.value)">
   </div>
   <div class="nav-right">
-    <button class="btn-anuncie" onclick="location.href='/vale-indica/painel'">💡 Login | Painel</button>
+    <a href="/vale-indica/painel" class="btn-anuncie">💡 Login | Painel</a>
     <button class="btn-cadastrar" onclick="openModal()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Cadastrar Negócio
@@ -731,7 +731,7 @@ function toast(msg, type='ok'){
   const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
   t.className = 'toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
-  t.innerHTML = '<span>' + (type==='ok'?'✓':type==='err'?'✕':'ℹ') + '</span><span>' + msg + '</span>';
+  t.innerHTML = `<span>${type==='ok'?'✓':type==='err'?'✕':'ℹ'}</span><span>${msg}</span>`;
   wrap.appendChild(t);
   setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }

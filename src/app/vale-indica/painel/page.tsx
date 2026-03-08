@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useEffect, useState } from 'react';
 
@@ -108,7 +107,7 @@ const painelHTML = `
     </div>
 
     <div style="text-align:center;margin-top:20px;font-size:.66rem;color:var(--ink3)">
-      💡 Teste: <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cea2a1a4a7bdbaaf8ebaabbdbaabe0ada1a3">[email&#160;protected]</a></strong> / <strong>123456</strong>
+      💡 Teste: <strong>lojista@teste.com</strong> / <strong>123456</strong>
     </div>
   </div>
 </div>
@@ -1114,14 +1113,14 @@ async function doLogin(){
       throw new Error(error || 'E-mail ou senha incorretos.');
     }
     
-    // On success
-    STATE.user = { email, name: 'Lojista', biz: 'Meu Negócio' }; // Placeholder
+    const data = await res.json();
+    STATE.user = data.user;
     if(document.getElementById('rememberMe').checked){
-      localStorage.setItem('vi_user', JSON.stringify({email}));
+      localStorage.setItem('vi_user', JSON.stringify({email: data.user.email, name: data.user.name}));
     }
     showScreen('painel');
     initPainel();
-    toast('Bem-vindo de volta! 👋','ok');
+    toast('Bem-vindo ao painel, '+ (STATE.user.name.split(' ')[0] || 'Lojista') +'! 👋','ok');
     
   } catch (error) {
     document.getElementById('loginErrMsg').textContent = error.message;
@@ -1156,7 +1155,7 @@ async function doRegister(){
     const res = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ email, password, name, whatsapp, bizName })
+      body: JSON.stringify({ email, password, name, whatsapp, businessName: bizName })
     });
 
     if (!res.ok) {
@@ -1695,6 +1694,20 @@ function toast(msg,type='ok'){
   setTimeout(()=>{ t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }
 
+function doRegister(){
+  const email=document.getElementById('reg-email').value.trim();
+  const pass=document.getElementById('reg-pass').value;
+  const pass2=document.getElementById('reg-pass2').value;
+  const name=document.getElementById('reg-name').value.trim();
+  const biz=document.getElementById('reg-biz').value.trim();
+  if(!email||!pass||!name||!biz){toast('Preencha todos os campos obrigatórios','warn');return;}
+  if(pass!==pass2){toast('As senhas não coincidem','err');return;}
+  if(pass.length<6){toast('Mínimo 6 caracteres','warn');return;}
+  document.getElementById('registerModal').style.display='none';
+  DEMO_USER.email=email; DEMO_USER.pass=pass; DEMO_USER.name=name; DEMO_USER.biz=biz;
+  toast('Cadastro realizado! Faça login agora.','ok');
+  document.getElementById('loginEmail').value=email;
+}
 
 /* ── Responsive ── */
 function checkMobile(){
@@ -1926,7 +1939,7 @@ function renderCheckoutInline(container, type, method, price){
     </div>\`;
   } else if(method==='cartao'){
     payArea=\`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div class="form-group"><label class="form-label" style="font-size:.7rem">Número do cartão</label><input class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value=this.value.replace(/\\\\D/g,'').replace(/(.{4})/g,'$1 ').trim().substring(0,19)"></div>
+      <div class="form-group"><label class="form-label" style="font-size:.7rem">Número do cartão</label><input class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value=this.value.replace(/\\D/g,'').replace(/(.{4})/g,'$1 ').trim().substring(0,19)"></div>
       <div class="form-group"><label class="form-label" style="font-size:.7rem">Nome no cartão</label><input class="form-input" placeholder="NOME SOBRENOME" style="text-transform:uppercase"></div>
       <div class="form-group"><label class="form-label" style="font-size:.7rem">Validade</label><input class="form-input" placeholder="MM/AA" maxlength="5"></div>
       <div class="form-group"><label class="form-label" style="font-size:.7rem">CVV</label><input class="form-input" placeholder="000" maxlength="4"></div>
@@ -2023,14 +2036,11 @@ if (typeof initPainel !== 'undefined') {
 `;
 }
 
-
 export default function ValeIndicaPainelPage() {
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        // This is a workaround to make the script tag re-evaluate on navigation
-        // because of how Next.js caches and handles client-side transitions.
         const scriptId = 'vale-indica-painel-script';
         let script = document.getElementById(scriptId);
         if (script) {
@@ -2049,7 +2059,6 @@ export default function ValeIndicaPainelPage() {
         };
     }, []);
 
-    // We only render on the client to ensure all DOM-manipulating scripts run correctly
     if (!isClient) {
         return null; // or a loading skeleton
     }
@@ -2058,4 +2067,3 @@ export default function ValeIndicaPainelPage() {
     <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: painelHTML }} />
   );
 }
-```

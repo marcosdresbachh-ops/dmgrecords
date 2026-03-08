@@ -39,7 +39,7 @@ export function RadioFooter() {
                             height={45}
                             alt="Disponível no Google Play" 
                             src="https://play.google.com/intl/en_us/badges/images/generic/pt-br-play-badge-border.png"
-                            className="h-auto w-[142px] transition-opacity hover:opacity-80"
+                            className="transition-opacity hover:opacity-80"
                         />
                     </a>
                     <a href="https://apps.apple.com/br/app/radiosnet/id1089290449?mt=8" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" style={{
