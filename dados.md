@@ -66,3 +66,12 @@ async function run() {
   }
 }
 run().catch(console.dir); E LEIA
+
+---
+
+## Asaas API
+
+**API Key:** `$aact_prod_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjAzMzZhNzJiLTkxNWItNDY3Yi1hM2Q5LTU2M2FlODYwZTA1MDo6JGFhY2hfMWJmODJjMDctNDg2OC00Y2M1LWI3YWUtYzE4Yzc5ODg0Nzdl`
+**Webhook URL:** `https://webhook.dmgrecords.com.br`
+**Webhook Email:** `webhook@dmgrecords.com.br`
+**Webhook Token:** `whsec_ura3mPni_FOxgwpXSB7fdbSuMGX1t9jCxbg6uacfc_k`
