@@ -379,7 +379,7 @@ const BUSINESSES_DB = [
   {id:6, name:'Pet Center Amigo Fiel', cat:'pet', city:'taquara', neighborhood:'Centro', address:'Rua 20 de Setembro, 311', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 08h–18h · Sáb: 08h–13h', desc:'Pet shop, veterinária, banho & tosa, venda de rações e acessórios.', destaque:false, icon:'🐾'},
   // ROLANTE
   {id:7, name:'Pizzaria Boa Vista', cat:'alimentacao', city:'rolante', neighborhood:'Centro', address:'Av. Brasil, 890', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Dom: 18h–23h', desc:'Pizzas artesanais, esfihas, calzones e sobremesas. Delivery grátis no centro.', destaque:true, icon:'🍕'},
-  {id:8, name:'Drogaria Rolante', cat:'saude', city:'rolante', neighborhood:'Centro', address:'Rua Ernesto Alves, 55', phone:'(51) 98144-6019', wpp:'', hours:'Seg–Sáb: 07h–20h', desc:'Medicamentos, cosméticos e artigos de higiene com plantão de vendas.', destaque:false, icon:'💊'},
+  {id:8, name:'Drogaria Rolante', cat:'saude', city:'rolante', neighborhood:'Centro', address:'Rua Ernesto Alves, 55', phone:'(51) 3542-3344', wpp:'', hours:'Seg–Sáb: 07h–20h', desc:'Medicamentos, cosméticos e artigos de higiene com plantão de vendas.', destaque:false, icon:'💊'},
   {id:9, name:'Loja Vestir Bem Moda', cat:'moda', city:'rolante', neighborhood:'Centro', address:'Rua Independência, 202', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Seg–Sex: 09h–18h · Sáb: 09h–13h', desc:'Moda feminina, masculina e infantil com os melhores preços da região.', destaque:false, icon:'👗'},
   // TRÊS COROAS
   {id:10, name:'Padaria & Confeitaria Colonial', cat:'alimentacao', city:'tres-coroas', neighborhood:'Centro', address:'Rua Olavo Bilac, 78', phone:'(51) 98144-6019', wpp:'51981446019', hours:'Todos os dias: 06h–20h', desc:'Pães artesanais, bolos, doces coloniais, café e lanche rápido.', destaque:true, icon:'🍞'},
@@ -632,15 +632,12 @@ function scrollToListing(){ document.getElementById('listing').scrollIntoView({b
 let currentStep = 1;
 
 function openModal(){
-  window.location.href = '/vale-indica/painel';
+  currentStep = 1;
+  renderCatGrid();
+  showStep(1);
+  document.getElementById('modalBg').style.display = 'flex';
 }
-
-function closeModal(){ 
-    const modal = document.getElementById('modalBg');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
+function closeModal(){ document.getElementById('modalBg').style.display = 'none'; }
 
 function showStep(n){
   document.querySelectorAll('.modal-step').forEach(s=>s.classList.remove('active'));
@@ -652,7 +649,7 @@ function showStep(n){
     if(!dot) continue;
     dot.className = 'step-dot'+(i<n?' done':i===n?' active':'');
   }
-  ST.step = n;
+  currentStep = n;
   if(n===4) buildResumo();
 }
 
@@ -736,7 +733,7 @@ function toast(msg, type='ok'){
   t.className = 'toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
   t.innerHTML = '<span>' + (type==='ok'?'✓':type==='err'?'✕':'ℹ') + '</span><span>' + msg + '</span>';
   wrap.appendChild(t);
-  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),3000); }, 3500);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }
 
 function addLog(msg){ console.log('[ValIndica]', msg); }
