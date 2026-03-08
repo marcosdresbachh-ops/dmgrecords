@@ -75,3 +75,11 @@ run().catch(console.dir); E LEIA
 **Webhook URL:** `https://webhook.dmgrecords.com.br`
 **Webhook Email:** `webhook@dmgrecords.com.br`
 **Webhook Token:** `whsec_ura3mPni_FOxgwpXSB7fdbSuMGX1t9jCxbg6uacfc_k`
+**Wallet ID:** `bbcb3f26-1c3e-43e3-941b-ebdbf829d1f0`
+
+---
+
+## Supabase
+
+**Project URL:** `https://wlpxaxmhllcfcszktfat.supabase.co`
+**Publishable (Anon) Key:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndscHhheG1obGxjZmNzemt0ZmF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk0MjU0OTksImV4cCI6MjAzNTAwMTQ5OX0.h_g9n-fJ3iS9W1c3G8JtYlFp8yZk9D9yPq_gY_bX9Cg`
