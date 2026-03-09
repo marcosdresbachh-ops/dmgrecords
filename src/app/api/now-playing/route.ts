@@ -5,10 +5,14 @@ export async function GET() {
 
   if (!API_URL) {
     console.error('Error: NEXT_PUBLIC_RADIO_API_URL environment variable is not set.');
-    return NextResponse.json(
-      { error: 'Radio API URL not configured on the server.' },
-      { status: 500 }
-    );
+    // Return a default object with a 200 status to prevent client-side fetch failure
+    return NextResponse.json({
+        musica_atual: 'DMG Records',
+        ouvintes_conectados: '0',
+        capa_musica: '',
+        titulo: 'Rádio Offline',
+        error: 'Radio API URL not configured on the server.'
+    }, { status: 200 });
   }
 
   try {
@@ -30,9 +34,14 @@ export async function GET() {
 
   } catch (error: any) {
     console.error('Error fetching or parsing streaming API:', error);
-    return NextResponse.json(
-      { error: 'Could not fetch or parse streaming information.' },
-      { status: 500 }
-    );
+    // Return a default object with a 200 status to prevent client-side fetch errors.
+    // The client can then handle the display of this default state.
+    return NextResponse.json({
+        musica_atual: 'DMG Records',
+        ouvintes_conectados: '0',
+        capa_musica: '',
+        titulo: 'Rádio Offline',
+        error: 'Could not fetch or parse streaming information.'
+    }, { status: 200 });
   }
 }
