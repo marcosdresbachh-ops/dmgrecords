@@ -20,13 +20,18 @@ export async function GET() {
       throw new Error(`Failed to fetch streaming data: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const text = await response.text();
+    // The response is JSONP, wrapped in parentheses, e.g., '({...});'. We need to extract the JSON part.
+    const jsonString = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
+    
+    const data = JSON.parse(jsonString);
+
     return NextResponse.json(data);
 
   } catch (error: any) {
-    console.error('Error fetching streaming API:', error);
+    console.error('Error fetching or parsing streaming API:', error);
     return NextResponse.json(
-      { error: 'Could not fetch streaming information.' },
+      { error: 'Could not fetch or parse streaming information.' },
       { status: 500 }
     );
   }
