@@ -68,8 +68,6 @@ export function RadioFooter() {
             <div className="footer-col-title">Notícias</div>
             <ul>
                 <li><Link href="/noticias"><Newspaper className="h-3 w-3" /> Blog da Rádio</Link></li>
-                <li><Link href="/agencia-radio"><Newspaper className="h-3 w-3" /> Agência Rádio</Link></li>
-                <li><Link href="/noticias-taquara"><Newspaper className="h-3 w-3" /> Rádio Taquara</Link></li>
             </ul>
           </div>
           <div className="footer-col">
