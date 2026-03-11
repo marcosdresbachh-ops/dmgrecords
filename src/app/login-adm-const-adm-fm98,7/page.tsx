@@ -5,15 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Image from 'next/image';
+import { Logo } from '@/components/shared/Logo';
 
 export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // For now, just redirects to the admin panel.
-    // Replace with actual authentication logic later.
     router.push('/admin');
   };
 
@@ -21,7 +19,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={180} height={45} className="mx-auto mb-6" priority />
+          <Logo className="mx-auto mb-6 text-foreground" width={180} height="auto" />
           <CardDescription className="font-['DM_Mono',monospace] text-xs uppercase tracking-widest pt-1">
             Painel Administrativo
           </CardDescription>
@@ -33,8 +31,8 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@dmgrecords.com.br"
-                defaultValue="admin@dmgrecords.com.br"
+                placeholder="admin@amorfm.com.br"
+                defaultValue="admin@amorfm.com.br"
                 required
               />
             </div>

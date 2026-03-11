@@ -3,8 +3,8 @@ import './admin.css';
 import Script from 'next/script';
 
 export const metadata = {
-  title: 'DMG Records — Painel Administrativo',
-  description: 'Painel de gerenciamento da Rádio DMG Records.',
+  title: 'Amor FM — Painel Administrativo',
+  description: 'Painel de gerenciamento da Rádio Amor FM.',
 };
 
 export default function AdminLayout({

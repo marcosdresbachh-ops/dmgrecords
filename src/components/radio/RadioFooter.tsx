@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { Calendar, FileText, Home, Info, Instagram, Mail, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter, Radio, MapPin } from 'lucide-react';
+import { Logo } from '@/components/shared/Logo';
 
 export function RadioFooter() {
   return (
@@ -11,8 +12,8 @@ export function RadioFooter() {
         <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.5fr,1fr,1fr,1fr]">
           <div>
             <div className="mb-4">
-              <Link href="/" className="text-2xl font-black text-white">
-                AMOR <span>FM</span>
+              <Link href="/" className="text-white">
+                <Logo height="50" />
               </Link>
             </div>
             <p className="footer-desc">Amor FM é uma rádio digital transmitida pela internet operada pela Dresbach Media Ltda.</p>

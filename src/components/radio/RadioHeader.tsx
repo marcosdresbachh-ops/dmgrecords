@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { Logo } from '@/components/shared/Logo';
 
 export function RadioHeader() {
   const [isClient, setIsClient] = useState(false);
@@ -21,8 +22,8 @@ export function RadioHeader() {
   return (
     <header className="site-nav" id="site-nav">
       <div className="nav-inner">
-        <Link href="/" className="nav-logo">
-          AMOR<span>FM</span>
+        <Link href="/" className="nav-logo text-foreground">
+          <Logo />
         </Link>
         <nav className="nav-links">
           {pages.map(p => (

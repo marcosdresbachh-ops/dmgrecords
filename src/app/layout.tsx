@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Poppins } from 'next/font/google';
+import { Poppins, Nunito } from 'next/font/google';
 import './globals.css';
 import './responsive.css';
 import { RootLayoutClient } from '@/components/layout/RootLayoutClient';
@@ -25,6 +25,14 @@ const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
+const nunito = Nunito({
+  subsets: ['latin'],
+  variable: '--font-nunito',
+  display: 'swap',
+  weight: ['900'],
+  style: ['italic'],
+});
+
 
 export default function RootLayout({
   children,
@@ -32,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${poppins.variable}`}>
+    <html lang="pt-BR" className={`${poppins.variable} ${nunito.variable}`}>
       <body>
         <RootLayoutClient>{children}</RootLayoutClient>
       </body>

@@ -4,7 +4,7 @@ import React from 'react';
 // This function is now defined outside the component to be cleaner
 const getAdminScript = (apiUrl: string) => `
 /* ══════════════════════════════════════════════
-   DMG RECORDS — PAINEL ADMIN v2
+   AMOR FM — PAINEL ADMIN v2
    SISTEMA COMPLETO OPERACIONAL
 ══════════════════════════════════════════════ */
 
@@ -26,129 +26,118 @@ const STATE = {
 
 const SCHEDULE = {
     seg: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
     ter: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
     qua: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
     qui: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
     sex: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock',type:'Ao Vivo'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
     sab: [
-        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'08:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B',type:'Ao Vivo'},
-        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo'},
-        {time:'18:00–22:00',show:'Esquenta Sertanejo',host:'DJ RAFAEL',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'22:00–00:00',show:'Rock Night',host:'DJ ANDRÉ',genre:'Rock',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
     dom: [
-        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',type:'Auto'},
-        {time:'08:00–12:00',show:'Bom Dia Gospel',host:'DJ ANA LIMA',genre:'Gospel',type:'Ao Vivo'},
-        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão',type:'Ao Vivo'},
-        {time:'18:00–22:00',show:'Domingo Sertanejo',host:'DJ CARLOS',genre:'Sertanejo',type:'Ao Vivo'},
-        {time:'22:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas',type:'Ao Vivo'}
+        {time:'00:00–06:00',show:'Amor Madrugada',host:'AutoDJ',genre:'Variado',type:'Auto'},
+        {time:'06:00–09:00',show:'Amor FM Manhã',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'09:00–12:00',show:'Manhã do Amor',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'12:00–14:00',show:'Almoço com Amor',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'14:00–18:00',show:'Tarde Amor FM',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'},
+        {time:'18:00–20:00',show:'Amor no Ar',host:'Amor FM',genre:'Pop Adulto',type:'Ao Vivo'},
+        {time:'20:00–22:00',show:'Amor Clássicos',host:'Amor FM',genre:'Clássicos',type:'Ao Vivo'},
+        {time:'22:00–00:00',show:'Amor Night',host:'Amor FM',genre:'Românticas',type:'Ao Vivo'}
     ],
 };
 
 const MUSIC_DB = [
-  {id:1,title:'Não é Mole Não',artist:'João Bosco e Vinícius',album:'Cabaré 2',genre:'sertanejo',dur:'3:48',bpm:88},
-  {id:2,title:'Batom de Cereja',artist:'Jorge & Mateus',album:'Live',genre:'sertanejo',dur:'3:22',bpm:92},
-  {id:3,title:'Diferença Particular',artist:'Henrique & Juliano',album:'Ao Vivo',genre:'sertanejo',dur:'4:05',bpm:90},
-  {id:4,title:'Oceans',artist:'Hillsong United',album:'Zion',genre:'gospel',dur:'8:56',bpm:72},
-  {id:5,title:'Ninguém Explica Deus',artist:'Preto no Branco',album:'Na Estrada',genre:'gospel',dur:'4:20',bpm:76},
-  {id:6,title:'Blinding Lights',artist:'The Weeknd',album:'After Hours',genre:'pop',dur:'3:20',bpm:171},
-  {id:7,title:'Flowers',artist:'Miley Cyrus',album:'Endless Summer Vacation',genre:'pop',dur:'3:20',bpm:119},
-  {id:8,title:'Bohemian Rhapsody',artist:'Queen',album:"A Night at the Opera",genre:'rock',dur:'5:55',bpm:144},
-  {id:9,title:'Liberdade Provisória',artist:'Maiara & Maraísa',album:'Ao Vivo',genre:'sertanejo',dur:'3:50',bpm:95},
-  {id:10,title:'Tudo de Bom',artist:'Gusttavo Lima',album:'G',genre:'sertanejo',dur:'3:15',bpm:88},
+  {id:1,title:"I Will Always Love You",a:"Whitney Houston",d:"4:31",p:98},
+  {id:2,t:"My Heart Will Go On",a:"Celine Dion",d:"4:40",p:90},
+  {id:3,t:"Something",a:"The Beatles",d:"3:03",p:86},
+  {id:4,t:"Perfect",a:"Ed Sheeran",d:"4:23",p:82},
+  {id:5,t:"Thinking Out Loud",a:"Ed Sheeran",d:"4:41",p:77},
+  {id:6,t:"Just the Way You Are",a:"Bruno Mars",d:"3:40",p:72},
+  {id:7,t:"Shallow",a:"Lady Gaga & Bradley Cooper",d:"3:35",p:66},
+  {id:8,t:"Can't Help Falling in Love",a:"Elvis Presley",d:"3:01",p:61},
+  {id:9,t:"Wonderful Tonight",a:"Eric Clapton",d:"3:42",p:55},
+  {id:10,t:"Unchained Melody",a:"The Righteous Brothers",d:"3:36",p:48},
 ];
 
 const TEAM_DB = [
-  {name:'DJ Marcos',role:'Locutor Principal',shows:['Bom Dia DMG','Noite Pop'],color:'#1a1a2e,#D4243A',presence:88,avatar:'M'},
-  {name:'DJ Letícia',role:'Pop & R&B',shows:['Morning Hits'],color:'#7B1FA2,#E040FB',presence:95,avatar:'L'},
-  {name:'DJ Carlos',role:'Sertanejo',shows:['Almoço Sertanejo'],color:'#B36000,#FFA000',presence:100,avatar:'C'},
-  {name:'DJ Ana Lima',role:'Gospel',shows:['Tarde Gospel','Gospel Matinal'],color:'#1B5E20,#43A047',presence:92,avatar:'A'},
-  {name:'DJ Rafael',role:'Pop & Rock',shows:['Prime Time DMG'],color:'#0D47A1,#1E88E5',presence:78,avatar:'R'},
-  {name:'DJ Sandra',role:'Sertanejo Romântico',shows:['Noite Romântica'],color:'#880E4F,#E91E63',presence:85,avatar:'S'},
-  {name:'DJ André',role:'Rock & Pop',shows:['Rock Night','Rock na Manhã'],color:'#1A1A1A,#616161',presence:80,avatar:'An'},
+  {name:'Equipe Amor FM',role:'Locutores',shows:['Programação 24h'],color:'#1a1a2e,#D4243A',presence:100,avatar:'A'},
 ];
 
 const ADV_DB = [
   {name:'Loja JM Calçados',short:'LJ',plan:'Premium',expiry:'31/05/2026',spots:48,revenue:'R$1.2k',status:'ativo'},
   {name:'Pizzaria Fornalha',short:'PF',plan:'Básico',expiry:'15/04/2026',spots:24,revenue:'R$600',status:'ativo'},
-  {name:'Imobiliária Central',short:'IM',plan:'Premium Plus',expiry:'31/12/2026',spots:96,revenue:'R$2.8k',status:'ativo'},
-  {name:'Farmácia Total',short:'FT',plan:'Básico',expiry:'09/03/2026',spots:24,revenue:'R$600',status:'expirando'},
-  {name:'Auto Center Veloz',short:'AC',plan:'Standard',expiry:'30/06/2026',spots:36,revenue:'R$900',status:'ativo'},
 ];
 
 const NEWS_DB = [
-  {id:1,title:'Show especial de fim de ano: DMG Records confirma linha completa de artistas',cat:'Evento',date:'06/03/2026',status:'publicado',views:1247},
-  {id:2,title:'Nova parceria com gravadora BMG traz exclusividades para ouvintes',cat:'Música',date:'05/03/2026',status:'rascunho',views:0},
-  {id:3,title:'DMG Records é eleita melhor web-rádio gospel do Brasil em 2025',cat:'Rádio',date:'04/03/2026',status:'publicado',views:3890},
+  {id:1,title:'Entrevista exclusiva com Ed Sheeran',cat:'Entrevista',date:'06/03/2026',status:'publicado',views:1247},
+  {id:2,title:'Os maiores clássicos românticos de todos os tempos',cat:'Música',date:'05/03/2026',status:'rascunho',views:0},
 ];
 
 const CHART_DATA = [320,280,190,150,180,420,780,1100,1420,1680,1820,1840,1680,1520,1380,1248,1480,1720,1680,1520,1200,980,720,480];
 
 STATE.logs = [
-  {time:'14:02:11',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Carlos iniciou sessão — Almoço Sertanejo'},
-  {time:'13:58:04',type:'music',color:'var(--blue)',msg:'[ACERVO] admin adicionou 14 faixas · Sertanejo'},
-  {time:'13:45:30',type:'stream',color:'var(--accent)',msg:'[ANÚNCIOS] Spot "Loja JM Calçados" aprovado e agendado'},
-  {time:'13:32:00',type:'chat',color:'var(--red)',msg:'[CHAT] 3 mensagens de "user_anon" reportadas e removidas'},
-  {time:'13:18:45',type:'stream',color:'var(--ink3)',msg:'[SISTEMA] Backup automático concluído — 2.417 faixas'},
-  {time:'12:59:55',type:'stream',color:'var(--green)',msg:'[AUDIÊNCIA] Pico de 1.842 ouvintes registrado'},
-  {time:'12:00:01',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] Almoço Sertanejo iniciado'},
-  {time:'09:00:02',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Letícia iniciou Morning Hits'},
-  {time:'08:12:44',type:'access',color:'var(--accent)',msg:'[ACESSO] Login admin@dmgrecords.com.br · IP: 177.XXX.XXX.12'},
-  {time:'06:00:01',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] DJ Marcos iniciou Bom Dia DMG'},
+  {time:'14:02:11',type:'stream',color:'var(--green)',msg:'[TRANSMISSÃO] Amor FM no ar'},
+  {time:'13:58:04',type:'music',color:'var(--blue)',msg:'[ACERVO] admin adicionou 14 faixas · Românticas'},
 ];
 
 STATE.chatMessages = [
-  {name:'Marcos_fã',text:'Que programa incrível! DMG é demais! 🎵',time:'14:02',color:'#7C3AED',reported:false},
+  {name:'Marcos_fã',text:'Que rádio incrível! Amor FM é demais! 🎵',time:'14:02',color:'#7C3AED',reported:false},
   {name:'Ana_BH',text:'Boa tarde a todos! Amando essa música 🎶',time:'14:03',color:'var(--blue)',reported:false},
-  {name:'Rafa_SP',text:'Pedido: toca João Bosco de novo por favor!',time:'14:04',color:'var(--green)',reported:false},
-  {name:'user_anon',text:'[mensagem inapropriada removida]',time:'14:05',color:'var(--red)',reported:true},
-  {name:'Cris_Goiânia',text:'Essa seleção de hoje está PERFEITA 👏👏',time:'14:07',color:'var(--accent)',reported:false},
 ];
 
 STATE.requests = [
-  {user:'Rafa_SP',track:'João Bosco e Vinícius — Não é Mole Não'},
-  {user:'Cris_Goiânia',track:'Gusttavo Lima — Inventor dos Amores'},
+  {user:'Rafa_SP',track:'Ed Sheeran - Perfect'},
 ];
 
 STATE.musicQueue = MUSIC_DB.slice(0,6);
@@ -223,7 +212,7 @@ async function fetchAPI(){
   } catch(e) {
     setApiStatus(false);
     addLog('error','var(--red)',"[API] Erro ao conectar: " + e.message);
-    updateUIFromAPI({ status:'online', porta:'6862', porta_dj:'35750', ip:'s02.svrdedicado.org', ouvintes_conectados:'—', titulo:'DMG Records Rádio', plano_ouvintes:'200', plano_ftp:'2GB', plano_bitrate:'128', musica_atual:'Não é Mole Não — João Bosco e Vinícius', genero:'Sertanejo', shoutcast:'https://s02.svrdedicado.org:6862/stream', capa_musica:'' });
+    updateUIFromAPI({ status:'online', porta:'6862', porta_dj:'35750', ip:'s02.svrdedicado.org', ouvintes_conectados:'—', titulo:'Amor FM', plano_ouvintes:'200', plano_ftp:'2GB', plano_bitrate:'128', musica_atual:'Whitney Houston — I Will Always Love You', genero:'Romântica', shoutcast:'https://s02.svrdedicado.org:6862/stream', capa_musica:'' });
   } finally {
     if(icon) icon.style.animation='';
     if(window.lucide) lucide.createIcons();
@@ -243,9 +232,9 @@ function updateUIFromAPI(d){
   setText('kpi-plan', (d.plano_ouvintes||'—')+' ouvintes máx.');
   setText('kpi-ftp', d.plano_ftp||'—');
   setText('onairTrack', trackName);
-  setText('onairArtist', artistName||d.genero||'DMG Records');
+  setText('onairArtist', artistName||d.genero||'Amor FM');
   setText('onairBitrate', (d.plano_bitrate||'128')+'kbps');
-  setText('onairProgram', d.titulo||'DMG RECORDS');
+  setText('onairProgram', d.titulo||'AMOR FM');
   if(d.capa_musica) { const cover = document.getElementById('onairCover'); if(cover) cover.innerHTML = \`<img src="\${d.capa_musica}" onerror="this.parentElement.innerHTML='<div class=onair-cover-ph>🎵</div>'">\`; }
   setText('tx-listeners', d.ouvintes_conectados||'—');
   setText('tx-max', d.plano_ouvintes||'—');
@@ -292,8 +281,8 @@ function buildChart(){
     const b = document.createElement('div');
     b.className = 'ch-bar'+(v===max?' peak':'');
     b.style.height=(v/max*100)+'%';
-    b.title=\`\${String(i).padStart(2,'0')}h: \${v.toLocaleString('pt-BR')} ouvintes\`;
-    b.onclick = ()=>toast(\`\${String(i).padStart(2,'0')}h → \${v.toLocaleString('pt-BR')} ouvintes\`,'info');
+    b.title = \`\${String(i).padStart(2,'0')}h: \${v.toLocaleString('pt-BR')} ouvintes\`;
+    b.onclick = ()=>toast(\`\${String(i).padStart(2,'0')}h → \${v.toLocaleString('pt-BR')} ouvintes\`, 'info');
     wrap.appendChild(b);
     const l=document.createElement('span');
     l.textContent = i%4===0?String(i).padStart(2,'0'):'';
@@ -352,7 +341,7 @@ function renderSchedule(day){
 
   tbody.innerHTML = data.map((s,i)=>{
     const isLive = isToday && isProgramLive(s.time);
-    const genreBadge = {Sertanejo:'b-acc','Pop / R&B':'b-blue','Pop/R&B':'b-blue','Pop / Rock':'b-blue',Gospel:'b-purple',Rock:'b-gray',Variado:'b-gray', Bailão: 'b-sert', Românticas: 'b-red'}[s.genre]||'b-gray';
+    const genreBadge = {Sertanejo:'b-acc','Pop / R&B':'b-blue','Pop/R&B':'b-blue','Pop / Rock':'b-blue',Gospel:'b-purple',Rock:'b-gray',Variado:'b-gray', Bailão: 'b-sert', Românticas: 'b-red', 'Pop Adulto': 'b-blue', 'Clássicos': 'b-purple'}[s.genre]||'b-gray';
     return \`<tr\${isLive?' style="background:var(--red-light)"':''}>
       <td style="font-family:'DM Mono',monospace;font-size:.72rem\${isLive?';color:var(--red)':''}">\${s.time}</td>
       <td style="font-weight:\${isLive?700:600}\${isLive?';color:var(--red)':''}">\${s.show}\${isLive?' <span style="font-size:.66rem">← AGORA</span>':''}</td>
@@ -385,7 +374,7 @@ if (typeof window !== 'undefined') {
 }
 `;
 
-const adminHTML = `
+const adminHTML = \`
 <!-- TOASTS -->
 <div class="toast-wrap" id="toastWrap"></div>
 
@@ -395,10 +384,26 @@ const adminHTML = `
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-logo">
-    <div class="sb-logo-mark"></div>
-    <div>
-      <div class="sb-brand">DMG <span>Records</span></div>
-      <div class="sb-subtitle">Painel Admin v2</div>
+    <div class="sb-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 140" height="28" style="fill:white;">
+        <defs>
+          <linearGradient id="admin-logo-gradient" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stop-color="#FF3055"/>
+            <stop offset="50%" stop-color="#E60023"/>
+            <stop offset="100%" stop-color="#A80016"/>
+          </linearGradient>
+          <filter id="admin-logo-glow">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <text x="0" y="118" font-family="'Nunito','Arial Rounded MT Bold',sans-serif" font-size="124" font-weight="900" font-style="italic" fill="currentColor">Am</text>
+        <g filter="url(#admin-logo-glow)" transform="translate(207, 22)">
+          <path d="M38,76 C38,76 0,51 0,24 C0,11 9,0 21,0 C29,0 35,5 38,11 C41,5 47,0 55,0 C67,0 76,11 76,24 C76,51 38,76 38,76 Z" fill="url(#admin-logo-gradient)"/>
+          <path d="M17,9 C14,9 8,14 7,22" stroke="rgba(255,255,255,0.42)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </g>
+        <text x="282" y="118" font-family="'Nunito','Arial Rounded MT Bold',sans-serif" font-size="124" font-weight="900" font-style="italic" fill="currentColor">r</text>
+      </svg>
     </div>
   </div>
   <div class="sb-section">Principal</div>
@@ -427,8 +432,8 @@ const adminHTML = `
     <div style="display:flex;align-items:center;gap:9px;padding:2px 4px">
       <div style="width:28px;height:28px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.72rem;color:#fff">A</div>
       <div>
-        <div style="font-size:.75rem;font-weight:600;color:rgba(255,255,255,.82)">Admin DMG</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.32)">admin@dmgrecords.com.br</div>
+        <div style="font-size:.75rem;font-weight:600;color:rgba(255,255,255,.82)">Admin</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.32)">admin@amorfm.com.br</div>
       </div>
     </div>
   </div>
@@ -477,7 +482,7 @@ const adminHTML = `
         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
           <div class="onair-cover" id="onairCover"><div class="onair-cover-ph">🎵</div></div>
           <div style="flex:1">
-            <div class="onair-eyebrow"><div class="live-dot" id="onairDot"></div><span id="onairProgram">RÁDIO DMG</span></div>
+            <div class="onair-eyebrow"><div class="live-dot" id="onairDot"></div><span id="onairProgram">AMOR FM</span></div>
             <div class="onair-track" id="onairTrack">Carregando…</div>
             <div class="onair-artist" id="onairArtist">—</div>
             <div style="display:flex;align-items:center;gap:8px">
@@ -658,10 +663,9 @@ const adminHTML = `
   </div>
   <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap" id="genreFilters">
     <button class="btn btn-red btn-sm" onclick="filterGenre('all',this)">Todos</button>
-    <button class="btn btn-ghost btn-sm" onclick="filterGenre('sertanejo',this)">Sertanejo</button>
-    <button class="btn btn-ghost btn-sm" onclick="filterGenre('gospel',this)">Gospel</button>
-    <button class="btn btn-ghost btn-sm" onclick="filterGenre('pop',this)">Pop / R&B</button>
-    <button class="btn btn-ghost btn-sm" onclick="filterGenre('rock',this)">Rock</button>
+    <button class="btn btn-ghost btn-sm" onclick="filterGenre('sertanejo',this)">Românticas</button>
+    <button class="btn btn-ghost btn-sm" onclick="filterGenre('gospel',this)">Pop Adulto</button>
+    <button class="btn btn-ghost btn-sm" onclick="filterGenre('pop',this)">Clássicos</button>
   </div>
   <div class="card">
     <table class="tbl" id="musicTable">
@@ -804,10 +808,10 @@ const adminHTML = `
       <div class="card-hdr"><div class="card-title">Por Gênero Musical</div></div>
       <div class="card-body">
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Sertanejo</span><span style="font-family:'DM Mono',monospace">48% · 18.4k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:48%;background:var(--accent)"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Gospel</span><span style="font-family:'DM Mono',monospace">27% · 10.4k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:27%;background:var(--purple)"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Pop / R&B</span><span style="font-family:'DM Mono',monospace">18% · 6.9k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:18%;background:var(--blue)"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Rock</span><span style="font-family:'DM Mono',monospace">7% · 2.7k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:7%;background:var(--ink3)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Românticas</span><span style="font-family:'DM Mono',monospace">48% · 18.4k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:48%;background:var(--accent)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Pop Adulto</span><span style="font-family:'DM Mono',monospace">27% · 10.4k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:27%;background:var(--purple)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Clássicos</span><span style="font-family:'DM Mono',monospace">18% · 6.9k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:18%;background:var(--blue)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span style="font-weight:600">Outros</span><span style="font-family:'DM Mono',monospace">7% · 2.7k</span></div><div class="pbar" style="height:7px"><div class="pbar-fill" style="width:7%;background:var(--ink3)"></div></div></div>
         </div>
       </div>
     </div>
@@ -821,7 +825,7 @@ const adminHTML = `
         </div>
         <div class="s-row"><div class="s-row-l">Pico de audiência</div><div class="s-row-v">12h – 13h</div></div>
         <div class="s-row"><div class="s-row-l">Dia mais ouvido</div><div class="s-row-v">Sexta-feira</div></div>
-        <div class="s-row"><div class="s-row-l">Programa mais ouvido</div><div class="s-row-v">Prime Time DMG</div></div>
+        <div class="s-row"><div class="s-row-l">Programa mais ouvido</div><div class="s-row-v">Amor no Ar</div></div>
         <div class="s-row"><div class="s-row-l">Música mais pedida</div><div class="s-row-v" id="stat-top-track">—</div></div>
       </div>
     </div>
@@ -841,16 +845,16 @@ const adminHTML = `
   <div class="ptab-panel active" id="cfg-geral">
     <div class="g2">
       <div class="card"><div class="card-hdr"><div class="card-title">Identidade da Rádio</div></div><div class="card-body">
-        <div class="fg"><label class="fl">Nome da Rádio</label><input class="fi" id="cfg-name" value="DMG Records Rádio"></div>
-        <div class="fg"><label class="fl">Slogan</label><input class="fi" id="cfg-slogan" value="Sertanejo, Gospel, Pop e Rock 24h"></div>
-        <div class="fg"><label class="fl">Website</label><input class="fi" id="cfg-web" value="https://dmgrecords.com.br"></div>
-        <div class="fg"><label class="fl">E-mail de Contato</label><input class="fi" id="cfg-email" value="contato@dmgrecords.com.br"></div>
-        <div class="fg"><label class="fl">Descrição</label><textarea class="fta" id="cfg-desc">Web rádio com transmissão 24h, 7 dias por semana. Sertanejo, Gospel, Pop e Rock.</textarea></div>
+        <div class="fg"><label class="fl">Nome da Rádio</label><input class="fi" id="cfg-name" value="Amor FM"></div>
+        <div class="fg"><label class="fl">Slogan</label><input class="fi" id="cfg-slogan" value="A trilha sonora do amor"></div>
+        <div class="fg"><label class="fl">Website</label><input class="fi" id="cfg-web" value="https://amorfm.com.br"></div>
+        <div class="fg"><label class="fl">E-mail de Contato</label><input class="fi" id="cfg-email" value="contato@amorfm.com.br"></div>
+        <div class="fg"><label class="fl">Descrição</label><textarea class="fta" id="cfg-desc">A Amor FM é uma rádio digital focada em músicas românticas, pop adulto e clássicos que marcaram gerações.</textarea></div>
         <button class="btn btn-red" onclick="saveCfg('geral')"><i data-lucide="save" style="width:13px;height:13px"></i>Salvar Alterações</button>
       </div></div>
       <div class="card"><div class="card-hdr"><div class="card-title">Redes Sociais</div></div><div class="card-body">
-        <div class="fg"><label class="fl">Instagram</label><input class="fi" id="cfg-ig" value="https://www.instagram.com/radio_dmg_records" placeholder="@usuario"></div>
-        <div class="fg"><label class="fl">Facebook</label><input class="fi" id="cfg-fb" value="https://www.facebook.com/radio.dmg.records" placeholder="URL da página"></div>
+        <div class="fg"><label class="fl">Instagram</label><input class="fi" id="cfg-ig" value="https://www.instagram.com/radio_amor_fm" placeholder="@radio_amor_fm"></div>
+        <div class="fg"><label class="fl">Facebook</label><input class="fi" id="cfg-fb" value="https://www.facebook.com/radio.amor.fm" placeholder="URL da página"></div>
         <div class="fg"><label class="fl">YouTube</label><input class="fi" id="cfg-yt" value="" placeholder="URL do canal"></div>
         <div class="fg"><label class="fl">WhatsApp (pedidos)</label><input class="fi" id="cfg-wa" value="+55 (51) 98144-6019"></div>
         <button class="btn btn-red" onclick="saveCfg('social')"><i data-lucide="save" style="width:13px;height:13px"></i>Salvar</button>
@@ -901,7 +905,7 @@ const adminHTML = `
         <label class="toggle"><input type="checkbox" class="toggle-in"><div class="toggle-tr"></div><span class="toggle-lbl">Resumo diário por e-mail</span></label>
         <label class="toggle"><input type="checkbox" class="toggle-in" checked><div class="toggle-tr"></div><span class="toggle-lbl">Alerta de anúncios expirando</span></label>
       </div>
-      <div class="fg" style="margin-top:16px"><label class="fl">E-mail para alertas</label><input class="fi" value="admin@dmgrecords.com.br"></div>
+      <div class="fg" style="margin-top:16px"><label class="fl">E-mail para alertas</label><input class="fi" value="admin@amorfm.com.br"></div>
       <button class="btn btn-red" onclick="saveCfg('notif')"><i data-lucide="save" style="width:13px;height:13px"></i>Salvar</button>
     </div></div>
   </div>
@@ -951,7 +955,7 @@ const adminHTML = `
     <div id="modalContent"></div>
   </div>
 </div>
-`;
+\`;
 
 
 export default function AdminPage() {
