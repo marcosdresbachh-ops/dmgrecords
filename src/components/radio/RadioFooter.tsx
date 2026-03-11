@@ -12,8 +12,8 @@ export function RadioFooter() {
         <div className="grid grid-cols-1 gap-12 pb-16 md:grid-cols-2 lg:grid-cols-[1.5fr,1fr,1fr,1fr]">
           <div>
             <div className="mb-4">
-              <Link href="/" className="text-white">
-                <Logo height="50" />
+              <Link href="/">
+                <Logo height="50" variant="on-dark" />
               </Link>
             </div>
             <p className="footer-desc">Amor FM é uma rádio digital transmitida pela internet operada pela Dresbach Media Ltda.</p>

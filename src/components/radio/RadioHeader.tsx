@@ -22,7 +22,7 @@ export function RadioHeader() {
   return (
     <header className="site-nav" id="site-nav">
       <div className="nav-inner">
-        <Link href="/" className="nav-logo text-foreground">
+        <Link href="/" className="nav-logo">
           <Logo />
         </Link>
         <nav className="nav-links">

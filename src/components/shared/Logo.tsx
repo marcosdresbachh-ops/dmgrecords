@@ -4,9 +4,12 @@ interface LogoProps {
   className?: string;
   width?: string | number;
   height?: string | number;
+  variant?: 'default' | 'on-dark';
 }
 
-export function Logo({ className, width = "125", height = "42" }: LogoProps) {
+export function Logo({ className, width = "125", height = "42", variant = 'default' }: LogoProps) {
+  const textColor = variant === 'on-dark' ? 'white' : '#1A3A9C';
+  
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +39,7 @@ export function Logo({ className, width = "125", height = "42" }: LogoProps) {
         fontSize="124"
         fontWeight="900"
         fontStyle="italic"
-        fill="currentColor"
+        fill={textColor}
       >
         Am
       </text>
@@ -60,7 +63,7 @@ export function Logo({ className, width = "125", height = "42" }: LogoProps) {
         fontSize="124"
         fontWeight="900"
         fontStyle="italic"
-        fill="currentColor"
+        fill={textColor}
       >
         r
       </text>

@@ -19,7 +19,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <Logo className="mx-auto mb-6 text-foreground" width={180} height="auto" />
+          <Logo className="mx-auto mb-6" width={180} height="auto" />
           <CardDescription className="font-['DM_Mono',monospace] text-xs uppercase tracking-widest pt-1">
             Painel Administrativo
           </CardDescription>
