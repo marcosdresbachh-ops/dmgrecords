@@ -1,9 +1,8 @@
-
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, FileText, Home, Info, Instagram, Mail, MessageCircle, Newspaper, Shield, Users, Youtube, Facebook, Twitter, Radio, MapPin } from 'lucide-react';
-import { Logo } from '@/components/shared/Logo';
 
 export function RadioFooter() {
   return (
@@ -13,7 +12,7 @@ export function RadioFooter() {
           <div>
             <div className="mb-4">
               <Link href="/">
-                <Logo height="50" variant="on-dark" />
+                <Image src="/ofc_dresbach.png" alt="Dresbach Media Ltda Logo" width={180} height={45} />
               </Link>
             </div>
             <p className="footer-desc">Amor FM é uma rádio digital transmitida pela internet operada pela Dresbach Media Ltda.</p>
