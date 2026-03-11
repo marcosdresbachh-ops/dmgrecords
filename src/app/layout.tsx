@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Outfit, DM_Mono } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import './responsive.css';
 import { RootLayoutClient } from '@/components/layout/RootLayoutClient';
 
 export const viewport: Viewport = {
-  themeColor: '#D4243A',
+  themeColor: '#E60023',
 };
 
 export const metadata: Metadata = {
-  title: 'Dresbach Records Rádio',
-  description: 'Sertanejo, Gospel, Pop e Rock direto pra você. Música e entretenimento 24 horas, 7 dias por semana.',
+  title: 'Amor FM - A trilha sonora do amor',
+  description: 'A Amor FM é uma rádio digital focada em músicas românticas, pop adulto e clássicos que marcaram gerações. A emissora transmite 24 horas por dia pela internet.',
   manifest: '/manifest.json',
   icons: {
     apple: '/icons/icon-192x192.png',
@@ -18,26 +18,13 @@ export const metadata: Metadata = {
   }
 };
 
-const playfair = Playfair_Display({
+const poppins = Poppins({
   subsets: ['latin'],
-  variable: '--font-playfair-display',
+  variable: '--font-poppins',
   display: 'swap',
-  weight: ['700', '900'],
-  style: ['normal', 'italic'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
-const outfit = Outfit({
-  subsets: ['latin'],
-  variable: '--font-outfit',
-  display: 'swap',
-});
-
-const dmMono = DM_Mono({
-  subsets: ['latin'],
-  variable: '--font-dm-mono',
-  display: 'swap',
-  weight: ['300', '400', '500'],
-});
 
 export default function RootLayout({
   children,
@@ -45,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${outfit.variable} ${dmMono.variable}`}>
+    <html lang="pt-BR" className={`${poppins.variable}`}>
       <body>
         <RootLayoutClient>{children}</RootLayoutClient>
       </body>

@@ -1,9 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Megaphone, MapPin } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 export function RadioHeader() {
   const [isClient, setIsClient] = useState(false);
@@ -13,12 +11,10 @@ export function RadioHeader() {
     setIsClient(true);
   }, []);
 
-
   const pages = [
     { href: '/', label: 'Início' },
     { href: '/programacao', label: 'Programação' },
-    { href: '/noticias', label: 'Notícias' },
-    { href: '/vale-indica', label: 'Vale Indica' },
+    { href: '/sobre', label: 'Sobre' },
     { href: '/contato', label: 'Contato' },
   ];
 
@@ -26,7 +22,7 @@ export function RadioHeader() {
     <header className="site-nav" id="site-nav">
       <div className="nav-inner">
         <Link href="/" className="nav-logo">
-          <Image src="/logo_radio_dmg.png" alt="DMG Records Rádio" width={100} height={22} priority />
+          AMOR<span>FM</span>
         </Link>
         <nav className="nav-links">
           {pages.map(p => (
@@ -37,9 +33,6 @@ export function RadioHeader() {
         </nav>
         <div className="nav-right">
           <div className="nav-live"><div className="live-dot"></div>AO VIVO</div>
-          <Link href="/vale-indica/painel" className="btn btn-red">
-            <Megaphone style={{ width: '14px', height: '14px' }} /> Anuncie Conosco
-          </Link>
         </div>
       </div>
     </header>

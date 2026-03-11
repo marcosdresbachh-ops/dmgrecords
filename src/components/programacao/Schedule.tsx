@@ -4,66 +4,25 @@ import { useState, useEffect } from 'react';
 import { Clock, User, Cpu } from 'lucide-react';
 import { Skeleton } from "@/components/ui/skeleton";
 
+const programacao = [
+    {time:'06:00 – 09:00',show:'Amor FM Manhã'},
+    {time:'09:00 – 12:00',show:'Manhã do Amor'},
+    {time:'12:00 – 14:00',show:'Almoço com Amor'},
+    {time:'14:00 – 18:00',show:'Tarde Amor FM'},
+    {time:'18:00 – 20:00',show:'Amor no Ar'},
+    {time:'20:00 – 22:00',show:'Amor Clássicos'},
+    {time:'22:00 – 00:00',show:'Amor Night'},
+    {time:'00:00 – 06:00',show:'Amor Madrugada', auto: true},
+];
+
 const scheduleData: Record<string, Array<{ time: string, show: string, host: string, genre: string, auto?: boolean }>> = {
-    seg: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
-    ],
-    ter: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
-    ],
-    qua: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
-    ],
-    qui: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
-    ],
-    sex: [
-        {time:'00:00–06:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'06:00–09:00',show:'Bom Dia DMG',host:'DJ MARCOS',genre:'Sertanejo'},
-        {time:'09:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–15:00',show:'Almoço Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
-        {time:'15:00–18:00',show:'Tarde Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'18:00–21:00',show:'Prime Time DMG',host:'DJ RAFAEL',genre:'Pop / Rock'},
-        {time:'21:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
-    ],
-    sab: [
-        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'08:00–12:00',show:'Morning Hits',host:'DJ LETICIA',genre:'Pop / R&B'},
-        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão'},
-        {time:'18:00–22:00',show:'Esquenta Sertanejo',host:'DJ RAFAEL',genre:'Sertanejo'},
-        {time:'22:00–00:00',show:'Rock Night',host:'DJ ANDRÉ',genre:'Rock'}
-    ],
-    dom: [
-        {time:'00:00–08:00',show:'Madrugada DMG',host:'AutoDJ',genre:'Variado',auto:true},
-        {time:'08:00–12:00',show:'Bom Dia Gospel',host:'DJ ANA LIMA',genre:'Gospel'},
-        {time:'12:00–18:00',show:'Bandas do Sul',host:'DJ VINI AMARAL',genre:'Bailão'},
-        {time:'18:00–22:00',show:'Domingo Sertanejo',host:'DJ CARLOS',genre:'Sertanejo'},
-        {time:'22:00–00:00',show:'Love Songs',host:'DJ SANDRA',genre:'Românticas'}
-    ],
+    seg: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Românticas' })),
+    ter: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Pop Adulto' })),
+    qua: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Clássicos' })),
+    qui: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Românticas' })),
+    sex: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Pop Adulto' })),
+    sab: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Clássicos' })),
+    dom: programacao.map(p => ({ ...p, host: 'Amor FM', genre: 'Românticas' })),
 };
 
 const dayMap = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'];
@@ -171,11 +130,11 @@ export const Schedule = () => {
                 <table className="w-full border-collapse">
                     <thead>
                         <tr className='border-b-2 border-border'>
-                            <th className="bg-muted/50 p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground"><Clock className="mb-px mr-1 inline h-3 w-3" />Horário</th>
-                            <th className="bg-muted/50 p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Programa</th>
-                            <th className="bg-muted/50 p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Apresentador</th>
-                            <th className="bg-muted/50 p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Gênero</th>
-                            <th className="bg-muted/50 p-3 text-left font-['DM_Mono',monospace] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Status</th>
+                            <th className="bg-muted/50 p-3 text-left font-['Poppins',_sans-serif] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground"><Clock className="mb-px mr-1 inline h-3 w-3" />Horário</th>
+                            <th className="bg-muted/50 p-3 text-left font-['Poppins',_sans-serif] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Programa</th>
+                            <th className="bg-muted/50 p-3 text-left font-['Poppins',_sans-serif] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Apresentador</th>
+                            <th className="bg-muted/50 p-3 text-left font-['Poppins',_sans-serif] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Gênero</th>
+                            <th className="bg-muted/50 p-3 text-left font-['Poppins',_sans-serif] text-[.58rem] uppercase tracking-[.2em] text-muted-foreground">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -183,7 +142,7 @@ export const Schedule = () => {
                             const live = isLiveNow(activeTab, item.time, now);
                             return (
                                 <tr key={index} className={`border-b border-border transition-colors hover:bg-primary/5 ${live ? 'border-l-4 border-l-primary bg-primary/10' : ''}`}>
-                                    <td className="whitespace-nowrap p-3.5 font-['DM_Mono',monospace] text-[.7rem] text-muted-foreground">{item.time}</td>
+                                    <td className="whitespace-nowrap p-3.5 font-['Poppins',_sans-serif] text-[.7rem] text-muted-foreground">{item.time}</td>
                                     <td className="p-3.5">
                                         <div className="text-[.92rem] font-bold">{item.show}</div>
                                     </td>
@@ -194,7 +153,7 @@ export const Schedule = () => {
                                         </div>
                                     </td>
                                     <td className="p-3.5"><GenreBadge genre={item.genre || ''} /></td>
-                                    <td className="p-3.5">{live ? <span className="inline-flex items-center gap-1.5 rounded-sm bg-green-100 px-2 py-1 font-['DM_Mono',monospace] text-[.56rem] uppercase tracking-[.15em] text-green-700"><span className="live-dot"></span>Ao Vivo</span> : ''}</td>
+                                    <td className="p-3.5">{live ? <span className="inline-flex items-center gap-1.5 rounded-sm bg-green-100 px-2 py-1 font-['Poppins',_sans-serif] text-[.56rem] uppercase tracking-[.15em] text-green-700"><span className="live-dot"></span>Ao Vivo</span> : ''}</td>
                                 </tr>
                             )
                         })}

@@ -2,9 +2,7 @@
 
 import { PageHero } from '@/components/shared/PageHero';
 import { Breadcrumb } from '@/components/shared/Breadcrumb';
-import { SectionHeader } from '@/components/shared/SectionHeader';
 import { Schedule } from '@/components/programacao/Schedule';
-import { Djs } from '@/components/programacao/Djs';
 import { RectangleBanner } from '@/components/banners/RectangleBanner';
 
 const ProgramacaoPage = () => {
@@ -29,14 +27,6 @@ const ProgramacaoPage = () => {
                         <div className="hidden lg:block">
                             <RectangleBanner />
                         </div>
-                    </div>
-
-                    <div className="fi mt-16">
-                        <SectionHeader
-                            eyebrow="Equipe"
-                            title={<>Nossos <em>Locutores</em></>}
-                        />
-                        <Djs />
                     </div>
                 </div>
             </section>

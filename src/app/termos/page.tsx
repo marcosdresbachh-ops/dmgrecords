@@ -7,8 +7,8 @@ const content = [
         title: "1. Aceitação dos Termos",
         body: (
             <>
-                <p>Ao acessar e utilizar o site e os serviços da <strong>DMG Records Rádio</strong>, você concorda em cumprir e estar vinculado a estes Termos de Uso. Se você não concordar com algum destes termos, pedimos que não utilize nossos serviços.</p>
-                <p>Estes Termos de Uso se aplicam a todos os visitantes, ouvintes, usuários e qualquer outra pessoa que acesse ou utilize os serviços da DMG Records Rádio.</p>
+                <p>Ao acessar e utilizar o site e os serviços da <strong>Amor FM</strong>, você concorda em cumprir e estar vinculado a estes Termos de Uso. Se você não concordar com algum destes termos, pedimos que não utilize nossos serviços.</p>
+                <p>Estes Termos de Uso se aplicam a todos os visitantes, ouvintes, usuários e qualquer outra pessoa que acesse ou utilize os serviços da Amor FM.</p>
             </>
         )
     },
@@ -17,7 +17,7 @@ const content = [
         title: "2. Descrição dos Serviços",
         body: (
             <>
-                <p>A DMG Records Rádio oferece os seguintes serviços de forma gratuita aos ouvintes:</p>
+                <p>A Amor FM oferece os seguintes serviços de forma gratuita aos ouvintes:</p>
                 <ul>
                     <li>Transmissão de áudio ao vivo via internet (streaming), disponível 24 horas por dia, 7 dias por semana.</li>
                     <li>Chat ao vivo para interação entre ouvintes e locutores durante as transmissões.</li>
@@ -25,7 +25,7 @@ const content = [
                     <li>Grade de programação e informações sobre os programas e locutores.</li>
                     <li>Notícias e conteúdos relacionados à música e à programação da rádio.</li>
                 </ul>
-                <p>A DMG Records Rádio reserva-se o direito de modificar, suspender ou encerrar qualquer serviço a qualquer momento, com ou sem aviso prévio.</p>
+                <p>A Amor FM reserva-se o direito de modificar, suspender ou encerrar qualquer serviço a qualquer momento, com ou sem aviso prévio.</p>
             </>
         )
     },
@@ -69,7 +69,7 @@ const content = [
         title: "5. Propriedade Intelectual",
         body: (
             <>
-                <p>Todo o conteúdo do site da DMG Records Rádio, incluindo textos, logotipos, design e layout, é protegido por direitos autorais e outros direitos de propriedade intelectual.</p>
+                <p>Todo o conteúdo do site da Amor FM, incluindo textos, logotipos, design e layout, é protegido por direitos autorais e outros direitos de propriedade intelectual.</p>
                 <p>As músicas transmitidas são licenciadas junto aos órgãos competentes (ECAD, etc.). Qualquer reprodução, gravação ou redistribuição não autorizada da transmissão é proibida.</p>
                 <p>O uso de nosso conteúdo para fins comerciais sem autorização expressa é vedado.</p>
             </>
@@ -80,7 +80,7 @@ const content = [
         title: "6. Responsabilidades",
         body: (
             <>
-                <p>A DMG Records Rádio não se responsabiliza por:</p>
+                <p>A Amor FM não se responsabiliza por:</p>
                 <ul>
                     <li>Interrupções na transmissão causadas por fatores externos, manutenção ou problemas técnicos fora de nosso controle.</li>
                     <li>Conteúdo enviado por usuários no chat ou nos formulários de pedido.</li>
@@ -96,8 +96,8 @@ const content = [
         title: "7. Publicidade e Anúncios",
         body: (
             <>
-                <p>A DMG Records Rádio pode exibir publicidade de anunciantes terceiros. Não somos responsáveis pelo conteúdo desses anúncios nem pelas práticas de privacidade das empresas anunciantes.</p>
-                <p>Os contratos de publicidade são regidos por termos específicos acordados entre a DMG Records Rádio e cada anunciante, em conformidade com a legislação brasileira de publicidade.</p>
+                <p>A Amor FM pode exibir publicidade de anunciantes terceiros. Não somos responsáveis pelo conteúdo desses anúncios nem pelas práticas de privacidade das empresas anunciantes.</p>
+                <p>Os contratos de publicidade são regidos por termos específicos acordados entre a Amor FM e cada anunciante, em conformidade com a legislação brasileira de publicidade.</p>
             </>
         )
     },
@@ -106,7 +106,7 @@ const content = [
         title: "8. Modificações dos Termos",
         body: (
             <>
-                <p>A DMG Records Rádio reserva-se o direito de modificar estes Termos de Uso a qualquer momento. As alterações entram em vigor imediatamente após a publicação no site.</p>
+                <p>A Amor FM reserva-se o direito de modificar estes Termos de Uso a qualquer momento. As alterações entram em vigor imediatamente após a publicação no site.</p>
                 <p>O uso continuado dos nossos serviços após a publicação de alterações constitui aceitação dos novos termos. Recomendamos a leitura periódica deste documento.</p>
             </>
         )
@@ -117,7 +117,7 @@ const content = [
         body: (
             <>
                 <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Quaisquer disputas relacionadas a estes termos serão submetidas à jurisdição exclusiva dos tribunais brasileiros competentes.</p>
-                <p>Em caso de dúvidas sobre estes Termos de Uso, entre em contato pelo e-mail: <a href="mailto:juridico@dmgrecords.com.br" className="text-[--red]">juridico@dmgrecords.com.br</a></p>
+                <p>Em caso de dúvidas sobre estes Termos de Uso, entre em contato pelo e-mail: <a href="mailto:contato@amorfm.com.br" className="text-[--red]">contato@amorfm.com.br</a></p>
             </>
         )
     },
@@ -130,7 +130,7 @@ const TermosPage = () => {
             <PageHero
                 eyebrow="Legal"
                 title={<>Termos de <em>Uso</em></>}
-                description="Leia atentamente os termos que regem o uso do site e dos serviços da DMG Records Rádio."
+                description="Leia atentamente os termos que regem o uso do site e dos serviços da Amor FM."
             />
             <LegalLayout 
                 pageTitle="Termos de Uso"

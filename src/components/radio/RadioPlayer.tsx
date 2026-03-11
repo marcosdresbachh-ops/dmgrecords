@@ -37,7 +37,12 @@ export function RadioPlayer() {
       } catch (err) {
         console.error(err);
         setError('Could not load track info.');
-        setNowPlaying(null);
+        setNowPlaying({
+          musica_atual: 'Amor FM',
+          ouvintes_conectados: '0',
+          capa_musica: '',
+          titulo: 'A trilha sonora do amor'
+        });
       }
     };
 
@@ -117,10 +122,10 @@ export function RadioPlayer() {
     setPlaying(!playing);
   };
 
-  const trackName = nowPlaying?.musica_atual || nowPlaying?.titulo || 'DMG Records Rádio';
+  const trackName = nowPlaying?.musica_atual || nowPlaying?.titulo || 'Amor FM';
   const subtitle = playing 
     ? (nowPlaying?.ouvintes_conectados ? `${nowPlaying.ouvintes_conectados} ouvintes` : 'AO VIVO') 
-    : 'CLIQUE PLAY PARA OUVIR';
+    : 'A trilha sonora do amor';
 
 
   return (
