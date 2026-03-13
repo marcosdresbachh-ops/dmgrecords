@@ -1008,7 +1008,7 @@ const painelHTML = `
 <!-- ═══ MODAL PREVIEW ═══ -->
 <div class="modal-bg" id="previewModal" style="display:none" onclick="if(event.target===this)closePreviewModal()">
   <div class="modal-box" style="max-width:380px">
-    <button class="modal-close" onclick="closePreviewModal()">✕</button>
+    <button class="modal-close" onclick="closePreviewModal()">&times;</button>
     <div class="modal-title">Preview do <em>Anúncio</em></div>
     <div id="fullPreviewCard"></div>
     <div style="margin-top:14px;font-size:.72rem;color:var(--ink3);text-align:center">Assim que os usuários veem seu negócio no portal</div>
@@ -1018,7 +1018,7 @@ const painelHTML = `
 <!-- ═══ MODAL REGISTRO ═══ -->
 <div class="modal-bg" id="registerModal" style="display:none" onclick="if(event.target===this)document.getElementById('registerModal').style.display='none'">
   <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('registerModal').style.display='none'">✕</button>
+    <button class="modal-close" onclick="document.getElementById('registerModal').style.display='none'">&times;</button>
     <div class="modal-title">Criar sua <em>conta</em></div>
     <div class="form-row2">
       <div class="form-group"><label class="form-label">Nome completo</label><input class="form-input" id="reg-name" placeholder="Seu nome"></div>
@@ -1120,7 +1120,7 @@ async function doLogin(){
     }
     showScreen('painel');
     initPainel();
-    toast('Bem-vindo ao painel, '+ (STATE.user.name.split(' ')[0] || 'Lojista') +'! 👋','ok');
+    toast('Bem-vindo ao painel, '+ (STATE.user.name.split(' ')[0] || 'Lojista') + '! 👋','ok');
     
   } catch (error) {
     document.getElementById('loginErrMsg').textContent = error.message;
@@ -1248,7 +1248,7 @@ function checkPassMatch(){
   if(!hint) return;
   if(!p2) hint.textContent='';
   else if(p1===p2) hint.innerHTML='<span style="color:var(--green)">✓ Senhas iguais</span>';
-  else hint.innerHTML='<span style="color:var(--red)">✗ Senhas diferentes</span>';
+  else hint.innerHTML='<span style="color:var(--red)">&times; Senhas diferentes</span>';
 }
 
 /* ══ PAINEL INIT ══════════════════════════════════ */
@@ -1386,7 +1386,7 @@ function buildPhotoGrid(){
   grid.innerHTML=STATE.photos.map((p,i)=>
     \`<div class="photo-item">
       <img src="\${p.src}" alt="foto \${i+1}">
-      <button class="photo-del" onclick="removePhoto(\${i})">✕</button>
+      <button class="photo-del" onclick="removePhoto(\${i})">&times;</button>
     </div>\`).join('')+
     (STATE.photos.length<8? \`<div class="photo-item photo-add" onclick="document.getElementById('photosUpload').click()"><span style="font-size:1.3rem">➕</span><span style="font-size:.62rem;color:var(--ink3)">Adicionar</span></div>\`:'');
 }
@@ -1544,8 +1544,8 @@ function buildPlans(){
     <div class="plan-price"><span class="cur">R$ </span>\${p.price}<span class="period">\${p.period}</span></div>
     <div style="font-size:.66rem;color:var(--ink3);margin-bottom:8px">\${p.cadastro}</div>
     <div class="plan-desc">\${p.desc}</div>
-    <div class="plan-features">\${p.features.map(f=>\`<div class="plan-feat"><div class="plan-feat-icon">✓</div>\${f}</div>\`).join('')}</div>
-    <button onclick="selectPlan('\${p.name}')" style="width:100%;margin-top:16px;background:\${p.current?'var(--green)':p.popular?'var(--red)':'var(--bg3)'};color:\${p.current||p.popular?'#fff':'var(--ink2)'};border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s" \${p.current?'disabled':''}>\${p.current?'✓ Plano atual':'Escolher este plano'}</button>
+    <div class="plan-features">\${p.features.map(f=>\`<div class="plan-feat"><div class="plan-feat-icon">&check;</div>\${f}</div>\`).join('')}</div>
+    <button onclick="selectPlan('\${p.name}')" style="width:100%;margin-top:16px;background:\${p.current?'var(--green)':p.popular?'var(--red)':'var(--bg3)'};color:\${p.current||p.popular?'#fff':'var(--ink2)'};border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s" \${p.current?'disabled':''}>\${p.current?'&check; Plano atual':'Escolher este plano'}</button>
   </div>\`).join('');
 }
 function selectPlan(name){
@@ -1689,7 +1689,7 @@ function toast(msg,type='ok'){
   const wrap=document.getElementById('toastWrap');
   const t=document.createElement('div');
   t.className='toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
-  t.innerHTML=\`<span>\${type==='ok'?'✓':type==='err'?'✗':'ℹ'}</span><span>\${msg}</span>\`;
+  t.innerHTML=\`<span>\${type==='ok'?'&check;':type==='err'?'&times;':'i'}</span><span>\${msg}</span>\`;
   wrap.appendChild(t);
   setTimeout(()=>{ t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }

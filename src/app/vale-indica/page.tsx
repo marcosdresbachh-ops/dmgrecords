@@ -210,7 +210,7 @@ const valeIndicaHTML = `
 <div class="modal-bg" id="modalBg" style="display:none" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-hero" style="position:relative">
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
       <div class="modal-hero-title">Cadastre seu <em>negócio</em></div>
       <div class="modal-hero-sub">Alcance os ouvintes da DMG Records e moradores do Vale do Sinos. Simples, rápido e acessível.</div>
       <div class="modal-pricing-row">
@@ -339,7 +339,7 @@ const valeIndicaHTML = `
 <div class="modal-bg" id="bizModalBg" style="display:none" onclick="if(event.target===this)closeBizModal()">
   <div class="modal" style="max-width:460px">
     <div style="position:relative">
-      <button class="modal-close" style="position:absolute;top:12px;right:12px;z-index:2" onclick="closeBizModal()">✕</button>
+      <button class="modal-close" style="position:absolute;top:12px;right:12px;z-index:2" onclick="closeBizModal()">&times;</button>
       <div id="bizModalContent"></div>
     </div>
   </div>
@@ -731,7 +731,7 @@ function toast(msg, type='ok'){
   const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
   t.className = 'toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
-  t.innerHTML = `<span>${type==='ok'?'✓':type==='err'?'✕':'ℹ'}</span><span>${msg}</span>`;
+  t.innerHTML = `<span>${type==='ok'?'&check;':type==='err'?'&times;':'i'}</span><span>${msg}</span>`;
   wrap.appendChild(t);
   setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(100%)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }

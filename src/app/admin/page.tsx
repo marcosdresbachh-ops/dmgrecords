@@ -374,7 +374,7 @@ if (typeof window !== 'undefined') {
 }
 `;
 
-const adminHTML = \`
+const adminHTML = `
 <!-- TOASTS -->
 <div class="toast-wrap" id="toastWrap"></div>
 
@@ -950,12 +950,12 @@ const adminHTML = \`
 <!-- MODALS -->
 <div class="modal-bg" id="modalBg" style="display:none" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modalInner">
-    <button class="modal-close" onclick="closeModal()">✕</button>
+    <button class="modal-close" onclick="closeModal()">&times;</button>
     <div class="modal-title" id="modalTitle">Modal</div>
     <div id="modalContent"></div>
   </div>
 </div>
-\`;
+`;
 
 
 export default function AdminPage() {
