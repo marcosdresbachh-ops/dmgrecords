@@ -338,9 +338,9 @@ function updateClock(){
   const h    = now.getHours();
   const m    = now.getMinutes();
   const s    = now.getSeconds();
-  const timeStr = \`\${pad(h)}:\${pad(m)}:\${pad(s)}\`;
-  const dateStr = \`\${DIAS[now.getDay()]} · \${pad(now.getDate())} de \${MESES2[now.getMonth()]} de \${now.getFullYear()}\`;
-  const dateSml = \`\${DIAS[now.getDay()].slice(0,3)} \${pad(now.getDate())}/\${MESES[now.getMonth()]} \${now.getFullYear()}\`;
+  const timeStr = pad(h) + ':' + pad(m) + ':' + pad(s);
+  const dateStr = DIAS[now.getDay()] + ' · ' + pad(now.getDate()) + ' de ' + MESES2[now.getMonth()] + ' de ' + now.getFullYear();
+  const dateSml = DIAS[now.getDay()].slice(0,3) + ' ' + pad(now.getDate()) + '/' + MESES[now.getMonth()] + ' ' + now.getFullYear();
 
   // Header clock
   document.getElementById('hclockTime').textContent = timeStr;
@@ -370,7 +370,7 @@ function updateClock(){
   });
   ['oabCur','pbCurTime'].forEach(id => {
     const el = document.getElementById(id);
-    if(el) el.textContent = \`\${curMin}:\${pad(curSecR)}\`;
+    if(el) el.textContent = curMin + ':' + pad(curSecR);
   });
 }
 
@@ -416,9 +416,9 @@ function goToSlide(idx){
   slides[idx].classList.add('active');
   segs[idx].classList.add('active');
   fills[idx].offsetHeight;
-  fills[idx].style.animation = \`apfill \${AD_DURATION/1000}s linear forwards\`;
+  fills[idx].style.animation = 'apfill ' + (AD_DURATION/1000) + 's linear forwards';
 
-  document.getElementById('adBadge').textContent = \`Anúncio \${idx+1} / \${slides.length}\`;
+  document.getElementById('adBadge').textContent = 'Anúncio ' + (idx+1) + ' / ' + slides.length;
   curSlide = idx;
 }
 
@@ -454,25 +454,25 @@ function buildPlaylist(){
   if (!container) return;
   // Duplica para scroll infinito
   const allItems  = [...playlist, ...playlist];
-  container.innerHTML = allItems.map((t,i)=>\`
-    <div class="pb-item \${t.now && i<playlist.length ?'now':''}">
-      \${t.now && i<playlist.length
-        ? \`<div class="pb-now-icon">▶</div>\`
-        : \`<div class="pb-num">\${(i%playlist.length)+1}</div>\`}
-      <div class="pb-art">\${t.e}</div>
-      <div class="pb-info">
-        <div class="pb-name">\${t.n}</div>
-        <div class="pb-meta">\${t.a} · \${t.g}</div>
-      </div>
-      <div class="pb-dur">\${t.d}</div>
-    </div>
-  \`).join('');
+  container.innerHTML = allItems.map((t,i)=>
+    '<div class="pb-item ' + (t.now && i<playlist.length ?'now':'') + '">' +
+      (t.now && i<playlist.length
+        ? '<div class="pb-now-icon">▶</div>'
+        : '<div class="pb-num">' + ((i%playlist.length)+1) + '</div>') +
+      '<div class="pb-art">' + t.e + '</div>' +
+      '<div class="pb-info">' +
+        '<div class="pb-name">' + t.n + '</div>' +
+        '<div class="pb-meta">' + t.a + ' · ' + t.g + '</div>' +
+      '</div>' +
+      '<div class="pb-dur">' + t.d + '</div>' +
+    '</div>'
+  ).join('');
 
   // Ajusta duração da animação de scroll
   const totalH = container.scrollHeight / 2;
   const speed  = totalH / 40; // 40px/s
-  container.style.animationDuration = \`\${speed}s\`;
-  document.getElementById('pbCount').textContent = \`\${playlist.length} músicas\`;
+  container.style.animationDuration = speed + 's';
+  document.getElementById('pbCount').textContent = playlist.length + ' músicas';
 }
 buildPlaylist();
 
@@ -489,13 +489,13 @@ function buildWave(containerId, count, color, maxH){
     const h = Math.floor(Math.random()*maxH)+4;
     const dur = (0.6+Math.random()*0.8).toFixed(2);
     const delay = (Math.random()*0.6).toFixed(2);
-    b.style.cssText = \`height:\${h}px;background:\${color};animation:wfAnim \${dur}s \${delay}s ease-in-out infinite\`;
+    b.style.cssText = 'height:' + h + 'px;background:' + color + ';animation:wfAnim ' + dur + 's ' + delay + 's ease-in-out infinite';
     c.appendChild(b);
   }
 }
 
 const wfStyle = document.createElement('style');
-wfStyle.textContent = \`@keyframes wfAnim{0%,100%{transform:scaleY(0.4);opacity:0.5}50%{transform:scaleY(1.4);opacity:1}}\`;
+wfStyle.textContent = '@keyframes wfAnim{0%,100%{transform:scaleY(0.4);opacity:0.5}50%{transform:scaleY(1.4);opacity:1}}';
 document.head.appendChild(wfStyle);
 
 buildWave('sideWave', 18, 'var(--green)', 14);
@@ -516,7 +516,7 @@ function togglePlay(){
 function updateListeners(){
   const base = 1200;
   const rand = Math.floor(Math.random()*100);
-  document.getElementById('pbsOuvintes').textContent = \`\${(base+rand).toLocaleString('pt-BR')} ouvintes\`;
+  document.getElementById('pbsOuvintes').textContent = (base+rand).toLocaleString('pt-BR') + ' ouvintes';
 }
 setInterval(updateListeners, 15000);
 
@@ -539,7 +539,7 @@ setTimeout(()=>{
   const h   = now.getHours();
   const m   = now.getMinutes();
   const s   = now.getSeconds();
-  showHoraCerta(\`\${pad(h)}:\${pad(m)}:\${pad(s)}\`, getSaudacao(h));
+  showHoraCerta(pad(h) + ':' + pad(m) + ':' + pad(s), getSaudacao(h));
 }, 3000);
 
 /* ═══════════════════════════════════════════════

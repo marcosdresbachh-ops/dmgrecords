@@ -235,7 +235,7 @@ function updateUIFromAPI(d){
   setText('onairArtist', artistName||d.genero||'Amor FM');
   setText('onairBitrate', (d.plano_bitrate||'128')+'kbps');
   setText('onairProgram', d.titulo||'AMOR FM');
-  if(d.capa_musica) { const cover = document.getElementById('onairCover'); if(cover) cover.innerHTML = \`<img src="\${d.capa_musica}" onerror="this.parentElement.innerHTML='<div class=onair-cover-ph>🎵</div>'">\`; }
+  if(d.capa_musica) { const cover = document.getElementById('onairCover'); if(cover) cover.innerHTML = '<img src="' + d.capa_musica + '" onerror="this.parentElement.innerHTML=\'<div class=onair-cover-ph>🎵</div>\'">'; }
   setText('tx-listeners', d.ouvintes_conectados||'—');
   setText('tx-max', d.plano_ouvintes||'—');
   setText('tx-track', d.musica_atual||'—');
@@ -281,8 +281,8 @@ function buildChart(){
     const b = document.createElement('div');
     b.className = 'ch-bar'+(v===max?' peak':'');
     b.style.height=(v/max*100)+'%';
-    b.title = \`\${String(i).padStart(2,'0')}h: \${v.toLocaleString('pt-BR')} ouvintes\`;
-    b.onclick = ()=>toast(\`\${String(i).padStart(2,'0')}h → \${v.toLocaleString('pt-BR')} ouvintes\`, 'info');
+    b.title = String(i).padStart(2,'0') + 'h: ' + v.toLocaleString('pt-BR') + ' ouvintes';
+    b.onclick = function() { toast(String(i).padStart(2,'0') + 'h → ' + v.toLocaleString('pt-BR') + ' ouvintes', 'info')};
     wrap.appendChild(b);
     const l=document.createElement('span');
     l.textContent = i%4===0?String(i).padStart(2,'0'):'';
@@ -298,15 +298,14 @@ function buildTodaySchedule(){
   const sched = SCHEDULE[today]||SCHEDULE['seg'];
   el.innerHTML = sched.map(s => {
     const isLive = isProgramLive(s.time);
-    return \`
-    <div class="tl-item \${isLive ? 'tl-now' : ''}">
-      <div class="tl-time \${isLive ? 'style="color:var(--red)"' : ''}">\${s.time}</div>
-      <div class="tl-dot \${isLive ? 'live' : ''}"></div>
-      <div class="tl-info">
-        <div class="tl-show \${isLive ? 'style="color:var(--red)"' : ''}">\${s.show}\${isLive ? ' <strong>← AGORA</strong>' : ''}</div>
-        <div class="tl-host">\${s.host} · \${s.genre}</div>
-      </div>
-    </div>\`;
+    return '<div class="tl-item ' + (isLive ? 'tl-now' : '') + '">' +
+      '<div class="tl-time ' + (isLive ? 'style="color:var(--red)"' : '') + '">' + s.time + '</div>' +
+      '<div class="tl-dot ' + (isLive ? 'live' : '') + '"></div>' +
+      '<div class="tl-info">' +
+        '<div class="tl-show ' + (isLive ? 'style="color:var(--red)"' : '') + '">' + s.show + (isLive ? ' <strong>← AGORA</strong>' : '') + '</div>' +
+        '<div class="tl-host">' + s.host + ' · ' + s.genre + '</div>' +
+      '</div>' +
+    '</div>';
   }).join('');
 }
 
@@ -314,13 +313,13 @@ function buildQueue(){
   const el = document.getElementById('queueList');
   if(!el) return;
   const q = STATE.musicQueue.slice(0,7);
-  el.innerHTML = q.map((t,i)=> \`
-    <div class="q-item \${i===0?'now':''}">
-      <div class="q-num">\${i===0?'▶':(i+1)}</div>
-      <div class="q-thumb">\${t.title.substring(0,2).toUpperCase()}</div>
-      <div class="q-info"><div class="q-track">\${t.title}</div><div class="q-artist">\${t.artist}</div></div>
-      <div class="q-dur">\${t.dur}</div>
-    </div>\`).join('');
+  el.innerHTML = q.map((t,i)=> 
+    '<div class="q-item ' + (i===0?'now':'') + '">' +
+      '<div class="q-num">' + (i===0?'▶':(i+1)) + '</div>' +
+      '<div class="q-thumb">' + t.title.substring(0,2).toUpperCase() + '</div>' +
+      '<div class="q-info"><div class="q-track">' + t.title + '</div><div class="q-artist">' + t.artist + '</div></div>' +
+      '<div class="q-dur">' + t.d + '</div>' +
+    '</div>').join('');
 }
 
 let currentDay = 'seg';
@@ -342,18 +341,18 @@ function renderSchedule(day){
   tbody.innerHTML = data.map((s,i)=>{
     const isLive = isToday && isProgramLive(s.time);
     const genreBadge = {Sertanejo:'b-acc','Pop / R&B':'b-blue','Pop/R&B':'b-blue','Pop / Rock':'b-blue',Gospel:'b-purple',Rock:'b-gray',Variado:'b-gray', Bailão: 'b-sert', Românticas: 'b-red', 'Pop Adulto': 'b-blue', 'Clássicos': 'b-purple'}[s.genre]||'b-gray';
-    return \`<tr\${isLive?' style="background:var(--red-light)"':''}>
-      <td style="font-family:'DM Mono',monospace;font-size:.72rem\${isLive?';color:var(--red)':''}">\${s.time}</td>
-      <td style="font-weight:\${isLive?700:600}\${isLive?';color:var(--red)':''}">\${s.show}\${isLive?' <span style="font-size:.66rem">← AGORA</span>':''}</td>
-      <td>\${s.host}</td>
-      <td><span class="badge \${genreBadge}">\${s.genre}</span></td>
-      <td><span class="badge \${s.type==='Auto'?'b-gray':'b-blue'}">\${s.type}</span></td>
-      <td><span class="badge \${isLive?'b-red':'b-green'}">\${isLive?'No Ar':'Ativo'}</span></td>
-      <td><div style="display:flex;gap:4px">
-        <button class="btn btn-ghost btn-xs" onclick="editProgram(\${i},'\${day}')"><i data-lucide="edit-2" style="width:10px;height:10px"></i></button>
-        <button class="btn btn-ghost btn-xs" style="color:var(--red)" onclick="deleteProgram(\${i},'\${day}')"><i data-lucide="trash-2" style="width:10px;height:10px"></i></button>
-      </div></td>
-    </tr>\`;
+    return '<tr' + (isLive?' style="background:var(--red-light)"':'') + '>' +
+      '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem' + (isLive?';color:var(--red)':'') + '">' + s.time + '</td>' +
+      '<td style="font-weight:' + (isLive?700:600) + (isLive?';color:var(--red)':'') + '">' + s.show + (isLive?' <span style="font-size:.66rem">← AGORA</span>':'') + '</td>' +
+      '<td>' + s.host + '</td>' +
+      '<td><span class="badge ' + genreBadge + '">' + s.genre + '</span></td>' +
+      '<td><span class="badge ' + (s.type==='Auto'?'b-gray':'b-blue') + '">' + s.type + '</span></td>' +
+      '<td><span class="badge ' + (isLive?'b-red':'b-green') + '">' + (isLive?'No Ar':'Ativo') + '</span></td>' +
+      '<td><div style="display:flex;gap:4px">' +
+        '<button class="btn btn-ghost btn-xs" onclick="editProgram(' + i + ',\'' + day + '\')"><i data-lucide="edit-2" style="width:10px;height:10px"></i></button>' +
+        '<button class="btn btn-ghost btn-xs" style="color:var(--red)" onclick="deleteProgram(' + i + ',\'' + day + '\')"><i data-lucide="trash-2" style="width:10px;height:10px"></i></button>' +
+      '</div></td>' +
+    '</tr>';
   }).join('');
   if(window.lucide) setTimeout(()=>lucide.createIcons(),50);
 }
@@ -950,7 +949,7 @@ const adminHTML = `
 <!-- MODALS -->
 <div class="modal-bg" id="modalBg" style="display:none" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modalInner">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <button class="modal-close" onclick="closeModal()">×</button>
     <div class="modal-title" id="modalTitle">Modal</div>
     <div id="modalContent"></div>
   </div>

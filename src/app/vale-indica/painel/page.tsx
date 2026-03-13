@@ -188,7 +188,7 @@ const painelHTML = `
       <!-- STEP 4: Sucesso -->
       <div class="fs-step" id="fs-step4">
         <div style="text-align:center;padding:10px 0">
-          <div style="width:60px;height:60px;background:var(--green-bg);border:2px solid rgba(22,163,74,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 16px;animation:popIn .4s ease">✅</div>
+          <div style="width:60px;height:60px;background:var(--green-bg);border:2px solid rgba(22,163,74,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 16px;animation:popIn .4s ease">✓</div>
           <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:8px">Senha redefinida!</div>
           <div style="font-size:.8rem;color:var(--ink3);line-height:1.7;margin-bottom:22px">Sua senha foi alterada com sucesso. Agora você já pode entrar no painel.</div>
           <button class="btn-primary" onclick="showLogin()">Entrar no Painel →</button>
@@ -693,10 +693,10 @@ const painelHTML = `
               Após escolher seu plano, nossa equipe da <strong>DMG Records</strong> entrará em contato pelo WhatsApp para confirmar e enviar a chave PIX.
             </div>
             <div style="display:flex;flex-direction:column;gap:7px;font-size:.78rem">
-              <div style="display:flex;align-items:center;gap:8px"><span>✅</span><span>PIX instantâneo ou TED</span></div>
-              <div style="display:flex;align-items:center;gap:8px"><span>✅</span><span>Ativação em até 24h</span></div>
-              <div style="display:flex;align-items:center;gap:8px"><span>✅</span><span>Sem taxa de cancelamento</span></div>
-              <div style="display:flex;align-items:center;gap:8px"><span>✅</span><span>Suporte via WhatsApp</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span>✓</span><span>PIX instantâneo ou TED</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span>✓</span><span>Ativação em até 24h</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span>✓</span><span>Sem taxa de cancelamento</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span>✓</span><span>Suporte via WhatsApp</span></div>
             </div>
           </div>
           <div style="background:var(--bg3);border-radius:9px;padding:16px;min-width:200px;text-align:center">
@@ -767,7 +767,7 @@ const painelHTML = `
             <div style="display:flex;flex-direction:column;gap:9px">
               <label class="toggle"><input type="checkbox" class="tog-in" checked><div class="tog-tr"></div><span class="tog-lbl">Cobrança mensal</span></label>
               <label class="toggle"><input type="checkbox" class="tog-in" checked><div class="tog-tr"></div><span class="tog-lbl">Relatório semanal</span></label>
-              <label class="toggle"><input type="checkbox" class="tog-in"><div class="tog-tr"></div><span class="tog-lbl">Novidades do portal</span></label>
+              <label class="toggle"><input type="checkbox" class="tog-in"><div class="toggle-tr"></div><span class="tog-lbl">Novidades do portal</span></label>
             </div>
           </div>
         </div>
@@ -962,7 +962,7 @@ const painelHTML = `
             </div>
           </div>
           <div style="background:var(--green-bg);border:1px solid rgba(22,163,74,.15);border-radius:7px;padding:10px 12px;font-size:.72rem;color:var(--ink2);line-height:1.65">
-            ✅ Design <strong>gratuito</strong>. Você aprova antes de publicar. Prazo: <strong>2–3 dias úteis</strong>.
+            ✓ Design <strong>gratuito</strong>. Você aprova antes de publicar. Prazo: <strong>2–3 dias úteis</strong>.
           </div>
         </div>
       </div>
@@ -1008,7 +1008,7 @@ const painelHTML = `
 <!-- ═══ MODAL PREVIEW ═══ -->
 <div class="modal-bg" id="previewModal" style="display:none" onclick="if(event.target===this)closePreviewModal()">
   <div class="modal-box" style="max-width:380px">
-    <button class="modal-close" onclick="closePreviewModal()">&times;</button>
+    <button class="modal-close" onclick="closePreviewModal()">×</button>
     <div class="modal-title">Preview do <em>Anúncio</em></div>
     <div id="fullPreviewCard"></div>
     <div style="margin-top:14px;font-size:.72rem;color:var(--ink3);text-align:center">Assim que os usuários veem seu negócio no portal</div>
@@ -1018,7 +1018,7 @@ const painelHTML = `
 <!-- ═══ MODAL REGISTRO ═══ -->
 <div class="modal-bg" id="registerModal" style="display:none" onclick="if(event.target===this)document.getElementById('registerModal').style.display='none'">
   <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('registerModal').style.display='none'">&times;</button>
+    <button class="modal-close" onclick="document.getElementById('registerModal').style.display='none'">×</button>
     <div class="modal-title">Criar sua <em>conta</em></div>
     <div class="form-row2">
       <div class="form-group"><label class="form-label">Nome completo</label><input class="form-input" id="reg-name" placeholder="Seu nome"></div>
@@ -1031,7 +1031,7 @@ const painelHTML = `
       <div class="form-group"><label class="form-label">Confirmar senha</label><input class="form-input" id="reg-pass2" type="password" placeholder="••••••••"></div>
     </div>
     <div style="background:var(--green-bg);border:1px solid rgba(22,163,74,.2);border-radius:7px;padding:11px 13px;font-size:.76rem;color:var(--ink2);margin-bottom:14px;line-height:1.6">
-      ✅ <strong>R$ 10</strong> de cadastro único + <strong>R$ 2,50/mês</strong> para manter ativo.<br>
+      ✓ <strong>R$ 10</strong> de cadastro único + <strong>R$ 2,50/mês</strong> para manter ativo.<br>
       Nossa equipe entrará em contato via WhatsApp.
     </div>
     <button class="btn-primary" onclick="doRegister()">Criar conta e cadastrar negócio →</button>
@@ -1306,8 +1306,8 @@ function buildMiniChart(){
   if(!el) return;
   const max=Math.max(...data);
   const days=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-  el.innerHTML=data.map((v,i)=> \`<div style="flex:1;background:\${v===max?'var(--red)':'var(--red-light)'};border-radius:3px 3px 0 0;height:\${(v/max*100)}%;min-height:4px;transition:all .3s;cursor:pointer" title="\${days[i]}: \${v} views"></div>\`).join('');
-  if(lbl) lbl.innerHTML=days.map(d=>\`<span>\${d}</span>\`).join('');
+  el.innerHTML=data.map((v,i)=> '<div style="flex:1;background:'+(v===max?'var(--red)':'var(--red-light)')+';border-radius:3px 3px 0 0;height:'+(v/max*100)+'%;min-height:4px;transition:all .3s;cursor:pointer" title="'+days[i]+': '+v+' views"></div>').join('');
+  if(lbl) lbl.innerHTML=days.map(d=>'<span>'+d+'</span>').join('');
 }
 
 function buildRecentActivity(){
@@ -1320,7 +1320,7 @@ function buildRecentActivity(){
     {color:'blue',time:'03/03',msg:'Endereço editado'},
     {color:'green',time:'02/03',msg:'Pagamento confirmado'},
   ];
-  el.innerHTML=items.map(i=>\`<div class="tl-item"><div class="tl-dot \${i.color}"></div><div class="tl-time">\${i.time}</div><div class="tl-msg">\${i.msg}</div></div>\`).join('');
+  el.innerHTML=items.map(i=>'<div class="tl-item"><div class="tl-dot '+i.color+'"></div><div class="tl-time">'+i.time+'</div><div class="tl-msg">'+i.msg+'</div></div>').join('');
 }
 
 /* ══ FOTOS ════════════════════════════════════════ */
@@ -1384,21 +1384,21 @@ function buildPhotoGrid(){
   const count=document.getElementById('photoCount');
   if(count) count.textContent=STATE.photos.length+' / 8 fotos';
   grid.innerHTML=STATE.photos.map((p,i)=>
-    \`<div class="photo-item">
-      <img src="\${p.src}" alt="foto \${i+1}">
-      <button class="photo-del" onclick="removePhoto(\${i})">&times;</button>
-    </div>\`).join('')+
-    (STATE.photos.length<8? \`<div class="photo-item photo-add" onclick="document.getElementById('photosUpload').click()"><span style="font-size:1.3rem">➕</span><span style="font-size:.62rem;color:var(--ink3)">Adicionar</span></div>\`:'');
+    '<div class="photo-item">' +
+      '<img src="' + p.src + '" alt="foto ' + (i+1) + '">' +
+      '<button class="photo-del" onclick="removePhoto(' + i + ')">&times;</button>' +
+    '</div>').join('')+
+    (STATE.photos.length<8? '<div class="photo-item photo-add" onclick="document.getElementById(\'photosUpload\').click()"><span style="font-size:1.3rem">➕</span><span style="font-size:.62rem;color:var(--ink3)">Adicionar</span></div>':'');
 }
 
 /* ══ ICONS & CORES ════════════════════════════════ */
 function buildIconGrid(){
   const grid=document.getElementById('iconGrid');
   if(!grid) return;
-  grid.innerHTML=ICONS.map(ic=>\`
-    <div class="icon-opt\${ic===STATE.selectedIcon?' selected':''}" onclick="selectIcon('\${ic}')">
-      <span style="font-size:1.4rem">\${ic}</span>
-    </div>\`).join('');
+  grid.innerHTML=ICONS.map(ic=>'
+    <div class="icon-opt'+(ic===STATE.selectedIcon?' selected':'')+'" onclick="selectIcon(\''+ic+'\')">' +
+      '<span style="font-size:1.4rem">'+ic+'</span>' +
+    '</div>').join('');
 }
 function selectIcon(ic){
   STATE.selectedIcon=ic;
@@ -1410,8 +1410,8 @@ function selectIcon(ic){
 function buildColorRow(){
   const row=document.getElementById('colorRow');
   if(!row) return;
-  row.innerHTML=COLORS.map(c=>\`
-    <div class="color-opt\${c===STATE.selectedColor?' selected':''}" style="background:\${c};border:2px solid \${c==='#FFFFFF'?'var(--line)':'transparent'}" onclick="selectColor('\${c}')"></div>\`).join('');
+  row.innerHTML=COLORS.map(c=>'
+    <div class="color-opt'+(c===STATE.selectedColor?' selected':'')+'" style="background:'+c+';border:2px solid '+(c==='#FFFFFF'?'var(--line)':'transparent')+'" onclick="selectColor(\''+c+'\')"></div>').join('');
 }
 function selectColor(c){
   STATE.selectedColor=c;
@@ -1436,32 +1436,32 @@ function buildPreviewHTML(){
   const wpp=document.getElementById('biz-wpp')?.value||'';
   const desc=document.getElementById('biz-desc')?.value||'';
   const logoHtml=STATE.logoDataUrl
-    ? \`<img src="\${STATE.logoDataUrl}" style="width:100%;height:100%;object-fit:cover">\`: \`<span style="font-size:1.3rem;background:\${STATE.selectedColor};width:100%;height:100%;display:flex;align-items:center;justify-content:center">\${STATE.selectedIcon}</span>\`;
+    ? '<img src="' + STATE.logoDataUrl + '" style="width:100%;height:100%;object-fit:cover">' : '<span style="font-size:1.3rem;background:' + STATE.selectedColor + ';width:100%;height:100%;display:flex;align-items:center;justify-content:center">' + STATE.selectedIcon + '</span>';
   const destaque=document.getElementById('tog-active')?.checked;
-  return \`
-  <div class="preview-card\${destaque?' destaque':''}">
+  return `
+  <div class="preview-card${destaque?' destaque':''}">
     <div class="preview-banner"></div>
     <div class="preview-body">
       <div class="preview-top">
-        <div class="preview-logo" style="background:\${STATE.selectedColor}">\${logoHtml}</div>
+        <div class="preview-logo" style="background:${STATE.selectedColor}">${logoHtml}</div>
         <div>
-          <div class="preview-name">\${name}</div>
-          <div class="preview-cat" style="background:var(--red-light);color:var(--red)">\${STATE.selectedIcon} \${getCatLabel()}</div>
-          <div class="preview-city">📍 \${neighborhood}, \${cityLabel}</div>
+          <div class="preview-name">${name}</div>
+          <div class="preview-cat" style="background:var(--red-light);color:var(--red)">${STATE.selectedIcon} ${getCatLabel()}</div>
+          <div class="preview-city">📍 ${neighborhood}, ${cityLabel}</div>
         </div>
       </div>
-      \${desc?\`<div class="preview-desc">\${desc.substring(0,90)}\${desc.length>90?'…':''}</div>\`:''}
+      ${desc?'<div class="preview-desc">'+desc.substring(0,90)+(desc.length>90?'…':'')+'</div>':''}
       <div class="preview-contacts">
-        <div class="preview-contact"><div class="preview-contact-icon">📍</div><span>\${address}</span></div>
-        <div class="preview-contact"><div class="preview-contact-icon">📞</div><span>\${phone}</span></div>
+        <div class="preview-contact"><div class="preview-contact-icon">📍</div><span>${address}</span></div>
+        <div class="preview-contact"><div class="preview-contact-icon">📞</div><span>${phone}</span></div>
       </div>
       <div class="preview-btns">
-        \${wpp?\`<button class="preview-btn" style="background:#25D366;color:#fff">💬 WhatsApp</button>\`:''}
+        ${wpp?'<button class="preview-btn" style="background:#25D366;color:#fff">💬 WhatsApp</button>':''}
         <button class="preview-btn" style="background:var(--bg3);color:var(--ink2)">📞 Ligar</button>
         <button class="preview-btn" style="background:var(--blue);color:#fff;flex:none;padding:7px 11px">🗺️</button>
       </div>
     </div>
-  </div>\`;
+  </div>`;
 }
 
 function getCatLabel(){
@@ -1480,23 +1480,23 @@ function closePreviewModal(){ document.getElementById('previewModal').style.disp
 function buildHoursGrid(){
   const grid=document.getElementById('hoursGrid');
   if(!grid) return;
-  grid.innerHTML=\`<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px">\${Object.entries(STATE.hours).map(([day,data])=>\`
-    <div>
-      <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-align:center;color:var(--ink3);text-transform:uppercase;padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:7px">\${DAYS_LABEL[day]}</div>
-      <div style="display:flex;justify-content:center;margin-bottom:8px">
-        <label class="toggle" style="justify-content:center">
-          <input type="checkbox" class="tog-in" \${data.active?'checked':''} onchange="toggleDay('\${day}',this)">
-          <div class="tog-tr"></div>
-        </label>
-      </div>
-      <div id="day-inputs-\${day}" style="display:\${data.active?'flex':'none'};flex-direction:column;gap:5px">
-        <input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="\${data.open}" onchange="updateHour('\${day}','open',this.value)">
-        <div style="text-align:center;font-size:.6rem;color:var(--ink3)">às</div>
-        <input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="\${data.close}" onchange="updateHour('\${day}','close',this.value)">
-      </div>
-      \${!data.active?\`<div style="text-align:center;font-size:.62rem;color:var(--ink3);padding:6px 0">Fechado</div>\`:''}
-    </div>\`).join('')}
-  </div>\`;
+  grid.innerHTML='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px">' + Object.entries(STATE.hours).map(([day,data])=>
+    '<div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:.58rem;letter-spacing:.08em;text-align:center;color:var(--ink3);text-transform:uppercase;padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:7px">' + DAYS_LABEL[day] + '</div>' +
+      '<div style="display:flex;justify-content:center;margin-bottom:8px">' +
+        '<label class="toggle" style="justify-content:center">' +
+          '<input type="checkbox" class="tog-in" '+(data.active?'checked':'')+' onchange="toggleDay(\''+day+'\',this)">' +
+          '<div class="tog-tr"></div>' +
+        '</label>' +
+      '</div>' +
+      '<div id="day-inputs-'+day+'" style="display:'+(data.active?'flex':'none')+';flex-direction:column;gap:5px">' +
+        '<input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="'+data.open+'" onchange="updateHour(\''+day+'\',\'open\',this.value)">' +
+        '<div style="text-align:center;font-size:.6rem;color:var(--ink3)">às</div>' +
+        '<input type="time" class="form-input" style="padding:5px 6px;font-size:.68rem;text-align:center" value="'+data.close+'" onchange="updateHour(\''+day+'\',\'close\',this.value)">' +
+      '</div>' +
+      (!data.active?'<div style="text-align:center;font-size:.62rem;color:var(--ink3);padding:6px 0">Fechado</div>':'') +
+    '</div>').join('') +
+  '</div>';
   buildHoursPreview();
 }
 
@@ -1521,8 +1521,8 @@ function buildHoursPreview(){
   const el=document.getElementById('hoursPreview');
   if(!el) return;
   const lines=Object.entries(STATE.hours).map(([d,data])=>{
-    if(!data.active) return \`<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">\${DAYS_LABEL[d]}</span><span style="color:var(--ink3)">Fechado</span></div>\`;
-    return \`<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">\${DAYS_LABEL[d]}</span><span>\${data.open}–\${data.close}</span></div>\`;
+    if(!data.active) return '<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">'+DAYS_LABEL[d]+'</span><span style="color:var(--ink3)">Fechado</span></div>';
+    return '<div style="display:flex;gap:8px"><span style="font-weight:700;min-width:40px">'+DAYS_LABEL[d]+'</span><span>'+data.open+'–'+data.close+'</span></div>';
   });
   el.innerHTML=lines.join('');
 }
@@ -1537,43 +1537,43 @@ function buildPlans(){
     {icon:'🏆',name:'Premium Plus',price:'30,00',period:'/mês',cadastro:'+ R$ 10 cadastro único',desc:'Máxima visibilidade: spot na rádio DMG Records + destaque.',features:['Tudo do Premium','Spot na rádio DMG Records','Banner no portal','Prioridade máxima','Suporte preferencial'],current:false,popular:false,badge:'Máximo'},
   ];
   grid.innerHTML=plans.map((p,i)=>
-  \`<div class="plan-card\${p.current?' current':p.popular?' popular':''}">
-    \${p.badge?\`<div class="plan-badge"><span class="badge \${p.current?'b-green':p.popular?'b-acc':'b-gray'}">\${p.badge}</span></div>\`:''}
-    <div class="plan-icon">\${p.icon}</div>
-    <div class="plan-name">\${p.name}</div>
-    <div class="plan-price"><span class="cur">R$ </span>\${p.price}<span class="period">\${p.period}</span></div>
-    <div style="font-size:.66rem;color:var(--ink3);margin-bottom:8px">\${p.cadastro}</div>
-    <div class="plan-desc">\${p.desc}</div>
-    <div class="plan-features">\${p.features.map(f=>\`<div class="plan-feat"><div class="plan-feat-icon">&check;</div>\${f}</div>\`).join('')}</div>
-    <button onclick="selectPlan('\${p.name}')" style="width:100%;margin-top:16px;background:\${p.current?'var(--green)':p.popular?'var(--red)':'var(--bg3)'};color:\${p.current||p.popular?'#fff':'var(--ink2)'};border:none;border-radius:8px;padding:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s" \${p.current?'disabled':''}>\${p.current?'&check; Plano atual':'Escolher este plano'}</button>
-  </div>\`).join('');
+  '<div class="plan-card'+(p.current?' current':p.popular?' popular':'')+'">'+
+    (p.badge?'<div class="plan-badge"><span class="badge '+(p.current?'b-green':p.popular?'b-acc':'b-gray')+'">'+p.badge+'</span></div>':'') +
+    '<div class="plan-icon">'+p.icon+'</div>' +
+    '<div class="plan-name">'+p.name+'</div>' +
+    '<div class="plan-price"><span class="cur">R$ </span>'+p.price+'<span class="period">'+p.period+'</span></div>' +
+    '<div style="font-size:.66rem;color:var(--ink3);margin-bottom:8px">'+p.cadastro+'</div>' +
+    '<div class="plan-desc">'+p.desc+'</div>' +
+    '<div class="plan-features">'+p.features.map(f=>'<div class="plan-feat"><div class="plan-feat-icon">&check;</div>'+f+'</div>').join('')+'</div>' +
+    '<button onclick="selectPlan(\''+p.name+'\')" style="width:100%;margin-top:16px;background:'+(p.current?'var(--green)':p.popular?'var(--red)':'var(--bg3)')+';color:'+(p.current||p.popular?'#fff':'var(--ink2)')+';border:none;border-radius:8px;padding:11px;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s" '+(p.current?'disabled':'')+'>'+(p.current?'&check; Plano atual':'Escolher este plano')+'</button>' +
+  '</div>').join('');
 }
 function selectPlan(name){
   toast('Solicitação enviada! A DMG Records entrará em contato.','ok');
-  openWppDMG(\`Olá! Quero fazer upgrade para o plano "\${name}" no Vale Indica. Meu negócio: \${STATE.user?.biz||'—'}\`);
+  openWppDMG('Olá! Quero fazer upgrade para o plano "'+name+'" no Vale Indica. Meu negócio: '+(STATE.user?.biz||'—'));
 }
 function openWppDMG(msg){
-  const txt=msg||\`Olá! Sou lojista do Vale Indica (\${STATE.user?.biz||''}) e preciso de ajuda.\`;
-  window.open(\`https://wa.me/5551981446019?text=\${encodeURIComponent(txt)}\`,'_blank');
+  const txt=msg||'Olá! Sou lojista do Vale Indica ('+(STATE.user?.biz||'')+') e preciso de ajuda.';
+  window.open('https://wa.me/5551981446019?text='+encodeURIComponent(txt),'_blank');
 }
 
 /* ══ HISTÓRICO ════════════════════════════════════ */
 function buildHistorico(){
   const el=document.getElementById('historicoList');
   if(!el) return;
-  el.innerHTML=HISTORICO.map(h=>\`
-  <div class="tl-item">
-    <div class="tl-dot \${h.type}"></div>
-    <div class="tl-time">\${h.date}</div>
-    <div class="tl-msg">
-      <strong>\${h.title}</strong><br>
-      <span style="color:var(--ink3)">\${h.desc}</span>
-    </div>
-    <div style="font-family:'DM Mono',monospace;font-size:.7rem;font-weight:600;color:\${h.type==='green'?'var(--green)':'var(--ink3)'};white-space:nowrap">\${h.amount}</div>
-  </div>\`).join('');
+  el.innerHTML=HISTORICO.map(h=>'
+  <div class="tl-item">' +
+    '<div class="tl-dot '+h.type+'"></div>' +
+    '<div class="tl-time">'+h.date+'</div>' +
+    '<div class="tl-msg">' +
+      '<strong>'+h.title+'</strong><br>' +
+      '<span style="color:var(--ink3)">'+h.desc+'</span>' +
+    '</div>' +
+    '<div style="font-family:\'DM Mono\',monospace;font-size:.7rem;font-weight:600;color:'+(h.type==='green'?'var(--green)':'var(--ink3)')+';white-space:nowrap">'+h.amount+'</div>' +
+  '</div>').join('');
 }
 function exportHistorico(){
-  const csv='Data,Tipo,Descrição,Valor\\n'+HISTORICO.map(h=>\`\${h.date},"\${h.title}","\${h.desc}","\${h.amount}"\`).join('\\n');
+  const csv='Data,Tipo,Descrição,Valor\\n'+HISTORICO.map(h=>h.date+',"'+h.title+'","'+h.desc+'","'+h.amount+'"').join('\\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='historico-vale-indica.csv';a.click();
   toast('CSV exportado!','ok');
 }
@@ -1584,32 +1584,32 @@ function buildBigChart(){
   if(!el) return;
   const data=[28,35,42,38,55,49,52,48,62,58,71,65,78,72,68,80,74,85,79,88,82,91,87,95,89,98,92,87,82,77];
   const max=Math.max(...data);
-  el.innerHTML=data.map((v,i)=> \`<div style="flex:1;background:\${v===max?'var(--red)':'var(--red-light)'};border-radius:2px 2px 0 0;height:\${(v/max*100)}%;min-height:3px;transition:all .3s;cursor:pointer" title="Dia \${i+1}: \${v} views"></div>\`).join('');
+  el.innerHTML=data.map((v,i)=> '<div style="flex:1;background:'+(v===max?'var(--red)':'var(--red-light)')+';border-radius:2px 2px 0 0;height:'+(v/max*100)+'%;min-height:3px;transition:all .3s;cursor:pointer" title="Dia '+(i+1)+': '+v+' views"></div>').join('');
 }
 function buildPeakHours(){
   const el=document.getElementById('peakHours');
   if(!el) return;
   const hours=[{h:'08h–10h',v:12},{h:'10h–12h',v:28},{h:'12h–14h',v:45},{h:'14h–16h',v:38},{h:'16h–18h',v:52},{h:'18h–20h',v:41},{h:'20h–22h',v:19}];
   const max=Math.max(...hours.map(h=>h.v));
-  el.innerHTML=hours.map(h=>\`
-  <div style="margin-bottom:8px">
-    <div style="display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:3px">
-      <span style="font-weight:600">\${h.h}</span><span style="color:var(--ink3)">\${h.v} views</span>
-    </div>
-    <div class="pbar" style="height:6px"><div class="pbar-fill" style="width:\${(h.v/max*100)}%;background:\${h.v===max?'var(--red)':'var(--blue)'}"></div></div>
-  </div>\`).join('');
+  el.innerHTML=hours.map(h=>'
+  <div style="margin-bottom:8px">' +
+    '<div style="display:flex;justify-content:space-between;font-size:.76rem;margin-bottom:3px">' +
+      '<span style="font-weight:600">'+h.h+'</span><span style="color:var(--ink3)">'+h.v+' views</span>' +
+    '</div>' +
+    '<div class="pbar" style="height:6px"><div class="pbar-fill" style="width:'+(h.v/max*100)+'%;background:'+(h.v===max?'var(--red)':'var(--blue)')+'"></div></div>' +
+  '</div>').join('');
 }
 function buildOriginsChart(){
   const el=document.getElementById('originsChart');
   if(!el) return;
   const origins=[{name:'Taquara',v:68},{name:'Rolante',v:14},{name:'Três Coroas',v:9},{name:'Outros',v:9}];
-  el.innerHTML=origins.map(o=>\`
-  <div style="margin-bottom:9px">
-    <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px">
-      <span style="font-weight:600">📍 \${o.name}</span><span>\${o.v}%</span>
-    </div>
-    <div class="pbar" style="height:6px"><div class="pbar-fill" style="width:\${o.v}%;background:var(--red)"></div></div>
-  </div>\`).join('');
+  el.innerHTML=origins.map(o=>'
+  <div style="margin-bottom:9px">' +
+    '<div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px">' +
+      '<span style="font-weight:600">📍 '+o.name+'</span><span>'+o.v+'%</span>' +
+    '</div>' +
+    '<div class="pbar" style="height:6px"><div class="pbar-fill" style="width:'+o.v+'%;background:var(--red)"></div></div>' +
+  '</div>').join('');
 }
 
 /* ══ CONTA ════════════════════════════════════════ */
@@ -1620,8 +1620,8 @@ function previewAvatar(input){
   reader.onload=e=>{
     const av=document.getElementById('contaAvatar');
     const tbAv=document.getElementById('topbarAvatar');
-    if(av){av.style.background='none';av.innerHTML=\`<img src="\${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">\`;}
-    if(tbAv){tbAv.style.background='none';tbAv.innerHTML=\`<img src="\${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">\`;}
+    if(av){av.style.background='none';av.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}
+    if(tbAv){tbAv.style.background='none';tbAv.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}
     toast('Foto de perfil atualizada!','ok');
   };
   reader.readAsDataURL(file);
@@ -1639,9 +1639,9 @@ function checkPassStrength(pass){
   if(/[^A-Za-z0-9]/.test(pass)) score++;
   const levels=[{label:'Muito fraca',color:'var(--red)'},{label:'Fraca',color:'var(--red)'},{label:'Regular',color:'var(--accent)'},{label:'Boa',color:'var(--accent)'},{label:'Forte',color:'var(--green)'}];
   const lvl=levels[Math.min(score,4)];
-  el.innerHTML=\`<div style="display:flex;gap:3px;align-items:center;margin-top:3px">\${[0,1,2,3,4].map(i=>\`<div style="height:3px;flex:1;border-radius:2px;background:\${i<score?lvl.color:'var(--line)'}"></div>\`).join('')}
-    <span style="font-size:.62rem;color:\${lvl.color};margin-left:6px;font-weight:600">\${lvl.label}</span>
-  </div>\`;
+  el.innerHTML='<div style="display:flex;gap:3px;align-items:center;margin-top:3px">' + [0,1,2,3,4].map(i=>'<div style="height:3px;flex:1;border-radius:2px;background:'+(i<score?lvl.color:'var(--line)')+'"></div>').join('') +
+    '<span style="font-size:.62rem;color:'+lvl.color+';margin-left:6px;font-weight:600">'+lvl.label+'</span>' +
+  '</div>';
 }
 function changeContaPass(){
   const old=document.getElementById('conta-old-pass').value;
@@ -1689,7 +1689,7 @@ function toast(msg,type='ok'){
   const wrap=document.getElementById('toastWrap');
   const t=document.createElement('div');
   t.className='toast'+(type==='err'?' err':type==='warn'||type==='info'?' info':'');
-  t.innerHTML=\`<span>\${type==='ok'?'&check;':type==='err'?'&times;':'i'}</span><span>\${msg}</span>\`;
+  t.innerHTML='<span>' + (type==='ok'?'&check;':type==='err'?'&times;':'i') + '</span><span>' + msg + '</span>';
   wrap.appendChild(t);
   setTimeout(()=>{ t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3500);
 }
@@ -1740,16 +1740,16 @@ let radioPayMethod = 'pix';
 function buildRadioFormatos(){
   const el = document.getElementById('radioFormatos');
   if(!el) return;
-  el.innerHTML = RADIO_FORMATOS.map(f=>\`
-    <div class="formato-card\${radioSelectedFormato===f.id?' selected':''}\${f.featured?' featured':''}" onclick="selectRadioFormato('\${f.id}')">
-      \${f.featured?'<span class="fc-badge badge b-acc">⭐ Mais pedido</span>':''}
-      <div class="fc-icon">\${f.icon}</div>
-      <div class="fc-name">\${f.name}</div>
-      <div class="fc-desc">\${f.desc}</div>
-      <div class="fc-price"><span class="cur">R$</span>\${f.price}</div>
-      <div class="fc-per">\${f.period} · \${f.insertions}</div>
-      <div class="fc-feats">\${f.feats.map(ft=>\`<div class="fc-feat">\${ft}</div>\`).join('')}</div>
-    </div>\`).join('');
+  el.innerHTML = RADIO_FORMATOS.map(f=>'
+    <div class="formato-card'+(radioSelectedFormato===f.id?' selected':'')+(f.featured?' featured':'')+'" onclick="selectRadioFormato(\''+f.id+'\')">'+
+      (f.featured?'<span class="fc-badge badge b-acc">⭐ Mais pedido</span>':'') +
+      '<div class="fc-icon">'+f.icon+'</div>' +
+      '<div class="fc-name">'+f.name+'</div>' +
+      '<div class="fc-desc">'+f.desc+'</div>' +
+      '<div class="fc-price"><span class="cur">R$</span>'+f.price+'</div>' +
+      '<div class="fc-per">'+f.period+' · '+f.insertions+'</div>' +
+      '<div class="fc-feats">'+f.feats.map(ft=>'<div class="fc-feat">'+ft+'</div>').join('')+'</div>' +
+    '</div>').join('');
 }
 
 function selectRadioFormato(id){
@@ -1775,11 +1775,11 @@ function updateRadioResumo(){
   const disc = periodo===3?5:periodo===6?10:periodo===12?20:0;
   const priceTotal = Math.round(f.price*(1-disc/100));
   const totalGeral = priceTotal*periodo;
-  el.innerHTML=\`
-    <div class="sum-row"><span>\${f.name}</span><span>R$ \${f.price}/mês</span></div>
-    \${disc?\`<div class="sum-row"><span>Desconto \${periodo} meses</span><span class="sum-val-green">-\${disc}%</span></div>\`:''}
-    <div class="sum-row"><span>Valor mensal</span><span class="sum-val-red">R$ \${priceTotal}/mês</span></div>
-    <div class="sum-row"><span>Total \${periodo} \${periodo===1?'mês':'meses'}</span><span style="font-family:'Fraunces',serif;font-weight:700">R$ \${totalGeral}</span></div>\`;
+  el.innerHTML=`
+    <div class="sum-row"><span>${f.name}</span><span>R$ ${f.price}/mês</span></div>
+    ${disc?'<div class="sum-row"><span>Desconto '+periodo+' meses</span><span class="sum-val-green">-'+disc+'%</span></div>':''}
+    <div class="sum-row"><span>Valor mensal</span><span class="sum-val-red">R$ ${priceTotal}/mês</span></div>
+    <div class="sum-row"><span>Total ${periodo} ${periodo===1?'mês':'meses'}</span><span style="font-family:'Fraunces',serif;font-weight:700">R$ ${totalGeral}</span></div>`;
 }
 
 function countRadioScript(el){
@@ -1824,16 +1824,16 @@ let sitePayMethod = 'pix';
 function buildSiteSlots(){
   const el = document.getElementById('siteSlots');
   if(!el) return;
-  el.innerHTML = SITE_SLOTS.map(s=>\`
-    <div class="slot-card\${siteSelectedSlot===s.id?' selected':''}\${!s.avail?' unavail':''}" onclick="\${s.avail?\`selectSiteSlot('\${s.id}')\`:\`\`}">
-      <div class="slot-pos">\${s.pos}</div>
-      <div class="slot-name">\${s.name}</div>
-      <div class="slot-desc">\${s.desc}</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px">
-        <span class="badge \${s.bclass}">\${s.badge}</span>
-        <span class="slot-price">\${s.avail?'R$ '+s.price+'/mês':'—'}</span>
-      </div>
-    </div>\`).join('');
+  el.innerHTML = SITE_SLOTS.map(s=>'
+    <div class="slot-card'+(siteSelectedSlot===s.id?' selected':'')+(s.avail?'':' unavail')+'" onclick="'+(s.avail?'selectSiteSlot(\''+s.id+'\')':'')+'">'+
+      '<div class="slot-pos">'+s.pos+'</div>' +
+      '<div class="slot-name">'+s.name+'</div>' +
+      '<div class="slot-desc">'+s.desc+'</div>' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px">' +
+        '<span class="badge '+s.bclass+'">'+s.badge+'</span>' +
+        '<span class="slot-price">'+(s.avail?'R$ '+s.price+'/mês':'—')+'</span>' +
+      '</div>' +
+    '</div>').join('');
 }
 
 function selectSiteSlot(id){
@@ -1868,11 +1868,11 @@ function updateSiteResumo(){
   const disc = periodo===3?5:periodo===6?10:periodo===12?20:0;
   const priceTotal = Math.round(slot.price*(1-disc/100));
   const totalGeral = priceTotal*periodo;
-  el.innerHTML=\`
-    <div class="sum-row"><span>\${slot.name}</span><span>R$ \${slot.price}/mês</span></div>
-    \${disc?\`<div class="sum-row"><span>Desconto \${periodo} meses</span><span class="sum-val-green">-\${disc}%</span></div>\`:''}
-    <div class="sum-row"><span>Valor mensal</span><span class="sum-val-red">R$ \${priceTotal}/mês</span></div>
-    <div class="sum-row"><span>Total \${periodo} \${periodo===1?'mês':'meses'}</span><span style="font-family:'Fraunces',serif;font-weight:700">R$ \${totalGeral}</span></div>\`;
+  el.innerHTML=`
+    <div class="sum-row"><span>${slot.name}</span><span>R$ ${slot.price}/mês</span></div>
+    ${disc?'<div class="sum-row"><span>Desconto '+periodo+' meses</span><span class="sum-val-green">-'+disc+'%</span></div>':''}
+    <div class="sum-row"><span>Valor mensal</span><span class="sum-val-red">R$ ${priceTotal}/mês</span></div>
+    <div class="sum-row"><span>Total ${periodo} ${periodo===1?'mês':'meses'}</span><span style="font-family:'Fraunces',serif;font-weight:700">R$ ${totalGeral}</span></div>`;
 }
 
 function previewSiteLogo(input){
@@ -1880,7 +1880,7 @@ function previewSiteLogo(input){
   const reader=new FileReader();
   reader.onload=e=>{
     const el=document.getElementById('site-logo-preview');
-    if(el) el.innerHTML=\`<img src="\${e.target.result}" style="max-height:50px;max-width:100%;border-radius:4px">\`;
+    if(el) el.innerHTML='<img src="'+e.target.result+'" style="max-height:50px;max-width:100%;border-radius:4px">';
     toast('Logo carregada!','ok');
   };
   reader.readAsDataURL(file);
@@ -1924,52 +1924,52 @@ function renderCheckoutInline(container, type, method, price){
 
   let payArea='';
   if(method==='pix'){
-    payArea=\`<div class="pix-box">
-      <div style="font-size:.8rem;color:var(--ink2);margin-bottom:10px;line-height:1.65">Após confirmar, enviaremos a chave PIX via WhatsApp. Confirmação em até <strong>30 minutos</strong>.</div>
-      <div style="font-size:.72rem;color:var(--ink3);margin-bottom:4px">Chave PIX (CNPJ)</div>
-      <div class="pix-key-row"><span>00.000.000/0001-99 · DMG Records</span><button class="pix-copy-btn" onclick="copyPixKey()">Copiar</button></div>
-      <div style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;color:var(--ink)">R$ \${price},00</div>
-      <div style="font-size:.66rem;color:var(--ink3);margin-top:3px">Valor mensal</div>
-    </div>\`;
+    payArea='<div class="pix-box">' +
+      '<div style="font-size:.8rem;color:var(--ink2);margin-bottom:10px;line-height:1.65">Após confirmar, enviaremos a chave PIX via WhatsApp. Confirmação em até <strong>30 minutos</strong>.</div>' +
+      '<div style="font-size:.72rem;color:var(--ink3);margin-bottom:4px">Chave PIX (CNPJ)</div>' +
+      '<div class="pix-key-row"><span>00.000.000/0001-99 · DMG Records</span><button class="pix-copy-btn" onclick="copyPixKey()">Copiar</button></div>' +
+      '<div style="font-family:\'Fraunces\',serif;font-size:1.6rem;font-weight:900;color:var(--ink)">R$ '+price+',00</div>' +
+      '<div style="font-size:.66rem;color:var(--ink3);margin-top:3px">Valor mensal</div>' +
+    '</div>';
   } else if(method==='boleto'){
-    payArea=\`<div class="pix-box">
-      <div style="font-size:.8rem;color:var(--ink2);margin-bottom:10px;line-height:1.65">Boleto gerado após confirmação. Prazo: <strong>3 dias úteis</strong>.</div>
-      <div class="pix-key-row"><span style="font-size:.66rem">00000.00000 00000.000000 00000.000000 0 00000000000000</span><button class="pix-copy-btn" onclick="copyPixKey()">Copiar</button></div>
-      <div style="font-size:.7rem;color:var(--ink3);margin-top:8px">⚠️ Ativação após compensação (1–2 dias úteis)</div>
-    </div>\`;
+    payArea='<div class="pix-box">' +
+      '<div style="font-size:.8rem;color:var(--ink2);margin-bottom:10px;line-height:1.65">Boleto gerado após confirmação. Prazo: <strong>3 dias úteis</strong>.</div>' +
+      '<div class="pix-key-row"><span style="font-size:.66rem">00000.00000 00000.000000 00000.000000 0 00000000000000</span><button class="pix-copy-btn" onclick="copyPixKey()">Copiar</button></div>' +
+      '<div style="font-size:.7rem;color:var(--ink3);margin-top:8px">⚠️ Ativação após compensação (1–2 dias úteis)</div>' +
+    '</div>';
   } else if(method==='cartao'){
-    payArea=\`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div class="form-group"><label class="form-label" style="font-size:.7rem">Número do cartão</label><input class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value=this.value.replace(/\\D/g,'').replace(/(.{4})/g,'$1 ').trim().substring(0,19)"></div>
-      <div class="form-group"><label class="form-label" style="font-size:.7rem">Nome no cartão</label><input class="form-input" placeholder="NOME SOBRENOME" style="text-transform:uppercase"></div>
-      <div class="form-group"><label class="form-label" style="font-size:.7rem">Validade</label><input class="form-input" placeholder="MM/AA" maxlength="5"></div>
-      <div class="form-group"><label class="form-label" style="font-size:.7rem">CVV</label><input class="form-input" placeholder="000" maxlength="4"></div>
-    </div>
-    <div class="form-group"><label class="form-label" style="font-size:.7rem">Parcelas</label>
-      <select class="form-select"><option>1x de R$ \${price},00 (sem juros)</option><option>2x de R$ \${(price/2).toFixed(2)}</option><option>3x de R$ \${(price/3).toFixed(2)}</option></select>
-    </div>\`;
+    payArea='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">' +
+      '<div class="form-group"><label class="form-label" style="font-size:.7rem">Número do cartão</label><input class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value=this.value.replace(/\\D/g,\'\').replace(/(.{4})/g,\'$1 \').trim().substring(0,19)"></div>' +
+      '<div class="form-group"><label class="form-label" style="font-size:.7rem">Nome no cartão</label><input class="form-input" placeholder="NOME SOBRENOME" style="text-transform:uppercase"></div>' +
+      '<div class="form-group"><label class="form-label" style="font-size:.7rem">Validade</label><input class="form-input" placeholder="MM/AA" maxlength="5"></div>' +
+      '<div class="form-group"><label class="form-label" style="font-size:.7rem">CVV</label><input class="form-input" placeholder="000" maxlength="4"></div>' +
+    '</div>' +
+    '<div class="form-group"><label class="form-label" style="font-size:.7rem">Parcelas</label>' +
+      '<select class="form-select"><option>1x de R$ '+price+',00 (sem juros)</option><option>2x de R$ '+(price/2).toFixed(2)+'</option><option>3x de R$ '+(price/3).toFixed(2)+'</option></select>' +
+    '</div>';
   } else if(method==='wpp'){
-    payArea=\`<div class="pix-box">
-      <div style="font-size:1.8rem;margin-bottom:8px">💬</div>
-      <div style="font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:6px">Finalizar pelo WhatsApp</div>
-      <div style="font-size:.76rem;color:var(--ink3);line-height:1.65;margin-bottom:10px">Clique em "Confirmar" e abriremos o WhatsApp da DMG com seu pedido preenchido automaticamente.</div>
-      <div style="font-size:.72rem;color:var(--ink3)">📞 (51) 98144-6019 · DMG Records Comercial</div>
-    </div>\`;
+    payArea='<div class="pix-box">' +
+      '<div style="font-size:1.8rem;margin-bottom:8px">💬</div>' +
+      '<div style="font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:6px">Finalizar pelo WhatsApp</div>' +
+      '<div style="font-size:.76rem;color:var(--ink3);line-height:1.65;margin-bottom:10px">Clique em "Confirmar" e abriremos o WhatsApp da DMG com seu pedido preenchido automaticamente.</div>' +
+      '<div style="font-size:.72rem;color:var(--ink3)">📞 (51) 98144-6019 · DMG Records Comercial</div>' +
+    '</div>';
   }
 
-  container.innerHTML=\`
+  container.innerHTML=`
     <div class="ck-inline">
       <div class="ck-inline-title">Forma de pagamento</div>
       <div class="pay-methods-row">
-        \${methods.map(m=>\`<div class="pay-meth\${method===m.id?' active':''}" onclick="selectInlinePayment('\${type}','\${m.id}',\${price})"><div class="pay-meth-icon">\${m.icon}</div><div class="pay-meth-label">\${m.label}</div></div>\`).join('')}
+        ${methods.map(m=>'<div class="pay-meth'+(method===m.id?' active':'')+'" onclick="selectInlinePayment(\''+type+'\',\''+m.id+'\','+price+')"><div class="pay-meth-icon">'+m.icon+'</div><div class="pay-meth-label">'+m.label+'</div></div>').join('')}
       </div>
-      \${payArea}
+      ${payArea}
     </div>
     <div style="background:var(--green-bg);border:1px solid rgba(22,163,74,.15);border-radius:8px;padding:11px 13px;font-size:.72rem;color:var(--ink2);line-height:1.65;margin-bottom:14px">
-      ✅ Ao confirmar, nossa equipe entrará em contato pelo WhatsApp em até <strong>24h</strong> para iniciar a produção e confirmar o pagamento.
+      ✓ Ao confirmar, nossa equipe entrará em contato pelo WhatsApp em até <strong>24h</strong> para iniciar a produção e confirmar o pagamento.
     </div>
-    <button class="btn btn-red" style="width:100%" onclick="confirmarPedido('\${type}')">
-      \${type==='radio'?'🎙️':'🖥️'} Confirmar Pedido
-    </button>\`;
+    <button class="btn btn-red" style="width:100%" onclick="confirmarPedido('${type}')">
+      ${type==='radio'?'🎙️':'🖥️'} Confirmar Pedido
+    </button>`;
 }
 
 function selectInlinePayment(type,method,price){
@@ -1993,15 +1993,15 @@ function confirmarPedido(type){
   if(isWpp){
     const nome = document.getElementById('radio-nome')?.value||STATE.user?.biz||'Lojista';
     const formato = type==='radio'?(RADIO_FORMATOS.find(f=>f.id===radioSelectedFormato)?.name||'Spot'):(SITE_SLOTS.find(s=>s.id===siteSelectedSlot)?.name||'Banner');
-    const msg=\`Olá DMG Records! Quero contratar:\\n*Produto:* \${type==='radio'?'Spot/Vinheta Rádio':'Espaço no Site'}\\n*Formato:* \${formato}\\n*Empresa:* \${nome}\\n*Responsável:* \${STATE.user?.name||'—'}\\nAguardo contato! 🎙️\`;
-    window.open(\`https://wa.me/5551981446019?text=\${encodeURIComponent(msg)}\`,'_blank');
+    const msg='Olá DMG Records! Quero contratar:\\n*Produto:* '+(type==='radio'?'Spot/Vinheta Rádio':'Espaço no Site')+'\\n*Formato:* '+formato+'\\n*Empresa:* '+nome+'\\n*Responsável:* '+(STATE.user?.name||'—')+'\\nAguardo contato! 🎙️';
+    window.open('https://wa.me/5551981446019?text='+encodeURIComponent(msg),'_blank');
   }
   showPedidoSucesso(type);
 }
 
 function showPedidoSucesso(type){
   const bodyEl = document.getElementById(type==='radio'?'radio-checkout-body':'site-checkout-body');
-  if(bodyEl) bodyEl.innerHTML=\`
+  if(bodyEl) bodyEl.innerHTML=`
     <div style="text-align:center;padding:20px 0">
       <div style="width:60px;height:60px;background:var(--green-bg);border:2px solid rgba(22,163,74,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 14px;animation:popIn .4s ease">🎉</div>
       <div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;margin-bottom:6px">Pedido confirmado!</div>
@@ -2009,19 +2009,19 @@ function showPedidoSucesso(type){
         Nossa equipe entrará em contato pelo WhatsApp em até <strong style="color:var(--ink)">24 horas</strong> para confirmar detalhes e iniciar a produção.
       </div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-green btn-sm" onclick="falarDMG('\${type}')">💬 Falar com a DMG</button>
-        <button class="btn btn-ghost btn-sm" onclick="cancelarCheckout('\${type}')">Fechar</button>
+        <button class="btn btn-green btn-sm" onclick="falarDMG('${type}')">💬 Falar com a DMG</button>
+        <button class="btn btn-ghost btn-sm" onclick="cancelarCheckout('${type}')">Fechar</button>
       </div>
-    </div>\`;
+    </div>`;
   toast('Pedido enviado! Aguarde nosso contato 🎙️','ok');
 }
 
 function falarDMG(type){
   const nome = STATE.user?.biz||STATE.user?.name||'Lojista';
   const msg = type==='radio'
-    ? \`Olá DMG Records! Quero anunciar na rádio. Empresa: \${nome}. Gostaria de mais informações.\`
-    : \`Olá DMG Records! Tenho interesse em reservar um espaço no site. Empresa: \${nome}. Pode me ajudar?\`;
-  window.open(\`https://wa.me/5551981446019?text=\${encodeURIComponent(msg)}\`,'_blank');
+    ? 'Olá DMG Records! Quero anunciar na rádio. Empresa: '+nome+'. Gostaria de mais informações.'
+    : 'Olá DMG Records! Tenho interesse em reservar um espaço no site. Empresa: '+nome+'. Pode me ajudar?';
+  window.open('https://wa.me/5551981446019?text='+encodeURIComponent(msg),'_blank');
 }
 
 /* ── Override initPainel to include new pages ── */
